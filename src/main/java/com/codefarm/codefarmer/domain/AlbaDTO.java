@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.domain;
 
 import com.codefarm.codefarmer.entity.Alba;
+import com.codefarm.codefarmer.entity.Member;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.LastModifiedDate;
