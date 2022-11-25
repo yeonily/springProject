@@ -69,9 +69,9 @@ public class Alba extends Period{
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+
     @Builder
     public Alba(String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
-
         this.albaTitle = albaTitle;
         this.albaImage = albaImage;
         this.albaTitleOne = albaTitleOne;
