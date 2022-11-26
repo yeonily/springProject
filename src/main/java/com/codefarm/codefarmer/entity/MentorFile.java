@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "TBL_MENTOR_FILE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MentorFile extends Period{
     @Id @GeneratedValue
     private Long fileId;

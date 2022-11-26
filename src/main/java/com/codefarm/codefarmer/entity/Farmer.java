@@ -1,22 +1,28 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.FarmerDTO;
 import com.codefarm.codefarmer.type.FarmerType;
 import com.codefarm.codefarmer.type.Oauth;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_FARMER")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+@NoArgsConstructor //(access = AccessLevel.PROTECTED)
+//@RequiredArgsConstructor
+@DiscriminatorValue("FARMER")
 public class Farmer extends Member{
+
+
     @Enumerated(EnumType.STRING)
     private FarmerType farmerType;
+
+    public void update(FarmerDTO farmerDTO){
+        super.update(farmerDTO.getMemberNickname(), farmerDTO.getMemberPhone(), farmerDTO.getMemberLocation(), farmerDTO.getMemberEmail(), farmerDTO.getMemberOauth());
+        this.farmerType = farmerType;
+    }
 
     @Builder
     public Farmer(String memberName, String memberNickname, String memberPhone, String memberLocation, String memberBirth, String memberEmail, Oauth memberOauth, FarmerType farmerType) {

@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.PolicyDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_POLICY")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Policy extends Period{
     @Id @GeneratedValue
     private Long policyId;
@@ -18,6 +19,12 @@ public class Policy extends Period{
     private String policyTitle;
     @Column(nullable = false)
     private String policyContent;
+
+    public void update(PolicyDTO policyDTO){
+        this.policyKeyword = policyKeyword;
+        this.policyTitle = policyTitle;
+        this.policyContent = policyContent;
+    }
 
     @Builder
     public Policy(String policyKeyword, String policyTitle, String policyContent) {

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_INQUIRE_ANSWER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class InquireAnswer extends Period{
     @Id @GeneratedValue
     private Long inquireAnswerId;

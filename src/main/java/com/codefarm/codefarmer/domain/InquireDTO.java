@@ -41,7 +41,6 @@ public class InquireDTO {
 
     public Inquire toEntity(){
         return Inquire.builder()
-                .inquireAnswer(inquireAnswer)
                 .inquireQContent(inquireQContent)
                 .inquireQTitle(inquireQTitle)
                 .inquireStatus(inquireStatus)

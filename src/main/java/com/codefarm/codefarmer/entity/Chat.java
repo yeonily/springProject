@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_CHAT")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Chat extends ChatPeriod{
     @Id @GeneratedValue
     private Long chatId;

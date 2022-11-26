@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.MentorBoardDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 @Table(name = "TBL_MENTOR_BOARD")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MentorBoard extends Period{
     @Id @GeneratedValue
     private Long mentorBoardId;
@@ -44,6 +45,21 @@ public class MentorBoard extends Period{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorBoard")
     private List<MentorFile> mentorFiles;
+
+    public void update(MentorBoardDTO mentorBoardDTO){
+        this.mentorCareer = mentorCareer;
+        this.mentorExCareer = mentorExCareer;
+        this.mentorStrongTitle1 = mentorStrongTitle1;
+        this.mentorStrongContent1 = mentorStrongContent1;
+        this.mentorStrongTitle2 = mentorStrongTitle2;
+        this.mentorStrongContent2 = mentorStrongContent2;
+        this.mentorStrongTitle3 = mentorStrongTitle3;
+        this.mentorStrongContent3 = mentorStrongContent3;
+        this.mentorTitle = mentorTitle;
+        this.mentorTitleSub = mentorTitleSub;
+        this.mentorTextTitle = mentorTextTitle;
+        this.mentorTextContent = mentorTextContent;
+    }
 
     @Builder
     public MentorBoard(String mentorCareer, String mentorExCareer, String mentorStrongTitle1, String mentorStrongContent1, String mentorStrongTitle2, String mentorStrongContent2, String mentorStrongTitle3, String mentorStrongContent3, String mentorTitle, String mentorTitleSub, String mentorTextTitle, String mentorTextContent) {

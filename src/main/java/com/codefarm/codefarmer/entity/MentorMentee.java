@@ -9,20 +9,19 @@ import javax.persistence.*;
 @Table(name = "TBL_MENTOR_MENTEE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MentorMentee extends Period{
     @Id @GeneratedValue
     private Long mentorMenteeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
-    @Column(name = "MENTOR_ID")
+    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTOR_ID", nullable = false)
+//    @Column(name = "MENTOR_ID")
     private Member mentor;
 
-    //확인필요!!
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
-    @Column(name = "MENTEE_ID")
+    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTEE_ID", nullable = false)
+//    @Column(name = "MENTEE_ID")
     private Member mentee;
 
     @Enumerated(EnumType.STRING)

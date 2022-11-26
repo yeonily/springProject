@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.BoardFileDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_BOARD_FILE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class BoardFile extends Period{
     @Id @GeneratedValue
     private Long fileId;
@@ -18,6 +19,7 @@ public class BoardFile extends Period{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_ID")
     private Board board;
+
 
     @Builder
     public BoardFile(String fileRealname) {

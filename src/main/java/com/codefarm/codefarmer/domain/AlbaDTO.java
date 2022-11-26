@@ -43,6 +43,9 @@ public class AlbaDTO {
     private String albaProfileContent2;
 
 
+
+
+
     public Alba toEntity(){
         return Alba.builder()
                 .albaAddress(albaAddress)
@@ -73,18 +76,6 @@ public class AlbaDTO {
                 .albaWorkDate(albaWorkDate)
                 .build();
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

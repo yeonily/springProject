@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.BoardDTO;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Table(name = "TBL_BOARD")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Board extends Period{
     @Id @GeneratedValue
     private Long boardId;
@@ -28,6 +29,11 @@ public class Board extends Period{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
     private List<BoardFile> boardFiles;
+
+    public void update(BoardDTO boardDTO){
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+    }
 
     @Builder
     public Board(String boardTitle, String boardContent, int boardViewCount) {

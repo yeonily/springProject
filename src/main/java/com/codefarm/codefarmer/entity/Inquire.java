@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_INQUIRE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Inquire extends Period{
     @Id @GeneratedValue
     private Long inquireId;
@@ -23,6 +23,8 @@ public class Inquire extends Period{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+
 
     @Builder
     public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus) {

@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.NoticeDTO;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Table(name = "TBL_NOTICE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Notice extends Period{
     @Id @GeneratedValue
     private Long noticeId;
@@ -23,6 +24,11 @@ public class Notice extends Period{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "notice")
     private List<NoticeFile> noticeFiles;
+
+    public void update(NoticeDTO noticeDTO){
+        this.noticeTitle = noticeTitle;
+        this.noticeContent = noticeContent;
+    }
 
     @Builder
     public Notice(String noticeTitle, String noticeContent, int noticeViewCount) {
