@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name = "TBL_MEMBER_PROGRAM")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
 public class MemberProgram extends Period{
     @Id @GeneratedValue
     private Long programApplyId;

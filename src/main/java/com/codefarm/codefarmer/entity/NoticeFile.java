@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "TBL_NOTICE_FILE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class NoticeFile extends Period{
     @Id
     @GeneratedValue

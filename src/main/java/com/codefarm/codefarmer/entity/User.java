@@ -1,5 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.FarmerDTO;
+import com.codefarm.codefarmer.domain.UserDTO;
 import com.codefarm.codefarmer.type.FarmerType;
 import com.codefarm.codefarmer.type.Oauth;
 import com.codefarm.codefarmer.type.UserType;
@@ -11,10 +13,18 @@ import javax.persistence.*;
 @Table(name = "TBL_USER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
+@DiscriminatorValue("USER")
 public class User extends Member{
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public void update(UserDTO userDTO){
+        super.update(userDTO.getMemberNickname(), userDTO.getMemberPhone(), userDTO.getMemberLocation(), userDTO.getMemberEmail(), userDTO.getMemberOauth());
+        this.userType = userType;
+    }
+
 
     @Builder
     public User(String memberName, String memberNickname, String memberPhone, String memberLocation, String memberBirth, String memberEmail, Oauth memberOauth, UserType userType) {

@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.MentorDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_MENTOR")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Mentor extends Period{
     @Id @GeneratedValue
     private Long mentorId;
@@ -21,6 +22,11 @@ public class Mentor extends Period{
     private String mentorCrop;
     @Column(nullable = false)
     private String mentorYear;
+
+    public void update(MentorDTO mentorDTO){
+        this.mentorCrop = mentorCrop;
+        this.mentorYear = mentorYear;
+    }
 
     @Builder
     public Mentor(String mentorCrop, String mentorYear) {

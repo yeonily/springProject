@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.ReviewDTO;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -26,9 +27,13 @@ public class Review extends Period{
     @ColumnDefault("5")
     private int reviewStar;
 
+    public void update(ReviewDTO reviewDTO){
+        this.reviewContent = reviewContent;
+        this.reviewStar = reviewStar;
+    }
+
     @Builder
-    public Review(MentorBoard mentorBoard, String reviewContent, int reviewStar) {
-        this.mentorBoard = mentorBoard;
+    public Review(String reviewContent, int reviewStar) {
         this.reviewContent = reviewContent;
         this.reviewStar = reviewStar;
     }

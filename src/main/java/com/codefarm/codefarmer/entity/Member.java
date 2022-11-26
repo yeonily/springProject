@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.type.Oauth;
 import lombok.*;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.internal.util.collections.JoinedIterable;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -12,14 +13,16 @@ import javax.persistence.*;
 @Table(name = "TBL_MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "MEMBER_TYPE")
 public abstract class Member extends Period{
     @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long memberId;
     @Column(nullable = false)
     private String memberName;
-    @Column(nullable = false)
+    @Column(unique = true)
     private String memberNickname;
     @Column(nullable = false)
     private String memberPhone;
@@ -32,6 +35,14 @@ public abstract class Member extends Period{
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Oauth memberOauth;
+
+    public void update(String memberNickname, String memberPhone, String memberLocation, String memberEmail, Oauth memberOauth){
+        this.memberNickname = memberNickname;
+        this.memberPhone = memberPhone;
+        this.memberLocation = memberLocation;
+        this.memberEmail = memberEmail;
+        this.memberOauth = memberOauth;
+    }
 
     public Member(String memberName, String memberNickname, String memberPhone, String memberLocation, String memberBirth, String memberEmail, Oauth memberOauth) {
         this.memberName = memberName;

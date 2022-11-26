@@ -41,7 +41,6 @@ public class ReviewDTO {
 
     public Review toEntity(){
         return Review.builder()
-                .mentorBoard(mentorBoard)
                 .reviewContent(reviewContent)
                 .reviewStar(reviewStar)
                 .build();

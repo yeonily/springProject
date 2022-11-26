@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.ReplyDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_REPLY")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Reply extends Period{
     @Id @GeneratedValue
     private Long replyId;
@@ -23,6 +24,10 @@ public class Reply extends Period{
 
     @Column(nullable = false)
     private String replyContent;
+
+    public void update(ReplyDTO replyDTO){
+        this.replyContent = replyContent;
+    }
 
     @Builder
     public Reply(String replyContent) {
