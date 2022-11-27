@@ -49,8 +49,8 @@ public class ProgramDTO {
     private int programPrice;
     private String programLocation;
     private String programInquire;
-
     private Member member;
+
 
     public Program toEntity(){
         return Program.builder()

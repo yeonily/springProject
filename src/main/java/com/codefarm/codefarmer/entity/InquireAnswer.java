@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.type.Status;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,10 +10,10 @@ import javax.persistence.*;
 @Table(name = "TBL_INQUIRE_ANSWER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class InquireAnswer extends Period{
     @Id @GeneratedValue
     private Long inquireAnswerId;
+    @NotNull
     private String inquireAnswer;
 
     @ManyToOne(fetch = FetchType.LAZY)

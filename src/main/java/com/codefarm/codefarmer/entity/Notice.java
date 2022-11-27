@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.domain.NoticeDTO;
+import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -11,13 +12,12 @@ import java.util.List;
 @Table(name = "TBL_NOTICE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class Notice extends Period{
     @Id @GeneratedValue
     private Long noticeId;
-    @Column(nullable = false)
+    @NotNull
     private String noticeTitle;
-    @Column(nullable = false)
+    @NotNull
     private String noticeContent;
     @ColumnDefault("0")
     private int noticeViewCount;

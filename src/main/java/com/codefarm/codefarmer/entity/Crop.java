@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.domain.CropDTO;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,17 +10,16 @@ import javax.persistence.*;
 @Table(name = "TBL_CROP")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class Crop extends Period{
     @Id @GeneratedValue
     private Long cropId;
-    @Column(nullable = false)
+    @NotNull
     private String cropKeyword;
-    @Column(nullable = false)
+    @NotNull
     private String cropTitle;
-    @Column(nullable = false)
+    @NotNull
     private String cropImage;
-    @Column(nullable = false)
+    @NotNull
     private String cropContent;
 
     public void update(CropDTO cropDTO){

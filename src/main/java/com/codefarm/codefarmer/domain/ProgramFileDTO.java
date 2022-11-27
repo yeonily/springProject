@@ -1,8 +1,6 @@
 package com.codefarm.codefarmer.domain;
 
-import com.codefarm.codefarmer.entity.Member;
-import com.codefarm.codefarmer.entity.Program;
-import com.codefarm.codefarmer.entity.ProgramFile;
+import com.codefarm.codefarmer.entity.*;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
 import lombok.Data;
@@ -20,13 +18,20 @@ import java.time.LocalDateTime;
 @Data
 public class ProgramFileDTO {
     private Long fileId;
-    private String fileRealname;
-
+    private String fileName;
+    private String fileUploadPath;
+    private String fileUuid;
+    private Long fileSize;
+    private boolean fileImageCheck;
     private Program program;
 
     public ProgramFile toEntity(){
         return ProgramFile.builder()
-                .fileRealname(fileRealname)
+                .fileName(fileName)
+                .fileUploadPath(fileUploadPath)
+                .fileUuid(fileUuid)
+                .fileSize(fileSize)
+                .fileImageCheck(fileImageCheck)
                 .build();
     }
 

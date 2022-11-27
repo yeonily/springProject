@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Component
 @NoArgsConstructor
@@ -21,4 +22,5 @@ public class ChatRoomDTO {
     private Long chatRoomId;
     private Member mentor;
     private Member mentee;
+    private LocalDateTime chatDate;
 }

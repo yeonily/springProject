@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Data
 public class MentorMenteeDTO {
     private Long mentorMenteeId;
-
     private Member mentor;
     private Member mentee;
     private Status menteeStatus;

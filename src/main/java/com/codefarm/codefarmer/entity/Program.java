@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.entity;
 import com.codefarm.codefarmer.domain.ProgramDTO;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
+import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -14,71 +15,74 @@ import java.util.List;
 @Table(name = "TBL_PROGRAM")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class Program extends Period{
     @Id @GeneratedValue
     private Long programId;
-    @Column(nullable = false)
+    @NotNull
     private String programCrop;
-    @Column(nullable = false)
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ProgramType programType;
-    @Column(nullable = false)
+    @NotNull
     private String programTarget1;
-    @Column(nullable = false)
+    @NotNull
     private String programTarget2;
-    @Column(nullable = false)
+    @NotNull
     private String programTarget3;
-    @Column(nullable = false)
+    @NotNull
     private String programTarget4;
-    @Column(nullable = false)
+    @NotNull
     private String programTitle;
-    @Column(nullable = false)
+    @NotNull
     private String programTitleSub;
-    @Column(nullable = false)
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ProgramLevel programLevel;
-    @Column(nullable = false)
+    @NotNull
     private String programResult1;
-    @Column(nullable = false)
+    @NotNull
     private String programResult2;
-    @Column(nullable = false)
+    @NotNull
     private String programResult3;
-    @Column(nullable = false)
+    @NotNull
     private String programResult4;
-    @Column(nullable = false)
+    @NotNull
     private String programFarmerInfo;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoTitle1;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoContent1;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoTitle2;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoContent2;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoTitle3;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoContent3;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoTitle4;
-    @Column(nullable = false)
+    @NotNull
     private String programInfoContent4;
+    @NotNull
     private LocalDateTime programWorkDate;
+    @NotNull
     private LocalDateTime programWorkStartTime;
-    private LocalDateTime programWorkEndTime;
+    @NotNull
     private LocalDateTime programApplyStartDate;
+    @NotNull
     private LocalDateTime programApplyEndDate;
-    @Column(nullable = false)
+    @NotNull
+    private LocalDateTime programWorkEndTime;
     @ColumnDefault("0")
     private int programApplyCount;
-    @Column(nullable = false)
+    @NotNull
     private int programApplyTotalCount;
-    @Column(nullable = false)
+    @NotNull
     private int programPrice;
-    @Column(nullable = false)
+    @NotNull
     private String programLocation;
-    @Column(nullable = false)
+    @NotNull
     private String programInquire;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -123,7 +127,7 @@ public class Program extends Period{
     }
 
     @Builder
-    public Program(String programCrop, ProgramType programType, String programTarget1, String programTarget2, String programTarget3, String programTarget4, String programTitle, String programTitleSub, ProgramLevel programLevel, String programResult1, String programResult2, String programResult3, String programResult4, String programFarmerInfo, String programInfoTitle1, String programInfoContent1, String programInfoTitle2, String programInfoContent2, String programInfoTitle3, String programInfoContent3, String programInfoTitle4, String programInfoContent4, LocalDateTime programWorkDate, LocalDateTime programWorkStartTime, LocalDateTime programWorkEndTime, LocalDateTime programApplyStartDate, LocalDateTime programApplyEndDate, int programApplyCount, int programApplyTotalCount, int programPrice, String programLocation, String programInquire) {
+    public Program(String programCrop, ProgramType programType, String programTarget1, String programTarget2, String programTarget3, String programTarget4, String programTitle, String programTitleSub, ProgramLevel programLevel, String programResult1, String programResult2, String programResult3, String programResult4, String programFarmerInfo, String programInfoTitle1, String programInfoContent1, String programInfoTitle2, String programInfoContent2, String programInfoTitle3, String programInfoContent3, String programInfoTitle4, String programInfoContent4, LocalDateTime programWorkDate, LocalDateTime programWorkStartTime, LocalDateTime programApplyStartDate, LocalDateTime programApplyEndDate, LocalDateTime programWorkEndTime, int programApplyCount, int programApplyTotalCount, int programPrice, String programLocation, String programInquire) {
         this.programCrop = programCrop;
         this.programType = programType;
         this.programTarget1 = programTarget1;
@@ -148,9 +152,9 @@ public class Program extends Period{
         this.programInfoContent4 = programInfoContent4;
         this.programWorkDate = programWorkDate;
         this.programWorkStartTime = programWorkStartTime;
-        this.programWorkEndTime = programWorkEndTime;
         this.programApplyStartDate = programApplyStartDate;
         this.programApplyEndDate = programApplyEndDate;
+        this.programWorkEndTime = programWorkEndTime;
         this.programApplyCount = programApplyCount;
         this.programApplyTotalCount = programApplyTotalCount;
         this.programPrice = programPrice;

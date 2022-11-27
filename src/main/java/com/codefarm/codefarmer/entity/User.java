@@ -5,6 +5,7 @@ import com.codefarm.codefarmer.domain.UserDTO;
 import com.codefarm.codefarmer.type.FarmerType;
 import com.codefarm.codefarmer.type.Oauth;
 import com.codefarm.codefarmer.type.UserType;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,15 +14,14 @@ import javax.persistence.*;
 @Table(name = "TBL_USER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 @DiscriminatorValue("USER")
 public class User extends Member{
-
+    @NotNull
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
     public void update(UserDTO userDTO){
-        super.update(userDTO.getMemberNickname(), userDTO.getMemberPhone(), userDTO.getMemberLocation(), userDTO.getMemberEmail(), userDTO.getMemberOauth());
+        super.update(userDTO.getMemberNickname(), userDTO.getMemberPhone(), userDTO.getMemberLocation(), userDTO.getMemberEmail());
         this.userType = userType;
     }
 

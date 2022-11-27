@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.entity;
 
 
 import com.codefarm.codefarmer.domain.AlbaDTO;
+import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -12,58 +13,60 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_ALBA")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class Alba extends Period{
     @Id @GeneratedValue
     private Long albaId;
-    @Column(nullable = false)
+    @NonNull
     private String albaTitle;
-    @Column(nullable = false)
+    @NonNull
     private String albaImage;
-    @Column(nullable = false)
+    @NonNull
     private String albaTitleOne;
+    @NonNull
     private LocalDateTime albaApplyStartDate;
+    @NonNull
     private LocalDateTime albaApplyEndDate;
+    @NonNull
     private LocalDateTime albaWorkDate;
     @ColumnDefault("0")
     private int albaApplyCount;
-    @Column(nullable = false)
+    @NonNull
     private int albaApplyTotalCount;
-    @Column(nullable = false)
+    @NonNull
     private String albaAddress;
-    @Column(nullable = false)
+    @NonNull
     private int albaPrice;
-    @Column(nullable = false)
+    @NonNull
     private String albaMainTitle;
-    @Column(nullable = false)
+    @NonNull
     private String albaMainContent;
-    @Column(nullable = false)
+    @NonNull
     private String albaStrongTitle1;
-    @Column(nullable = false)
+    @NonNull
     private String albaStrongContent1;
-    @Column(nullable = false)
+    @NonNull
     private String albaStrongTitle2;
-    @Column(nullable = false)
+    @NonNull
     private String albaStrongContent2;
-    @Column(nullable = false)
+    @NonNull
     private String albaStrongTitle3;
-    @Column(nullable = false)
+    @NonNull
     private String albaStrongContent3;
-    @Column(nullable = false)
+    @NonNull
     private String albaBannerTitle;
-    @Column(nullable = false)
+    @NonNull
     private String albaBannerOne;
-    @Column(nullable = false)
+    @NonNull
     private String albaTextTitle;
-    @Column(nullable = false)
+    @NonNull
     private String albaText;
-    @Column(nullable = false)
+    @NonNull
     private String albaProfileTitle1;
-    @Column(nullable = false)
+    @NonNull
     private String albaProfileContent1;
-    @Column(nullable = false)
+    @NonNull
     private String albaProfileTitle2;
-    @Column(nullable = false)
+    @NonNull
     private String albaProfileContent2;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -100,7 +103,8 @@ public class Alba extends Period{
     }
 
     @Builder
-    public Alba(String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
+
+    public Alba(@NonNull String albaTitle, @NonNull String albaImage, @NonNull String albaTitleOne, @NonNull LocalDateTime albaApplyStartDate, @NonNull LocalDateTime albaApplyEndDate, @NonNull LocalDateTime albaWorkDate, int albaApplyCount, @NonNull int albaApplyTotalCount, @NonNull String albaAddress, @NonNull int albaPrice, @NonNull String albaMainTitle, @NonNull String albaMainContent, @NonNull String albaStrongTitle1, @NonNull String albaStrongContent1, @NonNull String albaStrongTitle2, @NonNull String albaStrongContent2, @NonNull String albaStrongTitle3, @NonNull String albaStrongContent3, @NonNull String albaBannerTitle, @NonNull String albaBannerOne, @NonNull String albaTextTitle, @NonNull String albaText, @NonNull String albaProfileTitle1, @NonNull String albaProfileContent1, @NonNull String albaProfileTitle2, @NonNull String albaProfileContent2) {
         this.albaTitle = albaTitle;
         this.albaImage = albaImage;
         this.albaTitleOne = albaTitleOne;
