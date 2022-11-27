@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.type.Oauth;
+import com.sun.istack.NotNull;
 import lombok.*;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.internal.util.collections.JoinedIterable;
@@ -13,35 +14,34 @@ import javax.persistence.*;
 @Table(name = "TBL_MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "MEMBER_TYPE")
 public abstract class Member extends Period{
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long memberId;
-    @Column(nullable = false)
+    @NotNull
     private String memberName;
+    @NotNull
     @Column(unique = true)
     private String memberNickname;
-    @Column(nullable = false)
+    @NotNull
     private String memberPhone;
-    @Column(nullable = false)
+    @NotNull
     private String memberLocation;
-    @Column(nullable = false)
+    @NotNull
     private String memberBirth;
-    @Column(nullable = false)
+    @NotNull
     private String memberEmail;
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Oauth memberOauth;
 
-    public void update(String memberNickname, String memberPhone, String memberLocation, String memberEmail, Oauth memberOauth){
+    public void update(String memberNickname, String memberPhone, String memberLocation, String memberEmail){
         this.memberNickname = memberNickname;
         this.memberPhone = memberPhone;
         this.memberLocation = memberLocation;
         this.memberEmail = memberEmail;
-        this.memberOauth = memberOauth;
     }
 
     public Member(String memberName, String memberNickname, String memberPhone, String memberLocation, String memberBirth, String memberEmail, Oauth memberOauth) {

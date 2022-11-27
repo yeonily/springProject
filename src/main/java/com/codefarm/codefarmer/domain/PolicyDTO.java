@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
+import java.time.LocalDateTime;
 
 @Component
 @NoArgsConstructor
@@ -16,6 +17,8 @@ public class PolicyDTO {
     private String policyKeyword;
     private String policyTitle;
     private String policyContent;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 
     public Policy toEntity(){
         return Policy.builder()

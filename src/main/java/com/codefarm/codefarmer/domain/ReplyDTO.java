@@ -20,13 +20,9 @@ import java.time.LocalDateTime;
 @Data
 public class ReplyDTO {
     private Long replyId;
-
     private Board board;
-
     private Member member;
-
     private String replyContent;
-
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 

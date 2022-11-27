@@ -23,6 +23,7 @@ public class MemberProgram extends Period{
 
     @ColumnDefault("1")
     private int programApplyCount;
+    @ColumnDefault("0")
     private int programPayment;
 
     @Builder

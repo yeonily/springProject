@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.domain.MentorBoardDTO;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,33 +11,32 @@ import java.util.List;
 @Table(name = "TBL_MENTOR_BOARD")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class MentorBoard extends Period{
     @Id @GeneratedValue
     private Long mentorBoardId;
-    @Column(nullable = false)
+    @NotNull
     private String mentorCareer;
-    @Column(nullable = false)
+    @NotNull
     private String mentorExCareer;
-    @Column(nullable = false)
+    @NotNull
     private String mentorStrongTitle1;
-    @Column(nullable = false)
+    @NotNull
     private String mentorStrongContent1;
-    @Column(nullable = false)
+    @NotNull
     private String mentorStrongTitle2;
-    @Column(nullable = false)
+    @NotNull
     private String mentorStrongContent2;
-    @Column(nullable = false)
+    @NotNull
     private String mentorStrongTitle3;
-    @Column(nullable = false)
+    @NotNull
     private String mentorStrongContent3;
-    @Column(nullable = false)
+    @NotNull
     private String mentorTitle;
-    @Column(nullable = false)
+    @NotNull
     private String mentorTitleSub;
-    @Column(nullable = false)
+    @NotNull
     private String mentorTextTitle;
-    @Column(nullable = false)
+    @NotNull
     private String mentorTextContent;
 
     @ManyToOne(fetch = FetchType.LAZY)

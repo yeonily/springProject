@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.domain.BoardDTO;
+import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -12,13 +13,12 @@ import java.util.List;
 @Table(name = "TBL_BOARD")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class Board extends Period{
     @Id @GeneratedValue
     private Long boardId;
-    @Column(nullable = false)
+    @NonNull
     private String boardTitle;
-    @Column(nullable = false)
+    @NonNull
     private String boardContent;
     @ColumnDefault("0")
     private int boardViewCount;
@@ -36,7 +36,7 @@ public class Board extends Period{
     }
 
     @Builder
-    public Board(String boardTitle, String boardContent, int boardViewCount) {
+    public Board(@NonNull String boardTitle, @NonNull String boardContent, int boardViewCount) {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;

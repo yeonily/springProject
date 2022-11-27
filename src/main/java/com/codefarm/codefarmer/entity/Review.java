@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.domain.ReviewDTO;
+import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -22,7 +23,7 @@ public class Review extends Period{
     @JoinColumn(name = "MENTOR_BOARD_ID")
     private MentorBoard mentorBoard;
 
-    @Column(nullable = false)
+    @NotNull
     private String reviewContent;
     @ColumnDefault("5")
     private int reviewStar;

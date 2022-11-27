@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.entity;
 import com.codefarm.codefarmer.domain.FarmerDTO;
 import com.codefarm.codefarmer.type.FarmerType;
 import com.codefarm.codefarmer.type.Oauth;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,16 +12,14 @@ import javax.persistence.*;
 @Table(name = "TBL_FARMER")
 @Getter
 @NoArgsConstructor //(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 @DiscriminatorValue("FARMER")
 public class Farmer extends Member{
-
-
+    @NotNull
     @Enumerated(EnumType.STRING)
     private FarmerType farmerType;
 
     public void update(FarmerDTO farmerDTO){
-        super.update(farmerDTO.getMemberNickname(), farmerDTO.getMemberPhone(), farmerDTO.getMemberLocation(), farmerDTO.getMemberEmail(), farmerDTO.getMemberOauth());
+        super.update(farmerDTO.getMemberNickname(), farmerDTO.getMemberPhone(), farmerDTO.getMemberLocation(), farmerDTO.getMemberEmail());
         this.farmerType = farmerType;
     }
 

@@ -3,10 +3,8 @@ package com.codefarm.codefarmer.domain;
 import com.codefarm.codefarmer.entity.Board;
 import com.codefarm.codefarmer.entity.BoardFile;
 import com.codefarm.codefarmer.entity.Member;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.codefarm.codefarmer.entity.MentorBoard;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
@@ -20,12 +18,20 @@ import java.util.List;
 @Data
 public class BoardFileDTO {
     private Long fileId;
-    private String fileRealname;
+    private String fileName;
+    private String fileUploadPath;
+    private String fileUuid;
+    private Long fileSize;
+    private boolean fileImageCheck;
     private Board board;
 
     public BoardFile toEntity(){
         return BoardFile.builder()
-                .fileRealname(fileRealname)
+                .fileName(fileName)
+                .fileUploadPath(fileUploadPath)
+                .fileUuid(fileUuid)
+                .fileSize(fileSize)
+                .fileImageCheck(fileImageCheck)
                 .build();
     }
 }

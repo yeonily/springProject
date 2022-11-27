@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.domain.BannerDTO;
 import com.codefarm.codefarmer.type.BannerStatus;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,19 +12,21 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_BANNER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RequiredArgsConstructor
 public class Banner extends Period{
     @Id @GeneratedValue
     private Long bannerId;
-    @Column(nullable = false)
+    @NonNull
     private String bannerTitle;
-    @Column(nullable = false)
+    @NonNull
     private String bannerInfo;
+    @NonNull
     @Enumerated(EnumType.STRING)
     private BannerStatus bannerStatus;
-    @Column(nullable = false)
+    @NonNull
     private String bannerRealname;
+    @NonNull
     private LocalDateTime bannerStartDate;
+    @NonNull
     private LocalDateTime bannerEndDate;
 
     public void update(BannerDTO bannerDTO){
@@ -36,7 +39,7 @@ public class Banner extends Period{
     }
 
     @Builder
-    public Banner(String bannerTitle, String bannerInfo, BannerStatus bannerStatus, String bannerRealname, LocalDateTime bannerStartDate, LocalDateTime bannerEndDate) {
+    public Banner(@NonNull String bannerTitle, @NonNull String bannerInfo, BannerStatus bannerStatus, @NonNull String bannerRealname, @NonNull LocalDateTime bannerStartDate, @NonNull LocalDateTime bannerEndDate) {
         this.bannerTitle = bannerTitle;
         this.bannerInfo = bannerInfo;
         this.bannerStatus = bannerStatus;
