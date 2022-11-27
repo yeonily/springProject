@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/mento/detail.css">
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/myPage/paging.css" />
+    <title>멘토 상세 페이지</title>
+</head>
+<body>
+<!--헤더 삽입-->
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main_grid">
+    <div id="main_grid_inner1">
+        <div id="main_grid_inner2">
+            <section id="main_banner">
+                <div id="main_banner_inner1">
+                    <div id="main_banner_inner2">
+                        <div id="main_banner_text">
+                            <div id="main_banner_text_inner1">
+                                <span id="main_banner_text_outline">멘토</span>
+                                <div id="main_banner_text_title">멘토가 알려주는 감자 농사 비법</div>
+                                <div id="main_banner_text_subTitle">현직 멘토가 농사하는 방법</div>
+                            </div>
+                        </div>
+                        <div id="main_banner_empty"></div>
+                        <div id="main_banner_image">
+                            <div id="main_banner_image_inner1">
+                                <div id="main_banner_image_inner2">
+                                    <img src="/image/mento/mento7.jpg" alt="" style="width: 542px; height: 305px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="main_banner_inner3">
+                    <div id="main_banner_inner4">
+                        <div id="main_banner_flex_1"></div>
+                        <div id="main_banner_flex_2">
+                            <section class="main_fixed">
+                                <aside>
+                                    <div>
+                                        <article id="main_fixed_inner1">
+                                            <div id="main_fixed_inner2">
+                                                <div id="main_fixed_category">멘토 이름</div>
+                                                <div id="main_fixed_title">멘토가 알려주는 감자 농사 비법</div>
+                                                <div>
+                                                    <div>
+                                                        <!--<div id="main_fixed_info_1">
+                                                            <img src="	https://cdn.comento.kr/images/emojis/emoji-seedling.svg"
+                                                                 alt=""
+                                                                 style="    margin-right: 6px!important;border-style: none;max-width: 100%;">
+                                                            <div id="main_fixed_info_subTitle">
+                                                                <strong>입문자</strong> 대상 <strong>멘토</strong> 입니다.
+                                                            </div>
+                                                        </div>-->
+                                                    </div>
+                                                    <dl>
+                                                        <div class="main_fixed_dl">
+                                                            <dt class="main_fixed_dl_dt">주요 작물</dt>
+                                                            <dd class="main_fixed_dl_dd">감자</dd>
+                                                        </div>
+                                                        <div class="main_fixed_dl">
+                                                            <dt class="main_fixed_dl_dt">경력</dt>
+                                                            <dd class="main_fixed_dl_dd">5~7년차</dd>
+                                                        </div>
+                                                        <div class="main_fixed_dl">
+                                                            <dt class="main_fixed_dl_dt">지역</dt>
+                                                            <dd class="main_fixed_dl_dd">충청북도 영동</dd>
+                                                        </div>
+                                                    </dl>
+                                                </div>
+                                                <div id="main_fiexd_buttons">
+                                                    <button class="main_fixed_button" id="mento_submit">
+                                                        <div style="display: flex!important;"></div>
+                                                        멘토 신청
+                                                        <div style="display: flex!important;"></div>
+                                                    </button>
+                                                    <button class="main_fixed_button" id="chatting_submit" onclick="location.href='/mento/chatting'">
+                                                        <div style="display: flex!important;"></div>
+                                                        1:1 채팅하기
+                                                        <div style="display: flex!important;"></div>
+                                                    </button>
+                                                    <button class="main_fixed_button" id="mento_update" onclick="location.href='/mento/write'">
+                                                        <div style="display: flex!important;"></div>
+                                                        홍보글 수정
+                                                        <div style="display: flex!important;"></div>
+                                                    </button>
+                                                    <button class="main_fixed_button" id="mento_delete">
+                                                        <div style="display: flex!important;"></div>
+                                                        홍보글 삭제
+                                                        <div style="display: flex!important;"></div>
+                                                    </button>
+                                                </div>
+                                                <div style="margin-top: 16px;">
+                                                    <button id="move_list" onclick="location.href='/mento/list'">
+                                                        <div style="display: flex!important;"></div>
+                                                        목록 이동
+                                                        <div style="display: flex!important;"></div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <!--                                        <div id="main_fixed_banner">-->
+                                        <!--                                            <picture class="main_fixed_banner_img" style="display: inline-block; &#45;&#45;optimized-image-width:100%; &#45;&#45;optimized-image-aspect-ratio:353 / 82; &#45;&#45;optimized-image-fallback-ratio:23.2295%;">-->
+                                        <!--                                                <source srcset="https://cdn.comento.kr/images/vod/lecture/kdc-sidebox-banner.jpg?s=706x164&amp;q=75" type="image/webp">-->
+                                        <!--                                                <img src="https://cdn.comento.kr/images/vod/lecture/kdc-sidebox-banner.jpg"></picture>-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                    <aside></aside>
+                                </aside>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--배너 끝-->
+
+            <!-- 메인 내용 시작-->
+            <div class="main_intro">
+                <div id="main_intro_inner1">
+                    <div id="main_intro_inner2">
+                        <div class="main_intro_flex_percent">
+                            <section style="padding-bottom: 40px;">
+                                <img src="https://cdn.comento.kr/images/class/pt/detail/icon/doublequote-icon.png"
+                                     class="vod-lecture-detail-quote-image" style="width: 18px;height: 13px;">
+                                <div id="main_intro_inner4">
+                                    체계적인 농작물 관리를 할 수 있도록
+                                    <br>
+                                    제대로 알려드릴게요.
+                                </div>
+                                <p id="main_intro_inner5">
+                                <p>안녕하세요,</p>
+                                <p>저는 국내 프리랜서 마켓 No.1 '크몽'에서 CRM 마케팅 업무를 진행하고 있습니다.</p>
+                                <p><br></p>
+                                <p>퍼포먼스 마케터로 커리어를 시작하여 다양한 DA, SA 채널을 운영했으며, 이러한 시야를 바탕으로 우리 고객 데이터와 Braze(브레이즈) 를 활용한
+                                    리텐션, LTV 를 올리는 CRM 마케터로 커리어를 이어가고 있습니다.</p>
+                                <p><br></p>
+                                <p>다양한 미디어를 통해 이미 아시는 것처럼 근래 CRM 마케팅이 대세라는 이야기를 들어보셨을 겁니다.</p>
+                                <p>특히 구글, 페이스북, 애플 등 글로벌 기업에서 개인 정보 이슈 등으로 3rd-party data 를 활용하는 퍼포먼스 마케팅 제한이 점점 심해지면서
+                                    우리 고객 데이터인 first-party data 를 활용하는 CRM 마케팅 대세로 떠오르고 있습니다.</p>
+                                <p><br></p>
+                                <p>CRM 마케팅 실무를 하시면서 RFM 분석, Braze(브레이즈) 활용한 고객 행동별 개인화 된 메세지 등에 관심은 있으시지만, 막상 혼자서 해보려고
+                                    하다 보면 막히는 부분들이 많아서 어려우셨을 것 같습니다. 체계적으로 CRM 마케팅을 하셨다기 보다는 혼자서 고군분투 했을 모습이 상상이
+                                    됩니다.</p>
+                                <p>그만큼 CRM 마케팅 관련 정보가 많이 없기 때문이기도 하지요.</p>
+                                <p><br></p>
+                                <p>이번 기회를 통해서 고객 행동 기반으로 CRM 마케팅 설계 + RFM 분석, 코호트 분석(Cohort)을 통한 우리 핵심 고객 발굴 +
+                                    Braze(브레이즈) 활용한 고객 행동별 개인화 된 CRM 마케팅 설정까지 직접 해보시겠어요?</p>
+                                <p><br></p>
+                                <p>여러분들과 만날 날을 기대하겠습니다!</p>
+                                </p>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div id="main_intro_inner6">
+                    <div class="main_intro_inner7">
+                        <div id="main_intro_inner8">
+                            <div class="main_intro_inner7">
+                                <div class="main_intro_flex_percent">
+                                    <dl id="main_intro_inner9">
+                                        <dt style="margin-right: 32px; margin-top: 3px">
+                                            <div id="main_intro_inner10">
+                                                <!--<img data-v-884eb42c=""
+                                                     src="https://cdn.comento.kr/images/pt/tmp/prefix_laH12sIOyU.png"
+                                                     alt="" id="main_intro_image1">-->
+                                                <p id="main_intro_text1">마케팅 5~7년차</p>
+                                                <p id="main_intro_text2"><strong id="main_intro_strong">호식</strong>멘토님
+                                                </p>
+                                            </div>
+                                        </dt>
+                                        <dd style="width: calc(100% - 152px);margin-top: 0;">
+                                            <div id="main_intro_dd_inner1">
+                                                <p id="main_intro_dd_inner2">
+                                                <p><strong class="dd_strong">현) 국내 프리랜서 마켓 '크몽' 퍼포먼스/그로스팀 CRM
+                                                    마케터</strong></p>
+                                                <p><br></p>
+                                                <p><strong class="dd_strong">전) CRM 마케팅 솔루션 개발/운영 B사 퍼포먼스 마케터</strong>
+                                                </p>
+                                                <p><strong class="dd_strong">전) 성인 실무 교육 F사 퍼포먼스 마케터</strong></p>
+                                                <p><strong class="dd_strong">전) 상하이 소재 E사 디지털 마케터</strong></p>
+                                                </p>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section id="main_point">
+                    <div id="main_point_inner1">
+                        <div id="main_point_inner2">
+                            <div class="main_intro_flex_percent">
+                                <h3>멘토를 추천하는 3가지 이유</h3>
+                                <div id="main_point_inner3">
+                                    <div class="main_point_images">
+                                        <img src="https://cdn.comento.kr/images/class/pt/detail/icon/pt-detail-differentiation-live.png"
+                                             alt="" class="main_point_img">
+                                        <div style="text-align: center">
+                                            <div class="main_point_text1">생존형 기초 지식</div>
+                                            <div class="main_point_text2">
+                                                당장 꼭 알아야하는 지식만
+                                                <br>
+                                                실제 사례로 배워요.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="main_point_images">
+                                        <img src="https://cdn.comento.kr/images/class/pt/detail/icon/pt-detail-differentiation-curriculum.png"
+                                             alt="" class="main_point_img">
+                                        <div style="text-align: center">
+                                            <div class="main_point_text1">복습용 실무 과제</div>
+                                            <div class="main_point_text2">
+                                                배운 내용을 바로 적용하는
+                                                <br>
+                                                실무 과제를 풀어봐요.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="main_point_images">
+                                        <img src="https://cdn.comento.kr/images/class/pt/detail/icon/pt-detail-differentiation-qna.png"
+                                             alt="" class="main_point_img">
+                                        <div style="text-align: center">
+                                            <div class="main_point_text1">커뮤니티 게시판</div>
+                                            <div class="main_point_text2">
+                                                수강하다 막막할 때면 언제든
+                                                <br>
+                                                질문하고 답변 받으세요.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="mentee_program">
+                    <div id="mentee_program_inner1">
+                        <div id="mentee_program_inner2">
+                            <div id="mentee_program_inner3">
+                                <h3 style="margin: 0 8px 8px;">멘토 진행 프로그램</h3>
+                            </div>
+                            <div id="mentee_program_flex">
+                                <div class="mentee_program_flex_inner1">
+                                    <a href="/program/detail" style="text-decoration: none; width: 100%">
+                                        <article class="mentee_program_list">
+                                            <div class="mentee_program_list_images1">
+                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">
+                                            </div>
+                                            <div class="mentee_program_list_texts">
+                                                <div class="list_subtitle">
+                                                    <div class="list_location">경기도</div>
+                                                    <div class="list_dot"> · </div>
+                                                    <div class="list_price">무료</div>
+                                                </div>
+                                                <div class="list_title">
+                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>
+                                                </div>
+                                                <div class="list_caption">
+                                                    <span class="list_date">11월 28일 시작</span>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </a>
+                                </div>
+                                <div class="mentee_program_flex_inner1">
+                                    <a href="/program/detail" style="text-decoration: none; width: 100%">
+                                        <article class="mentee_program_list">
+                                            <div class="mentee_program_list_images1">
+                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">
+                                            </div>
+                                            <div class="mentee_program_list_texts">
+                                                <div class="list_subtitle">
+                                                    <div class="list_location">경기도</div>
+                                                    <div class="list_dot"> · </div>
+                                                    <div class="list_price">무료</div>
+                                                </div>
+                                                <div class="list_title">
+                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>
+                                                </div>
+                                                <div class="list_caption">
+                                                    <span class="list_date">11월 28일 시작</span>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </a>
+                                </div>
+                                <div class="mentee_program_flex_inner1">
+                                    <a href="/program/detail" style="text-decoration: none; width: 100%">
+                                        <article class="mentee_program_list">
+                                            <div class="mentee_program_list_images1">
+                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">
+                                            </div>
+                                            <div class="mentee_program_list_texts">
+                                                <div class="list_subtitle">
+                                                    <div class="list_location">경기도</div>
+                                                    <div class="list_dot"> · </div>
+                                                    <div class="list_price">무료</div>
+                                                </div>
+                                                <div class="list_title">
+                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>
+                                                </div>
+                                                <div class="list_caption">
+                                                    <span class="list_date">11월 28일 시작</span>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="main_reply">
+    <div id="main_reply_inner1">
+        <div id="main_reply_inner2">
+            <section style="padding: 72px 0 60px;">
+                <h2 id="main_reply_inner3">수강생 수기</h2>
+                <div id="main_reply_inner4">
+                    <div id="main_reply_inner6">
+                        <div id="main_reply_inner7">후기수</div>
+                        <div id="main_reply_inner8">
+                            <div id="main_reply_inner9">117<span id="main_reply_inner10">개</span></div>
+                            <div id="main_reply_inner11">
+                                <img src="https://cdn.comento.kr/images/edu/detail/icon-pencil.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main_star_score">
+                        <div id="main_star_scroe_text">별점</div>
+                        <div id="main_star_score_inner1">
+                            <div id="main_star_score_inner2">
+                                4.9<span id="main_star_score_total">/5</span><span id="main_star_score_total2">점</span>
+                            </div>
+                            <div id="main_star_score_image">
+                                <img src="https://cdn.comento.kr/images/edu/detail/icon-glowing-star.svg" alt="" style="width: 32px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul style="margin-top: 28px!important; list-style: none;">
+                    <div class="main_reply_inner12">
+                        <li>
+                            <div class="main_reply_inner13">
+                                <div style="display: flex!important;" class="star_count">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <span class="main_reply_gray">매우 추천해요!</span>
+                                </div>
+                                </p>
+                            </div>
+                            <p class="main_reply_coment">오주간 잘 부탁드립니다</p>
+                            <div class="main_reply_name">
+                                최** <span class="main_reply_name2">|</span>2022.09.17
+                            </div>
+                        </li>
+                    </div>
+                    <div class="main_reply_inner12">
+                        <li>
+                            <div class="main_reply_inner13">
+                                <div style="display: flex!important;" class="star_count">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <span class="main_reply_gray">매우 추천해요!</span>
+                                </div>
+                                </p>
+                            </div>
+                            <p class="main_reply_coment">참여자 개개인의 상황에 맞게 조언을 해주시며 전체적인 궁금증을 해결해주셨습니다.</p>
+                            <div class="main_reply_name">
+                                최** <span class="main_reply_name2">|</span>2022.09.17
+                            </div>
+                        </li>
+                    </div>
+                    <div class="main_reply_inner12">
+                        <li>
+                            <div class="main_reply_inner13">
+                                <div style="display: flex!important;" class="star_count">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <span class="main_reply_gray">매우 추천해요!</span>
+                                </div>
+                                </p>
+                            </div>
+                            <p class="main_reply_coment">한명씩 맞춤으로 상담 및 취업 방향을 설정해주셔서 좋았습니다!</p>
+                            <div class="main_reply_name">
+                                최** <span class="main_reply_name2">|</span>2022.09.17
+                            </div>
+                        </li>
+                    </div>
+                    <div class="main_reply_inner12">
+                        <li>
+                            <div class="main_reply_inner13">
+                                <div style="display: flex!important;" class="star_count">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <span class="main_reply_gray">매우 추천해요!</span>
+                                </div>
+                                </p>
+                            </div>
+                            <p class="main_reply_coment">관련직무에 대해서 현실적인 모습과 조언을 해주셔서 보다 쉽게 이해할 수 있었습니다. 5주동안 잘 챙겨주시고 이해해주셔서 감사함니다.</p>
+                            <div class="main_reply_name">
+                                최** <span class="main_reply_name2">|</span>2022.09.17
+                            </div>
+                        </li>
+                    </div>
+                    <div class="main_reply_inner12">
+                        <li>
+                            <div class="main_reply_inner13">
+                                <div style="display: flex!important;" class="star_count">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck">
+                                        <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                    </svg>
+                                    <span class="main_reply_gray">매우 추천해요!</span>
+                                </div>
+                                </p>
+                            </div>
+                            <p class="main_reply_coment">질문드린 내용을 세세하게 설명해주셔서 몰랐던 내용에 대해 학습할 수 있었습니다. 줌을 통한 피드백이 아니더라도 자세히 설명해주셔서 어려움 없이 이해하였습니다. 진심으로 감사드립니다.</p>
+                            <div class="main_reply_name">
+                                최** <span class="main_reply_name2">|</span>2022.09.17
+                            </div>
+                        </li>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <form>
+                            <div id="main_reply_write">
+                                <textarea placeholder="200자 이내로 후기를 작성해주세요." id="main_reply_textarea"></textarea>
+                                <p id="main_reply_textarea_p_count">0</p><p id="main_reply_textarea_p">/200</p>
+                            </div>
+                            <span id="textarea_alert"></span>
+                            <div id="main_reply_textarea_stars">
+                                <div id="main_reply_textarea_stars_inner1">
+                                    <p class="main_reply_textarea_inner2">평점</p>
+                                    <div style="margin-left: 30px;" class="main_reply_textarea_inner2">
+                                        <div style="position: relative" id="star_count_check">
+                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                            </svg>
+                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                            </svg>
+                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                            </svg>
+                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                            </svg>
+                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                            </svg>
+                                            <!--<span class="star_check" style="margin-left: 0px;"></span>
+                                            <span class="star_check"></span>
+                                            <span class="star_check"></span>
+                                            <span class="star_check"></span>
+                                            <span class="star_check"></span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="float: right">
+                                    <input type="button" id="main_reply_button" disabled value="후기 작성">
+                                </div>
+                            </div>
+
+                            <!--페이징 처리-->
+                            <div id="paging">
+                                <ul>
+                                    <li class="sidePageNum prev">
+                                        <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                                    </li>
+                                    <li><a href="" class="page selectPage">1</a></li>
+                                    <li><a href="" class="page">2</a></li>
+                                    <li><a href="" class="page">3</a></li>
+                                    <li><a href="" class="page">4</a></li>
+                                    <li><a href="" class="page">5</a></li>
+                                    <li class="sidePageNum next">
+                                        <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </form>
+                    </div>
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!--멘토 신청 모달-->
+<div id="modal" style="display: none">
+    <div id="modal-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">멘토 신청하기</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">자신을 어필할 수있는 한줄평을 써주세요!</div>
+                        <input type="text" placeholder="멘토님께 소개할 한줄평 작성해주세요" class="modal_input">
+                    </div>
+                    <div class="applyBtnWrap">
+                        <button type="button" class="applyBtn">멘토 신청</button>
+                        <button type="button" class="cancel">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--멘토 신청 완료 모달-->
+<div id="modalSuccess" style="display: none;">
+    <div id="modalSuccess-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">멘토 신청 완료되었습니다!</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">1:1 채팅하기 버튼으로 멘토와 채팅해주세요.</div>
+                    </div>
+                    <div class="applyBtnWrap">
+                        <button type="button" class="listBtn" onclick="location.href='/mento/chatting'">완료</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--푸터 삽입-->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/mento/detail.js"></script>
+</html>

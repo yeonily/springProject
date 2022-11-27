@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="stylesheet" href="/css/mento/chatting.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <title>멘토 채팅 페이지</title>
+</head>
+<body>
+<!--헤더 삽입-->
+<div th:replace="/header/header.html :: header" class="header"/>
+
+<!--바디-->
+<section id="section_main" style="height: 760px;">
+    <div id="section_wrap">
+        <div id="section_contents">
+            <div id="content_left">
+                <div>
+                    <ul id="content_left_list";>
+                        <li class="left_lists">
+                            <a href="" class="left_lists_a">
+                                <!--<div class="list_thumbnail">
+                                    <img src="https://api.2awesomementor.com/files/user/2022/10/1668795064008.jpg" alt="" class="thumb_image">
+                                </div>-->
+                                <div>
+                                    <div class="list_name"><p class="list_name_p1">멘토쌤</p><p class="list_name_p2"></p></div>
+                                    <div>
+                                        <p class="list_text_p1"></p><p class="list_text_p2"> IT 및 아트앤디자인 분야의 취업, 진로, 커리큘럼 멘토링</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="content_right">
+                <div class="content_right_name">
+                    <div class="right_profile">
+                        <!--<p class="right_thumb">
+                            <img src="https://api.2awesomementor.com/files/user/2022/10/1668795064008.jpg" alt="" class="thumb_image">
+                        </p>-->
+                        <div class="right_text">
+                            <p class="list_text_p1">멘토쌤</p>
+                            <p class="list_text_p2"> IT 및 아트앤디자인 분야의 취업, 진로, 커리큘럼 멘토링</p>
+                        </div>
+                        <div style="margin-top: 10px; float: right">
+                            <input type="button" id="apply_button" value="멘토 신청하기">
+                        </div>
+                    </div>
+                </div>
+                <div class="content_right_chatting">
+                    <div class="chatting_inner">
+                        <div class="chatting_inner_right">
+                            <p class="chatting_date_right">11월 20일</p>
+                            <ul class="chatting_ul">
+                                <li class="chatting_text">안녕하세요~</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chatting_inner">
+                        <div class="chatting_inner_left">
+                            <ul class="chatting_ul">
+                                <li class="chatting_text">안녕하세요~!!</li>
+                                <li class="chatting_text">어떤 부분이 궁금하신가요?</li>
+                            </ul>
+                            <p class="chatting_date_left">11월 20일 <span class="no_read_chat">1</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chatting_write">
+                    <div class="chatting_write_border">
+                        <input type="text" placeholder="메세지를 입력하세요." class="chatting_write_input">
+                        <a href="" class="chatting_send">
+                            <img src="https://www.2awesomementor.com/img/ico-24-send.99437830.svg" alt="" class="thumb_image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--멘토 신청 모달-->
+<div id="modal" style="display: none">
+    <div class="modal-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">멘토 신청하기</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">멘토님께 인사말 한마디 부탁드려요</div>
+                        <input type="text" placeholder="간단한 인사말 작성해주세요" class="modal_input">
+                    </div>
+                    <div class="applyBtnWrap">
+                        <button type="button" class="applyBtn">멘토 신청</button>
+                        <button type="button" class="cancel">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--멘토 신청 완료 모달-->
+<div id="modalSuccess" style="display: none;">
+    <div class="modalSuccess-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">멘토 신청 완료되었습니다!</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">1:1 채팅하기 버튼으로 멘토와 채팅해주세요.</div>
+                    </div>
+                    <div class="applyBtnWrap">
+                        <button type="button" class="listBtn" id="completeBtn">완료</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--멘토 끊기 모달창-->
+<div id="quitmodal" style="display: none">
+    <div class="modal-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">멘토 끊기</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">정말 멘토관계를 끊으실건가요?</div>
+                    </div>
+                    <div class="quitBtnWrap">
+                        <button type="button" class="quitBtn">멘토 끊기</button>
+                        <button type="button" class="quitCancel">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--푸터 삽입-->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/mento/chatting.js"></script>
+</html>

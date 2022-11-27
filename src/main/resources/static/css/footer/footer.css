@@ -1,0 +1,254 @@
+div#wrap {
+    position: relative;
+    min-height: 100%;
+    margin-top: 69px;
+}
+
+footer {
+    bottom: 0;
+    width: 100%;
+    height: 403px;
+    border-top: 1px solid #eaecee;
+}
+footer div.footer-container {
+    padding-top: 48px;
+    width: 1132px;
+    height: 293px;
+    margin: 0 auto;
+}
+
+
+/*푸터 상단 영역*/
+div.footer-top-wrap {
+    display: inline-flex;
+    width: 100%;
+    padding-bottom: 24px;
+    justify-content: space-around;
+}
+div.section {
+    width: 257px;
+    vertical-align: middle;
+    display: inline-block;
+    padding: 0 16px;
+}
+
+/*고객센터를 제외한 3개 메뉴*/
+div.section h2,
+div.infoCenter h2{
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #202325;
+    font-weight: 600;
+}
+div.section ul {
+    width: 160px;
+    height: 46px;
+}
+div.section ul li {
+    display: inline-block;
+    margin-bottom: 8px;
+}
+div.section ul li a {
+    font-size: 12px;
+    color: #767D82;
+}
+div.section ul hr {
+    border-left: 1px solid #EAECEE;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    display: inline-block;
+    width: 0;
+    height: 12px;
+    vertical-align: middle;
+    margin: 0 8px;
+}
+
+/*고객센터 영역*/
+div.infoCenter {
+    display: inline-block;
+    width: 252px;
+    height: 106px;
+    margin-top: -6px;
+}
+div.infoCenter h2, span {
+    display: inline-block;
+}
+div.infoCenter span.miniText {
+    font-size: 12px;
+    margin-left: 12px;
+    color: #ADB3B8;
+    font-weight: 600;
+}
+div.infoCenter button {
+    width: 100%;
+    height: 36px;
+    background-color: transparent;
+    border: 1px solid #949ba0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #767D82;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+div.infoCenter button span.headsetImg {
+    background-size: cover;
+    width: 22px;
+    height: 22px;
+    background-image: url("/image/main/headset.png");
+    margin-top: -2px;
+    vertical-align: middle;
+}
+div.infoCenter p {
+    font-size: 12px;
+    color: #767D82;
+    line-height: 15px;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+
+
+/*푸터 하단 영역*/
+div.footer-bottom-wrap {
+    padding-top: 32px;
+    padding-left: 10px;
+    position: relative;
+    border-top: 1px solid #F3F4F5;
+}
+
+/*왼쪽 부분*/
+div.footer-bottom-left {
+    width: 667px;
+    height: 118px;
+    display: inline-block;
+}
+div.footer-bottom-left div.companyInfo {
+    color: #ADB3B8;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    margin: 10px 0;
+}
+div.footer-others a{
+    display: inline-block;
+    color: #767D82;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+}
+div.footer-others hr {
+    border-left: 1px solid #EAECEE;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    display: inline-block;
+    width: 0;
+    height: 12px;
+    vertical-align: middle;
+    margin: 0 4px 0 8px;
+}
+
+/*오른쪽 부분*/
+div.footer-bottom-wrap div.iconBtn {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
+div.footer-bottom-wrap div.iconBtn img {
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+}
+
+.bottom-nav-container{
+    display: none;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+
+    .footer-container{
+        display: none!important;
+    }
+
+    footer{
+        height: 51px;
+        border-top: none;
+    }
+
+    .bottom-nav-container{
+        background-color: #fff;
+        width: 100vw;
+        position: fixed;
+        z-index: 9;
+        bottom: 0;
+        left: 0;
+        border-top: 1px solid #fcfcfc;
+        padding: 6px 0;
+        align-items: center;
+        justify-content: center;
+        display: flex!important;
+    }
+
+    .bottom-nav{
+        width: 94vw;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        display: flex!important;
+    }
+
+    .bottom-nav-item{
+        width: 87.75px;
+        height: 38px;
+    }
+
+    .bottom-nav-a{
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        align-items: center;
+        display: flex;
+    }
+
+    .nav-img{
+        cursor: auto;
+        background: transparent!important;
+        overflow: hidden;
+        margin-bottom: 2px!important;
+        width: 24px;
+        height: 24px;
+    }
+
+    .style2{
+        width: 20px;
+    }
+
+    .style3{
+        width: 18px;
+    }
+
+    .style4{
+        width: 25px;
+        height: 20px;
+        margin-bottom: 6px!important;
+    }
+
+    .nav-body{
+        color: rgb(118, 125, 130);
+        font-size: 10px;
+        line-height: 13px;
+        word-break: keep-all;
+        word-wrap: break-word;
+        font-weight: 400!important;
+    }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/login/login.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="in-wrap">
+    <div class="title">시작하는 사람들의<br>귀농 라이프</div>
+    <div>
+        <div class="oauth-group">
+            <section class="kakao" th:onclick="'location.href=\''+ @{/register/form} + '\''">
+                <div class="oauth-logo">
+                    <img src="https://cdn.comento.kr/icon/icon-kakao-medium.svg">
+                </div>
+                <div class="oauth-txt" style="color: #181600;">카카오로 1초만에 시작하기</div>
+            </section>
+            <section class="naver" th:onclick="'location.href=\''+ @{/register/form} + '\''">
+                <div class="oauth-logo">
+                    <img src="https://cdn.comento.kr/icon/icon-naver-medium.svg">
+                </div>
+                <div class="oauth-txt">네이버로 시작하기</div>
+            </section>
+            <section class="google" th:onclick="'location.href=\''+ @{/register/form} + '\''">
+                <div class="oauth-logo">
+                    <img src="https://cdn.comento.kr/icon/icon-google-medium.svg">
+                </div>
+                <div class="oauth-txt">구글로 시작하기</div>
+            </section>
+        </div>
+        <div style="text-align: center">
+            <p class="l-j-bottom">
+                <a th:href="@{/register/agreement}" class="l-j-l"><u>이용약관</u></a> 및 <a th:href="@{/register/agreement}" class="l-j-l"><u>개인정보 처리방침</u></a> 확인 후 동의합니다
+            </p>
+            <a th:href="@{/login}" class="l-j-l move-page"><u>이미 가입하셨나요?</u></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

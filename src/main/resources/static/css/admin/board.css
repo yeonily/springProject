@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+div.contents-bottom {
+    position: relative;
+}
+
+div#container .chart-no {
+    margin-top: 95px;
+}
+
+table.board th.num { width: 6%; }
+table.board th.title { width: 25%; }
+table.board th.content { width: 25%; }
+table.board th.id { width: 11%; }
+table.board th.file-check { width: 7%; }
+table.board th.date { width: 9%; }
+table.board th.hits { width:  7%; }
+table.board th.reply, table.board th.delete { width:  5%; }
+
+td.delete { padding: 0 0.3vw; }
+
+td input[type="button"] {
+    width: 100%;
+    padding: 3px 1px;
+    border: 1px solid rgb(184, 184, 184);
+    box-shadow: 0.1px 0.1px 8px -5px #000000;
+
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9vw;
+    color: #4d4d4d;
+    cursor: pointer;
+    word-break: keep-all;
+}
+
+td.delete input[type="button"] { background: red; color: white; }

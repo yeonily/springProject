@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/myPage/sideMenu.css" />
+    <link rel="stylesheet" href="/css/myPage/quit.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main">
+    <div class="wrap-w" style="padding-bottom: 0">
+        <div class="container">
+            <div class="contentsWrap">
+                <!--메뉴 카텍고리 시작-->
+                <div th:replace="/myPage/sidemenu.html :: myPageMenu"></div>
+                <!--컨텐츠 시작-->
+                <div class="contents">
+                    <div class="c-header">
+                        <div class="c-title">
+                            <div>개인 정보 설정</div>
+                        </div>
+                        <div class="c-header-c">
+                            <div class="c-header-can">
+                                <div class="menu-tab-btn">
+                                    <div class="menu-tab tabMove">
+                                        <button class="main-tab">프로필</button>
+                                    </div>
+                                    <div class="menu-tab tabMove">
+                                        <button class="myInfo">정보 수정</button>
+                                    </div>
+                                    <!--멘토인 경우-->
+                                    <div class="menu-tab tabMove">
+                                        <button class="mentorInfo">멘토 정보</button>
+                                    </div>
+                                    <!------>
+                                    <div class="menu-tab">
+                                        <button class="active">회원 탈퇴</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="quit-title">
+                                정말 탈퇴하시겠어요?
+                            </div>
+                            <ul class="quit-info">
+                                <li class="quit-into-txt">모든 이용내역은 삭제되며 복원이 불가능합니다.</li>
+                                <li class="quit-into-txt">멘토링 사례에 등록된 멘토링 글은 삭제되지 않습니다.</li>
+                                <li class="quit-into-txt">3개월간 동일한 정보로 가입이 불가능합니다.</li>
+                                <li class="quit-into-txt">제휴 이용권은 소멸되며, 다른 계정으로 재발급이 불가능합니다.</li>
+                                <li class="quit-into-txt">체험 프로그램 내역은 삭제되며, 복원이 불가능합니다.</li>
+                            </ul>
+                            <button class="quit">회원 탈퇴하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 회원 탈퇴 모달창 -->
+<div id="modal" style="display: none;">
+    <div id="modal-overlay">
+        <div class="c-modal">
+            <div class="modal-close">
+                <img src="/image/myPage/close.png">
+            </div>
+            <div class="m-wrap">
+                <div class="m-title">탈퇴 사유</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">더 나은 서비스를 위해 탈퇴 사유를 알려주시겠어요?</div>
+                        <div class="m-text">
+                            <input type="radio" id="q-r-1" name="reason" class="m-r-reason">
+                            <label class="m-reason" for="q-r-1">
+                                <div class="r-r-text">아이디 변경/재가입을 위해</div>
+                            </label>
+                        </div>
+                        <div class="m-text">
+                            <input type="radio" id="q-r-2" name="reason" class="m-r-reason">
+                            <label class="m-reason" for="q-r-2">
+                                <div class="r-r-text">원하는 서비스/정보가 없어서</div>
+                            </label>
+                        </div>
+                        <div class="m-text">
+                            <input type="radio" id="q-r-3" name="reason" class="m-r-reason m-reason">
+                            <label class="m-reason" for="q-r-3">
+                                <div class="r-r-text">이용이 불편해서</div>
+                            </label>
+                        </div>
+                        <div class="m-text">
+                            <input type="radio" id="q-r-4" name="reason" class="m-r-reason reason-etc" value="reason-etc">
+                            <label class="m-reason" for="q-r-4">
+                                <div class="r-r-text">기타</div>
+                            </label>
+                        </div>
+                        <div class="quit-reason">
+                            <input type="text" class="q-r-input" placeholder="50자 내외로 작성해주세요." maxlength="50">
+                        </div>
+                    </div>
+                    <div class="quitBtnWrap">
+                        <button class="quitBtn" onclick="quitBtn()">회원 탈퇴하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 푸터 -->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/myPage/myPage.js"></script>
+<script>
+    $(document).ready(function (){
+        $("div.tabMove>button").on("click", function(){
+             var nav = $(this).attr("class");
+             if (nav == "main-tab") {
+                 location.href='/mypage/setting';
+             } else {
+                 location.href='/mypage/setting?nav=' + nav;
+             }
+            // console.log();
+        });
+    });
+
+    $("div.menu-a").removeClass('menu-select');
+    $("#myInfoPage").addClass('menu-select');
+</script>
+</html>

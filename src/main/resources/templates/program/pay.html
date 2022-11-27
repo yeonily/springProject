@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>program pay</title>
+    <link rel="stylesheet" href="/css/program/pay.css"/>
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div class="main-grid">
+    <div class="c-row">
+        <div class="c-grid-container">
+            <div class="no-gutters">
+                <div class="mentor-show">
+                    <div class="telling-avatar-quote">
+                        <div class="telling-wrapper">
+                            <div class="telling-title">
+                                <div class="telling-title-content"><span id="name"></span>님, 참여를 결정해주셔서 감사드려요!</div>
+                            </div>
+                            <div class="telling-body">
+                                <div class="telling-body-content">
+                                    귀농귀촌 경험을 쌓고 싶은데, 혼자서는 어렵게 느껴지셨죠?<br>
+                                    너와농부싶어 프로그램과 함께라면<br>
+                                    차곡차곡 경험이 쌓여있는 나를 발견할 수 있을거예요.</div>
+                            </div>
+                        </div>
+                        <div class="avatar-wrapper">
+                            <div class="avatar-container">
+                                <img class="user-img" src="/image/program/user.webp">
+                                <div class="user-div"></div>
+                            </div>
+                            <div class="avatar-name">
+                                <div class="farmer-name">농장주이름</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-show">
+                    <div class="apply-box">
+                        <div class="callout-box">
+                            <div class="callout-wrapper">
+                                <div class="c-w-full">
+                                    <img class="callout-img" src="/image/program/greencheck.gif">
+                                    <div class="callout-message">
+                                        4명이 프로그램명에 신청했어요. 서두르세요!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-line">결제자 정보</div>
+                        <span class="user-info">
+                <form action="" id="pg-apply-form" name="paymentForm">
+                    <!-- 결제자 정보 -->
+                    <div class="card-item-wrapper">
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">이름</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="name" id="username">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption1" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">전화번호</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="phone" id="userphone">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption2" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">이메일</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="email" id="useremail">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption3" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">신청인원</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="apply-count">1명</div>
+                            </div>
+                        </span>
+                    </div>
+                    </div>
+                    <!-- 결제 금액 -->
+                    <div class="card-item-wrapper">
+                        <div class="user-line">결제 금액</div>
+                        <div class="payment-card-price-wrapper">
+                            <div class="payment-price">
+                                <div class="payment-info">정가</div>
+                                <div class="price-number">20,000원</div>
+                            </div>
+                            <div class="payment-price">
+                                <div class="payment-info">신청인원</div>
+                                <div class="price-number"> × 1명</div>
+                            </div>
+                            <hr class="dash">
+                            <div class="total-price">
+                                <div class="total-payment-info">최종 결제 금액</div>
+                                <div class="total-payment-info">20,000원</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 결제 수단 -->
+                    <div class="card-item-wrapper">
+                        <div class="user-line">결제 수단</div>
+                        <ul class="payment-type-group">
+                            <li class="payment-type-list a">
+                                <input id="inicis" name="pay" value="inicis" checked="checked" type="radio" class="payment-radio">
+                                <label class="clearfix commoncss">
+                                    <div class="payment-type-item-wrapper">
+                                        <div class="payment-type-item">
+                                            <img class="logo-pg" src="https://comento.kr/images/logo/logo_kginicis.svg">
+                                            <div class="payment-type-item-typo">카드결제</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="payment-type-list b">
+                                <input id="kakaopay" name="pay" value="kakaopay" type="radio" class="payment-radio">
+                                <label class="nofix commoncss">
+                                    <div class="payment-type-item-wrapper">
+                                        <div class="payment-type-item">
+                                            <img class="logo-pg" src="https://cdn.comento.kr/images/logo/logo-kakaopay.png">
+                                            <div class="payment-type-item-typo">간편결제</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 이용약관 및 유의사항 -->
+                    <div>
+                        <div class="rules">
+                            <div class="rules-title">이용약관 및 유의사항</div>
+                            <button type="button" class="rule-button" id="ruleB" ><img class="rule-button" src="/image/program/updown.gif"></button>
+                        </div>
+                        <hr class="divider">
+                        <div class="slide-fade" id="ruleD" >
+                            <div class="rule-detail" >
+                                - 강의 시작 24시간 전까지 취소 시, 결제 금액 전액 환불<br>
+                                - 그 이후 취소 신청 시, 환불 불가<br>
+                                - 취소하면 결제에 사용된 할인 쿠폰은 소멸되며 재사용할 수 없습니다.<br>
+                                - 세부 환불 규정은 멘티 가이드에서 확인하시기 바랍니다.</div>
+                            </div>
+                        </div>
+                        <div class="pay-agree">위 내용을 확인하였으며, 결제에 동의합니다.</div>
+                    <!-- 결제버튼 -->
+                    <div class="button-wrapper" >
+                    <button type="button" class="pay-button" id="pay">
+                        <div class="button-icon" >결제하기</div></button>
+                    </div>
+                </form>
+            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/program/pay.js"></script>
+</html>

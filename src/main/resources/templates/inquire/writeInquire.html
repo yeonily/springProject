@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>문의하기</title>
+    <link rel="stylesheet" href="/css/inquire/inquire.css">
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <style>
+        footer {
+            background-color: #ffffff;
+            position: relative;
+        }
+        div.footer-bottom-wrap {
+            margin-top: 65px;
+        }
+    </style>
+</head>
+<body>
+    <!--헤더-->
+    <div class="wrap">
+    <div th:replace="/header/header.html :: header" class="header"/>
+
+
+    <div class="grid-fluid">
+        <div class="grid-fluid-row">
+            <div class="banner-background"></div>
+            <div class="grid-container">
+                <div class="grid-container-row">
+                    <div class="grid-container-col">
+                        <section class="pg-detail-banner">
+                            <div class="banner-title-container">
+                                <span class="pg-detail-banner-chip">문의</span>
+                                <div class="pg-detail-banner-title">문의하기</div>
+                                <div class="pg-detail-banner-headline">친절하게 답변드리겠습니다.</div>
+                            </div>
+                            <div class="banner-image-container">
+                                <img class="pg-detail-banner-image" src="/image/inquire/inquire.png">
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+                    <div class="c-application c-new-col"
+                         style="margin: 100px auto; width: 1124px; height: 400px; padding-right: 12px; padding-left: 12px">
+                        <div id="help-wrap-col" style=" width: 1108px; height: 588px">
+                            <div class="help help-wrap" style="background: #fff;">
+                                <section class="help help-section" style="height: 388px;">
+                                    <div class="help help-form">
+                                        <div class="clearfix">
+                                            <h2 class="h2 help-form-title">1:1 문의하기</h2>
+                                            <p class="h7 text-caption m-0" style="font-family: Pretendard,Apple SD Gothic Neo,Helvetica Neue,Helvetica,Arial,Trebuchet MS,sans-serif; font-size: 12px !important; font-weight: 500 !important;">
+                                                문제가 해결되지 않으셨다면 1:1 로 문의하세요.
+                                                <br>
+                                                문의 주신 내용은 48시간 내로 최대한 빠르게 답변드리도록 하겠습니다. 마이페이지를 확인해주세요.
+                                            </p>
+                                        </div>
+                                        <section class="clearfix">
+                                            <input type="text" placeholder="제목" id="title" class="inputbox inputbox-title" style="margin-bottom: 10px; width: 100%; margin-top: 16px; border-radius: 3px;">
+                                            <textarea type="textarea" id="content" class="textbox mb-20" cols="30"
+                                                      rows="5" placeholder="해결이 필요한 문제에 대해 자세히 설명해주세요."
+                                                      style="padding: 15px; border-radius: 3px;"></textarea>
+
+                                            <div class="btn-wrapper" style="height: 40px;">
+                                                <button class="btn disabled"> 문의하기
+                                                </button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="/footer/footer.html :: footer" class="footer"></footer>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.btn').click(function () {
+            if ($('#title').val() == '') {
+                alert('제목을 입력하세요');
+                $('#title').focus();
+            } else if ($('#content').val() == '') {
+                alert('내용을 입력하세요');
+                $('#content').focus();
+            } else {
+                alert('제출되었습니다');
+                $('btn').submit();
+            }
+        })
+    })
+
+    $("div.search_form").hide();
+</script>
+</html>

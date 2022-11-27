@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    font-family: "Pretendard";
+
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+a {text-decoration: none;}
+div.flex {display: flex;}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+button{cursor: pointer;}
+
+
+div#in-wrap {
+    position: relative;
+    width: 343px;
+    margin: 0 auto;
+    margin-top: 10vh;
+    margin-bottom: 85px!important;
+    padding: 60px 38.5px;
+    box-sizing: border-box;
+}
+
+div#in-wrap>.title {
+    margin-bottom: 40px!important;
+    color: rgb(32, 35, 37);
+    line-height: 140%;
+    font-size: 24px;
+    font-weight: 600!important;
+}
+
+div.oauth-group {
+    width: 100%;
+    margin-bottom: 24px;
+    justify-content: flex-start;
+    flex-flow: column;
+}
+
+div.oauth-group section {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    height: 48px;
+    margin: 0 0 12px;
+    padding-left: 16px;
+    justify-content: flex-start;
+    color: #fff;
+    cursor: pointer!important;
+}
+
+div.oauth-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 2px;
+}
+
+div.oauth-logo>img {
+    display: block;
+    width: 100%!important;
+    height: 100%!important;
+    border-style: none;
+}
+
+.oauth-txt {
+    margin-left: 6px!important;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+    color: inherit;
+}
+
+.kakao {background: #fee500;}
+.naver {background: #1ec800;}
+.google {    background: #dc4e41;}
+
+
+p.l-j-bottom {
+    margin-bottom: 4px!important;
+    color: rgb(173, 179, 184);
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+}
+
+a.l-j-l {
+    margin: 0;
+    color: #495057;
+    cursor: pointer;
+}
+
+a.move-page {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    color: #47c880;
+}
+
+u {text-decoration: underline;}
+
+
+
+@media only screen and (min-width: 768px){
+    div#in-wrap {
+        width: 343px;
+    }
+}

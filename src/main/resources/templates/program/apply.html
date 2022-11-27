@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>program apply</title>
+    <link rel="stylesheet" href="/css/program/apply.css"/>
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div class="main-grid">
+<div class="c-row">
+<div class="c-grid-container">
+<div class="no-gutters">
+    <div class="mentor-show">
+        <div class="telling-avatar-quote">
+            <div class="telling-wrapper">
+                <div class="telling-title">
+                    <div class="telling-title-content"><span id="name"></span>님, 만나서 반가워요</div>
+                </div>
+                <div class="telling-body">
+                    <div class="telling-body-content">
+                        저는 무밭을 운영하고 있는 농장주입니다.<br>
+                        닉네임님이 무 뽑기 일일 프로그램을 통하여<br>
+                        재배의 즐거움과 성취감을 가득 안고 가실 수 있도록 노력하겠습니다!<br>
+                        프로그램에 대해 안내드릴 수 있도록 닉네임님을 소개해주실 수 있나요?</div>
+                </div>
+            </div>
+            <div class="avatar-wrapper">
+                <div class="avatar-container">
+                    <img class="user-img" src="/image/program/user.webp">
+                    <div class="user-div"></div>
+                </div>
+                <div class="avatar-name">
+                    <div class="farmer-name">농장주이름</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-show">
+        <div class="apply-box">
+            <div class="callout-box">
+                <div class="callout-wrapper">
+                    <div class="c-w-full">
+                        <img class="callout-img" src="/image/program/greencheck.gif">
+                        <div class="callout-message">
+                            <strong>프로그램명</strong>을 얼른 신청해보아요.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-line">신청자 정보</div>
+            <span class="user-info">
+                <form action="" id="pg-apply-form" name="applyForm">
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">이름</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="name" id="username">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption1" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">휴대폰</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="phone" id="userphone">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption2" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">이메일</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="email" id="useremail">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption3" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">거주지</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="home" id="userhome">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption4" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">생년월일</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <div class="text-field-input-wrapper">
+                                    <input type="text" class="text-field-name" name="birth" id="userbirth">
+                                </div>
+                                <div class="c-hint"><!--유효성검사 결과 부분(js)-->
+                                    <p class="caption5" ></p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="pg-apply-form-input">
+                        <div class="apply-form-body">신청인원</div>
+                        <span class="body-span">
+                            <div class="body-text-field">
+                                <button type="button" class="down" disabled onclick='count("minus")'></button>
+                                <div id="apply-count">1</div>
+                                <button type="button" class="up" onclick='count("plus")'></button>
+                            </div>
+                        </span>
+                    </div>
+                    <button type="button" class="apply-button" th:onclick="|location.href='@{/program/pay}'|" id="apply" disabled="disabled">
+                        <div class="button-icon" >다음</div></button>
+                </form>
+            </span>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/program/apply.js"></script>
+</html>

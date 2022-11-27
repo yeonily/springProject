@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <title>Title</title>
+</head>
+<body>
+    <footer th:fragment="footer">
+        <div class="footer-container">
+            <!--푸터에서 상단 영역-->
+            <div class="footer-top-wrap">
+                <div class="section">
+                    <h2>너와 농부싶어</h2>
+                    <ul>
+                        <li><a href="/main/main">홈</a><hr></li>
+                        <li><a href="/information/policy">정보마당</a><hr></li>
+                        <li><a href="/notice/notice">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h2>서비스</h2>
+                    <ul style="width: 257px">
+                        <li><a href="/mento/intro">멘토</a><hr></li>
+                        <li><a href="/program/list">프로그램</a><hr></li>
+                        <li><a href="/alba/list">아르바이트</a></li>
+                        <li style="display: block"><a href="/community/list">커뮤니티</a></li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h2>관리자</h2>
+                    <ul style="width: 185px">
+                        <li><a href="/adminMain/main">관리자 페이지 이동</a></li>
+                    </ul>
+                </div>
+                <div class="infoCenter">
+                    <h2>고객센터</h2><span class="miniText">*코로나19로 전화상담이 제한됩니다.</span>
+                    <button type="button" th:onclick="|location.href='@{/inquire/writeInquire}'|"><span class="headsetImg"></span>1:1 문의하기</button>
+                    <p>운영시간 : 평일 10시 ~ 18시 30분 (주말, 공휴일 제외)</p>
+                    <p>점심시간 : 12시 30분 ~ 14시</p>
+                </div>
+            </div>
+            <!--푸터에서 하단 영역-->
+            <div class="footer-bottom-wrap">
+                <div class="footer-bottom-left">
+                    <div class="footer-logo">
+                        <img src="/image/header/logo.png" width="105px" height="45px" >
+                    </div>
+                    <div class="companyInfo">
+                        <p>대표: CodeFarm ㅣ 12345 서울특별시 중구 한강대로 416, 서울스퀘어 ㅣ Tel: 1544-0000 ㅣ 사업자 등록번호 : 000-00-00000<br>
+                            통신판매업 신고번호 : 제 2000-서울중구-00호 ㅣ 직업정보제공 사업신고 : 서울청 제2000-00호 ㅣ 원격평생교육시설신고 : 제 원격-000호<br>
+                            Copyright by (주)코멘토. All right reserved.</p>
+                    </div>
+                    <div class="footer-others">
+                        <a href="#">이용약관</a><hr>
+                        <a href="#">개인정보처리방침</a>
+                    </div>
+                </div>
+                <!--<div class="iconBtn">
+                    <img src="https://cdn.comento.kr/images/illust/illust-comento-naver-blog.png">
+                    <img src="https://cdn.comento.kr/images/illust/illust-comento-instagram.png">
+                    <img src="https://cdn.comento.kr/images/illust/illust-comento-brunch.png">
+                </div>-->
+            </div>
+        </div>
+        <div class="response-bottom">
+            <nav class="bottom-nav-container">
+                <ul class="bottom-nav">
+                    <li class="bottom-nav-item"><a href="/main/main" class="bottom-nav-a"><img class="nav-img style1" src="/image/footer/homeIcon.png"><div class="nav-body">홈</div></a></li>
+                    <li class="bottom-nav-item"><a href="/program/list" class="bottom-nav-a"><img class="nav-img style3" src="/image/footer/nav3_on.gif"><div class="nav-body" style="color: #00a147" >프로그램</div></a></li>
+                    <li class="bottom-nav-item"><a href="/alba/list" class="bottom-nav-a"><img class="nav-img style2" src="/image/footer/nav2.gif"><div class="nav-body">아르바이트</div></a></li>
+                    <li class="bottom-nav-item"><a href="/community/list" class="bottom-nav-a"><img class="nav-img style4" src="/image/footer/nav4.gif"><div class="nav-body">커뮤니티</div></a></li>
+                    <li class="bottom-nav-item"><a href="/mypage/setting" class="bottom-nav-a"><img class="nav-img style3" src="/image/footer/nav5.gif"><div class="nav-body">마이페이지</div></a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

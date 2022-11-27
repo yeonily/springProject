@@ -1,0 +1,369 @@
+/*------------------------------------------*/
+                /*모바일 창*/
+/*------------------------------------------*/
+@media only screen and (max-width: 768px) {
+    body {
+        width: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    #wrap {
+        margin-top: 52px !important;
+    }
+
+    /*헤더*/
+    div.header_nav {
+        width: 100%;
+        height: 75%;
+        display: inline-flex;
+        align-items: center;
+    }
+    div.header_nav ul.nav_right_after {
+        display: inline-flex;
+        flex-direction: row-reverse;
+        width: 100%;
+    }
+    button.c-application {
+        cursor: pointer;
+        padding: 2px;
+        border: 0;
+        margin-top: 4px;
+        background-color: inherit;
+    }
+    div.search_form {
+        display: none;
+        flex-direction: row;
+        width: 190px;
+        height: 40px;
+    }
+    div.search_form input.search_keyword {
+        display: inline-block !important;
+        border-radius: 4px;
+        border: 0;
+        background: hsla(0,0%,98.8%,.6);
+        padding: 10px 0px 10px 14px;
+        font-size: 14px;
+        line-height: 20px;
+        width: 155px;
+    }
+    button.search_img {
+        position: relative;
+        left: 0 !important;
+        margin: 6px 0 0 0;
+    }
+    div.header_nav ul.nav_right_after li {
+        margin-left: 0;
+    }
+    div.noti-button-container {
+        margin-left: 7px;
+        margin-bottom: 5px;
+        margin-right: 15px;
+    }
+
+
+
+    /*------------------------------------*/
+                /*헤더 로그인 전*/
+    /*------------------------------------*/
+    div.header_nav ul.nav_right {
+        float: right;
+        margin-right: 10px;
+    }
+    div.header_nav ul.nav_right li:nth-child(2) {
+        display: flex;
+    }
+    div.header_nav ul.nav_right li:not(ul.nav_right li:nth-child(2)) {
+        display: none;
+    }
+
+
+    /*------------------------------------*/
+                    /*메인배너*/
+    /*------------------------------------*/
+    div.main_banner div.buttonTest {
+        display: none;
+    }
+    div.main_banner div.swiper-pagination-horizontal {
+        left: 0 !important;
+        margin: 0;
+    }
+
+    div.main_banner div.swiper-slide {
+        font-size: 18px;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    div.sub_banner {
+        padding-top: 60px;
+    }
+    div.sub_banner_inner h1,
+    div#communitySlide #communitySlide_inner h1,
+    div#socaMenu div#socaMenu-inner h1,
+    div#programMenu div#programMenu-inner h1,
+    div#socaMenu2 div#socaMenu2-inner h1,
+    div#albaMenu div#albaMenu-inner h1
+    {
+        font-size: 22px;
+        height: 44px;
+    }
+    div.main_banner .swiper-slide div {
+        width: 90%;
+        height: 120px;
+        font-size: 32px;
+        font-weight: bold;
+        color: #FFFFFF;
+        margin: 0;
+        padding: 0;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    div.main_banner .swiper-slide img {
+        width: 90%;
+        height: 193px;
+        background-size: cover;
+        border-radius: 10px;
+        margin: 0;
+        padding: 0;
+    }
+
+    /*------------------------------------*/
+                    /*멘토배너*/
+    /*------------------------------------*/
+    div.sub_banner div.sub_banner_inner {
+        width: 90%;
+        height: 350px;
+        margin: 0 auto;
+        position: relative;
+    }
+    div.sub_banner_inner .mySwiper2 .swiper-slide {
+
+    }
+    div.mySwiper2 div.swiper-slide .imgDiv {
+        width: 100%;
+        height: 182px;
+        margin-top: 0;
+        border-radius: 10px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+    }
+
+    /*------------------------------------*/
+                /*중간 광고 배너*/
+    /*------------------------------------*/
+    div #middleImg {
+        width: 100%;
+        margin: 10px 0 40px 0;
+        height: auto;
+    }
+    div #middleImg img {
+        width: 90%;
+        content: url("/image/main/middle-banner3.png");
+    }
+
+
+    /*------------------------------------*/
+            /*커뮤니티 슬라이드 배너*/
+    /*------------------------------------*/
+    div#communitySlide {
+        width: 100%;
+        height: 455px;
+        margin: 80px 0;
+    }
+    div#communitySlide #communitySlide_inner {
+        width: 90%;
+        margin: 0 auto;
+        position: relative;
+    }
+    div.mySwiper3 div.swiper-slide-inner {
+        border: 1px solid rgb(234, 236, 238);
+        width: 100%;
+        height: 385px;
+        border-radius: 10px;
+        margin-left: 1px;
+    }
+    div.mySwiper3 p.communityContent {
+        font-size: 16px;
+        color: rgb(32, 35, 37);
+        margin-bottom: 16px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        width: 100%;
+        line-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    /*------------------------------------*/
+            /*자주 묻는 질문 배너*/
+    /*------------------------------------*/
+    div#socaMenu, div#socaMenu2 {
+        margin: 80px 0;
+        width: 100%;
+    }
+    div#socaMenu div#socaMenu-inner, div#socaMenu2 div#socaMenu2-inner {
+        width: 90%;
+        margin: 0 auto;
+    }
+    div#socaMenu div#socaMenu-inner div.menuList {
+        display: flex;
+        grid-row-gap: 20px;
+        grid-column-gap: 24px;
+        width: 100%;
+    }
+    div#socaMenu-inner div.menuList div.menuList-menu {
+        background-color: #f3f4f5;
+        width: 353px;
+        height: 96px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    div#socaMenu-inner div.menuList div.menuList-menu img {
+        margin-right: 5px;
+        width: 24px;
+        height: 24px;
+    }
+    div#socaMenu-inner div.menuList div.menuList-menu span {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgb(60, 65, 68);
+    }
+
+
+    /*------------------------------------*/
+        /*가장 인기 있는 프로그램 슬라이드 배너*/
+    /*------------------------------------*/
+    div#programMenu div#programMenu-inner, div#albaMenu div#albaMenu-inner {
+        width: 90%;
+        margin: 0 auto;
+        height: 308px;
+        position: relative;
+    }
+    div.mySwiper4 div.swiper-slide .imgDiv, div.mySwiper5 div.swiper-slide .imgDiv {
+        width: 100%;
+        height: 136px;
+        margin-top: 0;
+        border-radius: 10px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+    }
+    div.mySwiper4 div.swiper-slide .textDiv h3, div.mySwiper5 div.swiper-slide .textDiv h3 {
+        font-size: 16px;
+        margin-bottom: 5px;
+        font-weight: 400;
+        line-height: 1.5;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        word-break: keep-all;
+    }
+    div.mySwiper4 div.swiper-slide .imgDiv div{
+        width: 52px;
+    }
+
+
+    /*------------------------------------*/
+                /*사람들이 즐겨찾는 메뉴*/
+    /*------------------------------------*/
+    div#socaMenu2 div#socaMenu2-inner div.menuList {
+        display: block;
+    }
+    div#socaMenu2-inner div.menuList div.menuList-menu {
+        background-color: #F3F4F5;
+        width: 44%;
+        height: 97px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        padding: 24px 0;
+        flex-direction: column;
+        justify-content: space-around;
+        align-content: center;
+        margin-bottom: 16px;
+    }
+
+    div#socaMenu2-inner div.menuList div.menuList-menu:nth-child(odd) {
+        margin-right: 16px;
+    }
+
+    div#socaMenu2-inner div.menuList div.menuList-menu img {
+        width: 60px;
+        height: 60px;
+    }
+
+
+    /*------------------------------------*/
+                    /*마감 알바*/
+    /*------------------------------------*/
+    div#albaMenu {
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    /*------------------------------------*/
+                    /*기타 짜잘짜잘*/
+    /*------------------------------------*/
+    .swiper-button.next2:after, .swiper-button.next3:after, .swiper-button.next4:after, .swiper-button.next5:after {
+        display: none;
+    }
+    .swiper-button.prev2:after, .swiper-button.prev3:after, .swiper-button.prev4:after, .swiper-button.prev5:after {
+        display: none;
+    }
+    div.swiper-button, div.sub_banner_inner div.swiper-button {
+        display: none;
+    }
+
+
+
+    /*------------------------------------*/
+                    /*푸터*/
+    /*------------------------------------*/
+    ul.bottom-nav li:nth-child(1) img {
+        content: url("/image/footer/homeIcon_on.png");
+    }
+    ul.bottom-nav li:nth-child(2) img {
+        content: url("/image/footer/nav3.gif");
+    }
+    ul.bottom-nav li:nth-child(3) img {
+        content: url("/image/footer/nav2.gif");
+    }
+    ul.bottom-nav li:nth-child(4) img {
+        content: url("/image/footer/nav4.gif");
+    }
+    ul.bottom-nav li:nth-child(5) img {
+        content: url("/image/footer/nav5.gif");
+    }
+
+    ul.bottom-nav li:nth-child(1) div {
+        color: #00a147 !important;
+    }
+    ul.bottom-nav li:not(ul.bottom-nav li:nth-child(1)) div {
+        color: #767d82 !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+

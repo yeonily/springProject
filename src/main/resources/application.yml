@@ -1,5 +1,5 @@
 server:
-  port: 10000
+  port: 5555
 spring:
   devtools:
     livereload:
@@ -16,10 +16,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     hibernate:
-#      ddl-auto: create
+      ddl-auto: create
     #      ddl-auto: create-drop
     #      ddl-auto: update
-          ddl-auto: validate
+#          ddl-auto: validate
     properties:
       hibernate:
         format_sql: true

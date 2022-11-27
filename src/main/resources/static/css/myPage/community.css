@@ -1,0 +1,183 @@
+@charset "UTF-8";
+
+button.sendPage-btn {
+    height: 36px;
+    padding: 0 12px;
+    min-width: 49px;
+    font-size: 14px;
+    line-height: 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 400;
+    margin: 24px auto 0;
+    background-color: #d6e4d0;
+    color: #45a16d;
+    cursor: pointer;
+}
+
+div.commu {
+    display: flex!important;
+    flex-direction: column;
+    padding: 0 7px;
+    margin-bottom: 4px;
+    background: #fff;
+    position: relative;
+    border-bottom: 1px solid #eaecee;
+}
+
+div.c-link:hover {
+    background: #f6f6f6;
+    border-radius: 8px;
+}
+
+div.c-top-wrap {
+    display: flex;
+    justify-content: space-between;
+    color: rgb(148, 155, 160);
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 8px 0;
+}
+
+div.t-s-wrap  {
+    display: flex;
+    flex-direction: row;
+    font-size: 13px;
+}
+
+div.c-address {
+    color: rgb(148, 155, 160);
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+}
+div.c-pay {color: rgb(238, 126, 65);}
+
+div.c-status {
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.c-wait {color: rgb(148, 155, 160);}
+.c-accept {color: #47c880;}
+.c-refuse {color: #ff4d4d;}
+.c-end {color: rgb(148, 155, 160);}
+
+a.c-delete {color: rgb(118, 125, 130);}
+
+a.c-delete:hover {
+    color: rgb(76, 76, 76);
+    font-weight: 600;
+}
+
+div.c-group {
+    display: flex;
+
+    width: 100%;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+    cursor: pointer;
+}
+
+div.c-g-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.commu-group {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 8px;
+    color: rgb(60, 65, 68);
+    font-size: 16px;
+    text-align: right;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+}
+
+span.c-count {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+
+span.c-count svg {
+    margin-right: 4px!important;
+}
+span.c-text {
+    color: rgb(148, 155, 160);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+div.c-status>span {
+    padding: 0 5px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.i-finish {color: #47c880;}
+.i-ing {color: rgb(118, 125, 130);}
+
+/* 삭제 모달 */
+#alam {
+    width: 350px;
+    height: 140px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 10px;
+    background: #fff;
+    letter-spacing: 1px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    z-index: 1000;
+}
+
+#alam>p {
+    margin: 10px 0;
+    color: rgb(60, 65, 68);
+}
+
+#alam-btn-group {
+    margin-top: 26px;
+    text-align: center;
+}
+
+#alam-btn-group>button {
+    width: 135px;
+    height: 48px;
+    border-radius: 8px;
+    font-size: 16px;
+    letter-spacing: .02em;
+    font-weight: 500;
+}
+
+.a-ok {
+    border: 0;
+    background: #47c880;
+    color: #fff;
+}
+
+.a-no {
+    background: #fff;
+    border: 1px solid #d5d5d5;
+}
+.a-ok:hover {background: #357e55;}
+.a-no:hover {background: rgba(231, 231, 231, 0.47);}
+
+@media only screen and (min-width: 768px) {
+    div.modal-close {
+        top: 0;
+        right: -25px;
+    }
+}

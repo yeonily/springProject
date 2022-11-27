@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="stylesheet" href="/css/admin/sideMenuList.css"> <!-- 사이드 메뉴 & 해더 -->
+    <link rel="stylesheet" href="/css/admin/main_contents.css"> <!-- 메인 컨텐츠 -->
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <!-- 사이드 메뉴 -->
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="/js/admin/side_menu.js"></script>
+    <title>관리자-메인</title>
+</head>
+
+<body>
+
+<div id="wrapper">
+    <!-- 세로 메뉴바 -->
+    <nav th:replace="/fix/side_menu.html :: sideMenu"></nav>
+
+    <!-- 헤더 ~ 밑에 메인 컨텐츠 -->
+    <div id="container">
+        <!-- 헤더 -->
+        <header>
+            <span id="admin-header-title" class="short">메인</span>
+            <span id="admin-mode">관리자 모드</span>
+            <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
+        </header>
+
+        <div class="content-wrap">
+
+            <div class="c-w-wrap">
+
+                <!-- 최신 유저 -->
+                <div class="contents small">
+                    <div class="content-title">
+                        <div class="title">최근 가입한 사용자</div>
+                        <div class="title2">
+                            <a th:href="@{/admin/user}">더보기 →</a>
+                        </div>
+                    </div>
+                    <div class="c-content">
+                        <table>
+                            <colgroup>
+                                <col width="18%;">
+                                <col width="34%;">
+                                <col width="18%;">
+                                <col width="10%;">
+                                <col width="20%;">
+                            </colgroup>
+                            <tbody>
+                            <!-- 최근 가입한 사용자 -->
+                            <tr>
+                                <td class="name">[김민혁]</td>
+                                <td class="grade">농장주</td>
+                                <td>010-1234-1234</td>
+                                <td>경기</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[김지연]</td>
+                                <td class="grade">일반인</td>
+                                <td>010-1234-1234</td>
+                                <td>서울</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[서승우]</td>
+                                <td class="grade">농장주</td>
+                                <td>010-1234-1234</td>
+                                <td>인천</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[박수현]</td>
+                                <td class="grade">일반인</td>
+                                <td>010-1234-1234</td>
+                                <td>경기</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[정호석]</td>
+                                <td class="grade">농장주</td>
+                                <td>010-1234-1234</td>
+                                <td>경기</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="contents small">
+                    <div class="content-title">
+                        <div class="title">아르바이트 관리</div>
+                        <div class="title2">
+                            <a th:href="@{/admin/job}">더보기 →</a>
+                        </div>
+                    </div>
+                    <div class="c-content">
+                        <table>
+                            <colgroup>
+                                <col width="20%;">
+                                <col width="55%;">
+                                <col width="20%;">
+                            </colgroup>
+                            <tbody class="reply">
+                            <!-- 아르바이트 글 최근 순 출력 (5개) -->
+                            <tr>
+                                <td class="title">[벼 알바 하실분 구합니다.]</td>
+                                <td class="content">벼알바 시급 15000원16000원17000원18000원19000원20000원21000원22000원15000원</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title">[벼 알바]</td>
+                                <td class="content">벼알바 시급 15000원</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title">[밭 농사 하실분 구합니다.]</td>
+                                <td class="content">벼알바 시급 15000원16000원</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title">[밭 농사]</td>
+                                <td class="content">농업에 관심 있는 분 지원해주세요.</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title">[꿀 알바 하실분]</td>
+                                <td class="content">꿀 알바 시급 3만원. 책임감 있는분 모십니다.</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 댓글 -->
+                <div class="contents small">
+                    <div class="content-title">
+                        <div class="title">커뮤니티 댓글 관리</div>
+                        <div class="title2">
+                            <a th:href="@{/admin/board-reply}">더보기 →</a>
+                        </div>
+                    </div>
+                    <div class="c-content">
+                        <table>
+                            <colgroup>
+                                <col width="17%;">
+                                <col width="65%;">
+                                <col width="18%;">
+                            </colgroup>
+                            <tbody class="reply">
+                            <!-- 댓글 최근 순 출력 (5개) -->
+                            <tr>
+                                <td class="name">[김지연]</td>
+                                <td class="content">안녕하세요~</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[서승우]</td>
+                                <td class="content">도움 많이 얻었습니다!! 감사합니다!</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[정호석]</td>
+                                <td class="content">혹시 바구니 무료나눔 받을 수 있나요??</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[김민혁]</td>
+                                <td class="content">오늘 가입했습니다!!</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[연태관]</td>
+                                <td class="content">궁금점이 많이 해결된 것 같아요!!</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="c-w-wrap">
+                <div class="contents small">
+                    <div class="content-title">
+                        <div class="title">프로그램 관리</div>
+                        <div class="title2">
+                            <a th:href="@{/admin/program-list}">더보기 →</a>
+                        </div>
+                    </div>
+                    <div class="c-content">
+                        <table>
+                            <colgroup>
+                                <col width="20%;">
+                                <col width="55%;">
+                                <col width="20%;">
+                            </colgroup>
+                            <tbody class="reply">
+                            <!-- 프로그램 게시글 최근 순 출력 (5개) -->
+                            <tr>
+                                <td class="title">[드론으로 배우는 농업기술]</td>
+                                <td class="content">모두가 쉽게 배울 수 있는 드론기술과 농업기술!</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[프로그램 제목을 지어주세요]</td>
+                                <td class="content">프로그램 제목을 뭐로 할까요?</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[재미있는 농업스킬 배우기]</td>
+                                <td class="content">혹시 농업스킬을 배우는게 두렵나요??</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[모두가 도전할 수 있습니다. 귀농귀촌.]</td>
+                                <td class="content">귀농귀촌이 궁금하신분들은 이 프로그램을 신청하세요!!</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="name">[깨끗한 공기를 느낄 수 있어요]</td>
+                                <td class="content">귀농귀촌 어렵지 않아요~</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 멘토 홍보 -->
+                <div class="contents small">
+                    <div class="content-title">
+                        <div class="title">멘토홍보</div>
+                        <div class="title2">
+                            <a th:href="@{/admin/promotion}">더보기 →</a>
+                        </div>
+                    </div>
+                    <div class="c-content">
+                        <table>
+                            <colgroup>
+                                <col width="80%;">
+                                <col width="20%;">
+                            </colgroup>
+                            <tbody>
+                            <!-- 멘토홍보 게시글 최근 순 출력 (5개) -->
+                            <tr> <!-- [지역][주작목] - 이름 -->
+                                <td class="title" onclick="location.href='#'">[경기도][블루베리] - 홍길동</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">[홍천군][특수작물] - 나문희</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">[횡성군][더덕] - 김미영</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">[화천군][와송] 이순재</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">[홍천군][밭작물] 한동석</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 자유게시판 공간 -->
+                <div class="contents small">
+                    <div class="content-title">
+                        <div class="title">자유게시판</div>
+                        <div class="title2">
+                            <a th:href="@{/admin/board}">더보기 →</a>
+                        </div>
+                    </div>
+                    <div class="c-content">
+                        <table>
+                            <colgroup>
+                                <col width="80%;">
+                                <col width="20%;">
+                            </colgroup>
+                            <tbody>
+                            <!-- 자유게시판 게시글 최근 순 출력 (5개) -->
+                            <tr>
+                                <td class="title" onclick="location.href='#'">요즘 관심가지고 있는 파테크 아시냐요?</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">아이들과 함께하는 꽃밭 가꾸기 팁</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">청년! 3박4일 예천에 한번 살아볼까요?</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">● [ 농산물상자 & 파렛트 ] 저렴히 판매합니다..●</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            <tr>
+                                <td class="title" onclick="location.href='#'">귀농 귀촌 하우스 농사 하실분</td>
+                                <td class="date">2022-10-03 10:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+<html>

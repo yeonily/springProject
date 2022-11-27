@@ -1,0 +1,589 @@
+/*만약 서브메뉴가 필요한 경우 아래와 같이 margin-top: 114px로 해야함 */
+/*div.wrap {
+    margin-top: 114px;
+}*/
+button.on {
+    border-bottom: 3px solid #595f63 !important;
+}
+
+button.off{
+    color: #adb3b8!important;
+}
+
+
+/*--------------------------------*/
+            /*기본 세팅*/
+/*--------------------------------*/
+body, button {
+    margin: 0;
+    vertical-align: baseline;
+    font-family: "Pretendard";
+
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+a {text-decoration: none;}
+div.flex {display: flex;}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+button{cursor: pointer;}
+
+div.header_container div#fake {
+    height: 113px;
+    position: relative;
+    content: "";
+    width: 100%;
+}
+
+/*--------------------------------*/
+        /*헤더에서 큰 틀*/
+/*--------------------------------*/
+div.header {
+    display: block;
+    border-bottom: 1px solid #EAECEE;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: #ffffff;
+}
+.header_container {
+    max-width: 1140px;
+    height: 68px;
+    margin: 0 auto;
+}
+
+div.header_item {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    top: 14px;
+    vertical-align: middle;
+}
+
+
+
+
+/*--------------------------------*/
+    /*헤더 좌측 로고~대카 부분*/
+/*--------------------------------*/
+div.header_nav {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
+div.header_nav div.logo {
+    margin-right: 24px;
+    padding-top: 4px;
+    padding-left: 15px;
+}
+
+
+div.header_nav ul.nav_ul {
+    display: inline-flex;
+}
+
+div.header_nav ul.nav_ul li{
+    margin-right: 24px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+ul.nav_right_after li:nth-child(2) {
+    display: none !important;
+}
+
+div.header_nav ul.nav_ul li a {
+    color: #595F63;
+}
+
+/*--------------------------------*/
+/*필요한 사람은 리스트 옆에 추가하면 미니 글자 나옴*/
+/*--------------------------------*/
+div.m_font {
+    color:#6EA7EB;
+    font-weight:600;
+    font-size: 10px;
+    display: inline-flex;
+    margin-left: 4px;
+    visibility: hidden;
+}
+
+
+
+
+/*--------------------------------*/
+    /*헤더 우측 메뉴(로그인 전)*/
+/*--------------------------------*/
+div.header_nav aside {
+    display: inline-flex;
+    flex-grow: 1;
+}
+div.header_nav ul.nav_right {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+div.header_nav ul.nav_right li{
+    margin-left: 18px;
+    font-size: 14px;
+    display: inline-flex;
+    flex-direction: row;
+}
+div.header_nav ul.nav_right li a {
+    color: #949BA0;
+    padding: 4px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.header_nav ul.nav_right li a:hover {
+    background-color: #F3F4F5;
+    border-radius: 6px;
+}
+
+
+
+
+/*--------------------------------*/
+        /*헤더 우측 메뉴(로그인 후)*/
+/*--------------------------------*/
+div.header_nav ul.nav_right_after {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+div.header_nav ul.nav_right_after li:first-child{
+    position: relative;
+}
+div.header_nav ul.nav_right_after li{
+    margin-left: 12px;
+    font-size: 14px;
+    display: inline-flex;
+    flex-direction: row;
+}
+button.c-application {
+    cursor: pointer;
+    padding: 2px;
+    border: 0;
+    margin-top: 4px;
+    background-color: inherit;
+}
+div.header_nav ul.nav_right_after button.c-application {
+    border-radius: 5px;
+}
+
+
+/*--------------------------------*/
+        /*마이페이지 서브 메뉴*/
+/*--------------------------------*/
+div.header_nav ul.nav_right_after div.sub-menu {
+    position: absolute;
+    top: 40px;
+    left: 1027px;
+    z-index: 10;
+    display: block;
+    border-radius: 5px;
+    width: 117px;
+    box-shadow: 1px 1px 5px #eaebeb;
+    background: rgb(250, 250, 250);
+}
+div.header_nav ul.nav_right_after div.sub-menu:before {
+    content: "";
+    position: absolute;
+    border-top: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid rgb(247 247 247);
+    border-left: 6px solid transparent;
+    top: -11%;
+    right: 44%;
+}
+div.sub-menu ul {
+    margin-top: 5px;
+    line-height: 19px;
+}
+div.sub-menu ul li {
+    padding: 5px 10px;
+}
+div.sub-menu ul li div {
+    border-radius: 1px;
+}
+div.sub-menu ul li a{
+    font-size: 12px;
+    color: #595f63;
+    display: inline-block;
+    margin-left: 23px;
+}
+
+div.sub-menu>ul>li>div {
+    display: flex;
+}
+
+hr {
+    border: 0.1px solid rgb(244,244,244);
+    margin: 0 auto;
+    width: 100px;
+}
+div.sub-menu ul li span {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+}
+
+div.sub-menu ul li span.mypageLink {
+    background-image: url("/image/header/mypage.png");
+}
+div.sub-menu ul li span.commuLink {
+    background-image: url("/image/header/commu.png");
+}
+div.sub-menu ul li span.chatLink {
+    background-image: url("/image/header/chat.png");
+}
+div.sub-menu ul li span.logout {
+    background-image: url("/image/header/logout.png");
+    background-size: 14px 14px;
+}
+
+
+
+/*--------------------------------*/
+    /*검색창(기능에 맞게 설정 필요)  */
+/*--------------------------------*/
+div.search_form {
+    display: inline-flex;
+    flex-direction: row;
+    width: 242px;
+    height: 40px;
+}
+div.search_form input.search_keyword {
+    display: inline-block;
+    border-radius: 4px;
+    border: 0;
+    background: hsla(0,0%,98.8%,.6);
+    padding: 10px 0px 10px 14px;
+    font-size: 14px;
+    line-height: 20px;
+    width: 200px;
+    font-family: Pretendard;
+}
+div.search_form input.search_keyword::placeholder {
+    color: #c9c9d0;
+    font-size: 14px;
+}
+button.search_img {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 5px 12px 0 4px;
+    vertical-align: middle;
+    background-image: url("../../image/header/searchIcon.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: inherit;
+}
+button.search_img:hover {
+    background-color: #f3f4f5;
+}
+
+
+
+
+/*--------------------------------*/
+            /*알림창*/
+/*--------------------------------*/
+/*알림 버튼 클릭시 적용*/
+div.mask {
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100%;
+    position: fixed;
+    content: " ";
+    background: #000;
+    opacity: .6;
+    visibility: hidden;
+}
+
+div.alarm {
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1002;
+    background-color: #f3f4f5;
+    opacity: 1;
+    visibility: hidden;
+}
+div.alarm div.top-div {
+    width: 360px;
+    height: 57px;
+    background-color: #fdfeff;
+    line-height: 57px;
+}
+div.alarm div.top-div p,
+div.alarm div.top-div button {
+    display: inline-block;
+    vertical-align: middle;
+}
+div.alarm div.top-div span {
+    content: "";
+    display: inline-block;
+    width: 230px;
+}
+div.alarm div.top-div p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 0 15px;
+}
+div.alarm div.top-div button {
+    height: 24px;
+    width: 56px;
+    font-size: 10px;
+    border: 1px solid #949ba0;
+    color: #767d82;
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+/*알림창 리스트*/
+div.alarmList {
+    border-bottom: 1px solid rgb(238, 238, 238);
+    cursor: pointer;
+}
+div.alarmList:hover {
+    background-color: rgb(223, 223, 223);
+}
+div.alarmDetail {
+    width: 320px;
+    height: 63px;
+    padding: 20px;
+    display: inline-flex;
+}
+div.alarmDetail img {
+    width: 45px;
+    height: 45px;
+    margin-right: 7px;
+}
+div.alarmDetail div.alarmContent span {
+    font-size: 14px;
+    color: rgb(32, 35, 37);
+    margin-top: 5px;
+}
+div.alarmDetail div.alarmContent p {
+    margin: 10px 0 0 0;
+    font-size: 12px;
+    color: rgb(173, 179, 184);
+}
+
+/*알림이 있는 경우 빨간원*/
+span.alarm-red {
+    width: 7px;
+    height: 7px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    right: 6px;
+    top: 8px;
+}
+
+/*--------------------------------*/
+            /*서브헤더 영역*/
+/*--------------------------------*/
+div#sub_header {
+    border-top: 1px solid #eaecee;
+    box-shadow: 0 3px 8px rgb(238 238 238);
+    height: 44px;
+    width: 100%;
+}
+div#sub_header div.menuList {
+    margin: 0 auto;
+    width: 1108px;
+}
+div#sub_header div.menuList ul li{
+    display: inline-block;
+}
+div#sub_header div.menuList ul li button {
+
+    height: 44px;
+    margin-right: 12px;
+    background-color: inherit;
+    border: 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Pretendard,Apple SD Gothic Neo,Helvetica Neue,Helvetica,Arial,Trebuchet MS,sans-serif;
+    color: #040505;
+}
+div#sub_header div.menuList ul li button:hover {
+    background-color: #eaeaea7d;
+    border-radius: 5px;
+}
+
+.selected{
+    font-weight: 600!important;
+    color: #040505;
+}
+
+
+
+
+
+
+/*--------------------------------*/
+            /*모바일 화면*/
+/*--------------------------------*/
+@media only screen and (max-width: 768px) {
+    * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    .header_container{
+        height: 52px;
+        overflow: hidden;
+    }
+
+    ul.nav_ul{
+        display: none!important;
+    }
+
+    .nav_right_after li:nth-child(2){
+        display: none!important;
+    }
+
+    .nav_right_after li:nth-child(3){
+        display: none!important;
+    }
+
+    input.search_keyword{
+        display: none!important;
+    }
+
+    button.search_img{
+        position: relative!important;
+        left: 220px!important;
+    }
+
+    /*알림 아이콘*/
+    .mr-4.c-application.c-icon {
+        fill: rgb(60, 65, 68);
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        display: inline-block !important;
+    }
+    button.c-application {
+        position: relative;
+    }
+
+
+    div.alarm {
+        width: 100%;
+    }
+    div.alarm div.top-div {
+        width: 100%;
+        height: 57px;
+        background-color: #fdfeff;
+        line-height: 54px;
+        position: relative;
+    }
+    div.alarm div.top-div p {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 0 0px 43px;
+    }
+    div.alarm div.top-div span {
+        content: "";
+        display: inline-block;
+        width: 63%;
+    }
+}
+
+
+/* 스크롤 */
+@media only screen and (min-width: 768px){
+    html ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        border: 3px solid #fff;
+    }
+    html ::-webkit-scrollbar-thumb {
+        height: 50px;
+        width: 50px;
+        background: #eaecee;
+        border-radius: 8px;
+        -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 10%);
+    }
+    html ::-webkit-scrollbar-track {
+        background: #f3f4f5;
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 20%);
+    }
+}
+
+/*------------------------------------------*/
+                /*모바일 창*/
+/*------------------------------------------*/
+@media only screen and (max-width: 768px) {
+    /*헤더*/
+    div.header_nav {
+        width: 100%;
+        height: 75%;
+        display: inline-flex;
+        align-items: center;
+    }
+    div.header_nav ul.nav_right_after {
+        display: inline-flex;
+        flex-direction: row-reverse;
+        width: 100%;
+    }
+    button.c-application {
+        cursor: pointer;
+        padding: 2px;
+        border: 0;
+        margin-top: 4px;
+        background-color: inherit;
+    }
+    div.search_form {
+        flex-direction: row;
+        width: 190px;
+        height: 40px;
+    }
+    div.search_form input.search_keyword {
+        display: inline-block !important;
+        border-radius: 4px;
+        border: 0;
+        background: hsla(0,0%,98.8%,.6);
+        padding: 10px 0px 10px 14px;
+        font-size: 14px;
+        line-height: 20px;
+        width: 155px;
+    }
+    button.search_img {
+        position: relative;
+        left: 0 !important;
+        margin: 6px 0 0 0;
+    }
+    div.header_nav ul.nav_right_after li {
+        margin-left: 0;
+    }
+
+    div.noti-button-container {
+        margin-left: 7px;
+        margin-bottom: 5px;
+        margin-right: 15px;
+    }
+    span.alarm-red {
+        right: 5px;
+        top: 4px;
+    }
+}

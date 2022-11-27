@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/login/join.css" />
+
+    <!--날짜 select 박스-->
+</head>
+<body>
+<!--<div th:replace="/header/header.html :: header" class="header"/>-->
+
+<div id="joinForm-wrap">
+    <form action="" name="joinForm">
+        <section class="j-t-group">
+            <div id="join-title">
+                <div>
+                    <span id="name"></span>님, <span class="welcome-txt">환영합니다!</span>
+                </div>
+                <div>회원가입을 위해 <span class="welcome-txt">양식</span>을 채워주세요.</div>
+            </div>
+            <div id="join-sub-title">전문적인 강사 경험이 없어도 실무 과정을 만들 수 있도록 도와드릴게요.</div>
+        </section>
+        <section class="join-form">
+            <div class="j-title">이름</div>
+            <input type="text" class="join-input" name="name" placeholder="이름을 입력하세요">
+        </section>
+        <section class="join-form">
+            <div class="j-title">닉네임</div>
+            <div class="nick-group">
+                <input type="text" class="join-input" name="nickname" placeholder=" 닉네임을 입력하세요">
+                <button type="button" class="nick nick-check" onclick="joinNickCheck()">중복확인</button>
+            </div>
+        </section>
+        <div class="nickname-check">
+            <!-- 중복 체크 문구 -->
+            <div class="nick-c-save" style="display: /*none*/;">
+                <div class="nick-warning" style="background: #47c880;">!</div>
+                <div style="color: #47c880;">사용 가능한 닉네임입니다.</div>
+            </div>
+            <div class="nick-c-save" style="display: none;">
+                <div class="nick-warning" style="background: rgb(233, 37, 37);">!</div>
+                <div style="color: rgb(233, 37, 37);">이미 사용중인 닉네임입니다.</div>
+            </div>
+            <!------------------>
+        </div>
+        <section class="join-form">
+            <div class="j-title">구분</div>
+            <div class="nick-group">
+                <div class="flex f-section flex user-type">
+                    <input type="radio" name="grade" id="user" value="user"/>
+                    <label class="grade" for="user" style="margin-right:13px;">일반인</label>
+                    <input type="radio" name="grade" id="farmer" value="farmer"/>
+                    <label class="grade" for="farmer">농장주</label>
+                </div>
+            </div>
+            <div id="farmer-check">농장주는 멘토/프로그램/아르바이트 글을 등록할 수 있습니다.</div>
+        </section>
+        <section class="join-form">
+            <div class="j-title">생년월일</div>
+            <div class="date-s-group">
+                <select name="year" id="year" title="년도" class="join-input date-s"></select>년
+                <select name="month" id="month" title="월" class="join-input date-s"></select>월
+                <select name="day" id="day" title="일" class="join-input date-s"></select>일
+            </div>
+        </section>
+        <section class="join-form">
+            <div class="j-title">휴대폰 번호</div>
+            <input type="text" class="join-input" name="phone" oninput="autoHyphen(this)" maxlength="13" placeholder="휴대폰 번호를 입력하세요">
+        </section>
+        <section class="join-form">
+            <div class="j-title">지역</div>
+            <input type="text" class="join-input" name="address" placeholder="지역을 입력하세요">
+        </section>
+<!--        <button class="joinBtn">회원 가입하기</button>-->
+        <button type="button" class="joinBtn" onclick="join()">회원 가입하기</button>
+    </form>
+</div>
+<!-- 알람 모달창 -->
+<div class="overlay-l" style="display: none">
+    <div class="m-al">아이디 중복 체크를 진행해 주세요.</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="/js/myPage/join.js"></script>
+<script src="/js/myPage/date.js"></script>
+</html>

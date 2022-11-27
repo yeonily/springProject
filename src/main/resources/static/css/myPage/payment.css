@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+div.n-c-wrap {
+    padding: 16px 20px;
+    min-height: 250px;
+    display: flex!important;
+    flex-direction: column;
+    justify-content: center;
+
+    color: rgb(118, 125, 130);
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: .02em;
+}
+
+div.payment {
+    display: flex!important;
+    flex-direction: column;
+    padding: 0;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    position: relative;
+    border-bottom: 1px solid #eaecee;
+
+}
+
+div.p-date {
+    margin-bottom: 8px;
+    color: rgb(118, 125, 130);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+div.program-name {
+    color: rgb(32, 35, 37);
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+}
+
+div.p-price {
+    color: rgb(60, 65, 68);
+    text-align: right;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+}

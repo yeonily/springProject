@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/main/main.css"/>
+    <link rel="stylesheet" href="/css/main/mainRes.css"/>
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <title>너와 농부싶어</title>
+</head>
+<body>
+    <div th:replace="/header/header.html :: header" class="header"/>
+    <div id="wrap">
+        <!--헤더 삽입-->
+
+        <!--메인 배너 Swiper-->
+        <div class="main_banner">
+            <div class="swiper mySwiper1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-color: rgb(120 157 200);">
+                        <div>
+                            <p>귀농준비는 여기서!</p>
+                            <p>귀농민을 위한</p>
+                            <p>다양한 정보공유 커뮤니티</p>
+                        </div>
+                        <img src="https://img95.lovepik.com/photo/40112/1364.gif_wh300.gif">
+                    </div>
+                    <div class="swiper-slide" style="background-color: rgb(204 209 137);">
+                        <div>
+                            <p>베딩턴에서 즐기는</p>
+                            <p>놀거리가 가득한!!</p>
+                            <p>청년농업 맥주 페스티벌</p>
+                        </div>
+                        <img src="https://images.squarespace-cdn.com/content/v1/5b238a149f8770a79bf32145/1626698989712-EHL4K2F4ODT1E4TFDBY7/beddington-farm-gif.gif?format=1500w">
+                    </div>
+                    <div class="swiper-slide" style="background-color: rgb(204 226 222);">
+                        <div>
+                            <p>소수정예 실무</p>
+                            <p>퍼스널 트레이닝</p>
+                        </div>
+                        <img src="https://dgfarm.kr/img/2022/main/m_mv_01.jpg">
+                    </div>
+                </div>
+                <div class="buttonTest">
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <!--두 번째 배너-->
+        <div class="sub_banner">
+            <div class="sub_banner_inner">
+                <h1>농촌 노하우 전수는 멘토와 함께!</h1>
+                <!--멘토 슬라이드 배너-->
+                <div class="swiper mySwiper2">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <!--대표 이미지 영역-->
+                            <div class="imgDiv" style="background-image: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/04/urbanbrush-20220404144009535832.jpg');"></div>
+                            <div class="textDiv">
+                                <p>닉네임</p>
+                                <h3>멘토가 알려주는 감자 농사법</h3>
+                                <div class="mentor_info_caption">
+                                    <div class="mentor_star">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
+                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                        </svg>
+                                        <span class="mentor_star_span">4.9</span>
+                                        <div class="mentor_star_avg">(221)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/05/urbanbrush-20220524083528618198.jpg');"></div>
+                            <div class="textDiv">
+                                <p>닉네임</p>
+                                <h3>멘토가 알려주는 감자 농사법</h3>
+                                <div class="mentor_info_caption">
+                                    <div class="mentor_star">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
+                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                        </svg>
+                                        <span class="mentor_star_span">4.9</span>
+                                        <div class="mentor_star_avg">(221)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('http://image.newsis.com/2020/06/15/NISI20200615_0000544724_web.jpg');"></div>
+                            <div class="textDiv">
+                                <p>닉네임</p>
+                                <h3>멘토가 알려주는 감자 농사법</h3>
+                                <div class="mentor_info_caption">
+                                    <div class="mentor_star">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
+                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                        </svg>
+                                        <span class="mentor_star_span">4.9</span>
+                                        <div class="mentor_star_avg">(221)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('http://www.dhns.co.kr/news/photo/202112/272933_174604_105.jpg');"></div>
+                            <div class="textDiv">
+                                <p>닉네임</p>
+                                <h3>멘토가 알려주는 감자 농사법</h3>
+                                <div class="mentor_info_caption">
+                                    <div class="mentor_star">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
+                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                        </svg>
+                                        <span class="mentor_star_span">4.9</span>
+                                        <div class="mentor_star_avg">(221)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://newsimg.sedaily.com/2019/03/27/1VGR33B4HX_2.jpg');"></div>
+                            <div class="textDiv">
+                                <p>닉네임</p>
+                                <h3>멘토가 알려주는 감자 농사법</h3>
+                                <div class="mentor_info_caption">
+                                    <div class="mentor_star">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
+                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                        </svg>
+                                        <span class="mentor_star_span">4.9</span>
+                                        <div class="mentor_star_avg">(221)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button next2"></div>
+                <div class="swiper-button prev2"></div>
+            </div>
+        </div>
+
+        <!--광고 이미지-->
+        <div id="middleImg">
+            <img src="/image/main/middle-banner2.png">
+        </div>
+
+
+        <!--커뮤니티 슬라이더-->
+        <div id="communitySlide">
+            <div id="communitySlide_inner">
+                <h1>커뮤니티에서 지금 만나요</h1>
+                <!--커뮤니티 슬라이더-->
+                <div class="swiper mySwiper3">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-slide-inner">
+                                <div class="slideContent">
+                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>
+                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>
+                                    <p class="communityContent">
+                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.
+                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한
+                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !
+                                    </p>
+                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>
+                                    <hr>
+                                    <div class="communityComment">
+                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>
+                                        <div class="nickName"><strong>캐빈코치</strong></div>
+                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>
+                                    </div>
+                                    <div class="communityComment">
+                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>
+                                        <div class="nickName"><strong>으어사고오</strong></div>
+                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>
+                                    </div>
+                                    <div class="moreBtn">
+                                        <button type="button">+ 더보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-slide-inner">
+                                <div class="slideContent">
+                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>
+                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>
+                                    <p class="communityContent">
+                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.
+                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한
+                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !
+                                    </p>
+                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>
+                                    <hr>
+                                    <div class="communityComment">
+                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>
+                                        <div class="nickName"><strong>캐빈코치</strong></div>
+                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>
+                                    </div>
+                                    <div class="communityComment">
+                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>
+                                        <div class="nickName"><strong>으어사고오</strong></div>
+                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>
+                                    </div>
+                                    <div class="moreBtn">
+                                        <button type="button">+ 더보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-slide-inner">
+                                <div class="slideContent">
+                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>
+                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>
+                                    <p class="communityContent">
+                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.
+                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한
+                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !
+                                    </p>
+                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>
+                                    <hr>
+                                    <div class="communityComment">
+                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>
+                                        <div class="nickName"><strong>캐빈코치</strong></div>
+                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>
+                                    </div>
+                                    <div class="communityComment">
+                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>
+                                        <div class="nickName"><strong>으어사고오</strong></div>
+                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>
+                                    </div>
+                                    <div class="moreBtn">
+                                        <button type="button">+ 더보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button next3"></div>
+                <div class="swiper-button prev3"></div>
+            </div>
+        </div>
+
+
+        <!--소카 대표메뉴-->
+        <div id="socaMenu">
+            <div id="socaMenu-inner">
+                <h1>자주 찾는 질문</h1>
+                <div class="menuList">
+                    <div class="menuList-menu">
+                        <img src="/image/main/FAQ.png">
+                        <span>농업신청은 어떻게 하나요? </span>
+                    </div>
+                    <div class="menuList-menu">
+                        <img src="/image/main/FAQ.png">
+                        <span>아르바이트 과정이 궁금해요 </span>
+                    </div>
+                    <div class="menuList-menu">
+                        <img src="/image/main/FAQ.png">
+                        <span>멘토는 아무나 할 수 있나요?</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--프로그램 목록(조회순)-->
+        <div id="programMenu">
+            <div id="programMenu-inner">
+                <h1>지금 가장 인기있는 프로그램이에요</h1>
+                <!--슬라이드 배너-->
+                <div class="swiper mySwiper4">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://www.gyeongju.go.kr/upload//board/board_1334/bod_205588//3B50701C9E75472EA3A6563371CA15C7.jpg');">
+                                <div><p>멘티전용</p></div>
+                            </div>
+                            <div class="textDiv">
+                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
+                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
+                                <p class="dateInfo">11월 28일 시작</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://blog.kakaocdn.net/dn/cJt2qn/btq0DrQzC7B/puKsuoBx7d0yeI1hFrADG0/img.jpg');">
+                                <div><p>멘티전용</p></div>
+                            </div>
+                            <div class="textDiv">
+                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
+                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
+                                <p class="dateInfo">11월 28일 시작</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://www.syngenta.co.kr/sites/g/files/zhg371/f/media-wysiwyg/2021/11/08/sinjenta_ceongnyeonnongeobin_neteuweokeu_baeneo_imiji.jpg');">
+                                <div><p>멘티전용</p></div>
+                            </div>
+                            <div class="textDiv">
+                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
+                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
+                                <p class="dateInfo">11월 28일 시작</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('http://www.palnews.co.kr/news/photo/201803/97075_27759_1823.jpg');">
+                                <div><p>멘티전용</p></div>
+                            </div>
+                            <div class="textDiv">
+                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
+                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
+                                <p class="dateInfo">11월 28일 시작</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://mblogthumb-phinf.pstatic.net/MjAxOTA5MDJfMjEx/MDAxNTY3Mzg2Nzg1MDgy.e2D4Q32L974bRVxWyXCdzH0izb5Waex7-D3KKoLC22og.orecX1NOMhSPNhTLKC8JxBIptDC_M6Tyqydndj_cgBEg.PNG.2000happy_/%EC%9D%B4%EC%B2%9C%EB%86%8D%EC%B4%8C%EC%B2%B4%ED%97%98.png?type=w800');">
+                                <div><p>멘티전용</p></div>
+                            </div>
+                            <div class="textDiv">
+                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
+                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
+                                <p class="dateInfo">11월 28일 시작</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button next4"></div>
+                <div class="swiper-button prev4"></div>
+            </div>
+        </div>
+
+
+        <!--두 번째 소카 대표메뉴-->
+        <div id="socaMenu2">
+            <div id="socaMenu2-inner">
+                <h1>사람들이 즐겨찾는 메뉴</h1>
+                <div class="menuList">
+                    <div class="menuList-menu" onclick="location.href='/mento/list'">
+                        <img src="/image/main/mento.png">
+                        <span>멘토 목록</span>
+                    </div>
+                    <div class="menuList-menu" onclick="location.href='/alba/list'">
+                        <img src="/image/main/alba.png">
+                        <span>아르바이트 목록</span>
+                    </div>
+                    <div class="menuList-menu" onclick="location.href='/information/stepTest'">
+                        <img src="/image/main/step.png">
+                        <span>단계별 테스트</span>
+                    </div>
+                    <div class="menuList-menu" onclick="location.href='/information/readyTest'">
+                        <img src="/image/main/ready.png">
+                        <span>준비도 테스트</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--아르바이트 목록(마감순)-->
+        <div id="albaMenu">
+            <div id="albaMenu-inner">
+                <h1>곧! 아르바이트가 마감돼요</h1>
+                <!--슬라이드 배너-->
+                <div class="swiper mySwiper5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201905/30/de84a1a8-b47d-4e9c-953d-8a9aba4c4f4c.jpg');"></div>
+                            <div class="textDiv">
+                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
+                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS72IVJx4Q7II7Y4de6T0yStpQuzIENR5Lkrg&usqp=CAU');"></div>
+                            <div class="textDiv">
+                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
+                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://newsimg.sedaily.com/2021/09/09/22RECMO715_1.jpg');"></div>
+                            <div class="textDiv">
+                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
+                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('http://www.dailydgnews.com/data/photos/20200520/art_15893586142009_3d56dd.jpg');"></div>
+                            <div class="textDiv">
+                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
+                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="imgDiv" style="background-image: url('https://www.kukinews.com/data/kuk/image/2022/05/17/kuk202205170117.680x.9.jpg');"></div>
+                            <div class="textDiv">
+                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
+                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button next5"></div>
+                <div class="swiper-button prev5"></div>
+            </div>
+        </div>
+
+
+       <!--푸터 삽입-->
+        <footer th:replace="/footer/footer.html :: footer" class="footer"/>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/main/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+
+</script>
+</html>

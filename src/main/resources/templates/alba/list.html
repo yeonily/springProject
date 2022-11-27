@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <title>아르바이트 목록</title>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="stylesheet" href="/css/alba/list.css"/>
+    <link rel="stylesheet" href="/css/alba/listRes.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/myPage/paging.css" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+</head>
+<body>
+    <div th:replace="/header/header.html :: header" class="header"/>
+
+    <div id="wrap">
+        <!--서브 배너-->
+        <div id="sub_banner">
+            <div class="sub_banner_content">
+                <div class="left-content">
+                    <h2>내가 좋아하고<br>잘할 수 있는 일 찾기</h2>
+                    <p>3개의 일경험으로 찾는 진로</p>
+                </div>
+                <div class="right-content">
+                    <img src="/image/alba/sub-banner.png">
+                </div>
+            </div>
+        </div>
+
+        <!--가장 인기 있는 아르바이트 목록(PC : 8개, Mobile : 4개)-->
+        <div id="alba_list">
+            <h2>가장 인기 있는 아르바이트 정보</h2>
+            <div class="alba_list_list">
+                <!--아래부터 div 추가-->
+                <div class="alba_div" onclick="location.href='/alba/detail'">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+                <div class="alba_div">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+                <div class="alba_div">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+                <div class="alba_div">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+                <div class="alba_div">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+                <div class="alba_div">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+                <div class="alba_div">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+                <div class="alba_div">
+                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
+                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
+                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!--일반 아르바이트 목록-->
+        <div id="normal_alba_list">
+            <!--목록 위에 총 개수 + 필터 메뉴-->
+            <div class="top-div">
+                <h1>일반 채용정보</h1>
+                <p>총 <span>20</span>건</p>
+            </div>
+            <div class="top-div-filter">
+                <span style="color: #000000">최신순</span>
+                <span>시급순</span>
+                <span>모집중</span>
+            </div>
+
+            <!--알바 찐 목록 list-->
+            <div class="normal_alba_list">
+                <!--th 부분-->
+                <div id="list_th">
+                    <span class="location">근무지</span>
+                    <span class="title">공고제목</span>
+                    <span class="workDay">근무날짜</span>
+                    <span class="pay">급여</span>
+                    <span class="registerDay">등록일</span>
+                </div>
+                <!--아래부터 리스트 쭉 출력해야함-->
+                <div class="list_td">
+                    <div class="location"><p>서울 강서구</p></div>
+                    <div class="title"><a href="/alba/detail">논산 딸기재배 아르바이트 (<span>모집중</span>)</a></div>
+                    <div class="workDay">2022년 11월 10일</div>
+                    <div class="pay">
+                        <p class="miniText">시급</p>
+                        12,000
+                    </div>
+                    <div class="registerDay">3분 전</div>
+                </div>
+                <div class="list_td">
+                    <div class="location"><p>경남 진주시</p></div>
+                    <div class="title"><a href="#">딸기 선별하실 알바님 구합니다. (<span>모집중</span>)</a></div>
+                    <div class="workDay">2022년 12월 10일</div>
+                    <div class="pay">
+                        <p class="miniText">시급</p>
+                        9,720
+                    </div>
+                    <div class="registerDay">1시간 전</div>
+                </div>
+                <div class="list_td">
+                    <div class="location"><p>대구 북구</p></div>
+                    <div class="title"><a href="#">농산 소포장하실 분 모집합니다. (<span>모집마감</span>)</a></div>
+                    <div class="workDay">2021년 12월 10일</div>
+                    <div class="pay">
+                        <p class="miniText">시급</p>
+                        9,160
+                    </div>
+                    <div class="registerDay">1일 전</div>
+                </div>
+                <div class="list_td">
+                    <div class="location"><p>서울 강서구</p></div>
+                    <div class="title"><a href="#">농산물(양파)가공 현장사원 및 납품사원 모집 (<span>모집마감</span>)</a></div>
+                    <div class="workDay">협의 후 진행</div>
+                    <div class="pay">
+                        <p class="miniText">시급</p>
+                        협의 후 진행
+                    </div>
+                    <div class="registerDay">1년 전</div>
+                </div>
+            </div>
+            <div id="writeBtn">
+                <button type="button" onclick="location.href = `/alba/write`">글쓰기</button>
+            </div>
+
+            <!--페이징 처리(PC : 10페이지까지, Mobile : 5페이지까지)-->
+            <div id="paging">
+                <ul>
+                    <li class="sidePageNum prev">
+                        <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                    </li>
+                    <li><a href="" class="page selectPage">1</a></li>
+                    <li><a href="" class="page">2</a></li>
+                    <li><a href="" class="page">3</a></li>
+                    <li><a href="" class="page">4</a></li>
+                    <li><a href="" class="page">5</a></li>
+                    <li><a href="" class="page">6</a></li>
+                    <li><a href="" class="page">7</a></li>
+                    <li><a href="" class="page">8</a></li>
+                    <li><a href="" class="page">9</a></li>
+                    <li><a href="" class="page">10</a></li>
+                    <li class="sidePageNum next">
+                        <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="/footer/footer.html :: footer" class="footer"/>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/alba/list.js"></script>
+</html>

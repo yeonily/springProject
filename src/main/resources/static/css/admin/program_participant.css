@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+div#contents-top div.c-left{
+    height: 235px;
+    max-width: 270px;
+    min-width: 270px;
+}
+
+/* 차트 */
+div#stickChart {
+    width: 100%;
+    height: 95%;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    margin: 0 auto;
+}
+
+div.content div.week { font-size: 16px; }
+
+th.num { width: 7%; }
+th.id { width: 13%; }
+th.title { width: 20%; }
+th.work-date { width: 11%; }
+th.work-time { width: 10%; }
+th.crop { width: 13%; }
+th.address { width: 9%; }
+th.date { width: 11%; }
+th.delete { width: 6%; }
+
+td.delete { padding: 0 0.3vw; }
+td.delete input[type="button"] {
+    width: 100%;
+    padding: 3px 1px;
+    border: 1px solid rgb(184, 184, 184);
+    box-shadow: 0.1px 0.1px 8px -5px #000000;
+    background: red;
+    font-weight: 600;
+    font-size: 0.9vw;
+    color: white;
+    cursor: pointer;
+    word-break: keep-all;
+}

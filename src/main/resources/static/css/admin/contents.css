@@ -1,0 +1,154 @@
+@charset "utf-8";
+
+div#contents-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 95px;
+    margin-bottom: 25px;
+    width: 90%;
+}
+
+div.content {
+    width: 37vw;
+    max-width: 500px;
+    min-width: 345px;
+    margin: 0 2vw;
+    background-color: #fff;
+    box-shadow: 0.1px 0.1px 8px -5px #7c7c7c;
+}
+
+div.content div.title {
+    margin-bottom: 4%;
+    padding: 10px 20px;
+    border-bottom: 1px solid #47474734;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 35px;
+}
+
+div.content div#counts-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+div#counts-group .counts{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid #47c880;
+
+    text-align: center;
+}
+
+div#counts-group .counts .count-title {
+    margin: 0 auto;
+    width: 80%;
+    height: 50px;
+    border-bottom: 1px solid #47474734;
+
+    line-height: 65px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+div#counts-group .counts .count {
+    line-height: 83px;
+    font-size: 30px;
+}
+
+
+/* 글 목록 */
+div.contents-bottom {
+    position: relative;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #fff;
+    box-shadow: 0.1px 0.1px 8px -5px #7c7c7c;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+}
+
+table td {
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+td input[type="button"] {
+    width: 100%;
+    padding: 3px 1px;
+    border: 1px solid rgb(184, 184, 184);
+    box-shadow: 0.1px 0.1px 8px -5px #000000;
+    font-weight: 600;
+    font-size: 0.9vw;
+    cursor: pointer;
+    word-break: keep-all;
+}
+
+td.answer input[type="button"] {
+    background: #47c880;
+    color: white;
+}
+
+@media screen and (max-width: 1030px) and (min-width: 990px) {
+    table th {
+        font-size: 14px;
+        line-height: 11px;
+    }
+    table td { font-size: 13px; }
+
+    div.contents-bottom span.caption {  font-size: 12px; }
+
+    div.contents-bottom input[type="button"] {
+        top: 15px;
+        right: 3vw;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    div#contents-top {
+        flex-wrap: wrap;
+    }
+
+
+    div#contents-top div.c-left {
+        margin-bottom: 12px;
+    }
+
+    div.content {
+        width: 70vw;
+        height: 27vw;
+        min-height: 250px;
+    }
+
+    div.content div.title { margin-bottom: 6%; }
+
+    div#lineChart { padding-top: 5%; }
+
+    div.contents-bottom { margin-top: 10px; }
+
+    div.contents-bottom span.caption {  font-size: 12px; }
+
+    div.contents-bottom input[type="button"] {
+        top: 15px;
+        right: 3vw;
+        font-size: 13px;
+    }
+
+    table { border-spacing: 0 3px; }
+
+    table th {
+        font-size: 13px;
+        line-height: 18px;
+    }
+    table td {
+        font-size: 12px;
+    }
+}

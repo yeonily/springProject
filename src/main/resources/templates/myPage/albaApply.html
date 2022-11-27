@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/myPage/sideMenu.css" />
+    <link rel="stylesheet" href="/css/myPage/applyList.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main">
+    <div class="wrap-w" style="padding-bottom: 0">
+        <div class="container">
+            <div class="contentsWrap">
+                <!--메뉴 카텍고리 시작-->
+                <div th:replace="/myPage/sidemenu.html :: myPageMenu"></div>
+                <!--컨텐츠 시작-->
+                <div class="contents">
+                    <div class="c-header">
+                        <div class="c-title">
+                            <div><img src="/image/myPage/backBtn.png" onclick="history.back();" class="back">아르바이트 신청자 목록</div>
+                        </div>
+                        <div class="content">
+                            <!-- 신청자가 없을 때 -->
+<!--                            <div id="content-wrap">-->
+<!--                                <div class="n-c-wrap" style="line-height: 25px;">-->
+<!--                                    신청자가 아직 없습니다.-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <!------------------->
+
+                            <!-- 신청자가 있을 때 -->
+                            <div id="c-w-wrap">
+                                <div id="ls-wrap" class="f-column apply-Lists-wrap">
+                                    <!---->
+                                    <div class="apply-wrap">
+                                        <div class="apply-list">
+                                            <div class="a-group">
+                                                <div class="a-name">박수현</div>
+                                                <div class="a-phone a-txt">java123@gmail.com</div>
+                                            </div>
+
+                                            <div class="a-group">
+                                                <!-- 프로그램 신청날짜 -->
+                                                <div class="a-date a-txt">2022.11.24</div>
+                                                <div class="a-btn-group">
+                                                    <button class="a-accept" onclick="alam();">수락</button>
+                                                    <button class="a-refuse">거절</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------------->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 푸터 -->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+
+<!-- 알람 모달창 -->
+<div class="overlay-l o-auto" style="display: none">
+    <div class="m-al">신청 인원이 다 찼습니다.</div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/myPage/myPage.js"></script>
+<script src="/js/myPage/list.js"></script>
+<script>
+    $(".apply-list").on("click", function(){
+        let $info = $(this).next();
+        let $moreBtn = $(this).find('svg');
+        console.log($moreBtn);
+
+        if ($info.css("height") == "0px") {
+            $(".a-more>svg").css("transform", "rotate(180deg)")
+            $(".apply-info").css("height", "0");
+            $(".apply-info").css("padding", "0");
+
+            $moreBtn.css("transform", "rotate(0)")
+            $info.css("height", "151px");
+            $info.css("padding", "12px 3px");
+        } else {
+            $moreBtn.css("transform", "rotate(180deg)")
+            $info.css("height", "0");
+            $info.css("padding", "0");
+        }
+    });
+
+    $("div.menu-a").removeClass('menu-select');
+    $("#alba").addClass('menu-select');
+</script>
+</html>

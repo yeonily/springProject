@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>농촌테스트</title>
+    <link rel="stylesheet" href="/css/information/stepTest.css">
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+
+
+<!--서브헤더-->
+<div class="grid-fluid">
+    <div class="grid-fluid-row">
+        <div class="banner-background"></div>
+        <div class="grid-container">
+            <div class="grid-container-row">
+                <div class="grid-container-col">
+                    <section class="pg-detail-banner">
+                        <div class="banner-title-container">
+                            <span class="pg-detail-banner-chip">step</span>
+                            <div class="pg-detail-banner-title">단계별 체크리스트</div>
+                            <div class="pg-detail-banner-headline">자신의 부족한 점을 단계별로 체크해 보아요!</div>
+                        </div>
+                        <div class="banner-image-container">
+                            <img class="pg-detail-banner-image" src="/image/information/stepTest.png" style="margin-top: 68px">
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 헤더 밑 컨텐츠 시작 -->
+<div id="container">
+
+    <!-- 체크리스트 -->
+    <div class="checklist-wrap">
+        <div class="checklist">
+            <span class="title">귀농 단계별 <strong>체크리스트</strong></span>
+            <span class="title-sub">ㆍ귀농단계별 체크리스트를 작성하여 단계별 부족한 점을 보완하여 효율적인 귀농계획을 수립하도록 합니다.</span>
+            <div class="check-wrap">
+                <table class="table-wrap">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="width:60%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="title">단계</th>
+                        <th scope="title">체크내용</th>
+                        <th scope="title">YES</th>
+                        <th scope="title">NO</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr> <!-- step1 -->
+                        <td class="td-step step-list" rowspan="2" scope="row">귀농결심</td>
+                        <td class="td-step">귀농결정에 대한 2년 이상고민 했습니까? </td>
+                        <td><input type="radio"  name="check1" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check1" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">귀농을 결심하게 된 이유와 목적이 분명합니까? </td>
+                        <td><input type="radio" name="check2" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check2"  class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                    <tr> <!-- step2 -->
+                        <td class="td-step step-list" rowspan="3" scope="row">귀농 정보 수집</td>
+                        <td class="td-step">민·관·학계 및 인터넷상의 귀농정보를 모두 수집하고 있나요? </td>
+                        <td><input type="radio" name="check3" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check3" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">귀농인을 적극적으로 유치하는 지자체를 2군데 이상 방문해 봤습니까? </td>
+                        <td><input type="radio" name="check4" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check4" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">농작업은 계절마다 다릅니다. 귀농 현장 답사시 한 장소에 세 번이상 방문하였습니까? </td>
+                        <td><input type="radio" name="check5" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check5" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr> <!-- step3 -->
+                        <td class="td-step step-list" rowspan="3" scope="row">귀농 교육 수강</td>
+                        <td class="td-step">귀농교육은 교차수강이 필요합니다. 민·관·학계의 귀농교육을 골고루 수강했나요? </td>
+                        <td><input type="radio" name="check6" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check6" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">주말농장 경험 또는 텃밭농사를 1년 이상 지어 보셨습니까? </td>
+                        <td><input type="radio" name="check7" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check7" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">교육수강 후 귀농한 농자에서 한 작목의 시작부터 수확까지 모든 과정을 경험해 봤나요? </td>
+                        <td><input type="radio" name="check8" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check8" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr> <!-- step4 -->
+                        <td class="td-step step-list" rowspan="2" scope="row">가족 동의</td>
+                        <td class="td-step">배우자 및 자녀의 동의를 구했나요? </td>
+                        <td><input type="radio"  name="check9" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check9" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">자녀의 미래교육문제에 대해 부부(가족) 간 합의를 하셨나요? </td>
+                        <td><input type="radio"  name="check10" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check10" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr> <!-- step5 -->
+                        <td class="td-step step-list" rowspan="5" scope="row">자금계획</td>
+                        <td class="td-step">농업소득과 자기자금으로 2~3년은 생활이 가능합니까? </td>
+                        <td><input type="radio"  name="check11" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check11" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">가족 중 농업 외 소득을 올릴 아이템이 있습니까? </td>
+                        <td><input type="radio"  name="check12" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check12" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">정부의 귀농창업자금지원에 대해 잘 알고 있나요? </td>
+                        <td><input type="radio"  name="check13" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check13" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">
+                            영농에 필요한 자금계획은 세워져 있습니까?
+                            <br>(초기 설비투자자금과 1년간의 자재 및 재료비, 농지구입시 토지대금)
+                        </td>
+                        <td><input type="radio"  name="check14" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check14" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">
+                            회사원일 때는 급여에서 차감되어 온 세금 및 4대보험 중에서 주민세, 건강보험료는 전년도 소득을 기준으로 과세됩니다.
+                            <br>이에 대하여 고려하고 있습니까?
+                        </td>
+                        <td><input type="radio"  name="check15" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check15" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr> <!-- step6 -->
+                        <td class="td-step step-list" rowspan="10" scope="row">작목 확정 및 귀농계획서 작성</td>
+                        <td class="td-step">작목은 선택했습니까? (어떤 작물을 재배할 것입니까?) </td>
+                        <td><input type="radio"  name="check16" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check16" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선정할 작목에 대해 가족의 이해가 있나요? </td>
+                        <td><input type="radio"  name="check17" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check17" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">경영형태(단일경영 또는 복합경영)는 선택했습니까? </td>
+                        <td><input type="radio"  name="check18" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check18" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선정할 작목의 최근 5년간 가격등락폭에 대해 알고 있나요? </td>
+                        <td><input type="radio"  name="check19" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check19" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선정할 작목과 귀농지역의 농업환경이 잘 맞습니까? </td>
+                        <td><input type="radio"  name="check20" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check20" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선정할 작목이 가급적 저장성이 있거나 택배 발송이 가능한 작목입니까? </td>
+                        <td><input type="radio"  name="check21" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check21" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선정할 작목이 외국에서 수입되고 있다면 수입농산물의 가격과 동향을 파악 했나요? </td>
+                        <td><input type="radio"  name="check22" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check22" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선정할 작목에 필요한 농기계 이용 대책은 있나요? </td>
+                        <td><input type="radio"  name="check23" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check23" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선택작목의 생산기술은 습득하고 있습니까? 또는 귀농 후에 기술 습득이 가능합니까?</td>
+                        <td><input type="radio"  name="check24" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check24" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">귀농현장전문가의 도움을 받아 귀농계획서를 작성했나요? </td>
+                        <td><input type="radio"  name="check25" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check25" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr> <!-- step7 -->
+                        <td class="td-step step-list" rowspan="4" scope="row">시설 확보 및 판매 계획</td>
+                        <td class="td-step">농업기계·시설 확보(구입 및 차입) 계획을 세웠습니까? </td>
+                        <td><input type="radio"  name="check26" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check26" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">귀농 첫 해 농사계획을 세웠습니까? </td>
+                        <td><input type="radio"  name="check27" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check27" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">농작물 생산 후 판매계획을 세웠습니까? </td>
+                        <td><input type="radio"  name="check28" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check28" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">인터넷 활용 계획은 세우셨습니까?(블로그/카페/홈페이지 등) </td>
+                        <td><input type="radio"  name="check29" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check29" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr><!-- step8 -->
+                        <td class="td-step step-list" rowspan="8" scope="row">귀농지 선정</td>
+                        <td class="td-step">귀농지는 농업 경영목표의 작목 및 재배방법의 선택과 일치합니까? </td>
+                        <td><input type="radio"  name="check30" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check30" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">
+                            선택작목의 주산지로서 생산기술 지도체계 및 생산물 출하, 판매 체계가 정비되어 있고 신규 귀농인의 지원도 기대할 수 있습니까?
+                        </td>
+                        <td><input type="radio"  name="check31" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check31" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">
+                            귀농지의 시·군·(읍·면)의 행정 등이 신규 귀농인을 받아들이 기에 적극적이고, 연수부터 영농까지 체계적인 지원 장치가 있습니까?
+                        </td>
+                        <td><input type="radio"  name="check32" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check32" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">
+                            생활조건(시내중심까지의 거리 및 도로, 교통사정, 학교, 병원, 상점까지의 거리)을 충분히 검토하였습니까?
+                        </td>
+                        <td><input type="radio"  name="check33" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check33" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">귀농지를 선정시, 결정을 내리기 전에 가족 전원이 현지에 동행한 적이 있습니까? </td>
+                        <td><input type="radio"  name="check34" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check34" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">
+                            현지를 답사했을 때, 현지의 농가(주민)로부터 적극적으로 현지상황에 대하여 이야기를 들었습니까?
+                        </td>
+                        <td><input type="radio"  name="check35" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check35" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">농지확보(구입 또는 임대)를 할 수 있는 정보를 갖고 있습니까? </td>
+                        <td><input type="radio"  name="check36" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check36" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">귀농지에서 귀농한 이후에 도와줄 사람이 있습니까? </td>
+                        <td><input type="radio"  name="check37" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check37" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr><!-- step9 -->
+                        <td class="td-step step-list" rowspan="4" scope="row">주택 및 농지매입</td>
+                        <td class="td-step">귀농계획의 실행에 적합한 농지와 주택인가요? </td>
+                        <td><input type="radio"  name="check38" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check38" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">농지매입시 주변지가를 파악했나요? </td>
+                        <td><input type="radio"  name="check39" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check39" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">구입하려는 농지가 농지원부발급대상 농지인지 시·군청에 확인했나요? </td>
+                        <td><input type="radio"  name="check40" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check40" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">매입할 부지의 도로, 교통사정, 학교, 병원, 공공시설로의 접근성은 검토 하였습니까? </td>
+                        <td><input type="radio"  name="check041" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check041" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr><!-- step10 -->
+                        <td class="td-step step-list" rowspan="3" scope="row">영농 및 정착</td>
+                        <td class="td-step">동네의 경조사와 지역의 사회활동에 참여할 예정입니까? </td>
+                        <td><input type="radio"  name="check42" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check42" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">선정한 작목과 관련한 지역의 작목반 및 관련연구회를 알아 보고 참여할 예정입니까? </td>
+                        <td><input type="radio"  name="check43" class="check-radios" value="Y"></td>
+                        <td><input type="radio"  name="check43" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-step">
+                            농촌에서는 영농을 위해서라도 그 지역 주민과 사귀는 것이 중요합니다. 이렇게 적극적으로 주민들과 유대할 준비가 되어 있습니까?
+                        </td>
+                        <td><input type="radio" name="check44" class="check-radios" value="Y"></td>
+                        <td><input type="radio" name="check44" class="check-radios" value="N"></td>
+                    </tr>
+                    <tr><!-- 합계 -->
+                        <td colspan="2" rowspan="2">합계</td>
+                        <td>YES</td>
+                        <td>NO</td>
+                    </tr>
+                    <tr>
+                        <td class="score01">0</td>
+                        <td class="score02">0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/information/radioChecked.js"></script>
+<script src="/js/information/stepChange.js"></script>
+<script src="/js/header/header.js"></script>
+</html>

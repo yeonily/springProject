@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/common/font.css"> <!-- 폰트 -->
+    <link rel="stylesheet" href="/css/admin/sideMenuList.css"> <!-- 사이드 메뉴 & 해더 -->
+    <link rel="stylesheet" href="/css/admin/contents.css"> <!-- 컨텐츠 공통 스타일 -->
+    <link rel="stylesheet" href="/css/admin/program_participant.css"> <!-- 테이블 개별 스타일 -->
+    <link rel="stylesheet" href="/css/admin/form.css"> <!-- 검색 폼 & 테이블 공통 스타일 -->
+    <link rel="stylesheet" href="/css/admin/page.css"> <!-- 페이징 -->
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <!-- 사이드 메뉴 -->
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="/js/admin/side_menu.js"></script>
+    <!-- 버튼 클릭 시 확인 알림창 -->
+    <script src="/js/admin/check.js"></script>
+    <title>관리자-아르바이트 지원자 관리</title>
+</head>
+
+<body>
+
+<div id="wrapper">
+    <!-- 세로 메뉴바 -->
+    <nav th:replace="/fix/side_menu.html :: sideMenu"></nav>
+
+    <!-- 헤더 ~ 밑에 메인 컨텐츠 -->
+    <div id="container">
+        <!-- 헤더 -->
+        <header>
+            <span id="admin-header-title">아르바이트 지원자 관리</span>
+            <span id="admin-mode">관리자 모드</span>
+            <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
+        </header>
+        <div id="wrapContents">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents">
+
+                <!-- 검색어 입력 폼 -->
+                <form action="" name="searchForm" method="post">
+                    <div class="search-form">
+                        <span class="s-form">
+                            <select name="searchSelect" class="val">
+                                <option value="jobName">아르바이트명</option>
+                                <option value="name">지원자</option>
+                                <option value="nickName">닉네임</option>
+                                <option value="address">위치</option>
+                            </select>
+                        </span>
+                        <span class="s-f-input">
+                            <span class="search-input">
+                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                            </span>
+                        </span>
+                        <button type="button" class="">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
+
+                <span class="list-count">총
+                    <span>2476</span>건
+                </span>
+
+                <table>
+                    <tr class="title">
+                        <th class="num">번호</th>
+                        <th class="name">지원자</th>
+                        <th class="nickName">닉네임</th>
+                        <th class="title">아르바이트명</th>
+                        <th class="work-date">진행날짜</th>
+                        <th class="address">위치</th>
+                        <th class="date">지원날짜</th>
+                    </tr>
+
+                    <!-- ↓ 데이터 출력 -->
+                    <tr class="title">
+                        <td class="num">1</td>
+                        <td class="name">연태관</td>
+                        <td class="nickName">herd</td>
+                        <td class="title" onclick="location.href='/alba/detail'">딸기 알바</td>
+                        <td class="work-date">2022-10-11</td>
+                        <td class="address">서울</td>
+                        <td class="date">2022-10-01</td>
+                    </tr>
+                    <tr class="title">
+                        <td class="num">2</td>
+                        <td class="name">연태관</td>
+                        <td class="nickName">xogwan</td>
+                        <td class="title" onclick="location.href='/alba/detail'">바나나 재배 알바</td>
+                        <td class="work-date">2022-11-14</td>
+                        <td class="address">강원도</td>
+                        <td class="date">2022-11-01</td>
+                    </tr>
+                    <tr class="title">
+                        <td class="num">3</td>
+                        <td class="name">연태관</td>
+                        <td class="nickName">xorhks</td>
+                        <td class="title" onclick="location.href='/alba/detail'">당근 심기 알바</td>
+                        <td class="work-date">2022-12-11</td>
+                        <td class="address">충청도</td>
+                        <td class="date">2022-11-11</td>
+                    </tr>
+                </table>
+
+                <!-- 페이징 -->
+                <div id="page">
+                    <div class="page_nation">
+                        <a class="arrow pprev" href="#"></a>
+                        <a class="arrow prev" href="#"></a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                        <a href="#">10</a>
+                        <a class="arrow next" href="#"></a>
+                        <a class="arrow nnext" href="#"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<html>

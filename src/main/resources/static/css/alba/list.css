@@ -1,0 +1,342 @@
+div#wrap {
+    margin-top: 0px !important;
+}
+
+.header_nav .nav_ul li:nth-child(3) a {
+    color: #040505!important;
+    font-weight: 600!important;
+}
+
+.header_nav .nav_ul li:not(.header_nav nav_ul li:nth-child(2)) a {
+    color: #595F63;
+}
+
+
+/**************************************************************/
+                        /*서브배너*/
+/**************************************************************/
+div#sub_banner {
+    background-color: #e0f5e9;
+    width: 100%;
+    height: 390px;
+}
+div#sub_banner div.sub_banner_content {
+    width: 1108px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+div.sub_banner_content div.left-content {
+    width: 320px;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -30px;
+}
+div.sub_banner_content div.left-content h2 {
+    font-size: 40px;
+}
+div.sub_banner_content div.left-content p {
+    font-size: 22px;
+    margin-top: -20px;
+}
+div.sub_banner_content div.right-content img {
+    width: 1108px;
+    height: 390px;
+    position: absolute;
+    top: 0;
+}
+
+
+
+/**************************************************************/
+                /*가장 인기 있는 아르바이트 목록*/
+/**************************************************************/
+div#alba_list {
+    margin-top: 80px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+div#alba_list h2 {
+    font-size: 26px;
+    width: 1108px;
+    margin: 0 auto;
+}
+div#alba_list div.alba_list_list {
+    width: 1141px;
+    margin: 0 auto;
+    height: 100%;
+    content: "";
+}
+div.alba_list_list div.alba_div {
+    display: inline-flex;
+    flex-direction: column;
+    width: 258px;
+    height: 218px;
+    margin: 32px 0 0 0;
+    padding: 0 12px;
+    cursor: pointer;
+}
+div.alba_list_list div.alba_div img {
+    width: 259px;
+    height: 136px;
+    border-radius: 10px;
+}
+div.alba_list_list div.alba_div div {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgb(60, 65, 68);
+}
+div.alba_list_list div.alba_div div span {
+    color: rgb(238, 126, 65)
+}
+div.alba_list_list div.alba_div p.alba_title {
+    word-break: break-all;
+    font-size: 16px;
+    width: 259px;
+    margin: 5px 0 0 0;
+    font-weight: 500;
+}
+
+
+
+/**************************************************************/
+        /*일반 아르바이트 목록(thead, filter, th부분)*/
+/**************************************************************/
+div#normal_alba_list {
+    width: 1108px;
+    margin: 0 auto;
+}
+div#normal_alba_list div.top-div {
+    border-bottom: 2px solid #7b7b7b;
+}
+div#normal_alba_list div.top-div p,
+div#normal_alba_list div.top-div h1{
+    display: inline-block;
+}
+div#normal_alba_list div.top-div h1{
+    font-size: 19px;
+}
+div#normal_alba_list div.top-div p {
+    margin-left: 30px;
+    padding-left: 10px;
+    border-left: 1px solid #474747;
+    font-size: 12px;
+}
+div#normal_alba_list div.top-div p span {
+    color: #f24443;
+    font-weight: bold;
+}
+div#normal_alba_list div.top-div-filter span {
+    font-size: 12px;
+    cursor: pointer;
+    height: 42px;
+    line-height: 42px;
+    vertical-align: middle;
+    margin-right: 12px;
+    color: #959595;
+}
+div#normal_alba_list div.top-div-filter span:before {
+    content: "•";
+}
+
+
+/**************************************************************/
+                    /*알바 리스트 th 영역*/
+/**************************************************************/
+div.normal_alba_list div#list_th {
+    width: 100%;
+    height: 33px;
+    background-color: #f2f2f2;
+    color: #666a5b;
+    line-height: 33px;
+    vertical-align: middle;
+    font-size: 12px;
+    border-top: 1px solid #b5b5b5;
+    border-bottom: 1px solid #b5b5b5;
+    font-weight: bold;
+}
+div#list_th .location{
+    width: 135px;
+    text-align: center;
+}
+div#list_th .title {
+    width: 610px;
+    text-align: center;
+}
+div#list_th .workDay {
+    width: 120px;
+    text-align: center;
+}
+div#list_th .pay {
+    width: 110px;
+    text-align: center;
+}
+div#list_th .registerDay {
+    width: 121px;
+    text-align: center;
+}
+
+
+
+/**************************************************************/
+                /*아르바이트 목록 출력하는 td 영역*/
+/**************************************************************/
+div.list_td {
+    display: inline-flex;
+    font-size: 12px;
+    border-bottom: 1px solid #e4e4e4;
+}
+div.list_td a {
+    color: #222222;
+}
+div.list_td:hover {
+    background-color: #d5fae5;
+}
+div.list_td div.location {
+    width: 135px;
+    line-height: 74px;
+    vertical-align: middle;
+    padding: 12px 0 12px 0;
+}
+div.list_td div.location p {
+    margin: 0 0 0 15px;
+}
+div.list_td div.title {
+    width: 615px;
+    line-height: 74px;
+    vertical-align: middle;
+    padding: 12px 0;
+    font-size: 15px;
+}
+div.list_td div.workDay {
+    width: 125px;
+    line-height: 74px;
+    vertical-align: middle;
+    padding: 12px 0;
+    text-align: center;
+}
+div.list_td div.pay {
+    width: 110px;
+    line-height: 74px;
+    vertical-align: middle;
+    padding: 12px 0;
+    font-size: 14px;
+    text-align: center;
+}
+div.list_td div.pay p.miniText {
+    font-size: 13px;
+    color: #4c93ac;
+    width: 77px;
+    height: 20px;
+    margin: -20px 0 0 0;
+    text-align: right;
+}
+div.list_td div.registerDay {
+    width: 123px;
+    line-height: 74px;
+    vertical-align: middle;
+    padding: 12px 0;
+    text-align: center;
+}
+
+/**************************************************************/
+                        /*글쓰기 버튼*/
+/**************************************************************/
+div#writeBtn {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    border: 0;
+    position: relative;
+}
+div#writeBtn button {
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    background-color: #47c880;;
+    border: 0;
+    color: #FFF;
+    border-radius: 6px;
+}
+div#writeBtn button:hover {
+    background-color: #357e55
+}
+
+
+
+
+/**************************************************************/
+                        /*페이징 처리 부분*/
+/**************************************************************/
+div#paging {
+    margin: 0 auto;
+    width: 100%;
+}
+div#paging p {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/**************************************************************/
+/*페이징 처리*/
+/**************************************************************/
+#page {
+    margin: 0 auto;
+    text-align:center;
+}
+
+.page_nation {
+    margin-top: 30px;
+    display:inline-block;
+}
+.page_nation .none {
+    display:none;
+}
+.page_nation a {
+    display:block;
+    margin:0 3px;
+    float:left;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+}
+.page_nation .arrow {
+    border:1px solid #ccc;
+}
+.page_nation .pprev {
+    width:28px;
+    height:28px;
+    background:#f8f8f8 url('/image/admin/page_pprev.png') no-repeat center center;
+    margin-left:0;
+}
+.page_nation .prev {
+    background:#f8f8f8 url('/image/admin/page_prev.png') no-repeat center center;
+    margin-right:7px;
+}
+.page_nation .next {
+    background:#f8f8f8 url('/image/admin/page_next.png') no-repeat center center;
+    margin-left:7px;
+}
+.page_nation .nnext {
+    background:#f8f8f8 url('/image/admin/page_nnext.png') no-repeat center center;
+    margin-right:0;
+}
+
+.page_nation a.active, .page_nation a:hover {
+    border: 1px solid #262626;
+    color:#262626;
+}
+
+
+footer {
+    margin-top: 200px;
+}
