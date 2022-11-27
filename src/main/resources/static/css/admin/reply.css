@@ -1,0 +1,36 @@
+div.contents-bottom {
+    position: relative;
+}
+
+div#container .chart-no {
+    margin-top: 95px;
+}
+
+th.num { width: 9%; }
+th.content { width: 50%; }
+th.id { width: 12%; }
+th.date { width: 13%; }
+th.boardNum { width:  10%; }
+th.delete { width: 6%; }
+
+td.delete { padding: 0 0.3vw; }
+
+td.delete input[type="button"] { background: red; color: white;}
+
+div#write {
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+}
+
+div#write input[type="button"] {
+    width: 120px;
+    height: 30px;
+    background: #747474;
+    border: 0;
+    cursor: pointer;
+
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+}

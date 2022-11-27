@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/css/mypage/payment.css">
+</head>
+<body>
+<!--멘토일 때-->
+<div th:fragment="mentoringMentee">
+    <div class="content">
+        <div class="wrapper-s">
+            <!-- 멘토 목록 -->
+            <div class="content-m-wrap mentee">
+
+                <!---->
+                <div class="m-l-wrap m-l-link" th:onclick="'location.href=\''+ @{/mento/chatting} + '\''">
+                    <div class="m-l">
+                        <div class="name">
+                            <span>멘토</span>
+                            박수현
+                        </div>
+                        <div class="m-l-side">
+                            <!-- 멘토 관계가 성립된 날짜 -->
+                            <div class="m-s-date">2022.11.23</div>
+                            <button type="button" class="refuse" onclick="mentorDelete();">삭제</button>
+                        </div>
+                    </div>
+                </div>
+                <!---->
+
+                <!-- 멘토가 없다면 -->
+<!--                <div class="m-none">-->
+<!--                    추가된 멘토가 없습니다.-->
+<!--                </div>-->
+                <!---->
+            </div>
+        </div>
+    </div>
+</div>
+<!----------->
+
+
+<!--멘토일 때-->
+<div th:fragment="mentoringMentor">
+    <div class="c-header-c">
+        <div class="c-header-can">
+            <div class="menu-tab-btn">
+                <div class="menu-tab">
+                    <button id="list" class="active main-tab mentee-list" onclick="move('mentee-list');">멘티 목록</button>
+                </div>
+                <div class="menu-tab">
+                    <button id="apply" class="main-tab mentee-apply" onclick="move('mentee-apply');">멘티 신청</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="wrapper-s">
+            <!-- 멘토 목록 -->
+            <div id="mentee-list" class="content-m-wrap">
+                <!---->
+                <div class="m-l-wrap m-l-link" th:onclick="'location.href=\''+ @{/mento/chatting} + '\''">
+                    <div class="m-l">
+                        <div class="name">
+                            <span>멘티</span>
+                            박수현
+                        </div>
+                        <div class="m-l-side">
+                            <!-- 멘토 관계가 성립된 날짜 -->
+                            <div class="m-s-date">2022.11.23</div>
+                            <button type="button" class="refuse" onclick="menteeDelete();">삭제</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 멘티가 없다면 -->
+<!--                <div class="m-none m-or-none">-->
+<!--                    추가된 멘티가 없습니다.-->
+<!--                </div>-->
+                <!---->
+            </div>
+            <!---->
+
+            <!-- 멘토 신청 -->
+            <div id="mentee-apply" class="content-m-wrap" style="display: none;">
+                <!---->
+                <div class="m-l-wrap">
+                    <div class="m-l">
+                        <div class="name">박수현</div>
+                        <div class="m-l-side">
+                            <button class="infoBtn">
+                                한 줄 소개
+                                <svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>
+                            </button>
+                            <button class="accept">수락</button>
+                            <button type="button" class="refuse">거절</button>
+                        </div>
+                    </div>
+                    <div class="myInfo">
+                        기존에 연관객체를 필드로 가지고 있는 객체를 조회할 경우
+                        지연 로딩으로 설정했다면, 필드에 있는 연관객체에는 Proxy가 주입된다.
+                        이 때 최초 Proxy는 원본 객체를 상속받고 필드도 그대로 가지고 있다.
+                    </div>
+                </div>
+                <!---->
+
+                <!-- 신청한 멘티가 없다면 -->
+<!--                <div class="m-none m-or-none">-->
+<!--                    신청한 멘티가 없습니다.-->
+<!--                </div>-->
+                <!---->
+            </div>
+            <!------------->
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

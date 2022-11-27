@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+#paging {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+#paging>ul {
+    list-style-type: none;
+}
+
+#paging>ul>li {
+    float: left;
+    text-align: center;
+    min-width: 24px;
+    height: 24px;
+    margin-right: 2px;
+    border-radius: 6px;
+}
+
+.sidePageNum>a>svg {
+    fill: #3c4144;
+    margin-top: 4px;
+}
+
+.sidePageNum>a>svg.sidePageDisabled {
+    cursor: not-allowed;
+    fill: #cfd4d7 ;
+}
+
+a.page {
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+    line-height: 24px!important;
+    text-decoration: none;
+    color: #767d82;
+    font-weight: 400;
+}
+
+a.page:hover {
+    border-radius: 2px;
+    background: #5959591a;
+}
+
+a.selectPage {
+    color: #2a7de1;
+    font-weight: 600;
+}

@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+div.contents-bottom {
+    position: relative;
+}
+
+div#container .chart-no {
+    margin-top: 95px;
+}
+
+th.num { width: 6%; }
+th.title { width: 21%; }
+th.content { width: 27%; }
+th.id { width: 7%; }
+th.file-check { width: 7%; }
+th.date { width: 13%; }
+th.hits { width:  7%; }
+th.revise, th.delete { width: 6%; }
+
+td.revise, td.delete { padding: 0 0.3vw; }
+
+td.revise input[type="button"]:hover { background: #e1e2e4;}
+td.delete input[type="button"] { background: red; color: white;}
+td.askStatusWait{color:red;}
+td.askStatusOk{color: green;}
+td.statusOk{color: green;}
+td.statusNo{color: red;}
+td.payStatusCancel {color: red;}
+td.payStatusOk {color: green;}
+td.
+
+div#write {
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+}
+
+div#write input[type="button"] {
+    width: 120px;
+    height: 30px;
+    background: #747474;
+    border: 0;
+    cursor: pointer;
+    line-height: 1px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+}

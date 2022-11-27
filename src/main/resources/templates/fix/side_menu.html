@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/admin/side_menu.css"> <!-- 사이드 메뉴 & 해더 -->
+    <script src="/js/admin/side_menu.js"></script>
+</head>
+<body>
+    <nav th:fragment="sideMenu">
+<!--        <div id="team-logo"><a href="../../main/html/main.html">너와농부싶어</a></div>-->
+        <div id="team-logo"><a th:href="@{/admin/main}"><img src="/image/admin/realLogo.png" class="ourLogo"></a></div>
+        <div id='side-menu'>
+            <div class="side-menu-contents">
+                <a href="/main/main" class="effect"><span>사이트 바로가기</span></a>
+            </div>
+            <div class="menu-title">사이트 관리</div>
+            <ul>
+                <li class='active sub-menu'><a class="effect"><span>사용자</span><span class="toggleBtn2">+</span></a>
+                    <ul>
+                        <li><a th:href="@{/admin/user}" class="effect"><span>사용자 관리</span></a></li>
+                    </ul>
+                </li>
+
+                <li class='active sub-menu'><a href='#' class="effect"><span>컨텐츠 관리</span><span class="toggleBtn2">+</span></a>
+                    <ul>
+                        <li class='sub-menu'><a href='#' class="toggleBtn effect"><span>농촌 프로그램</span></a>
+                            <ul>
+                                <li><a th:href="@{/admin/program-participant}" class="effect"><span>프로그램 지원자 관리</span></a></li>
+                                <li><a th:href="@{/admin/program-list}" class="effect"><span>프로그램 글 관리</span></a></li>
+                                <li><a th:href="@{/admin/program-pay}" class="effect"><span>프로그램 결제 내역 관리</span></a></li>
+                            </ul>
+                        </li>
+                        <li class='sub-menu'><a href='#' class="toggleBtn effect"><span>농촌 아르바이트</span></a>
+                            <ul>
+                                <li><a th:href="@{/admin/job}" class="effect"><span>아르바이트 글 관리</span></a></li>
+                                <li><a th:href="@{/admin/job-participant}" class="effect"><span>아르바이트 지원자 관리</span></a></li>
+                            </ul>
+                        </li>
+                        <li class='sub-menu'><a href='#' class="toggleBtn effect"><span>농촌 멘토</span></a>
+                            <ul>
+                                <li><a th:href="@{/admin/mentor}" class="effect"><span>멘토 관리</span></a></li>
+                                <li><a th:href="@{/admin/promotion}" class="effect"><span>멘토 홍보글 관리</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class='active sub-menu last-menu'><a href='#' class="toggleBtn effect"><span>게시판 관리</span></a>
+                    <ul>
+                        <li class='sub-menu'><a href='#' class="toggleBtn effect"><span>공지사항</span></a>
+                            <ul>
+                                <li><a th:href="@{/admin/notice}" class="effect"><span>공지사항 관리</span></a></li>
+                                <li class='last-menu'><a th:href="@{/admin/notice-write}" class="effect"><span>공지사항 글 작성</span></a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/admin/ask}" class="effect"><span>문의하기</span></a></li>
+                        <li><a th:href="@{/admin/board}" class="effect"><span>자유게시판</span></a></li>
+                        <li class='sub-menu'><a href='#' class="toggleBtn effect"><span>청년정책</span></a>
+                            <ul>
+                                <li><a th:href="@{/admin/policy}" class="effect"><span>청년정책 관리</span></a></li>
+                                <li class='last-menu'><a th:href="@{/admin/policy-write}" class="effect"><span>청년정책 글 작성</span></a></li>
+                            </ul>
+                        </li>
+                        <li class='sub-menu'><a href='#' class="toggleBtn effect"><span>농업정보</span></a>
+                            <ul>
+                                <li><a th:href="@{/admin/cropInformation}" class="effect"><span>농업정보 관리</span></a></li>
+                                <li class='last-menu'><a th:href="@{/admin/cropInformation-write}" class="effect"><span>농업정보 글 작성</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class='active sub-menu'><a href='#' class="effect"><span>댓글</span><span class="toggleBtn2">+</span></a>
+                    <ul>
+                        <li><a th:href="@{/admin/mentor-review}" class="effect"><span>멘토 리뷰 관리</span></a></li>
+                        <li><a th:href="@{/admin/board-reply}" class="effect"><span>자유게시판 댓글 관리</span></a></li>
+                    </ul>
+                </li>
+
+                <li class='active sub-menu'><a href='#' class="effect"><span>배너</span><span class="toggleBtn2">+</span></a>
+                    <ul>
+                        <li><a th:href="@{/admin/banner}"><span>배너 관리</span></a></li>
+                        <li><a th:href="@{/admin/banner-write}"><span>배너 등록</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

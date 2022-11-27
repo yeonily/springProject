@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>신청 취소</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/myPage/sideMenu.css" />
+    <link rel="stylesheet" href="/css/myPage/mentoring.css" />
+    <link rel="stylesheet" href="/css/myPage/applyCancel.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+
+<div id="main-grid">
+    <div id="payment-grid">
+        <div id="payment-wrap">
+
+            <div class="user-line">결제자 정보</div>
+            <div class="info-wrap">
+                <div class="info-w">
+                    <div class="i-w-group">
+                        <div class="i-name">프로그램명</div>
+                        <div class="i-wrap">
+                            <div class="i-content">백엔드 개발자도 서버 · 인프라 관리를 할 수 있는 DevOps 실무 특강</div>
+                        </div>
+                    </div>
+                    <div class="i-w-group">
+                        <div class="i-name">이름</div>
+                        <div class="i-wrap">
+                            <div class="i-content">김지연</div>
+                        </div>
+                    </div>
+                    <div class="i-w-group">
+                        <div class="i-name">전화번호</div>
+                        <div class="i-wrap">
+                            <div class="i-content">010-1234-1234</div>
+                        </div>
+                    </div>
+                    <div class="i-w-group">
+                        <div class="i-name">이메일</div>
+                        <div class="i-wrap">
+                            <div class="i-content">spring@naver.com</div>
+                        </div>
+                    </div>
+                    <div class="i-w-group">
+                        <div class="i-name">신청인원</div>
+                        <div class="i-wrap" style="border: none;">
+                            <div class="i-content">3명</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-line">환불 금액</div>
+            <div class="info-wrap">
+                <div class="p-i-group">
+                    <div class="p-title">정가</div>
+                    <div class="p-content">20,000원</div>
+                </div>
+                <div class="p-i-group">
+                    <div class="p-title">신청인원</div>
+                    <div class="p-content"> × 3</div>
+                </div>
+                <hr>
+                <div class="total-price">
+                    <div class="t-p-txt">최종 환불 금액</div>
+                    <div class="t-p-txt">60,000원</div>
+                </div>
+            </div>
+
+            <div class="btn-wrap">
+                <button class="apply-cancel" onclick="cancelCheck();">신청 취소</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="overlay-l alam-wrap" style="display: none">
+    <div class="alam">
+        <p>정말 취소 하시겠어요?</p>
+        <div class="alam-btn-group">
+            <button class="a-ok">신청 취소</button>
+            <button type="button" class="a-no">닫기</button>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script>
+    // 헤더 검색창 없애기
+    $(".search_form").css("visibility", "hidden");
+
+    function cancelCheck(){
+        $(".alam-wrap").show();
+    };
+
+    $(".a-no").on("click", function(){
+        $(".alam-wrap").hide();
+    });
+
+</script>
+</html>

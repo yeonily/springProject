@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/community/register.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main">
+    <div id="c-wrap">
+        <div id="community-wrap">
+            <h1 class="c-top-title">
+                커뮤니티 게시글 작성
+                <p>다양한 사람들과 <strong>자유롭게</strong> 이야기를 나눠보세요.</p>
+            </h1>
+            <div>
+                <form action="" name="boardForm" enctype="multipart/form-data">
+                    <div class="r-title">
+                        <input type="text" name="title" id="r-title" class="r-input" placeholder="제목을 입력하세요.">
+                        <label for="r-title" class="r-label">글 제목</label>
+                    </div>
+                    <div>
+                        <div class="r-content">
+                            <textarea type="text" name="content" id="r-content" class="r-input" placeholder="내용을 입력하세요."></textarea>
+                            <label for="r-content" class="r-label">글 내용</label>
+                        </div>
+                        <div id="count-wrap">
+                            글자수 :
+                            <span id="count-txt">0</span>
+                            / 1000
+                        </div>
+                    </div>
+                    <div id="r-files">
+                        <div id="file-btn">
+                            <label class="uploadBtn-group">
+                                <svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(173, 179, 184);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M6 20H18V8.87566L12.718 4H6V20ZM18 22H6C4.89543 22 4 21.1046 4 20V4C4 2.89543 4.89543 2 6 2H12.718C13.2208 2 13.7051 2.18937 14.0746 2.53039L19.3566 7.40606C19.7667 7.78467 20 8.31747 20 8.87566V20C20 21.1046 19.1046 22 18 22Z"></path><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M13 3V7C13 7.55228 13.4477 8 14 8H18V10H14C12.3431 10 11 8.65685 11 7V3H13Z"></path><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M12 11.25C12.5523 11.25 13 11.6977 13 12.25V17.75C13 18.3023 12.5523 18.75 12 18.75C11.4477 18.75 11 18.3023 11 17.75V12.25C11 11.6977 11.4477 11.25 12 11.25Z"></path><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M15.75 15C15.75 15.5523 15.3023 16 14.75 16L9.25 16C8.69772 16 8.25 15.5523 8.25 15C8.25 14.4477 8.69772 14 9.25 14L14.75 14C15.3023 14 15.75 14.4477 15.75 15Z"></path></svg>
+                                <input type="file" name="upload" style="display: none;" multiple>
+                            </label>
+                        </div>
+                        <div id="r-field">
+                            <ul id="img-wrap">
+                                <li>
+                                    <img src="/image/header/logo.png">
+                                    <div class="cancelBtn">×</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin-top: 27px;">
+                        <button class="writeBtn">등록하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/community/register.js"></script>
+<script src="/js/community/link.js"></script>
+</html>

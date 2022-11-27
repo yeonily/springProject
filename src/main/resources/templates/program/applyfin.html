@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>program applyOk</title>
+    <link rel="stylesheet" href="/css/program/applyfin.css"/>
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div class="main-grid-component">
+<div class="c-row">
+<div class="c-col">
+<div class="c-new-grid-container">
+<div class="c-new-row">
+<div class="c-new-col">
+    <div class="c-box">
+        <div class="ok-body1"><img class="ok-img" src="/image/program/fullcheck.gif"></div>
+        <div class="ok-body2">프로그램 신청이<br>완료되었어요.</div>
+        <div class="ok-body3">
+            <button class="button-1"><div class="button-icon"/>신청 확인하기<div class="button-icon"/></button>
+            <button class="button-2" th:onclick="|location.href='@{/program/list}'|"><div class="button-icon"/>프로그램 목록<div class="button-icon"/></button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/program/list.js"></script>
+</html>

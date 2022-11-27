@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>program detail</title>
+    <link rel="stylesheet" href="/css/program/detail.css"/>
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="stylesheet" href="/css/footer/footer.css"/>
+    <link rel="stylesheet" href="/css/header/header.css"/>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main-grid">
+    <div class="d-application-row">
+    <div class="d-application-col">
+        <div class="grid-fluid">
+        <div class="grid-fluid-row">
+            <div class="banner-background"></div>
+            <div class="grid-container">
+            <div class="grid-container-row">
+            <div class="grid-container-col">
+                <section class="pg-detail-banner">
+                    <div class="banner-title-container">
+                        <span class="pg-detail-banner-chip">무료</span>
+                        <div class="pg-detail-banner-title">일일 무 뽑기 프로그램</div>
+                        <div class="pg-detail-banner-headline">무를 한 번 뽑아보아요!</div>
+                    </div>
+                    <div class="banner-image-container">
+                        <img class="pg-detail-banner-image" src="/image/program/pgimage.gif">
+                    </div>
+                </section>
+            </div>
+            <div class="grid-container-col2"></div>
+            <div class="grid-container-col3">
+                <section class="pg-detail-sidebox-wrapper">
+                    <aside>
+                        <article class="pg-detail-sidebox">
+                            <div class="pg-typography">
+                                <div class="sidebox-category">
+                                    <div class="sidebox-category-name">농작물이름</div>
+                                </div>
+                                <div class="sidebox-title">일일 무 뽑기 프로그램</div>
+                                <div class="sidebox-detail">
+                                    <div class="sidebox-difficulty">
+                                        <img class="sidebox-image" src="https://cdn.comento.kr/images/emojis/emoji-seedling.svg">
+                                        <div class="sidebox-difficulty-info"><strong class="s">멘티전용</strong>의 <strong class="s">베이직</strong> 프로그램입니다.</div>
+                                    </div>
+                                    <div class="sidebox-info">
+                                        <div class="sidebox-item-content">
+                                            <div class="sidebox-item-content-info">
+                                                <img class="content-img" src="/image/program/date.gif">
+                                                <div class="content-caption">2022.11.30(수)</div>
+                                            </div>
+                                            <div class="sidebox-item-content-info">
+                                                <img class="content-img" src="/image/program/time.gif">
+                                                <div class="content-caption">09:00~18:00</div>
+                                            </div>
+                                            <div class="sidebox-item-content-info">
+                                                <img class="content-img" src="/image/program/count.gif">
+                                                <div class="content-caption">정원 10명</div>
+                                            </div>
+                                            <div class="sidebox-item-content-info">
+                                                <img class="content-img" src="/image/program/money.gif">
+                                                <div class="content-caption">10,000원</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="apply-a" th:href="@{/program/apply}">
+                                    <button class="apply-button">
+                                        <div class="button-icon"></div>
+                                        프로그램 신청하기
+                                        <div class="button-icon"></div>
+                                    </button>
+                                </a>
+                            </div>
+                        </article>
+                        <div class="pg-deadline-timer">
+                            <div class="pg-deadline-timer-wrapper">
+                                <div class="timer-info">
+                                    <img class="content-img" src="/image/program/redmark.gif">
+                                    <div class="timer-caption">
+                                        <div class="timer-caption-line">
+                                            <span class="timer-caption-point">3일 3시간 46분 50초</span>
+                                            후 프로그램이 마감돼요.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </section>
+            </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="content">
+        <!-- 프로그램 공통 내용 -->
+        <div class="grid-fluid-second">
+        <div class="grid-fluid-second-row">
+        <div class="grid-fluid-second-col">
+        <div class="grid-container">
+        <div class="grid-container-row">
+        <div class="grid-container-col2">
+            <div class="pg-detail-up-box">
+                <div class="up-box-left">농장주의 <br>실무 활용법으로 <br>성과를 만드세요.</div>
+                <div class="up-box-right">
+                    <strong class="s">'귀농귀촌에 흥미, 관심이 있는 사람들'</strong>
+                    을 위한 프로그램입니다.<br>
+                    현직 농장주가 직접 진행하는 프로그램을 듣고, 실습해보고,<br>
+                    라이브 피드백을 받아
+                    <strong class="s">배운 기술을 '내 것'</strong>으로 만듭니다.</div>
+            </div>
+            <ul class="pg-detail-progress-box">
+                <li style="padding-right: 8px">
+                    <div class="progress-box1">
+                        <img class="progress-img" src="https://cdn.comento.kr/images/emojis/emoji-memo.svg">
+                        <div class="progress-box-title">프로그램 참여</div>
+                    </div>
+                    <div class="progress-box-body">
+                        프로그램 참여을 통해<br>
+                        작물에 대해 배우고<br>
+                        실습을 해볼 수 있어요.
+                    </div>
+                </li>
+                <img class="img-next" src="/image/program/next.gif">
+                <li>
+                    <div class="progress-box1">
+                        <img class="progress-img" src="https://cdn.comento.kr/images/emojis/emoji-counterclockwise-arrows-button.svg">
+                        <div class="progress-box-title">피드백</div>
+                    </div>
+                    <div class="progress-box-body">
+                        라이브 피드백을 통해<br>
+                        솔루션을 습득하고<br>
+                        현직 농장주의 방법을 익히세요.
+                    </div>
+                </li>
+                <img class="img-next" src="/image/program/next.gif">
+                <li style="padding-right: 12px">
+                    <div class="progress-box1">
+                        <img class="progress-img" src="https://cdn.comento.kr/images/emojis/emoji-man-technologist.svg">
+                        <div class="progress-box-title">바로 적용</div>
+                    </div>
+                    <div class="progress-box-body">
+                        오늘 익힌 스킬이<br>
+                        즉시 나의 역량이 되는<br>
+                        놀라운 경험으로 이어져요.
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <!-- 프로그램 대상 -->
+        <div class="grid-fluid-third">
+            <div class="c-new-row">
+                <div class="c-new-col">
+                    <section class="pg-detail-target-user">
+                        <h4 class="pg-detail-target-user-title">이런 분들이라면 꼭 들으세요!</h4>
+                        <div class="pg-detail-target-user-background">
+                        <div class="target-user-background"><div class="target-user-body">일일 농촌 프로그램을 체험해 보고 싶은 사람</div></div>
+                        <div class="target-user-background"><div class="target-user-body">무 재배 과정을 체험해 보고 싶은 사람</div></div>
+                        <div class="target-user-background"><div class="target-user-body">무 농사에 관심이 있는 사람</div></div>
+                        <div class="target-user-background"><div class="target-user-body">무 농사 기술에 대해 배워보고 싶은 사람</div></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- 멘토 소개 -->
+        <div class="grid-fluid-second">
+            <div class="grid-fluid-second-row">
+                <div class="grid-fluid-second-col">
+                    <div class="grid-container">
+                        <div class="grid-container-row">
+                            <div class="grid-container-col2">
+                    <section class="pg-detail-target-user">
+                        <img class="mentor-img" src="https://cdn.comento.kr/images/class/pt/detail/icon/doublequote-icon.png">
+                        <p class="pg-mentor-body">
+                            농장주소개글내용<br>
+                            안녕하세요,<br>
+                            저는 국내 프리랜서 마켓 No.1 '크몽'에서 CRM 마케팅 업무를 진행하고 있습니다.<br><br>
+                            퍼포먼스 마케터로 커리어를 시작하여 다양한 DA, SA 채널을 운영했으며, 이러한 시야를 바탕으로 우리 고객 데이터와 Braze(브레이즈) 를 활용한 리텐션, LTV 를 올리는 CRM 마케터로 커리어를 이어가고 있습니다.<br><br>
+                            다양한 미디어를 통해 이미 아시는 것처럼 근래 CRM 마케팅이 대세라는 이야기를 들어보셨을 겁니다.<br>
+                            특히 구글, 페이스북, 애플 등 글로벌 기업에서 개인 정보 이슈 등으로 3rd-party data 를 활용하는 퍼포먼스 마케팅 제한이 점점 심해지면서 우리 고객 데이터인 first-party data 를 활용하는 CRM 마케팅 대세로 떠오르고 있습니다.<br><br>
+                            CRM 마케팅 실무를 하시면서 CRM 마케팅 주요 지표, 타겟, 캠페인 설계, 그리고 Braze(브레이즈) 활용한 고객 행동별 개인화, 자동화 된 메세지 등에 관심은 있으시지만, 막상 혼자서 해보려고 하다 보면 막히는 부분들이 많아서 어려우셨을 것 같습니다. 체계적으로 CRM 마케팅을 하셨다기 보다는 혼자서 고군분투 했을 모습이 상상이 됩니다. 그만큼 CRM 마케팅 관련 정보가 많이 없기 때문이기도 하지요.<br><br>
+                            이번 기회를 통해서 고객 행동 기반으로 CRM 마케팅의 주요 지표, 타겟 설정 + 개인화 CRM 마케팅 설계 + Braze(브레이즈) 활용한 고객 행동별 개인화 된 CRM 마케팅 설정까지 직접 해보시겠어요?<br><br>
+                            여러분들과 만날 날을 기대하겠습니다!
+                        </p>
+                    </section>
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- 프로그램 결과 -->
+        <div class="grid-fluid-third">
+            <div class="c-new-row">
+                <div class="c-new-col">
+                    <section class="pg-detail-target-user">
+                        <h4 class="pg-detail-target-user-title">프로그램을 수강한 당신은<br>이렇게 됩니다.</h4>
+                        <div class="pg-detail-result-background">
+                            <div class="target-result-background mb-15">
+                                <div class="target-result-body">무 재배 과정에 대해 알 수 있습니다.</div>
+                                <img class="result-img" src="/image/program/farmer.png">
+                            </div>
+                            <div class="target-result-background mb-15">
+                                <div class="target-result-body">무 재배를 할 수 있습니다.</div>
+                                <img class="result-img" src="/image/program/woman_farmer.png">
+                            </div>
+                            <div class="target-result-background">
+                                <div class="target-result-body">무 농사에 필요한 정보를 알 수 있습니다.</div>
+                                <img class="result-img" src="/image/program/crate.png">
+                            </div>
+                            <div class="target-result-background">
+                                <div class="target-result-body">무 농사에 필요한 기술을 알 수 있습니다.</div>
+                                <img class="result-img" src="/image/program/pick-up-truck.png">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- 프로그램 소개 -->
+        <div class="grid-fluid-third">
+            <div class="c-new-row">
+                <div class="c-new-col">
+                    <section class="pg-detail-target-user">
+                        <h4 class="pg-detail-target-user-title">프로그램의 핵심 내용입니다.</h4>
+                        <div class="pg-detail-target-user-background">
+                            <div class="pg-info-background mb-15">
+                                <div class="pg-info-title-number">01.</div>
+                                <div class="pg-info-title">프로그램 소개 타이틀</div>
+                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                            <div class="pg-info-background mb-15">
+                                <div class="pg-info-title-number">02.</div>
+                                <div class="pg-info-title">프로그램 소개 타이틀</div>
+                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                            <div class="pg-info-background mb-15">
+                                <div class="pg-info-title-number">03.</div>
+                                <div class="pg-info-title">프로그램 소개 타이틀</div>
+                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                            <div class="pg-info-background">
+                                <div class="pg-info-title-number">04.</div>
+                                <div class="pg-info-title">프로그램 소개 타이틀</div>
+                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                        </div>
+                        <div class="pg-info-background">
+                        <div class="register-img-wrapper">(글 등록시 업로드하는 이미지, 링크 들어가는 영역)
+                        <img class="register-img" src="/image/program/program_register_img.gif">
+                        </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- 프로그램 상세 내용 -->
+        <div class="grid-fluid-second">
+            <div class="grid-fluid-second-row">
+                <div class="grid-fluid-second-col">
+                    <div class="grid-container">
+                        <div class="grid-container-row">
+                            <div class="grid-container-col2">
+                                <section class="pg-detail-target-user">
+                                    <h4 class="pg-detail-target-user-title">상세한 프로그램 정보를 알려드릴게요.</h4>
+                                    <div class="pg-detail-target-user-background">
+                                        <div class="pg-detail-info-background mb-15">
+                                            <div class="pg-detail-info-title">진행 일정</div>
+                                            <div class="pg-detail-info-content">2022-11-30(수)</div></div>
+                                        <div class="pg-detail-info-background mb-15">
+                                            <div class="pg-detail-info-title">진행 시간</div>
+                                            <div class="pg-detail-info-content">09:00 ~ 18:00</div></div>
+                                        <div class="pg-detail-info-background mb-15">
+                                            <div class="pg-detail-info-title">신청 기간</div>
+                                            <div class="pg-detail-info-content">2022-11-10 ~ 2022-11-20</div></div>
+                                        <div class="pg-detail-info-background mb-15">
+                                            <div class="pg-detail-info-title">신청 인원</div>
+                                            <div class="pg-detail-info-content">10명</div></div>
+                                        <div class="pg-detail-info-background mb-15">
+                                            <div class="pg-detail-info-title">참여 비용</div>
+                                            <div class="pg-detail-info-content">무료</div></div>
+                                        <div class="pg-detail-info-background mb-15">
+                                            <div class="pg-detail-info-title">장소</div>
+                                            <div class="pg-detail-info-content">서울 노원구 중계로 8길 56 천수텃밭농원</div></div>
+                                        <div class="pg-detail-info-background">
+                                            <div class="pg-detail-info-title">문의</div>
+                                            <div class="pg-detail-info-content">02-0000-0000</div></div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- 프로그램 환불규정 -->
+        <div class="grid-fluid-third">
+            <div class="c-new-row">
+                <div class="c-new-col">
+                    <section class="pg-detail-target-user">
+                        <h4 class="pg-detail-refund-title">환불규정</h4>
+                        <ul class="pg-detail-refund-script mb-24">
+                            <p class="refund-script-1">너와농부싶어는 아래와 같은 경우에 환불을 해드리고 있습니다.</p>
+                            <p class="refund-script-2">1. 신청자가 본인 의사로 참여를 포기한 경우</p>
+                            <p class="refund-script-2">2. 농장주가 진행을 할 수 없게 된 경우</p>
+                        </ul>
+                        <ul class="pg-detail-refund-script">
+                            <p class="refund-script-1">[프로그램 세부환불 규정]</p>
+                            <p class="refund-script-2">- 프로그램 시작 2일 전 : 결제금액 전액 환불</p>
+                            <p class="refund-script-2">- 프로그램 시작 1일 전 : 결제금액의 1/2 환불</p>
+                            <p class="refund-script-2">- 프로그램 당일 : 환불 불가</p>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- 프로그램 유의사항 -->
+        <div class="grid-fluid-notice">
+            <div class="grid-fluid-second-row">
+                <div class="grid-fluid-second-col">
+                    <div class="grid-container">
+                        <div class="grid-container-row">
+                            <div class="grid-container-col2">
+                                <section class="pg-detail-target-user">
+                                    <h4 class="pg-detail-target-user-title  mb-24">유의사항</h4>
+                                    <ul class="pg-detail-refund-script">
+                                        <p class="refund-script-3">- 원활한 참여를 위해 프로그램 진행에 필요한 환경을 확인해 미리 준비하시기 바랍니다.</p>
+                                        <p class="refund-script-3">- 프로그램은 현직 농장주와 사용자가 함께 만들어가는 활동입니다.<br>&nbsp;&ensp;프로그램의 분위기를 흐리거나 불성실하게 참여하는 경우 참여 제재 조치를 받을 수 있습니다.</p>
+                                        <p class="refund-script-3">- 프로그램 최소 인원 모집이 미달된 경우, 프로그램 일정이 조정될 수 있습니다.</p>
+                                    </ul>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/program/detail.js"></script>
+</html>

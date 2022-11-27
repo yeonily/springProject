@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/community/detail.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main">
+    <section class="detail-wrap max">
+        <div class="w-wrap">
+            <article>
+                <div class="top-wrap">
+                    <div class="commu-nickname">
+                        벅벅코딩
+                        <hr>
+                        <span class="q-nickname">농장주</span>
+                    </div>
+                    <!-- 작성자일때 -->
+                    <div class="drop-option-wrap">
+                        <div class="drop-option">
+                            <button>
+                                <svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>
+                            </button>
+                        </div>
+                        <div class="drop-option-menu q-modify" style="display: none;">
+                            <a th:href="@{/community/modify}">
+                                <div class="o-m-wrap">
+                                    <img src="/image/community/modify.png">
+                                    수정하기
+                                </div>
+                            </a>
+                            <hr>
+                            <div class="o-m-wrap q-delete">
+                                <img src="/image/community/delete.png">
+                                삭제하기
+                            </div>
+                        </div>
+                    </div>
+                    <!--------------->
+                </div>
+                <h2 id="q-title">비닐하우스 농사로 귀농하실분!(비닐하우스 10동 매매)</h2>
+                <p class="commu-content">
+                    2중 비닐하우스(100*7) 10개동 지상권 매매입니다.(토지는 임대)<br>
+                    2중 자동개폐기 설치 되어 있음.<br>
+                    비닐 상태 양호(2년은 더 사용가능)<br>
+                    소공 9대 설치되어 겨울에도 지하수 충분함<br>
+                    연락처 010-1234-1234
+                </p>
+                <div id="files">
+                    <div class="file">
+                        <span class="f-img"><img src="/image/community/clip.png"></span>
+                        <span class="f-title">JPA_신난다.jpg</span>
+                        <span class="f-size">[1.63MB]</span>
+                    </div>
+                </div>
+                <p class="commu-date">2022.11.20</p>
+            </article>
+        </div>
+    </section>
+    <section class="detail-wrap gray">
+        <div class="max">
+            <div class="w-wrap white-wrap margin32">
+                <div id="re-before">
+                    <div class="reply-input">
+                        댓글을 입력하시겠습니까?
+                    </div>
+                    <button class="r-input">댓글 입력하기</button>
+                </div>
+                <div id="re-after" style="display: none;">
+                    <div id="reply-form">
+                        <textarea name="reply" id="re-register" class="reply-input" placeholder="댓글을 입력하시겠습니까?"></textarea>
+                    </div>
+                    <button class="reply-btn reply-register">댓글 추가하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="detail-wrap gray">
+        <div class="max">
+            <div class="w-wrap">
+                <div id="re--wrap">
+                    <div id="re-count-wrap">
+                        댓글
+                        <span>0</span>
+                    </div>
+                    <!-- 댓글이 없을 때 -->
+<!--                    <div id="re-none-wrap">-->
+<!--                        <div id="re-none">등록된 댓글이 없습니다.</div>-->
+<!--                    </div>-->
+                    <!------------------>
+                    <!-- 댓글이 있을 때 -->
+                    <div id="reply-lists">
+                        <article class="re-list-wrap">
+                            <div class="top-wrap">
+                                <div class="commu-nickname re-nick">
+                                    스프링재밌다
+                                    <!-- 댓글 작성자 일 때 -->
+                                    <span class="writer">게시글 작성자</span>
+                                    <!-------------------->
+                                    <hr>
+                                    <span class="q-nickname">일반</span>
+                                </div>
+                                <!-- 댓글 작성자 일 때 -->
+                                <div class="drop-option-wrap">
+                                    <div class="drop-option">
+                                        <button>
+                                            <svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>
+                                        </button>
+                                    </div>
+                                    <div class="drop-option-menu" style="display: none;">
+                                        <div class="o-m-wrap re-modify">
+                                            <img src="/image/community/modify.png">
+                                            수정하기
+                                        </div>
+                                        <hr>
+                                        <div class="o-m-wrap re-delete">
+                                            <img src="/image/community/delete.png">
+                                            삭제하기
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--------------->
+                                <div class="modify-group" style="display: none;">
+                                    <button type="button" class="re-btn m-save">수정</button>
+                                    <button type="button" class="re-btn m-cancel">취소</button>
+                                </div>
+                            </div>
+                            <p class="commu-content re-content">저두요...</p>
+                            <p class="commu-date">2022.11.20</p>
+                        </article>
+                    </div>
+                    <!------------------>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/community/detail.js"></script>
+<script src="/js/community/link.js"></script>
+</html>

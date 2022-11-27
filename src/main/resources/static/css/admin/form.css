@@ -1,0 +1,181 @@
+@charset "utf-8";
+
+div.p-contents{
+    /*margin: 0 2vw;*/
+    /*margin-bottom: 10px;*/
+    min-width: 700px;
+
+}
+
+form div.search-form {
+    padding: 13px 20px;
+    border: 1px solid #E6E6E6;
+    background-color: #ffffff;
+
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0em;
+    display: flex;
+}
+
+form div.search-form span.s-form {
+    position: relative;
+    width: 185px;
+    margin-right: -185px;
+}
+
+form div.search-form span.s-form select {
+    width: 185px;
+    height: 43px;
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    color: #7b7b7b;
+    vertical-align: middle;
+}
+
+span.s-f-input {
+    margin-right: -44px;
+    width: 100%;
+}
+
+span.search-input {
+    margin-left: 183px;
+    display: block;
+    margin-right: 44px;
+    padding: 0 25px 0 1px;
+    border: 1px solid #d9d9d9;
+    border-right-width: 0;
+}
+
+span.search-input input[type="text"] {
+    width: 100%;
+    height: 41px;
+    margin: 0 -24px 0 0;
+    border: none;
+    color: #7b7b7b;
+    padding: 0 12px;
+    vertical-align: middle;
+    outline: none;
+}
+
+.s-f-btn button {
+    width: 44px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    cursor: pointer;
+}
+button img {
+    width: 30px;
+    height: 30px;
+
+}
+
+input.img-button {
+    background: url( "project/image/search.png" ) no-repeat;
+    border: none;
+    width: 37px;
+    height: 37px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.list-count {
+    padding: 0 0 5px 18px;
+    font-size: 13.5px;
+    float: right;
+    color: #666666;
+    letter-spacing: -0.03em;
+    background: url("https://www.returnfarm.com:444/css/wvtex/img/sub/board_count.png") no-repeat 0 0;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 40px;
+    font-weight: 300;
+    border-spacing: 0;
+    border-top: 3px solid #939292;
+}
+
+table th {
+    border-left: 1px solid #e8e6e6;
+    border-right: 1px solid #e8e6e6;
+    padding: 12px 0;
+    vertical-align: middle;
+
+    font-size: 14px;
+    color: #262525;
+    font-weight: 500;
+    text-align: center;
+}
+
+table td {
+    border-bottom: 1px solid #ebe9e9;
+    padding: 11px 0 11px 0;
+    vertical-align: middle;
+
+    color: #4a4a4a;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+    letter-spacing: -0.03em;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+td.title, td.content{
+    /*text-align: left;*/
+    padding-left: 10px;
+}
+
+td.title { cursor: pointer; }
+td.title:hover {
+    color: #2e44be;
+    font-weight: 600;
+}
+
+
+@media screen and (max-width: 990px) {
+    div#contents-top {
+        flex-wrap: wrap;
+    }
+
+
+    div#contents-top div.c-left {
+        margin-bottom: 12px;
+    }
+
+    div.content {
+        width: 70vw;
+        height: 27vw;
+        min-height: 250px;
+    }
+
+    div.content div.title { margin-bottom: 6%; }
+
+    div#lineChart { padding-top: 5%; }
+
+    div.contents-bottom { margin-top: 10px; }
+
+    div.contents-bottom span.caption {  font-size: 12px; }
+
+    div.contents-bottom input[type="button"] {
+        top: 15px;
+        right: 3vw;
+        font-size: 11px;
+    }
+
+    table { border-spacing: 0 3px; }
+
+    table tr.title th {
+        font-size: 11px;
+        line-height: 18px;
+    }
+    table tr td {
+        font-size: 12px;
+    }
+}

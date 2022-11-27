@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/common/font.css"> <!-- 폰트 -->
+    <link rel="stylesheet" href="/css/admin/side_menu.css"> <!-- 사이드 메뉴 & 해더 -->
+    <!-- 글 작성 폼 -->
+    <link rel="stylesheet" href="/css/admin/noticeWrite.css">
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+
+    <!-- 썸머노트 API -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+    <!-- 사이드 메뉴 -->
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="/js/admin/side_menu.js"></script>
+    <!-- 버튼 클릭 시 확인 알림창 -->
+    <script src="/js/admin/check.js"></script>
+    <title>관리자-청년정책 글 작성</title>
+</head>
+
+<body style="background-color: #eee;">
+
+<div id="wrapper">
+    <!-- 세로 메뉴바 -->
+    <nav th:replace="/fix/side_menu.html :: sideMenu"></nav>
+    <!-- 헤더 ~ 밑에 메인 컨텐츠 -->
+    <div id="container">
+        <!-- 헤더 -->
+        <header>
+            <span id="admin-header-title">청년정책 글 작성</span>
+            <span id="admin-mode">관리자 모드</span>
+            <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
+        </header>
+
+        <!-- 메인화면 컨텐츠 -->
+        <div id="write">
+            <form action="" name="noticeForm" method="">
+                <table>
+                    <colgroup>
+                        <col width="20%;">
+                        <col width="80%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>카테고리</th>
+                        <td>
+                            <div class="categori">
+                                <input type="text" name="categori" class="categori" placeholder="카테고리를 입력하세요" autocomplete="off">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td>
+                            <div class="title">
+                                <input type="text" name="notice" class="notice_title" placeholder="제목을 입력하세요" autocomplete="off">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="background: #ffffff;">
+                        <th>내용</th>
+                        <td>
+                            <div id="editor">
+                                <textarea class="summernote" name="editorForm"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="btns-group">
+                    <input type="button" onclick="location.href='/admin/policy'" class="g-btn list" value="청년정책 목록">
+                    <input type="submit" onclick="savePolicyCheck()" class="g-btn submit" value="등록">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+<!-- 썸머노트 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="/js/admin/summerNote.js"></script>
+<html>

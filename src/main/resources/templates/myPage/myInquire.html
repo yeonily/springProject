@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/myPage/sideMenu.css" />
+    <link rel="stylesheet" href="/css/myPage/myInquire.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+    <div class="wrap-w" style="padding-bottom: 0">
+        <div class="container">
+            <div class="contentsWrap">
+                <!--메뉴 카텍고리 시작-->
+                <div th:replace="/myPage/sidemenu.html :: myPageMenu"></div>
+                <!--컨텐츠 시작-->
+                <div class="contents">
+                    <div class="c-header">
+                        <div id="inquire-wrap">
+                            <div id="inquire-title">
+                                <span class="qna">Q.</span>
+                                <span class="question">환불받고 싶은데 어떻게 해야 되나요?</span>
+                            </div>
+                            <div class="content">
+                                <hr class="menu-category">
+                                <div id="answer">
+                                    <!-- 답변 -->
+                                    <div>
+                                        안녕하세요. 너와농부싶어 입니다.<br><br>
+
+                                        [ 마이페이지 > 내 프로그램 ] 각 프로그램의 옵션 버튼에서 신청취소 이용 부탁드립니다.<br>
+                                        관련하여 궁금한 사항이 있으시면 고객센터 이용 부탁드립니다:)
+                                        <br><br>
+                                        앞으로 더 좋은 서비스를 준비하겠습니다!<br>
+                                        서비스 이용해주셔서 감사합니다.
+                                    </div>
+                                    <!-- 아직 답변이 없을 때 -->
+<!--                                    <div id="none-answer">아직 등록된 답변이 없습니다.</div>-->
+                                    <!---------------------->
+                                </div>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="backList" onclick="history.back();"><img src="/image/myPage/back.png">문의 내역으로 돌아가기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 푸터 -->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/myPage/myPage.js"></script>
+<script>
+    $("div.menu-a").removeClass('menu-select');
+    $("#inquire").addClass('menu-select');
+</script>
+</html>

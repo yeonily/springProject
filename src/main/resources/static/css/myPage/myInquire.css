@@ -1,0 +1,64 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap');
+
+div#inquire-wrap {
+    
+}
+
+div#inquire-title {
+    min-height: 29px;
+    margin-top: 12px;
+    margin-bottom: 15px;
+}
+
+#inquire-title>span.qna {
+    margin-top: 5px;
+    margin-right: 5px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 20px;
+    color: #767676;
+}
+
+#inquire-title span.question {
+    color: rgb(4, 5, 5);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+div#answer {
+    padding: 10px 15px;
+    min-height: 250px;
+    margin-bottom: 40px;
+}
+
+div#none-answer {
+    display: flex!important;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 240px;
+    text-align: center;
+    color: rgb(118, 125, 130);
+}
+
+a.backList {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 36px;
+    margin: 0 auto;
+    padding: 0 12px;
+    background: #47c880;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    color: #fff;
+}
+
+a.backList:hover {background: #357e55;}
+
+a.backList>img {
+    margin-right: 5px;
+    height: 17px;
+    transform: rotate(180deg);
+}

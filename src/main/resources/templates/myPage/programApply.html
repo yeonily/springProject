@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/myPage/sideMenu.css" />
+    <link rel="stylesheet" href="/css/myPage/applyList.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main">
+    <div class="wrap-w" style="padding-bottom: 0">
+        <div class="container">
+            <div class="contentsWrap">
+                <!--메뉴 카텍고리 시작-->
+                <div th:replace="/myPage/sidemenu.html :: myPageMenu"></div>
+                <!--컨텐츠 시작-->
+                <div class="contents">
+                    <div class="c-header">
+                        <div class="c-title">
+                            <div><img src="/image/myPage/backBtn.png" onclick="history.back();" class="back">프로그램 신청자 목록</div>
+                        </div>
+                        <div class="content">
+                            <!-- 신청자가 없을 때 -->
+<!--                            <div id="content-wrap">-->
+<!--                                <div class="n-c-wrap" style="line-height: 25px;">-->
+<!--                                    신청자가 아직 없습니다.-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <!------------------->
+
+                            <!-- 신청자가 있을 때 -->
+                            <div id="c-w-wrap">
+                                <div id="ls-wrap" class="f-column apply-Lists-wrap">
+                                    <!---->
+                                    <div class="apply-wrap">
+                                        <div class="apply-list">
+                                            <div class="a-group">
+                                                <div class="a-name">박수현</div>
+                                                <div class="a-phone a-txt">java123@gmail.com</div>
+                                            </div>
+
+                                            <div class="a-group">
+                                                <!-- 프로그램 신청날짜 -->
+                                                <div class="a-date a-txt">2022.11.24</div>
+                                                <div class="a-more">
+                                                    더보기
+                                                    <svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="apply-info">
+                                            <div class="a-w-group">
+                                                <div class="a-title">휴대폰 번호</div>
+                                                <div class="f-column f-section a-content">010-1234-1234</div>
+                                            </div>
+                                            <div class="a-w-group marginT5">
+                                                <div class="a-title">거주지</div>
+                                                <div class="f-column f-section a-content">서울시 송파구 거여동 123-12</div>
+                                            </div>
+                                            <div class="a-w-group marginT5">
+                                                <div class="a-title">생년월일</div>
+                                                <div class="f-column f-section a-content">1999.01.01</div>
+                                            </div>
+                                            <div class="a-w-group marginT5">
+                                                <div class="a-title">신청인원</div>
+                                                <div class="f-column f-section a-content">3명</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!---->
+                                    <div class="apply-wrap">
+                                        <div class="apply-list">
+                                            <div class="a-group">
+                                                <div class="a-name">박수현</div>
+                                                <div class="a-phone a-txt">java123@gmail.com</div>
+                                            </div>
+
+                                            <div class="a-group">
+                                                <!-- 프로그램 신청날짜 -->
+                                                <div class="a-date a-txt">2022.11.24</div>
+                                                <div class="a-more">
+                                                    더보기
+                                                    <svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="apply-info">
+                                            <div class="a-w-group">
+                                                <div class="a-title">휴대폰 번호</div>
+                                                <div class="f-column f-section a-content">010-1234-1234</div>
+                                            </div>
+                                            <div class="a-w-group marginT5">
+                                                <div class="a-title">거주지</div>
+                                                <div class="f-column f-section a-content">서울시 송파구 거여동 123-12</div>
+                                            </div>
+                                            <div class="a-w-group marginT5">
+                                                <div class="a-title">생년월일</div>
+                                                <div class="f-column f-section a-content">1999.01.01</div>
+                                            </div>
+                                            <div class="a-w-group marginT5">
+                                                <div class="a-title">신청인원</div>
+                                                <div class="f-column f-section a-content">3명</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------------->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 푸터 -->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/myPage/myPage.js"></script>
+<script src="/js/myPage/list.js"></script>
+<script>
+    $(".apply-list").on("click", function(){
+        let $info = $(this).next();
+        let $moreBtn = $(this).find('svg');
+
+        if ($info.css("height") == "0px") {
+            $(".a-more>svg").css("transform", "rotate(180deg)")
+            $(".apply-info").css("height", "0");
+            $(".apply-info").css("padding", "0");
+
+            $moreBtn.css("transform", "rotate(0)")
+            $info.css("height", "151px");
+            $info.css("padding", "12px 3px");
+        } else {
+            $moreBtn.css("transform", "rotate(180deg)")
+            $info.css("height", "0");
+            $info.css("padding", "0");
+        }
+    });
+
+    $("div.menu-a").removeClass('menu-select');
+    $("#program").addClass('menu-select');
+</script>
+</html>

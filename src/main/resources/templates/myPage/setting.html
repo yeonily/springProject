@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/myPage/myPage.css" />
+    <link rel="stylesheet" href="/css/myPage/sideMenu.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="main">
+    <div id="main-tab" class="wrap-w" style="padding-bottom: 0">
+        <div class="container">
+            <div class="contentsWrap">
+                <!--메뉴 카텍고리 시작-->
+                <div th:replace="/myPage/sidemenu.html :: myPageMenu"></div>
+                <!--컨텐츠 시작-->
+                <div class="contents">
+                    <div class="c-header">
+                        <div class="c-title">
+                            <div>개인 정보 설정</div>
+                        </div>
+                        <div class="c-header-c">
+                            <div class="c-header-can">
+                                <div class="menu-tab-btn">
+                                    <div class="menu-tab">
+                                        <button class="active main-tab" onclick="tabMove('main-tab')">프로필</button>
+                                    </div>
+                                    <div class="menu-tab">
+                                        <button class="myInfo" onclick="tabMove('myInfo')">정보 수정</button>
+                                    </div>
+                                    <!--멘토인 경우-->
+                                    <div class="menu-tab">
+                                        <button class="mentorInfo" onclick="tabMove('mentorInfo')">멘토 정보</button>
+                                    </div>
+                                    <!------>
+                                    <div class="menu-tab">
+                                            <button onclick="tabMoveQuit();">회원 탈퇴</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="wrapper-s">
+                                <div class="section-profile">
+                                    <div class="flex">
+                                        <div class="member-division-img">
+                                            <!-- 유저 구분에 따라 이미지 변경
+                                             일반 유저 : user.png / 농장주 : farmer.png -->
+<!--                                            <img src="/image/myPage/user.png" style="margin-bottom: 10px;">-->
+                                            <img src="/image/myPage/farmer.png">
+                                            <!------>
+                                        </div>
+                                        <div class="member-division">
+                                            <div>
+                                                <!-- 멤버 구분 -->
+                                                일반인
+                                                <!------>
+                                            </div>
+                                            <div class="flex">
+                                                <div class="nickname">닉네임</div>
+                                                <!-- 멘토 구분 -->
+                                                <div class="flex mentoring">멘토</div>
+                                                <!------>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex section-right">
+                                        <div class="qna-count">
+                                            0건
+                                            <div class="qna-title">내 문의</div>
+                                        </div>
+                                        <div class="qna-count">
+                                            0건
+                                            <div class="qna-title">내 커뮤니티</div>
+                                        </div>
+                                        <div class="qna-count q-c-last">
+                                            0건
+                                            <div class="qna-title">내 프로그램</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="section-nickname">
+                                    <div class="nickname-t">닉네임 변경</div>
+                                    <div class="nickname-c">
+                                        <form action="" name="nickForm" class="nick-c-group">
+                                            <div class="nickname-input">
+                                                <input type="text" name="nickname" value="닉네임">
+                                            </div>
+                                            <button type="button" class="nick nick-check" onclick="nickCheck()">중복확인</button>
+                                            <button type="button" class="nick nick-save saveHover" onclick="nickSave()">저장</button>
+                                        </form>
+                                        <div class="nickname-check">
+                                            <!-- 중복 체크 문구 -->
+                                            <div class="nick-c-save" style="display: /*none*/;">
+                                                <div class="nick-warning" style="background: #47c880;">!</div>
+                                                <div style="color: #47c880;">사용 가능한 닉네임입니다.</div>
+                                            </div>
+                                            <div class="nick-c-save" style="display: none;">
+                                                <div class="nick-warning" style="background: rgb(233, 37, 37);">!</div>
+                                                <div style="color: rgb(233, 37, 37);">>이미 사용중인 닉네임입니다.</div>
+                                            </div>
+                                            <!------------------>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="section-line marginT">
+                                <!-- 정보 수정 -->
+                                <div id="myInfo" class="section-title marginT">정보 수정</div>
+                                <div class="section-wrap">
+                                    <section>
+                                        <form action="" name="myInfoForm">
+                                            <div class="s-form-input">
+                                                <p class="form-title">이름</p>
+                                                <div class="f-column f-section">
+                                                    <input type="text" name="name" value="○○○" class="form-input" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="s-form-input f-m-top">
+                                                <p class="form-title">생년월일</p>
+                                                <div class="f-column f-section">
+                                                    <input type="text" name="birth" class="form-input" value="2000-00-00" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="s-form-input f-m-top">
+                                                <p class="form-title">휴대폰번호</p>
+                                                <div class="f-column f-section">
+                                                    <input type="text" name="phone" value="010-0000-0000" class="form-input" oninput="autoHyphen(this)" maxlength="13">
+                                                </div>
+                                            </div>
+                                            <div class="s-form-input f-m-top">
+                                                <p class="form-title">구분</p>
+                                                <div class="flex f-section flex user-type">
+                                                    <input type="radio" name="grade" id="user" value="user"/>
+                                                    <label class="grade" for="user" style="margin-right:13px;">일반인</label>
+                                                    <input type="radio" name="grade" id="farmer" value="farmer"/>
+                                                    <label class="grade" for="farmer">농장주</label>
+                                                </div>
+                                            </div>
+                                            <div class="s-form-input f-m-top">
+                                                <p class="form-title">지역</p>
+                                                <div class="flex f-column f-section">
+                                                    <input type="text" name="address" value="서울시 강남구" class="form-input">
+                                                </div>
+                                            </div>
+                                            <div class="form-save">
+                                                <button type="button" class="s-button s-save saveHover" onclick="myInfoSave()">저장</button>
+                                            </div>
+                                        </form>
+                                    </section>
+                                </div>
+                                <!-- 농장주 일 경우 -->
+                                <hr class="section-line marginT">
+                                <div id="mentorInfo" class="section-title marginT">멘토 정보</div>
+                                <div class="section-wrap">
+                                    <section>
+                                        <!-- 멘토 소개글이 없을 경우 = 멘토가 아닐 경우 -->
+                                        <div id="mentor-none">
+                                            <div class="mentor-no">
+                                                <div class="mentor-txt">
+                                                    멘토 소개 글을 작성하면 멘토링 홍보 글을 작성하실 수 있습니다.
+                                                </div>
+                                                <button class="mentorBtn" onclick="mentorFormShow()">소개 글 작성하기</button>
+                                            </div>
+                                        </div>
+                                        <!---->
+
+                                        <!-- 멘토가 아닐 경우 → 소개글 입력 폼 -->
+                                        <form action="" name="newMentorForm" class="newMentorForm" style="display: none;">
+                                            <div class="s-form-input">
+                                                <p class="form-title">주요 작물</p>
+                                                <div class="flex f-column f-section">
+                                                    <input type="text" name="newMainCrops" class="form-input" placeholder="주요 작물을 입력하세요.">
+                                                </div>
+                                            </div>
+                                            <div class="s-form-input f-m-top">
+                                                <p class="form-title">연차</p>
+                                                <div class="flex f-column f-section">
+                                                    <select name="newYears" class="years-select">
+                                                        <option value="0" selected>선택해주세요.</option>
+                                                        <option value="1~3년차">1~3년차</option>
+                                                        <option value="3~5년차">3~5년차</option>
+                                                        <option value="5~7년차">5~7년차</option>
+                                                        <option value="7~10년차">7~10년차</option>
+                                                        <option value="10 년차 이상">10 년차 이상</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-save">
+                                                <button type="button" class="s-button s-save saveHover" onclick="newMentorSave()">저장</button>
+                                                <button type="button" class="s-button s-cancel cancelHover" id="mentorCancel">취소</button>
+                                            </div>
+                                        </form>
+                                        <!------------------>
+
+                                        <!-- 멘토 수정 폼 -->
+<!--                                        <form action="" name="mentorForm">-->
+<!--                                            <div class="s-form-input">-->
+<!--                                                <p class="form-title">주요 작물</p>-->
+<!--                                                <div class="flex f-column f-section">-->
+<!--                                                    <input type="text" name="mainCrops" class="form-input" placeholder="주요 작물을 입력하세요.">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="s-form-input f-m-top">-->
+<!--                                                <p class="form-title">연차</p>-->
+<!--                                                <div class="flex f-column f-section">-->
+<!--                                                    <select name="years" class="years-select">-->
+<!--                                                        <option value="0" selected>선택해주세요.</option>-->
+<!--                                                        <option value="1~3년차">1~3년차</option>-->
+<!--                                                        <option value="3~5년차">3~5년차</option>-->
+<!--                                                        <option value="5~7년차">5~7년차</option>-->
+<!--                                                        <option value="7~10년차">7~10년차</option>-->
+<!--                                                        <option value="10 년차 이상">10 년차 이상</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="form-save">-->
+<!--                                                <button type="button" class="s-button s-save saveHover" onclick="mentorSave()">저장</button>-->
+<!--                                                <button type="button" class="s-button s-cancel cancelHover" id="mentorCancel">취소</button>-->
+<!--                                            </div>-->
+<!--                                        </form>-->
+                                        <!------------------>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 푸터 -->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/myPage/myPage.js"></script>
+<script th:inline="javascript">
+
+
+    /* 탈퇴 탭에서 넘어올 때 이벤트 */
+    jQuery(function ($) {
+        $.fn.getUrlParameter = function (sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+        var nav = $.fn.getUrlParameter('nav');
+        if (typeof nav == "undefined") {
+            tabMove("main-tab");
+        } else {
+            tabMove(nav);
+        }
+    });
+
+    /* setting.html 탭 이동 */
+    function tabMove(tab){
+        var offset = $("#" + tab).offset();
+        $(".menu-tab button").removeClass('active');
+        $("button." + tab).addClass('active');
+        if(tab != "main-tab"){
+            $('html, body').animate({scrollTop : (offset.top - $("div.header").height())}, 300);
+        } else {
+            history.replaceState({}, null, location.pathname);
+            $('html, body').animate({scrollTop : 0}, 100);
+        }
+    }
+
+    /* 새로고침 없이 회원 탈퇴 창 이동*/
+    function tabMoveQuit() {
+        $.ajax({
+            success : function() {
+                window.location.replace('/mypage/setting/quit');
+            }
+        })
+    }
+
+    $("div.menu-a").removeClass('menu-select');
+    $("#myInfoPage").addClass('menu-select');
+</script>
+</html>

@@ -1,0 +1,218 @@
+@charset "UTF-8";
+
+div.quit-title {
+    color: rgb(60, 65, 68);
+    font-weight: 600!important;
+}
+
+ul.quit-info li {
+    margin-bottom: 16px;
+    color: rgb(89, 95, 99);
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+}
+
+button.quit {
+    min-width: 49px;
+    height: 36px;
+    padding: 0 12px;
+    position: absolute;
+    right: 0;
+    font-size: 14px;
+    line-height: 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    margin: 24px auto 0;
+    background-color: #d6e4d0;
+    color: #45a16d;
+}
+
+/* 탈퇴 모달 창 */
+div#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+    z-index: 9998;
+}
+
+div.c-modal {
+    max-height: 640px;
+    width: auto;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+}
+
+div.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+div.modal-close img {
+    cursor: pointer!important;
+    width: 20px;
+}
+
+div.m-wrap {padding: 40px 0;}
+
+div.m-title {
+    padding: 0 32px 20px;
+    color: rgb(4, 5, 5);
+    text-align: left;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+}
+
+div.m-c-wrap {
+    padding-left: 32px;
+    padding-right: 32px;
+    max-height: 375px;
+}
+
+div.m-c-title {
+    color: rgb(60, 65, 68);
+    margin-top: -4px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    margin-bottom: 32px!important;
+}
+
+div.m-text {
+    display: flex!important;
+    margin-bottom: 16px!important;
+}
+
+div.r-r-text {
+    display: inline-block;
+    color: rgb(148, 155, 160);
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+}
+
+input.m-r-reason {
+    position: absolute;
+    clip: rect(1px,1px,1px,1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+input.m-r-reason+label.m-reason {
+    display: inline-flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-align: start;
+    align-items: flex-start;
+    cursor: pointer;
+    position: relative;
+}
+
+input.m-r-reason+label.m-reason:hover:before {border-color: #47c880;}
+input.m-r-reason:checked:not(:disabled)+label.m-reason:before {border-color: #47c880;}
+input.m-r-reason:checked:not(:disabled)+label.m-reason:after {background-color: #47c880;}
+
+input.m-r-reason+label.m-reason:before {
+    width: 20px;
+    height: 20px;
+    content: "";
+    background-position: 50%;
+    border: 1px solid #e1e4e6;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 3px;
+    margin-right: 8px;
+    box-sizing: border-box;
+}
+
+input.m-r-reason+label.m-reason:after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+}
+
+div.quitBtnWrap {padding: 20px 32px 0;}
+
+button.quitBtn {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    min-width: 56px;
+    background-color: #47c880;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: .02em;
+    font-weight: 600;
+}
+
+button.quitBtn:disabled {
+    background-color: #47c88052;
+    cursor: not-allowed!important;
+}
+
+button.quitBtn:hover:not([disabled]) {background-color: #357e55;}
+
+div.quit-reason {
+    display: none;
+    margin: 12px 0;
+    max-height: 40px;
+}
+input.q-r-input {
+    width: 88%;
+    height: 40px;
+    color: #3c4144;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: .02em;
+    padding: 0 16px;
+    border: 1px solid #e1e4e6;
+    border-radius: 4px;
+    outline: none;
+}
+
+
+@media only screen and (min-width: 768px){
+    ul.quit-info {
+        margin: 24px 0;
+        padding: 0;
+    }
+
+    div.c-modal {
+        min-width: 337px;
+        max-width: 420px;
+    }
+
+    div.modal-close {
+        top: 0;
+        right: -25px;
+    }
+
+    div.m-c-wrap {max-height: 511px;}
+
+}

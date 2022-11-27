@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>너와농부싶어</title>
+    <link rel="icon" href="/image/header/favicon.png" />
+    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="stylesheet" href="/css/common/font.css" />
+    <link rel="stylesheet" href="/css/header/header.css" />
+    <link rel="stylesheet" href="/css/footer/footer.css" />
+    <link rel="stylesheet" href="/css/myPage/sideMenu.css" />
+    <link rel="stylesheet" href="/css/myPage/mentoring.css" />
+</head>
+<body>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div class="fake-header"></div>
+<div id="main">
+    <div id="main-tab" class="wrap-w" style="padding-bottom: 0">
+        <div class="container">
+            <div class="contentsWrap">
+                <!--메뉴 카텍고리 시작-->
+                <div th:replace="/myPage/sidemenu.html :: myPageMenu"></div>
+                <!--컨텐츠 시작-->
+                <div class="contents">
+                    <div class="c-header">
+                        <div class="c-title">
+                            <!-- 멘티일 때-->
+<!--                            <div>멘티 목록</div>-->
+                            <!-- 멘토일 때 -->
+                            <div>멘토 관리</div>
+                            <!----------->
+                        </div>
+
+                        <!-- 멘티일 때 -->
+<!--                        <div th:replace="/myPage/mentoringContent.html :: mentoringMentee"></div>-->
+                        <!----------->
+
+                        <!-- 멘토일 때 -->
+                        <div th:replace="/myPage/mentoringContent.html :: mentoringMentor"></div>
+                        <!----------->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 푸터 -->
+<div th:replace="/footer/footer.html :: footer" class="footer"/>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/header/header.js"></script>
+<script src="/js/myPage/myPage.js"></script>
+<script>
+    /*멘티일 때 멘토 삭제*/
+    function mentorDelete(){
+        event.stopImmediatePropagation();
+    }
+
+    /*멘토일 때 멘티 삭제*/
+    function menteeDelete(){
+        event.stopImmediatePropagation();
+    }
+
+    $("div.menu-a").removeClass('menu-select');
+    $("#mentoring").addClass('menu-select');
+
+    function move(tab){
+        $(".myInfo").css('height', '0px');
+        $(".myInfo").css('padding', '0');
+        $('.infoBtn>svg').css("transform", "rotate(180deg)");
+
+        $(".menu-tab button").removeClass('active');
+        $("button." + tab).addClass('active');
+        $('.content-m-wrap').hide();
+        $("#" + tab).show();
+    };
+</script>
+</html>

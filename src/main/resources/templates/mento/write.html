@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/mento/write.css">
+    <link rel="stylesheet" href="/css/common/font.css"/>
+    <link rel="icon" href="/image/header/favicon.png"/>
+    <link rel="shortcut icon" href="/image/header/favicon.png"/>
+    <title>멘토 홍보 글 작성</title>
+</head>
+<body>
+<div id="main_grid">
+    <div id="main_grid_inner1">
+        <div id="main_grid_inner2">
+            <span>
+                <div>
+                    <!--멘토 소개 페이지 헤더-->
+                    <div id="write_header">
+                        <div id="write_header_inner1">
+                            <div id="write_header_inner2">
+                                <div>
+                                    <div id="write_header_inner3">
+                                        <div id="header_left">
+                                            <div id="header_left_text">멘토 글 등록</div>
+                                            <!--<hr id="header_left_hr">
+                                            <div id="header_left_image">
+                                                <img src="https://cdn.comento.kr/images/emojis/emoji-rocket.svg" alt=""
+                                                     id="left_image">
+                                                <div id="header_left_text_inner1">힘차게 시작해봐요!</div>
+                                                <div id="header_left_percent">0%</div>
+                                            </div>-->
+                                        </div>
+                                        <div id="header_right">
+                                            <button id="header_right_button2">
+                                                <div class="right_button1_inner1"></div>
+                                                나가기
+                                                <div class="right_button1_inner1"></div>
+                                            </button>
+                                         </div>
+                                    </div>
+                                </div>
+                                <div id="write_header_line">
+                                    <div id="write_header_line1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--여기까지 멘토 소개페이지 헤더-->
+                </div>
+
+                <!--멘토 소개 페이지(클릭 시 show,hide 바뀜) 시작-->
+                <div id="write_main">
+                    <span id="first_page">
+                        <!--1page 시작-->
+                        <div class="write_main_first">
+                            <div class="write_main_first_inner1">
+                                <section style="margin-bottom: 40px!important;">
+                                    <div class="first_section1">
+                                        <div>
+                                            <div class="first_section1_inner1">
+                                                멘토님,<span class="green_text">환영합니다!</span><br>
+                                                개설을 위해 <span class="green_text">프로필</span>을 채워주세요.
+                                            </div>
+                                            <div class="first_section1_inner2"> 전문적인 멘토 경험이 없어도 실무 과정을 만들 수 있도록 도와드릴게요.</div>
+                                        </div>
+                                        <div style="align-self: flex-end; display: flex!important;align-items: center;"></div>
+                                    </div>
+                                </section>
+                                <section class="mg_32">
+                                    <div class="first_section4_title">
+                                        <div>
+                                            <div class="first_section4_main_title">경력 소개</div>
+                                            <div class="first_section4_sub_title">현재 어떤 일을 하고 있는지 알려주세요</div>
+                                        </div>
+                                        <span class="first_section4_example" id="carrer_intro_example">예시보기</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="현재 경력을 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="first_section4_title">
+                                        <div>
+                                            <div class="first_section4_main_title">과거 경력 소개</div>
+                                            <div class="first_section4_sub_title">과거 어떤 일을 했는지 알려주세요</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                   <textarea name="" id="carrer_textarea" cols="30" rows="5" placeholder="과거 경력을 입력해주세요"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+
+                                <section class="mg_32">
+                                    <div class="first_section4_title">
+                                        <div>
+                                            <div class="first_section4_main_title">멘토 추천 이유</div>
+                                            <div class="first_section4_sub_title">멘토님의 장점을 알려주세요</div>
+                                        </div>
+                                        <span class="first_section4_example" id="mento_result_example">예시보기</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="첫 번째 제목을 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="첫 번째 추천 이유를 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="두 번째 제목을 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="두 번째 추천 이유를 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="세 번째 제목을 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="세 번째 추천 이유를 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </span>
+                    <!--1page 끝-->
+                    <!--2page 시작-->
+                    <span id="second_page">
+                        <div class="write_main_first">
+                            <div class="write_main_first_inner1">
+                                <section style="margin-bottom: 40px!important;">
+                                    <div class="first_section1">
+                                        <div>
+                                            <div class="first_section1_inner1">
+                                                멘토 <span class="green_text">소개</span>를 위해<br>
+                                                <span class="green_text">제목</span>과 <span class="green_text">내용</span>을 작성해주세요.
+                                            </div>
+                                            <div class="first_section1_inner2"> 전문적인 멘토 경험이 없어도 실무 과정을 만들 수 있도록 도와드릴게요.</div>
+                                        </div>
+                                        <div style="align-self: flex-end; display: flex!important;align-items: center;"></div>
+                                    </div>
+                                </section>
+                                <section class="mg_32">
+                                    <div class="first_section4_title">
+                                        <div>
+                                            <div class="first_section4_main_title">멘토 홍보글 제목 작성</div>
+                                            <div class="first_section4_sub_title">나를 나타낼 수 있는 문구로 작성해주세요</div>
+                                        </div>
+                                        <span class="first_section4_example" id="mento_intro_title_example">예시보기</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="멘토 홍보글 제목을 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="멘토 홍보글 소제목을 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="mg_32">
+                                    <div class="first_section4_title">
+                                        <div>
+                                            <div class="first_section4_main_title">멘토 홍보글 내용 작성</div>
+                                            <div class="first_section4_sub_title">멘토 홍보글 내용을 작성해주세요.</div>
+                                        </div>
+                                        <span class="first_section4_example" id="mento_intro_content_example">예시보기</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div class="first_section4_write">
+                                                <div style="position: relative">
+                                                    <input type="text" class="fisrt_section4_write_input"
+                                                           placeholder="멘토 홍보글 내용 제목을 입력해주세요">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--상세페이지 내용 작성 textarea-->
+                                    <div class="textarea_content">
+                                            <textarea placeholder="멘토 홍보글 내용을 입력해주세요" autocomplete="off" class="textarea-editor" oninput="this.style.height = &quot;21px&quot;; this.style.height = this.scrollHeight + &quot;px&quot;"></textarea>
+                                    </div>
+                                </section>
+
+                                <!--이미지 첨부-->
+                                <section style="margin-top: 32px;">
+                                    <div class="mb_12">
+                                        <div class="section-body">이미지 <span style="color: #ADB3B8">(선택)</span> </div>
+                                        <div class="body-caption">프로그램 상세 페이지에서 노출될 수 있는 이미지가 있다면 첨부해주세요.</div>
+                                    </div>
+                                    <div style="margin-bottom: 32px;">
+
+                                        <!--파일 첨부 버튼 아이콘-->
+                                        <div class="align-items-center field">
+                                            <label style="cursor: pointer">
+                                                <img style="width: 20px; height: 20px; border: 1px solid #e1e4e6" id="preview-image" src="/image/program/upload.gif">
+                                                <input type="file" name="upload" multiple class="input-div-input" id="input_file" style="display: none;">
+                                            </label>
+                                        </div>
+
+                                        <div class="c-callout-information">
+                                            <div class="c-callout-wrapper">
+                                                <div class="align-center">
+                                                <img class="upload" src="/image/program/mark.gif">
+                                                <div class="c-callout-message">업로드되지 않는 경우, 압축하여 등록해주세요.
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--실제 들어갈 이미지-->
+                                        <div class="imgs_wrap" style="display: none"></div>
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+                    </span>
+                    <!--2page 끝-->
+                    <!--3page 시작-->
+                    <span></span>
+                    <!--3page 끝-->
+                </div>
+                <!--멘토 소개 페이지 내용 끝-->
+
+                <!--멘토 왼쪽 사이드 바 시작-->
+                <div id="asdie_left">
+                    <div id="aside_left_inner1">
+                        <div class="aside_left_list" onclick="listMainClick()">
+                            <div class="list_main">프로필 등록</div>
+                        </div>
+                        <div class="aside_left_list" onclick="listSubClick()">
+                            <div class="list_sub">멘토 홍보글 작성</div>
+                        </div>
+                    </div>
+                </div>
+                <!--멘토 왼쪽 사이드 바 끝-->
+
+                <!--멘토 오른쪽 사이드 바 시작-->
+                <div id="aside_right">
+                    <div>
+                        <div id="first_aside" style="display: block">
+                            <div class="aside_right_inner1" id="first_page_background1">
+                                <div>
+                                    <div class="aside_right_inner2">
+                                        <div class="aside_right_inner3">
+                                            <div class="asdie_right_title" style="color: rgb(27, 81, 146);font-weight: 500;">예시</div>
+                                            <hr class="aside_right_inner4">
+                                            <div class="asdie_right_title" style="color: rgb(4, 5, 5);font-weight: 600;">경력 소개 예시</div>
+                                        </div>
+                                        <svg id="first_page_arrow1" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="arrow_transform" style="fill: rgb(89, 95, 99);">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <!--멘토 경력소개 예시-->
+                                <div id="carrer_intro">
+                                    <div style="margin-bottom: 20px;"></div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">현재 경력</p>
+                                        <p class="example_p_gray">너와농부싶어 고구마 농사 멘토 활동중</p>
+                                    </div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">과거 경력</p>
+                                        <p class="example_p_gray">25년 경력 다양한 작물 재배<br>2019년 농림축산식품부 지정 농업마이스터<br>20회 이상 멘티 컨설팅</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="second_aside" style="display: block">
+                            <div class="aside_right_inner1" id="first_page_background2">
+                                <div>
+                                    <div class="aside_right_inner2">
+                                        <div class="aside_right_inner3">
+                                            <div class="asdie_right_title" style="color: rgb(27, 81, 146);font-weight: 500;">예시</div>
+                                            <hr class="aside_right_inner4">
+                                            <div class="asdie_right_title" style="color: rgb(4, 5, 5);font-weight: 600;">멘토 추천 이유 예시</div>
+                                        </div>
+                                        <svg id="first_page_arrow2" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="arrow_transform" style="fill: rgb(89, 95, 99);">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <!--멘토 추천이유 예시-->
+                                <div id="mento_result">
+                                    <div style="margin-bottom: 20px;"></div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">다양한 멘토 경험</p>
+                                        <p class="example_p_gray">20회 이상 멘티 가르침으로 생긴 노하우 전수</p>
+                                    </div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">농림축산식품부 지정 농업마이스터</p>
+                                        <p class="example_p_gray">2019년 44명 지정된 농업 마이스터 중 한명이기 때문에 전문성 확실</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="third_aside" style="display: none">
+                            <div class="aside_right_inner1" id="second_page_background1">
+                                <div>
+                                    <div class="aside_right_inner2">
+                                        <div class="aside_right_inner3">
+                                            <div class="asdie_right_title" style="color: rgb(27, 81, 146);font-weight: 500;">예시</div>
+                                            <hr class="aside_right_inner4">
+                                            <div class="asdie_right_title" style="color: rgb(4, 5, 5);font-weight: 600;">멘토 홍보글 제목 예시</div>
+                                        </div>
+                                        <svg id="second_page_arrow1" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="arrow_transform" style="fill: rgb(89, 95, 99);">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <!--멘토 홍보글 제목 예시-->
+                                <div id="mento_intro_title">
+                                    <div style="margin-bottom: 20px;"></div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">멘토 홍보글 제목</p>
+                                        <p class="example_p_gray">멘토가 알려주는 감자 농사 비법</p>
+                                    </div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">멘토 홍보글 내용</p>
+                                        <p class="example_p_gray">현직 멘토가 농사하는 방법</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="last_aside" style="display: none">
+                            <div class="aside_right_inner1" id="second_page_background2">
+                                <div>
+                                    <div class="aside_right_inner2">
+                                        <div class="aside_right_inner3">
+                                            <div class="asdie_right_title" style="color: rgb(27, 81, 146);font-weight: 500;">예시</div>
+                                            <hr class="aside_right_inner4">
+                                            <div class="asdie_right_title" style="color: rgb(4, 5, 5);font-weight: 600;">멘토 홍보글 내용 예시</div>
+                                        </div>
+                                        <svg id="second_page_arrow2" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="arrow_transform" style="fill: rgb(89, 95, 99);">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <!--멘토 홍보글 내용 예시-->
+                                <div id="mento_intro_content">
+                                    <div style="margin-bottom: 20px;"></div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">멘토 홍보글 제목</p>
+                                        <p class="example_p_gray">홍보글 내용 제목</p>
+                                    </div>
+                                    <div style="background-color: #fcfcfc;border-radius: 5px;padding: 10px;margin-bottom: 12px;">
+                                        <p class="example_p_green">멘토 홍보글</p>
+                                        <p class="example_p_gray">홍보글 내용</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--멘토 오른쪽 사이드 바 끝-->
+
+                <!--나가기 모달 창-->
+                <div>
+                    <aside id="c-overlay">
+                        <div class="register-modal">
+                            <div class="modal-wrapper">
+                                <div class="modal-title-wrapper">
+                                    <div class="modal-title">정말 그만둘까요?</div>
+                                </div>
+                                <div class="modal-content-wrapper">
+                                    <div class="modal-content">
+                                        도움이 필요한 사람들이 멘토님을 기다리고 있어요<br>다양한 사람들의 멘토가 되어주세요!
+                                        <div class="exit-modal-action-container">
+                                            <button class="button-1"><div class="flex"/>나가기<div class="flex"/></button>
+                                            <button class="button-2"><div class="flex"/>계속 작성하기<div class="flex"/></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+                <!--멘토 소개 페이지 푸터 시작-->
+                <div id="write_footer">
+                    <div id="write_footer_inner1">
+                        <div id="write_footer_inner2">
+                            <div id="write_footer_inner3">
+                                <button id="footer_button_prev" onclick="prevButton()">
+                                    <div style="display: flex;" disabled="disabled">
+                                        <img class="footer_prev_image" src="/image/program/prev_register.gif"
+                                             disabled="disabled">
+                                    </div>
+                                    이전
+                                    <div style="display: flex;" disabled="disabled"></div>
+                                </button>
+                                    <button id="footer_button_next" onclick="nextButton()">다음<img
+                                            src="/image/program/next_register.gif" class="footer_next_image"></button>
+                                    <button class="submitBtn" style="display: none">제출<img
+                                            src="/image/program/next_register.gif" class="footer_next_image"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/mento/write.js"></script>
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/mustache.js"></script>
+<script type="text/javascript" src="/js/comm.js"></script>
+<script type="text/javascript">
+
+   /* let arrayFile = [];
+
+    $("input[type='file']").on("change", function(){
+        let formData = new FormData();
+        let $inputFile = $("input[name='upload']");
+        let files = $inputFile[0].files;
+
+        console.log(Array.from(files));
+
+        Array.from(files).forEach(file => arrayFile.push(file));
+        const dataTransfer = new DataTransfer();
+        arrayFile.forEach(file => dataTransfer.items.add(file));
+        $(this)[0].files = dataTransfer.files;
+
+        console.log($(this)[0].files);
+
+        $(files).each(function(i, file){
+            formData.append("upload", file);
+        });
+
+        let text = "";
+        console.log("들어옴1" + text);
+        $(files).each(function(i, file){
+            text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+            text += `<span>X</span>`;
+            if(!file.fileImageCheck){
+                text += `<img src="/static/image/mento1.jpg" width="100">`;
+            }else{
+                text += `<img src="/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+            }
+            text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+            text += `</li>`;
+        });
+
+        $(".imgs_wrap ul").append(text);
+        $(".imgs_wrap").show();
+
+        /!*$.ajax({
+            url: "/file/upload",
+            type: "post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: showUploadResult
+        });*!/
+    });
+
+    function showUploadResult(files){
+        let text = "";
+        $(files).each(function(i, file){
+            text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+            text += `<span>X</span>`;
+            if(!file.fileImageCheck){
+                text += `<img src="/images/attach.png" width="100">`;
+            }else{
+                text += `<img src="/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+            }
+            text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+            text += `</li>`;
+        });
+        $(".imgs_wrap ul").append(text);
+        $(".imgs_wrap").show();
+    }
+
+    $(".imgs_wrap ul").on("click", "span", function(){
+        const $li = $(this).closest("li");
+        let i = $(".imgs_wrap ul span").index($(this));
+        let uploadPath = $li.data("file-upload-path");
+        let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
+        $.ajax({
+            url: "/file/delete",
+            type: "post",
+            data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
+            success: function(){
+                $li.remove();
+                arrayFile.splice(i, 1);
+                const dataTransfer = new DataTransfer();
+                arrayFile.forEach(file => dataTransfer.items.add(file));
+                $("input[name='upload']")[0].files = dataTransfer.files;
+            }
+        });
+    });*/
+
+
+    var sel_files = [];
+
+
+    $(document).ready(function() {
+
+        $("#input_file").on("change", handleImgsFilesSelect);
+    });
+
+    function handleImgsFilesSelect(e) {
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+        // $(".imgs_wrap").empty();
+
+        filesArr.forEach(function(f) {
+            if(!f.type.match("image.*")) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+
+            console.log("filesArr: " + filesArr.length);
+            let fileNo = 0;
+            sel_files.push(f);
+            console.log("sel_files" + sel_files.length);
+
+            sel_files.forEach(function(e,index)
+            {
+                console.log(index);
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var fileValue = $("#input_file").val().split("\\");
+                    var fileName = fileValue[fileValue.length - 1]; // 파일명
+                    var img_html = `<div class="file-content-` + fileNo + `"></div><img class='deleteBtn' alt=\"첨부 삭제\" src=\"/image/myPage/close.png\" onclick=\"cancelFile()\"><br>`;
+                    $(".imgs_wrap").append(img_html);
+                    $('.file-content-' + fileNo).text(fileName);
+                    $(".imgs_wrap").show();
+                    $(".deleteBtn").show();
+                    var img_html = "";
+                    fileNo++;
+                    reader.readAsDataURL(f);
+                }
+            });
+
+        });
+    }
+
+</script>

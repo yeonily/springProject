@@ -1,0 +1,190 @@
+/*------------------------------------------*/
+/*모바일 창*/
+/*------------------------------------------*/
+@media only screen and (max-width: 768px) {
+    body {
+        width: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    div.fake-header {
+        height: 53px !important;
+    }
+    footer {
+        margin-top: 100px;
+    }
+
+    /*------------------------------------*/
+                    /*서브배너*/
+    /*------------------------------------*/
+    div#sub_banner {
+        background-color: #e0f5e9;
+    }
+    div.right-content img {
+        content: url("https://cdn.comento.kr/images/edu-career/edu-path-list-banner-m.png");
+        width: 370px !important;
+        height: 464px!important;
+        top: 15px !important;
+    }
+    div#sub_banner div.sub_banner_content {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+    div.sub_banner_content div.left-content {
+        margin-top: -87px;
+        margin-left: 16px;
+    }
+    div.sub_banner_content div.left-content h2 {
+        font-size: 32px;
+        font-weight: 900;
+    }
+    div.sub_banner_content div.left-content p {
+        font-size: 18px;
+        margin-top: -20px;
+        color: rgb(32, 35, 37);
+        font-weight: 400;
+    }
+
+
+
+    /*------------------------------------*/
+                /*인기 아르바이트 배너*/
+    /*------------------------------------*/
+    div#alba_list {
+        margin-top: 80px;
+        width: 90%;
+        margin-bottom: 50px;
+    }
+    div#alba_list h2 {
+        font-size: 26px;
+        width: 90%;
+    }
+    div#alba_list div.alba_list_list {
+        width: 100%;
+        height: 100%;
+    }
+    div.alba_list_list div.alba_div {
+        width: 100%;
+        height: 225px;
+    }
+    div.alba_list_list div.alba_div img {
+        width: 100%;
+        height: 150px;
+    }
+    div.alba_list_list div.alba_div p.alba_title {
+        width: 100%;
+    }
+
+    /*------------------------------------*/
+                /*일반 아르바이트 배너*/
+    /*------------------------------------*/
+    div#normal_alba_list {
+        width: 95%;
+    }
+    div#normal_alba_list div.top-div {
+        width: 100%;
+    }
+    div.normal_alba_list div#list_th {
+        width: 100%;
+    }
+    div.list_td {
+        width: 100%;
+    }
+    div#list_th .location,
+    div.list_td div.location{
+        width: 15%;
+    }
+    div#list_th .title,
+    div.list_td div.title {
+        width: 30%;
+    }
+    div#list_th .workDay,
+    div.list_td div.workDay {
+        width: 15%;
+    }
+    div#list_th .pay,
+    div.list_td div.pay {
+        width: 15%;
+        white-space: normal;
+    }
+
+    div.list_td div.pay {
+        line-height: 20px;
+        word-break: inherit;
+        margin-top: 30px;
+        padding-top: 0;
+    }
+    div#list_th .registerDay,
+    div.list_td div.registerDay {
+        width: 20%;
+    }
+
+    div.list_td div.location {
+        line-height: 20px;
+        vertical-align: middle;
+        padding: 30px 0 12px 0;
+    }
+    div.list_td div.title {
+        line-height: 100px;
+        font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0;
+    }
+    div.list_td div.workDay {
+        line-height: 20px;
+        padding-top: 30px;
+    }
+    div.list_td div.pay {
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    div.list_td div.pay p.miniText {
+        font-size: 11px;
+        width: 30px;
+        margin: -10px 0 0 0;
+    }
+
+    div#writeBtn button {
+        margin-right: 5px;
+    }
+
+
+    /*------------------------------------*/
+        /*모바일 show(인기 아르바이트는 4개까지)*/
+    /*------------------------------------*/
+    div.alba_list_list div.alba_div:nth-child(n+5):nth-child(-n+8) {
+        display: none !important;
+    }
+
+    /*------------------------------------*/
+            /*모바일 페이징(5페이지까지)*/
+    /*------------------------------------*/
+    div#paging li:nth-child(n+7):nth-child(-n+11) {
+        display: none;
+    }
+
+
+
+
+    /*------------------------------------*/
+            /*푸터 이미지 초기화*/
+    /*------------------------------------*/
+    ul.bottom-nav li:nth-child(3) img {
+        content: url("/image/footer/nav2_on.gif");
+    }
+
+    ul.bottom-nav li:nth-child(2) img {
+        content: url("/image/footer/nav3.gif");
+    }
+
+    ul.bottom-nav li:nth-child(3) div {
+        color: #00a147 !important;
+    }
+    ul.bottom-nav li:not(ul.bottom-nav li:nth-child(3)) div {
+        color: #767d82 !important;
+    }
+}

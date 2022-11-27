@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="menuContainer" th:fragment="myPageMenu">
+        <aside class="asideMenu">
+            <div class="profile-wrap">
+                <div class="profile">
+                    <div class="nickname">닉네임 넣는 곳</div>
+                    <div class="email-wrqp">
+                        <span class="email">이메일 넣는 곳</span>
+                        <span class="email-logo">
+                            <img src="/image/myPage/naver.png">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu">
+                <a th:href="@{/mypage/program}">
+                    <div class="menu-a" id="program">
+                        내 프로그램
+                    </div>
+                </a>
+            </div>
+            <div class="menu">
+                <a th:href="@{/mypage/alba}">
+                    <div class="menu-a" id="alba">
+                        내 아르바이트
+                    </div>
+                </a>
+            </div>
+            <!-- 농장주 일 때 -->
+            <div class="menu ">
+                <a th:href="@{/mypage/community}">
+                    <div class="menu-a" id="community">
+                        커뮤니티 활동
+                    </div>
+                </a>
+                <hr class="menu-category">
+            </div>
+            <!---------------->
+            <div class="menu">
+                <a th:href="@{/mypage/setting}">
+                    <div class="menu-a" id="myInfoPage">
+                        개인 정보 설정
+                    </div>
+                </a>
+            </div>
+            <div class="menu">
+                <a  th:href="@{/mypage/payment}">
+                    <div class="menu-a" id="payment">
+                        결제 내역
+                    </div>
+                </a>
+            </div>
+            <div class="menu">
+                <a href="javascript:void(0);">
+                    <div class="menu-a more-btn">
+                        더보기
+                        <svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>
+                    </div>
+                </a>
+            </div>
+            <div class="slide-menu">
+                <div class="menu">
+                    <a th:href="@{/mypage/inquire}">
+                        <div class="menu-a slide-m" id="inquire">
+                            문의 내역
+                        </div>
+                    </a>
+                </div>
+                <div class="menu">
+                    <a th:href="@{/mypage/mentoring}">
+                        <div class="menu-a slide-m" id="mentoring">
+                            <!-- if (멘티) -->
+                            멘토 리스트
+                            <!-- if (멘토) -->
+                            멘티 리스트
+                            <!-------------->
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

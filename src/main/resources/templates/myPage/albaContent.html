@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 일반 유저 - 신청한 아르바이트 -->
+<div class="alba-lists-wrap" th:fragment="userAlbas">
+    <div class="alba-list">
+        <!---->
+        <div class="commu c-link" th:onclick="'location.href=\''+ @{/alba/detail} + '\''">
+            <div class="c-top-wrap">
+                <div class="t-s-wrap">
+                    <div class="c-address">2022.11.25 ・</div>
+                    <div class="c-address">경기도 ・</div>
+                    <div class="c-pay">시급 1000원</div>
+                </div>
+            </div>
+            <div class="c-group">
+                <div class="c-g-title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</div>
+            </div>
+            <div class="commu-group">
+<!--                <div class="c-status c-wait">대기</div>-->
+<!--                <div class="c-status c-accept">수락</div>-->
+                <div class="c-status c-refuse">거절</div>
+            </div>
+        </div>
+    </div>
+    <!---->
+</div>
+<!------------------->
+
+<!-- 농장주 - 내가 만든 아르바이트 -->
+<div class="alba-lists-wrap" th:fragment="farmerAlbas">
+    <div class="alba-list">
+        <!---->
+        <div class="commu c-link" th:onclick="'location.href=\''+ @{/alba/detail} + '\''">
+            <div class="c-top-wrap">
+                <div class="t-s-wrap">
+                    <div class="c-address">2022.11.25 ・</div>
+                    <div class="c-address">경기도 ・</div>
+                    <div class="c-pay">시급 1000원</div>
+                </div>
+                <div class="applied-cancel a-c-color">
+                    <a href="#"><div class="a-c-btn2" style="margin-bottom: 1px;">수정하기</div></a>
+                    <a href="javascript:void(0);" onclick="javascript:removeCheck();"><div class="a-c-btn2">삭제하기</div></a>
+                    <a th:href="@{/mypage/alba/apply}"><div class="a-c-btn2">신청자 목록</div></a>
+                </div>
+                <img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">
+            </div>
+            <div class="c-group">
+                <div class="c-g-title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</div>
+            </div>
+            <div class="commu-group">
+<!--                <div class="c-status c-end">마감</div>-->
+                <div class="c-status">모집 중</div>
+                <span class="c-count">
+                    <svg data-v-bd9f2bcc="" data-v-7d0ae9c8="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="mr-4 c-application c-icon" style="fill: rgb(148, 155, 160);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M13.8766 8C11.3452 12.6334 4.65478 12.6334 2.12331 8C4.65478 3.36658 11.3452 3.36658 13.8766 8ZM14.8923 7.78461C12.0525 2.10504 3.94746 2.10504 1.10767 7.78461C1.03988 7.9202 1.03988 8.07979 1.10767 8.21538C3.94746 13.895 12.0525 13.895 14.8923 8.21538C14.9601 8.07979 14.9601 7.9202 14.8923 7.78461Z"></path><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M8 9.5C8.82843 9.5 9.5 8.82843 9.5 8C9.5 7.17157 8.82843 6.5 8 6.5C7.17157 6.5 6.5 7.17157 6.5 8C6.5 8.82843 7.17157 9.5 8 9.5ZM8 10.5C9.38071 10.5 10.5 9.38071 10.5 8C10.5 6.61929 9.38071 5.5 8 5.5C6.61929 5.5 5.5 6.61929 5.5 8C5.5 9.38071 6.61929 10.5 8 10.5Z"></path></svg>
+                    <span class="c-text">0</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!---->
+</div>
+<!------------------->
+</body>
+</html>

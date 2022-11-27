@@ -1,0 +1,85 @@
+/**************************************************************/
+/*지원하기 모달창*/
+/**************************************************************/
+div#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+    z-index: 9998;
+}
+div.c-modal {
+    max-height: 640px;
+    width: 30%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+}
+div.m-wrap {padding: 17px 0;}
+div.m-title {
+    padding: 0 32px 20px;
+    color: rgb(4, 5, 5);
+    text-align: left;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+}
+div.m-c-wrap {
+    padding-left: 32px;
+    padding-right: 32px;
+    max-height: 375px;
+    overflow: auto;
+}
+div.m-c-wrap p {
+    text-align: center;
+}
+div.m-c-title {
+    color: rgb(60, 65, 68);
+    margin-top: -4px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    margin-bottom: 32px!important;
+}
+div.applyBtnWrap {padding: 20px 32px 0;}
+button.applyBtn,
+button.cancel{
+    width: 30%;
+    height: 40px;
+    padding: 0 14px;
+    min-width: 56px;
+    background-color: #47c880;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: .02em;
+    font-weight: 600;
+    margin-left: 11rem;
+}
+button.applyBtn:disabled {
+    background-color: #47c88052;
+    cursor: not-allowed!important;
+}
+button.applyBtn:hover:not([disabled]),
+button.cancel:hover{
+    background-color: #357e55;
+}
+
+button#main_fixed_button{
+    background-color: white;
+    border: none;
+}
+
+button#main_fixed_button:hover{
+    color: #00a147;
+    cursor: pointer;
+}
