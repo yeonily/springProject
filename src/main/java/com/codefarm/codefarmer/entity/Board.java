@@ -35,6 +35,10 @@ public class Board extends Period{
         this.boardContent = boardContent;
     }
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
     @Builder
     public Board(String boardTitle, String boardContent, int boardViewCount) {
         this.boardTitle = boardTitle;
