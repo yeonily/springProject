@@ -55,6 +55,7 @@ public class MentorTest {
         mentorDTO.setMentorCrop("딸기");
         mentorDTO.setMentorYear("5~9년차");
 
+
         mentor.update(mentorDTO);
     }
 
