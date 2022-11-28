@@ -30,12 +30,12 @@ public class Banner extends Period{
     private LocalDateTime bannerEndDate;
 
     public void update(BannerDTO bannerDTO){
-        this.bannerTitle = bannerTitle;
-        this.bannerInfo = bannerInfo;
-        this.bannerStatus = bannerStatus;
-        this.bannerRealname = bannerRealname;
-        this.bannerStartDate = bannerStartDate;
-        this.bannerEndDate = bannerEndDate;
+        this.bannerTitle = bannerDTO.getBannerTitle();
+        this.bannerInfo = bannerDTO.getBannerInfo();
+        this.bannerStatus = bannerDTO.getBannerStatus();
+        this.bannerRealname = bannerDTO.getBannerRealname();
+        this.bannerStartDate = bannerDTO.getBannerStartDate();
+        this.bannerEndDate = bannerDTO.getBannerEndDate();
     }
     
     

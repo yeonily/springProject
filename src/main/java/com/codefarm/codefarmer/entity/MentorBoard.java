@@ -47,18 +47,18 @@ public class MentorBoard extends Period{
     private List<MentorFile> mentorFiles;
 
     public void update(MentorBoardDTO mentorBoardDTO){
-        this.mentorCareer = mentorCareer;
-        this.mentorExCareer = mentorExCareer;
-        this.mentorStrongTitle1 = mentorStrongTitle1;
-        this.mentorStrongContent1 = mentorStrongContent1;
-        this.mentorStrongTitle2 = mentorStrongTitle2;
-        this.mentorStrongContent2 = mentorStrongContent2;
-        this.mentorStrongTitle3 = mentorStrongTitle3;
-        this.mentorStrongContent3 = mentorStrongContent3;
-        this.mentorTitle = mentorTitle;
-        this.mentorTitleSub = mentorTitleSub;
-        this.mentorTextTitle = mentorTextTitle;
-        this.mentorTextContent = mentorTextContent;
+        this.mentorCareer = mentorBoardDTO.getMentorCareer();
+        this.mentorExCareer = mentorBoardDTO.getMentorExCareer();
+        this.mentorStrongTitle1 = mentorBoardDTO.getMentorStrongTitle1();
+        this.mentorStrongContent1 = mentorBoardDTO.getMentorStrongContent1();
+        this.mentorStrongTitle2 = mentorBoardDTO.getMentorStrongTitle2();
+        this.mentorStrongContent2 = mentorBoardDTO.getMentorStrongContent2();
+        this.mentorStrongTitle3 = mentorBoardDTO.getMentorStrongTitle3();
+        this.mentorStrongContent3 = mentorBoardDTO.getMentorStrongContent3();
+        this.mentorTitle =mentorBoardDTO.getMentorTitle();
+        this.mentorTitleSub = mentorBoardDTO.getMentorTitleSub();
+        this.mentorTextTitle = mentorBoardDTO.getMentorTextTitle();
+        this.mentorTextContent = mentorBoardDTO.getMentorTextContent();
     }
 
     @Builder

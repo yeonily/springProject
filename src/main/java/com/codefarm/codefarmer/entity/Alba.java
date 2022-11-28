@@ -74,32 +74,32 @@ public class Alba extends Period{
     private Member member;
 
     public void update(AlbaDTO albaDTO){
-        this.albaTitle = albaTitle;
-        this.albaImage = albaImage;
-        this.albaTitleOne = albaTitleOne;
-        this.albaApplyStartDate = albaApplyStartDate;
-        this.albaApplyEndDate = albaApplyEndDate;
-        this.albaWorkDate = albaWorkDate;
-        this.albaApplyCount = albaApplyCount;
-        this.albaApplyTotalCount = albaApplyTotalCount;
-        this.albaAddress = albaAddress;
-        this.albaPrice = albaPrice;
-        this.albaMainTitle = albaMainTitle;
-        this.albaMainContent = albaMainContent;
-        this.albaStrongTitle1 = albaStrongTitle1;
-        this.albaStrongContent1 = albaStrongContent1;
-        this.albaStrongTitle2 = albaStrongTitle2;
-        this.albaStrongContent2 = albaStrongContent2;
-        this.albaStrongTitle3 = albaStrongTitle3;
-        this.albaStrongContent3 = albaStrongContent3;
-        this.albaBannerTitle = albaBannerTitle;
-        this.albaBannerOne = albaBannerOne;
-        this.albaTextTitle = albaTextTitle;
-        this.albaText = albaText;
-        this.albaProfileTitle1 = albaProfileTitle1;
-        this.albaProfileContent1 = albaProfileContent1;
-        this.albaProfileTitle2 = albaProfileTitle2;
-        this.albaProfileContent2 = albaProfileContent2;
+        this.albaTitle = albaDTO.getAlbaTitle();
+        this.albaImage = albaDTO.getAlbaImage();
+        this.albaTitleOne = albaDTO.getAlbaTitleOne();
+        this.albaApplyStartDate = albaDTO.getAlbaApplyStartDate();
+        this.albaApplyEndDate = albaDTO.getAlbaApplyEndDate();
+        this.albaWorkDate = albaDTO.getAlbaWorkDate();
+        this.albaApplyCount = albaDTO.getAlbaApplyCount();
+        this.albaApplyTotalCount = albaDTO.getAlbaApplyTotalCount();
+        this.albaAddress = albaDTO.getAlbaAddress();
+        this.albaPrice = albaDTO.getAlbaPrice();
+        this.albaMainTitle = albaDTO.getAlbaMainTitle();
+        this.albaMainContent = albaDTO.getAlbaMainContent();
+        this.albaStrongTitle1 = albaDTO.getAlbaStrongTitle1();
+        this.albaStrongContent1 = albaDTO.getAlbaStrongContent1();
+        this.albaStrongTitle2 = albaDTO.getAlbaStrongTitle2();
+        this.albaStrongContent2 = albaDTO.getAlbaStrongContent2();
+        this.albaStrongTitle3 = albaDTO.getAlbaStrongTitle3();
+        this.albaStrongContent3 = albaDTO.getAlbaStrongContent3();
+        this.albaBannerTitle = albaDTO.getAlbaBannerTitle();
+        this.albaBannerOne = albaDTO.getAlbaBannerOne();
+        this.albaTextTitle = albaDTO.getAlbaTextTitle();
+        this.albaText = albaDTO.getAlbaText();
+        this.albaProfileTitle1 = albaDTO.getAlbaProfileTitle1();
+        this.albaProfileContent1 = albaDTO.getAlbaProfileContent1();
+        this.albaProfileTitle2 = albaDTO.getAlbaProfileTitle2();
+        this.albaProfileContent2 = albaDTO.getAlbaProfileContent2();
     }
 
     @Builder

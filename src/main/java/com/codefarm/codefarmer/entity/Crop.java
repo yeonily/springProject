@@ -23,10 +23,10 @@ public class Crop extends Period{
     private String cropContent;
 
     public void update(CropDTO cropDTO){
-        this.cropKeyword = cropKeyword;
-        this.cropTitle = cropTitle;
-        this.cropImage = cropImage;
-        this.cropContent = cropContent;
+        this.cropKeyword = cropDTO.getCropKeyword();
+        this.cropTitle = cropDTO.getCropTitle();
+        this.cropImage = cropDTO.getCropImage();
+        this.cropContent = cropDTO.getCropContent();
     }
 
     @Builder
