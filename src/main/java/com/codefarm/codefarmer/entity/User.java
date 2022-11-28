@@ -22,7 +22,7 @@ public class User extends Member{
 
     public void update(UserDTO userDTO){
         super.update(userDTO.getMemberNickname(), userDTO.getMemberPhone(), userDTO.getMemberLocation(), userDTO.getMemberEmail());
-        this.userType = userType;
+        this.userType = userDTO.getUserType();
     }
 
 

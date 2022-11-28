@@ -21,9 +21,9 @@ public class Policy extends Period{
     private String policyContent;
 
     public void update(PolicyDTO policyDTO){
-        this.policyKeyword = policyKeyword;
-        this.policyTitle = policyTitle;
-        this.policyContent = policyContent;
+        this.policyKeyword =policyDTO. getPolicyKeyword();
+        this.policyTitle = policyDTO.getPolicyTitle();
+        this.policyContent = policyDTO.getPolicyContent();
     }
 
     @Builder

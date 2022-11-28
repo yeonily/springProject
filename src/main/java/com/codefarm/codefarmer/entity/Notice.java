@@ -26,8 +26,8 @@ public class Notice extends Period{
     private List<NoticeFile> noticeFiles;
 
     public void update(NoticeDTO noticeDTO){
-        this.noticeTitle = noticeTitle;
-        this.noticeContent = noticeContent;
+        this.noticeTitle = noticeDTO.getNoticeTitle();
+        this.noticeContent = noticeDTO.getNoticeContent();
     }
 
     @Builder
