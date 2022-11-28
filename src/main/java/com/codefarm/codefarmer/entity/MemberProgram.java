@@ -1,5 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.type.ProgramStatus;
+import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -12,6 +14,10 @@ import javax.persistence.*;
 public class MemberProgram extends Period{
     @Id @GeneratedValue
     private Long programApplyId;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ProgramStatus programStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROGRAM_ID")
@@ -27,7 +33,8 @@ public class MemberProgram extends Period{
     private int programPayment;
 
     @Builder
-    public MemberProgram(int programApplyCount, int programPayment) {
+    public MemberProgram(ProgramStatus programStatus, int programApplyCount, int programPayment) {
+        this.programStatus = programStatus;
         this.programApplyCount = programApplyCount;
         this.programPayment = programPayment;
     }

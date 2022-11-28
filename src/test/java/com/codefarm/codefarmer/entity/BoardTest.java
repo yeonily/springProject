@@ -39,6 +39,14 @@ public class BoardTest {
     }
 
     @Test
+    public void boardUpdateTest(){
+        BoardDTO boardDTO = new BoardDTO();
+//        boardDTO.setBoardId();
+        boardDTO.setBoardTitle("수정된 번호");
+        boardDTO.setBoardContent("수정된 내용");
+    }
+
+    @Test
     public void boardDeleteTest(){
         boardRepository.deleteAll();
     }
