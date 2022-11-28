@@ -4,6 +4,7 @@ body {
     margin: 0;
     background: rgba(253, 223, 223, 0.23);
     background-color: #eee;
+    overflow-x: hidden;
 }
 
 body, button{
@@ -135,9 +136,9 @@ nav div.side-menu-contents:hover {
     color: #ffffff
 }
 
-#side-menu ul ul li:first-child>a {
-    box-shadow: none;
-}
+#side-menu ul ul li:first-child>a {box-shadow: none;}
+
+#side-menu ul ul li>a {text-decoration: none;}
 
 #side-menu ul ul ul li a {
     background: #575656;
