@@ -29,7 +29,7 @@ public class FarmerTest {
             farmerDTO.setMemberEmail("a@naver.com");
             farmerDTO.setMemberLocation("서울");
             farmerDTO.setMemberName("김지연");
-            farmerDTO.setMemberNickname("rr222");
+            farmerDTO.setMemberNickname("r22");
             farmerDTO.setMemberPhone("010-1112-1111");
             farmerDTO.setMemberOauth(KAKAO);
 
@@ -48,6 +48,16 @@ public class FarmerTest {
 
         farmer.update(farmerDTO);
     }
+
+    @Test
+    public void typeUpdateTest(){
+        Farmer farmer = farmerRepository.findById(1l).get();
+        FarmerDTO farmerDTO = new FarmerDTO();
+        farmerDTO.setFarmerType(FarmerType.MENTOR);
+
+        farmer.update(farmerDTO);
+    }
+
 
     @Test
     public void deleteTest(){

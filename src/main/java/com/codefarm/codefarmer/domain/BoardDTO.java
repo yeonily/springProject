@@ -36,8 +36,6 @@ public class BoardDTO {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;
-//        this.memberId = member;
-//        this.memberId = memberId;
         this.memberNickName = memberNickName;
         this.createdDate = createdDate;
         this.updateDate = updateDate;

@@ -17,7 +17,7 @@ spring:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     hibernate:
 #      ddl-auto: create
-    #      ddl-auto: create-drop
+#          ddl-auto: create-drop
     #      ddl-auto: update
           ddl-auto: validate
     properties:

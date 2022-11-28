@@ -41,9 +41,20 @@ public class BoardTest {
     @Test
     public void boardUpdateTest(){
         BoardDTO boardDTO = new BoardDTO();
-//        boardDTO.setBoardId();
-        boardDTO.setBoardTitle("수정된 번호");
+        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
+        Board board = boardRepository.findById(2L).get();
+
+        boardDTO.setBoardTitle("수정된 제목");
         boardDTO.setBoardContent("수정된 내용");
+        boardDTO.setMemberId(findFarmer.get());
+        boardDTO.setBoardId(board.getBoardId());
+//        boardDTO.setMemberId(findFarmer.get());
+//
+//        board.changeMember(boardDTO.getMemberId());
+
+        board.update(boardDTO);
+
+
     }
 
     @Test

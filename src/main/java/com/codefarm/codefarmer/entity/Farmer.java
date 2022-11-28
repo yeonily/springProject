@@ -20,7 +20,7 @@ public class Farmer extends Member{
 
     public void update(FarmerDTO farmerDTO){
         super.update(farmerDTO.getMemberNickname(), farmerDTO.getMemberPhone(), farmerDTO.getMemberLocation(), farmerDTO.getMemberEmail());
-        this.farmerType = farmerType;
+        this.farmerType = farmerDTO.getFarmerType();
     }
 
     @Builder

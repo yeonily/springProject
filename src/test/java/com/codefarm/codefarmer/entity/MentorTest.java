@@ -31,6 +31,30 @@ public class MentorTest {
 //                MEMBER_ID를 못갖고옴
 
 
+
+
+    @Test
+    public void farmerChangeMentor(){
+//        MentorDTO mentorDTO = new MentorDTO();
+//        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
+//        if(findFarmer.isPresent()){
+//            Member member = findFarmer.get();
+//        }
+//        mentorDTO.setMember(member);
+//
+//        Mentor mentor = mentorDTO.toEntity();
+//        mentor.changeMemberType(FarmerType.MENTOR);
+//        findFarmer.get().getFarmerType(farmerDTO.setFarmerType(FarmerType.MENTOR));
+
+        Farmer farmer = farmerRepository.findById(1l).get();
+        FarmerDTO farmerDTO = new FarmerDTO();
+        farmerDTO.setFarmerType(FarmerType.MENTOR);
+
+        farmer.update(farmerDTO);
+    }
+
+
+
 //    멘토 신청하기(농작물, 경력) 작성
     @Test
     public void MentorSaveTest(){
@@ -39,6 +63,7 @@ public class MentorTest {
 //        mentorDTO.getMember(member);
         mentorDTO.setMentorCrop("땅콩");
         mentorDTO.setMentorYear("1~3년차");
+
 
         Mentor mentor = mentorDTO.toEntity();
 

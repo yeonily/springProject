@@ -29,8 +29,8 @@ public class Review extends Period{
     private int reviewStar;
 
     public void update(ReviewDTO reviewDTO){
-        this.reviewContent = reviewContent;
-        this.reviewStar = reviewStar;
+        this.reviewContent = reviewDTO.getReviewContent();
+        this.reviewStar = reviewDTO.getReviewStar();
     }
 
     @Builder
