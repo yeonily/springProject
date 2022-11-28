@@ -27,7 +27,7 @@ public class ProgramTest {
     public void saveTest(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
-//        Member member = new Member("호석","호시기","010-1234-5678","동탄","10-18","wjdghtjr5345@naver.com",Oauth.GOOGLE);
+        Member member = new Member("호석","호시기","010-1234-5678","동탄","10-18","wjdghtjr5345@naver.com",Oauth.GOOGLE);
 
         ProgramDTO programDTO = new ProgramDTO();
         programDTO.setProgramCrop("감자");
@@ -61,6 +61,7 @@ public class ProgramTest {
         programDTO.setProgramPrice(0);
         programDTO.setProgramLocation("충남 영동");
         programDTO.setProgramInquire("wjdghtjr5345@gmail.com");
+//        programDTO.setMember();
 
         Program program = programDTO.toEntity();
         programRepository.save(program);
