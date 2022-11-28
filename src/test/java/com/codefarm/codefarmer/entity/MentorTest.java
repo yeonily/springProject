@@ -36,7 +36,7 @@ public class MentorTest {
     public void MentorSaveTest(){
         MentorDTO mentorDTO = new MentorDTO();
 
-
+//        mentorDTO.getMember().getMemberId(1L);
         mentorDTO.setMentorCrop("땅콩");
         mentorDTO.setMentorYear("1~3년차");
 
