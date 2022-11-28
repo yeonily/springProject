@@ -18,7 +18,7 @@ public class Chat extends ChatPeriod{
     @JoinColumn(name = "CHAT_ROOM_ID")
     private ChatRoom chatRoom;
 
-    @NonNull
+    @NotNull
     private String chatMessage;
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -26,7 +26,7 @@ public class Chat extends ChatPeriod{
 
 
     @Builder
-    public Chat(@NonNull String chatMessage, ChatStatus chatStatus) {
+    public Chat(String chatMessage, ChatStatus chatStatus) {
         this.chatMessage = chatMessage;
         this.chatStatus = chatStatus;
     }

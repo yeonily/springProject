@@ -14,10 +14,12 @@ public class ChatRoom extends ChatPeriod {
     private Long chatRoomId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTOR_ID", nullable = false)
+    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTOR_ID")
+    @NotNull
     private Member mentor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTEE_ID", nullable = false)
+    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTEE_ID")
+    @NotNull
     private Member mentee;
 }

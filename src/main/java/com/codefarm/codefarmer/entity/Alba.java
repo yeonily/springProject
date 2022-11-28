@@ -16,57 +16,57 @@ import java.time.LocalDateTime;
 public class Alba extends Period{
     @Id @GeneratedValue
     private Long albaId;
-    @NonNull
+    @NotNull
     private String albaTitle;
-    @NonNull
+    @NotNull
     private String albaImage;
-    @NonNull
+    @NotNull
     private String albaTitleOne;
-    @NonNull
+    @NotNull
     private LocalDateTime albaApplyStartDate;
-    @NonNull
+    @NotNull
     private LocalDateTime albaApplyEndDate;
-    @NonNull
+    @NotNull
     private LocalDateTime albaWorkDate;
     @ColumnDefault("0")
     private int albaApplyCount;
-    @NonNull
+    @NotNull
     private int albaApplyTotalCount;
-    @NonNull
+    @NotNull
     private String albaAddress;
-    @NonNull
+    @NotNull
     private int albaPrice;
-    @NonNull
+    @NotNull
     private String albaMainTitle;
-    @NonNull
+    @NotNull
     private String albaMainContent;
-    @NonNull
+    @NotNull
     private String albaStrongTitle1;
-    @NonNull
+    @NotNull
     private String albaStrongContent1;
-    @NonNull
+    @NotNull
     private String albaStrongTitle2;
-    @NonNull
+    @NotNull
     private String albaStrongContent2;
-    @NonNull
+    @NotNull
     private String albaStrongTitle3;
-    @NonNull
+    @NotNull
     private String albaStrongContent3;
-    @NonNull
+    @NotNull
     private String albaBannerTitle;
-    @NonNull
+    @NotNull
     private String albaBannerOne;
-    @NonNull
+    @NotNull
     private String albaTextTitle;
-    @NonNull
+    @NotNull
     private String albaText;
-    @NonNull
+    @NotNull
     private String albaProfileTitle1;
-    @NonNull
+    @NotNull
     private String albaProfileContent1;
-    @NonNull
+    @NotNull
     private String albaProfileTitle2;
-    @NonNull
+    @NotNull
     private String albaProfileContent2;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -103,8 +103,7 @@ public class Alba extends Period{
     }
 
     @Builder
-
-    public Alba(@NonNull String albaTitle, @NonNull String albaImage, @NonNull String albaTitleOne, @NonNull LocalDateTime albaApplyStartDate, @NonNull LocalDateTime albaApplyEndDate, @NonNull LocalDateTime albaWorkDate, int albaApplyCount, @NonNull int albaApplyTotalCount, @NonNull String albaAddress, @NonNull int albaPrice, @NonNull String albaMainTitle, @NonNull String albaMainContent, @NonNull String albaStrongTitle1, @NonNull String albaStrongContent1, @NonNull String albaStrongTitle2, @NonNull String albaStrongContent2, @NonNull String albaStrongTitle3, @NonNull String albaStrongContent3, @NonNull String albaBannerTitle, @NonNull String albaBannerOne, @NonNull String albaTextTitle, @NonNull String albaText, @NonNull String albaProfileTitle1, @NonNull String albaProfileContent1, @NonNull String albaProfileTitle2, @NonNull String albaProfileContent2) {
+    public Alba(String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
         this.albaTitle = albaTitle;
         this.albaImage = albaImage;
         this.albaTitleOne = albaTitleOne;
