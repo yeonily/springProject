@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.domain.MentorDTO;
+import com.codefarm.codefarmer.type.FarmerType;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -24,8 +25,8 @@ public class Mentor extends Period{
     private String mentorYear;
 
     public void update(MentorDTO mentorDTO){
-        this.mentorCrop = mentorCrop;
-        this.mentorYear = mentorYear;
+        this.mentorCrop = mentorDTO.getMentorCrop();
+        this.mentorYear = mentorDTO.getMentorYear();
     }
 
     @Builder

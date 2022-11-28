@@ -31,8 +31,8 @@ public class Board extends Period{
     private List<BoardFile> boardFiles;
 
     public void update(BoardDTO boardDTO){
-        this.boardTitle = boardTitle;
-        this.boardContent = boardContent;
+        this.boardTitle = boardDTO.getBoardTitle();
+        this.boardContent = boardDTO.getBoardContent();
     }
 
     public void changeMember(Member member){

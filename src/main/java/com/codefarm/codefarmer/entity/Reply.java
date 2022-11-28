@@ -26,7 +26,7 @@ public class Reply extends Period{
     private String replyContent;
 
     public void update(ReplyDTO replyDTO){
-        this.replyContent = replyContent;
+        this.replyContent = replyDTO.getReplyContent();
     }
 
     @Builder
