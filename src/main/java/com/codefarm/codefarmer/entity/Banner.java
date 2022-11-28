@@ -15,18 +15,18 @@ import java.time.LocalDateTime;
 public class Banner extends Period{
     @Id @GeneratedValue
     private Long bannerId;
-    @NonNull
+    @NotNull
     private String bannerTitle;
-    @NonNull
+    @NotNull
     private String bannerInfo;
-    @NonNull
+    @NotNull
     @Enumerated(EnumType.STRING)
     private BannerStatus bannerStatus;
-    @NonNull
+    @NotNull
     private String bannerRealname;
-    @NonNull
+    @NotNull
     private LocalDateTime bannerStartDate;
-    @NonNull
+    @NotNull
     private LocalDateTime bannerEndDate;
 
     public void update(BannerDTO bannerDTO){
@@ -37,9 +37,11 @@ public class Banner extends Period{
         this.bannerStartDate = bannerStartDate;
         this.bannerEndDate = bannerEndDate;
     }
+    
+    
 
     @Builder
-    public Banner(@NonNull String bannerTitle, @NonNull String bannerInfo, BannerStatus bannerStatus, @NonNull String bannerRealname, @NonNull LocalDateTime bannerStartDate, @NonNull LocalDateTime bannerEndDate) {
+    public Banner(String bannerTitle, String bannerInfo, BannerStatus bannerStatus, String bannerRealname, LocalDateTime bannerStartDate, LocalDateTime bannerEndDate) {
         this.bannerTitle = bannerTitle;
         this.bannerInfo = bannerInfo;
         this.bannerStatus = bannerStatus;
