@@ -4,6 +4,7 @@ body {
     margin: 0;
     background: rgba(253, 223, 223, 0.23);
     background-color: #eee;
+    overflow-x: hidden;
 }
 
 body, button, select, input{
