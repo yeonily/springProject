@@ -35,8 +35,8 @@ public class MentorTest {
     @Test
     public void MentorSaveTest(){
         MentorDTO mentorDTO = new MentorDTO();
-
-//        mentorDTO.getMember().getMemberId(1L);
+        Member member = farmerRepository.findById(1l).get();
+//        mentorDTO.getMember(member);
         mentorDTO.setMentorCrop("땅콩");
         mentorDTO.setMentorYear("1~3년차");
 
