@@ -12,15 +12,15 @@ import javax.persistence.*;
 public class MentorFile extends Period{
     @Id @GeneratedValue
     private Long fileId;
-    @NonNull
+    @NotNull
     private String fileName;
-    @NonNull
+    @NotNull
     private String fileUploadPath;
-    @NonNull
+    @NotNull
     private String fileUuid;
-    @NonNull
+    @NotNull
     private Long fileSize;
-    @NonNull
+    @NotNull
     private boolean fileImageCheck;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,7 +28,7 @@ public class MentorFile extends Period{
     private MentorBoard mentorBoard;
 
     @Builder
-    public MentorFile(@NonNull String fileName, @NonNull String fileUploadPath, @NonNull String fileUuid, @NonNull Long fileSize, @NonNull boolean fileImageCheck) {
+    public MentorFile(@NotNull String fileName, @NotNull String fileUploadPath, @NotNull String fileUuid, @NotNull Long fileSize, @NotNull boolean fileImageCheck) {
         this.fileName = fileName;
         this.fileUploadPath = fileUploadPath;
         this.fileUuid = fileUuid;
