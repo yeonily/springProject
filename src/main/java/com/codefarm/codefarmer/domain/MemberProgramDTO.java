@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.entity.Alba;
 import com.codefarm.codefarmer.entity.Member;
 import com.codefarm.codefarmer.entity.MemberProgram;
 import com.codefarm.codefarmer.entity.Program;
+import com.codefarm.codefarmer.type.ProgramStatus;
 import com.codefarm.codefarmer.type.Status;
 import lombok.Data;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class MemberProgramDTO {
     private Long programApplyId;
     private Program program;
     private Member member;
+    private ProgramStatus programStatus;
     private int programApplyCount;
     private int programPayment;
 
@@ -30,6 +32,7 @@ public class MemberProgramDTO {
         return MemberProgram.builder()
                 .programApplyCount(programApplyCount)
                 .programPayment(programPayment)
+                .programStatus(programStatus)
                 .build();
     }
 }
