@@ -16,9 +16,9 @@ import java.util.List;
 public class Board extends Period{
     @Id @GeneratedValue
     private Long boardId;
-    @NonNull
+    @NotNull
     private String boardTitle;
-    @NonNull
+    @NotNull
     private String boardContent;
     @ColumnDefault("0")
     private int boardViewCount;
@@ -36,7 +36,7 @@ public class Board extends Period{
     }
 
     @Builder
-    public Board(@NonNull String boardTitle, @NonNull String boardContent, int boardViewCount) {
+    public Board(String boardTitle, String boardContent, int boardViewCount) {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;

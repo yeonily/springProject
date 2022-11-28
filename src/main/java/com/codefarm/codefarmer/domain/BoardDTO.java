@@ -25,17 +25,20 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContent;
     private int boardViewCount;
-    private Member member;
+    private Member memberId;
+    private String memberNickName;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 
     @QueryProjection
-    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, Member member, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public BoardDTO(Long boardId, String boardTitle, String boardContent, Long memberId, String memberNickName ,int boardViewCount, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.boardId = boardId;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;
-        this.member = member;
+//        this.memberId = member;
+        this.memberId = memberId;
+        this.memberNickName = memberNickName;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
     }
