@@ -36,11 +36,7 @@ public class ProgramTest {
     ProgramRepository programRepository;
 
     @Autowired
-    MemberProgramRepository memberProgramRepository;
-
-    @Autowired
     FarmerRepository farmerRepository;
-
 
 
     @Test
@@ -89,16 +85,22 @@ public class ProgramTest {
         programRepository.save(program);
     }
 
+
     @Test
     public void findProgramIdByProgramCropTest(){
 //        log.info("전체 조회: " + programRepository.findAll());
 
-        jpaQueryFactory.select(program.programId).from(program)
+        /*jpaQueryFactory.select(program.programId).from(program)
                 .where(program.programCrop.eq("감자"))
                 .orderBy(program.programId.desc())
                 .limit(2)
                 .fetch()
-                .stream().map(Program -> Program.toString()).forEach(log::info);
+                .stream().map(Program -> Program.toString()).forEach(log::info);*/
+
+        jpaQueryFactory.selectFrom(program)
+                .from(program)
+                .fetch()
+                .forEach(p -> log.info("값은: " + p.getProgramCrop()));
 
     }
 
@@ -154,5 +156,29 @@ public class ProgramTest {
         programRepository.deleteById(2L);
 
     }
+
+//    프로그램 목록 정보들 가져오기
+    @Test
+    public void findListTest(){
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .where(program.programId.eq(3L))
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
+
+//    진행중 정렬
+    @Test
+    public void findProceedingListTest(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .where(program.programWorkStartTime.before(localDateTime).and(program.programWorkEndTime.after(localDateTime)))
+                .orderBy(program.programApplyStartDate.desc())
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
 
 }

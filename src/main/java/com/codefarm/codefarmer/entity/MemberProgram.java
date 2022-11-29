@@ -32,6 +32,11 @@ public class MemberProgram extends Period{
     @ColumnDefault("0")
     private int programPayment;
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+    public void changeProgram(Program program){ this.program = program; }
+
     @Builder
     public MemberProgram(ProgramStatus programStatus, int programApplyCount, int programPayment) {
         this.programStatus = programStatus;
