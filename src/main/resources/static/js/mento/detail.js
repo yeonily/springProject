@@ -26,7 +26,7 @@ window.addEventListener('scroll', function(){
 });
 
 //멘토 후기 별 체크
-$(".star_check").on("click" , function () {
+$("#star_count_check>.star_check").on("click" , function () {
     console.log($(this));
     if($(this).hasClass("star_check") === true){
         $(this).nextAll().attr('class','star_uncheck');
@@ -41,7 +41,7 @@ $(".star_check").on("click" , function () {
 * 별 개수 확인
  */
 
-let counts = $(".star_count");
+let counts = $("#star_count_check>.star_count");
 let starScore = "";
 let starText = "";
 

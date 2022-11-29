@@ -712,6 +712,9 @@
     display: flex!important;
     align-items: center;
 }
+.main_reply_inner13 svg {
+    cursor: text;
+}
 .main_reply_inner14{
     font-size: 12px;
     line-height: 15px;
