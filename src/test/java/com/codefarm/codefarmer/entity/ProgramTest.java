@@ -7,6 +7,7 @@ import com.codefarm.codefarmer.repository.ProgramRepository;
 import com.codefarm.codefarmer.type.Oauth;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static com.codefarm.codefarmer.entity.QProgram.program;
+
 @SpringBootTest
 @Slf4j
 @Transactional
 @Rollback(false)
 public class ProgramTest {
+
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
+
+
+
     @Autowired
     ProgramRepository programRepository;
 
@@ -32,10 +41,7 @@ public class ProgramTest {
     @Autowired
     FarmerRepository farmerRepository;
 
-    @Test
-    public void findAllTest(){
-        log.info("전체 조회: " + programRepository.findAll());
-    }
+
 
     @Test
     public void saveTest(){
@@ -81,6 +87,19 @@ public class ProgramTest {
         Program program = programDTO.toEntity();
         program.changeMember(programDTO.getMember());
         programRepository.save(program);
+    }
+
+    @Test
+    public void findProgramIdByProgramCropTest(){
+//        log.info("전체 조회: " + programRepository.findAll());
+
+        jpaQueryFactory.select(program.programId).from(program)
+                .where(program.programCrop.eq("감자"))
+                .orderBy(program.programId.desc())
+                .limit(2)
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+
     }
 
     @Test

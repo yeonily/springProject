@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.entity.Member;
 import com.codefarm.codefarmer.entity.Program;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -87,6 +88,42 @@ public class ProgramDTO {
                 .programWorkEndTime(programWorkEndTime)
                 .programWorkStartTime(programWorkStartTime)
                 .build();
+    }
+
+    @QueryProjection
+    public ProgramDTO(String programCrop, ProgramType programType, String programTarget1, String programTarget2, String programTarget3, String programTarget4, String programTitle, String programTitleSub, ProgramLevel programLevel, String programResult1, String programResult2, String programResult3, String programResult4, String programFarmerInfo, String programInfoTitle1, String programInfoContent1, String programInfoTitle2, String programInfoContent2, String programInfoTitle3, String programInfoContent3, String programInfoTitle4, String programInfoContent4, LocalDateTime programWorkDate, LocalDateTime programWorkStartTime, LocalDateTime programWorkEndTime, LocalDateTime programApplyStartDate, LocalDateTime programApplyEndDate, int programApplyCount, int programApplyTotalCount, int programPrice, String programLocation, String programInquire) {
+        this.programCrop = programCrop;
+        this.programType = programType;
+        this.programTarget1 = programTarget1;
+        this.programTarget2 = programTarget2;
+        this.programTarget3 = programTarget3;
+        this.programTarget4 = programTarget4;
+        this.programTitle = programTitle;
+        this.programTitleSub = programTitleSub;
+        this.programLevel = programLevel;
+        this.programResult1 = programResult1;
+        this.programResult2 = programResult2;
+        this.programResult3 = programResult3;
+        this.programResult4 = programResult4;
+        this.programFarmerInfo = programFarmerInfo;
+        this.programInfoTitle1 = programInfoTitle1;
+        this.programInfoContent1 = programInfoContent1;
+        this.programInfoTitle2 = programInfoTitle2;
+        this.programInfoContent2 = programInfoContent2;
+        this.programInfoTitle3 = programInfoTitle3;
+        this.programInfoContent3 = programInfoContent3;
+        this.programInfoTitle4 = programInfoTitle4;
+        this.programInfoContent4 = programInfoContent4;
+        this.programWorkDate = programWorkDate;
+        this.programWorkStartTime = programWorkStartTime;
+        this.programWorkEndTime = programWorkEndTime;
+        this.programApplyStartDate = programApplyStartDate;
+        this.programApplyEndDate = programApplyEndDate;
+        this.programApplyCount = programApplyCount;
+        this.programApplyTotalCount = programApplyTotalCount;
+        this.programPrice = programPrice;
+        this.programLocation = programLocation;
+        this.programInquire = programInquire;
     }
 }
 
