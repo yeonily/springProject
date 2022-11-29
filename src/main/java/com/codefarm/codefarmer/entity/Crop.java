@@ -1,6 +1,5 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.CropDTO;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -8,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_CROP")
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Crop extends Period{
     @Id @GeneratedValue
@@ -21,13 +20,6 @@ public class Crop extends Period{
     private String cropImage;
     @NotNull
     private String cropContent;
-
-    public void update(CropDTO cropDTO){
-        this.cropKeyword = cropDTO.getCropKeyword();
-        this.cropTitle = cropDTO.getCropTitle();
-        this.cropImage = cropDTO.getCropImage();
-        this.cropContent = cropDTO.getCropContent();
-    }
 
     @Builder
     public Crop(String cropKeyword, String cropTitle, String cropImage, String cropContent) {

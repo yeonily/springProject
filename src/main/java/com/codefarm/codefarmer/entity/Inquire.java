@@ -1,6 +1,8 @@
 package com.codefarm.codefarmer.entity;
 
+import com.codefarm.codefarmer.domain.InquireDTO;
 import com.codefarm.codefarmer.type.Status;
+import com.querydsl.core.annotations.QueryProjection;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -25,10 +27,26 @@ public class Inquire extends Period{
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
     @Builder
     public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus) {
         this.inquireQTitle = inquireQTitle;
         this.inquireQContent = inquireQContent;
         this.inquireStatus = inquireStatus;
     }
+
+    public void update(InquireDTO inquireDTO){
+        this.inquireStatus = inquireDTO.getInquireStatus();
+    }
+
+//    @QueryProjection
+//    public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
+//        this.inquireQTitle = inquireQTitle;
+//        this.inquireQContent = inquireQContent;
+//        this.inquireStatus = inquireStatus;
+//        this.member = member;
+//    }
 }

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class InquireAnswerDTO {
     private Long inquireAnswerId;
     private String inquireAnswer;
-
+    private Inquire inquire;
 
     public InquireAnswer toEntity(){
         return InquireAnswer.builder()
