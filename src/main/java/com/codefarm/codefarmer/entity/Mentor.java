@@ -24,8 +24,6 @@ public class Mentor extends Period{
     @NotNull
     private String mentorYear;
 
-    @Enumerated(EnumType.STRING)
-    private FarmerType farmerType;
 
     public void update(MentorDTO mentorDTO){
         this.mentorCrop = mentorDTO.getMentorCrop();
@@ -36,14 +34,10 @@ public class Mentor extends Period{
         this.member = member;
     }
 
-    public void getType(FarmerType farmerType){
-        this.farmerType = farmerType;
-    }
 
     @Builder
-    public Mentor(String mentorCrop, String mentorYear, FarmerType farmerType) {
+    public Mentor(String mentorCrop, String mentorYear) {
         this.mentorCrop = mentorCrop;
         this.mentorYear = mentorYear;
-        this.farmerType = farmerType;
     }
 }
