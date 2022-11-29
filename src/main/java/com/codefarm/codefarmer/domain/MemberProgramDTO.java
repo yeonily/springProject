@@ -6,6 +6,7 @@ import com.codefarm.codefarmer.entity.MemberProgram;
 import com.codefarm.codefarmer.entity.Program;
 import com.codefarm.codefarmer.type.ProgramStatus;
 import com.codefarm.codefarmer.type.Status;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,5 +35,14 @@ public class MemberProgramDTO {
                 .programPayment(programPayment)
                 .programStatus(programStatus)
                 .build();
+    }
+
+    @QueryProjection
+    public MemberProgramDTO(Program program, Member member, ProgramStatus programStatus, int programApplyCount, int programPayment) {
+        this.program = program;
+        this.member = member;
+        this.programStatus = programStatus;
+        this.programApplyCount = programApplyCount;
+        this.programPayment = programPayment;
     }
 }
