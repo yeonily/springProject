@@ -20,6 +20,10 @@ public class InquireAnswer extends Period{
     @JoinColumn(name = "INQUIRE_ID")
     private Inquire inquire;
 
+    public void changeInquire(Inquire inquire){
+        this.inquire = inquire;
+    }
+
     @Builder
     public InquireAnswer(String inquireAnswer) {
         this.inquireAnswer = inquireAnswer;
