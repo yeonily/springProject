@@ -24,14 +24,26 @@ public class Mentor extends Period{
     @NotNull
     private String mentorYear;
 
+    @Enumerated(EnumType.STRING)
+    private FarmerType farmerType;
+
     public void update(MentorDTO mentorDTO){
         this.mentorCrop = mentorDTO.getMentorCrop();
         this.mentorYear = mentorDTO.getMentorYear();
     }
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
+    public void getType(FarmerType farmerType){
+        this.farmerType = farmerType;
+    }
+
     @Builder
-    public Mentor(String mentorCrop, String mentorYear) {
+    public Mentor(String mentorCrop, String mentorYear, FarmerType farmerType) {
         this.mentorCrop = mentorCrop;
         this.mentorYear = mentorYear;
+        this.farmerType = farmerType;
     }
 }
