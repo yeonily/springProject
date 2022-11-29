@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.entity;
 import com.codefarm.codefarmer.domain.ProgramDTO;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
+import com.querydsl.core.annotations.QueryProjection;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
