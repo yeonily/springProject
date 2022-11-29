@@ -33,19 +33,9 @@ public class MentorTest {
 
 
 
+//    타입 바꾸기
     @Test
     public void farmerChangeMentor(){
-//        MentorDTO mentorDTO = new MentorDTO();
-//        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-//        if(findFarmer.isPresent()){
-//            Member member = findFarmer.get();
-//        }
-//        mentorDTO.setMember(member);
-//
-//        Mentor mentor = mentorDTO.toEntity();
-//        mentor.changeMemberType(FarmerType.MENTOR);
-//        findFarmer.get().getFarmerType(farmerDTO.setFarmerType(FarmerType.MENTOR));
-
         Farmer farmer = farmerRepository.findById(1l).get();
         FarmerDTO farmerDTO = new FarmerDTO();
         farmerDTO.setFarmerType(FarmerType.MENTOR);
@@ -59,14 +49,16 @@ public class MentorTest {
     @Test
     public void MentorSaveTest(){
         MentorDTO mentorDTO = new MentorDTO();
-        Member member = farmerRepository.findById(1l).get();
-//        mentorDTO.getMember(member);
-        mentorDTO.setMentorCrop("땅콩");
-        mentorDTO.setMentorYear("1~3년차");
+        Optional<Farmer> findFarmer = farmerRepository.findById(1l);
+        Farmer farmer =  new Farmer();
 
+        mentorDTO.setMentorCrop("오렌지");
+        mentorDTO.setMentorYear("3~5년차");
+        mentorDTO.setMemberId(findFarmer.get());
+        mentorDTO.setFarmerType(findFarmer.get().getFarmerType());
 
         Mentor mentor = mentorDTO.toEntity();
-
+        mentor.changeMember(mentorDTO.getMemberId());
         mentorRepository.save(mentor);
     }
 
@@ -74,25 +66,22 @@ public class MentorTest {
 //    농작물과 경력 수정
     @Test
     public void MentorUpdateTest(){
-        Mentor mentor = mentorRepository.findById(4L).get();
+//        Optional<Farmer> findFarmer = farmerRepository.findById(1l);
+        Optional<Mentor> findMentor = mentorRepository.findById(2L);
         MentorDTO mentorDTO = new MentorDTO();
 
+//        findMentor.get().getMentorId();
+        mentorDTO.setMentorId(findMentor.get().getMentorId());
         mentorDTO.setMentorCrop("딸기");
         mentorDTO.setMentorYear("5~9년차");
+
+
+        Mentor mentor = mentorDTO.toEntity();
 
 
         mentor.update(mentorDTO);
     }
 
-//    FARMERTYPE을 MENTOR로 바꿔야함.
-    @Test
-    public void MentorUpdateTest2(){
-        Farmer farmer = farmerRepository.findById(6l).get();
-        FarmerDTO farmerDTO = new FarmerDTO();
-        farmerDTO.setFarmerType(FarmerType.MENTOR);
-
-        farmer.update(farmerDTO);
-    }
 
         @Test
         public void Test(){
