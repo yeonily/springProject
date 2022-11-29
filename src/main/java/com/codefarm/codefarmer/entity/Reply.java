@@ -29,6 +29,14 @@ public class Reply extends Period{
         this.replyContent = replyDTO.getReplyContent();
     }
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
+    public void changeBoard(Board board){
+        this.board = board;
+    }
+
     @Builder
     public Reply(String replyContent) {
         this.replyContent = replyContent;

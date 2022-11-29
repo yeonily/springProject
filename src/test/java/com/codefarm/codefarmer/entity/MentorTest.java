@@ -33,12 +33,17 @@ public class MentorTest {
 
 
 
-//    타입 바꾸기
+//    타입만 바꾸기
     @Test
-    public void farmerChangeMentor(){
-        Farmer farmer = farmerRepository.findById(1l).get();
+    public void typeUpdateTest(){
+        Farmer farmer = farmerRepository.findById(5L).get();
+
         FarmerDTO farmerDTO = new FarmerDTO();
         farmerDTO.setFarmerType(FarmerType.MENTOR);
+        farmerDTO.setMemberEmail(farmer.getMemberEmail());
+        farmerDTO.setMemberLocation(farmer.getMemberLocation());
+        farmerDTO.setMemberNickname(farmer.getMemberNickname());
+        farmerDTO.setMemberPhone(farmer.getMemberPhone());
 
         farmer.update(farmerDTO);
     }
@@ -55,7 +60,6 @@ public class MentorTest {
         mentorDTO.setMentorCrop("오렌지");
         mentorDTO.setMentorYear("3~5년차");
         mentorDTO.setMemberId(findFarmer.get());
-        mentorDTO.setFarmerType(findFarmer.get().getFarmerType());
 
         Mentor mentor = mentorDTO.toEntity();
         mentor.changeMember(mentorDTO.getMemberId());
@@ -67,7 +71,7 @@ public class MentorTest {
     @Test
     public void MentorUpdateTest(){
 //        Optional<Farmer> findFarmer = farmerRepository.findById(1l);
-        Optional<Mentor> findMentor = mentorRepository.findById(2L);
+        Optional<Mentor> findMentor = mentorRepository.findById(1L);
         MentorDTO mentorDTO = new MentorDTO();
 
 //        findMentor.get().getMentorId();

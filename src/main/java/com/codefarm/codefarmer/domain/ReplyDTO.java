@@ -23,6 +23,8 @@ public class ReplyDTO {
     private Board board;
     private Member member;
     private String replyContent;
+    private Member memberId;
+    private Board boardId;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 

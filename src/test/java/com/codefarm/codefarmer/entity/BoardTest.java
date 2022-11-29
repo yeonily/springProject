@@ -66,10 +66,11 @@ public class BoardTest {
 //   Detail 게시글 작성한 사람 닉네임 갖고오기
     @Test
     public void findGetBoardUser(){
-        Optional<Board> findBoardUser = boardRepository.findById(5L);
+        Optional<Board> findBoardUser = boardRepository.findById(7L);
             log.info("board : " + findBoardUser.get().getBoardId());
             log.info("nickName : " + findBoardUser.get().getMember().getMemberNickname());
-            log.info("nickName : " + findBoardUser.get().getBoardFiles());
+//            log.info("nickName : " + findBoardUser.get().getBoardFiles());
+        findBoardUser.get().getMember().getMemberNickname();
     }
 
 
@@ -84,6 +85,21 @@ public class BoardTest {
             log.info("boardContent : " + findTitleContent.get().getBoardContent());
         }
     }
+
+//    누가 댓글 남겼는지 상단에 최신꺼 한개 갖고오기
+
+
+//    viewCount 갖고오기
+
+
+//    해당 게시판의 댓글 수 갖고오기
+    @Test
+    public void countBoardReply(){
+
+    }
+
+
+//    글 올라왔는지 총 몇분 됐는지
 
 
 

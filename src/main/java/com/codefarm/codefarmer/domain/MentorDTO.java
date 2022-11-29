@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 public class MentorDTO {
     private Long mentorId;
     private Member memberId;
-    private FarmerType farmerType;
+    private Member farmerType;
     private String mentorCrop;
     private String mentorYear;
 
@@ -30,7 +30,6 @@ public class MentorDTO {
         return Mentor.builder()
                 .mentorCrop(mentorCrop)
                 .mentorYear(mentorYear)
-                .farmerType(farmerType)
                 .build();
     }
 }

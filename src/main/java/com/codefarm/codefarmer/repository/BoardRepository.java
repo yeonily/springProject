@@ -14,10 +14,6 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
 
-    @Query("select b from Board b join fetch b.member")
-    public List<Board> findByBoardIdAfterAndMemberNickname();
 
-    @Query("select b from Board b join fetch b.member")
-    public List<Board> findAllByBoardTitleAndBoardContent();
 
 }
