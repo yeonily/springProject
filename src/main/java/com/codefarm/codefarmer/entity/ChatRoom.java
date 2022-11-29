@@ -22,4 +22,10 @@ public class ChatRoom extends ChatPeriod {
     @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTEE_ID")
     @NotNull
     private Member mentee;
+
+    @Builder
+    public ChatRoom(Member mentor, Member mentee) {
+        this.mentor = mentor;
+        this.mentee = mentee;
+    }
 }
