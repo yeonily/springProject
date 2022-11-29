@@ -24,11 +24,12 @@ public class Chat extends ChatPeriod{
     @Enumerated(EnumType.STRING)
     private ChatStatus chatStatus;
 
-
     @Builder
     public Chat(String chatMessage, ChatStatus chatStatus) {
         this.chatMessage = chatMessage;
         this.chatStatus = chatStatus;
     }
+
+    public void changeChatRoom(ChatRoom chatRoom) {this.chatRoom = chatRoom;}
 }
 
