@@ -93,37 +93,41 @@ public class Program extends Period{
     private List<ProgramFile> programFiles;
 
     public void update(ProgramDTO programDTO){
-        this.programCrop = programCrop;
-        this.programType = programType;
-        this.programTarget1 = programTarget1;
-        this.programTarget2 = programTarget2;
-        this.programTarget3 = programTarget3;
-        this.programTarget4 = programTarget4;
-        this.programTitle = programTitle;
-        this.programTitleSub = programTitleSub;
-        this.programLevel = programLevel;
-        this.programResult1 = programResult1;
-        this.programResult2 = programResult2;
-        this.programResult3 = programResult3;
-        this.programResult4 = programResult4;
-        this.programFarmerInfo = programFarmerInfo;
-        this.programInfoTitle1 = programInfoTitle1;
-        this.programInfoContent1 = programInfoContent1;
-        this.programInfoTitle2 = programInfoTitle2;
-        this.programInfoContent2 = programInfoContent2;
-        this.programInfoTitle3 = programInfoTitle3;
-        this.programInfoContent3 = programInfoContent3;
-        this.programInfoTitle4 = programInfoTitle4;
-        this.programInfoContent4 = programInfoContent4;
-        this.programWorkDate = programWorkDate;
-        this.programWorkStartTime = programWorkStartTime;
-        this.programWorkEndTime = programWorkEndTime;
-        this.programApplyStartDate = programApplyStartDate;
-        this.programApplyEndDate = programApplyEndDate;
-        this.programApplyTotalCount = programApplyTotalCount;
-        this.programPrice = programPrice;
-        this.programLocation = programLocation;
-        this.programInquire = programInquire;
+        this.programCrop = programDTO.getProgramCrop();
+        this.programType = programDTO.getProgramType();
+        this.programTarget1 = programDTO.getProgramTarget1();
+        this.programTarget2 = programDTO.getProgramTarget2();
+        this.programTarget3 = programDTO.getProgramTarget3();
+        this.programTarget4 = programDTO.getProgramTarget4();
+        this.programTitle = programDTO.getProgramTitle();
+        this.programTitleSub = programDTO.getProgramTitleSub();
+        this.programLevel = programDTO.getProgramLevel();
+        this.programResult1 = programDTO.getProgramResult1();
+        this.programResult2 = programDTO.getProgramResult2();
+        this.programResult3 = programDTO.getProgramResult3();
+        this.programResult4 = programDTO.getProgramResult4();
+        this.programFarmerInfo = programDTO.getProgramFarmerInfo();
+        this.programInfoTitle1 = programDTO.getProgramInfoTitle1();
+        this.programInfoContent1 = programDTO.getProgramInfoContent1();
+        this.programInfoTitle2 = programDTO.getProgramInfoTitle2();
+        this.programInfoContent2 = programDTO.getProgramInfoContent2();
+        this.programInfoTitle3 = programDTO.getProgramInfoTitle3();
+        this.programInfoContent3 = programDTO.getProgramInfoContent3();
+        this.programInfoTitle4 = programDTO.getProgramInfoTitle4();
+        this.programInfoContent4 = programDTO.getProgramInfoContent4();
+        this.programWorkDate = programDTO.getProgramWorkDate();
+        this.programWorkStartTime = programDTO.getProgramWorkStartTime();
+        this.programWorkEndTime = programDTO.getProgramWorkEndTime();
+        this.programApplyStartDate = programDTO.getProgramApplyStartDate();
+        this.programApplyEndDate = programDTO.getProgramApplyEndDate();
+        this.programApplyTotalCount = programDTO.getProgramApplyTotalCount();
+        this.programPrice = programDTO.getProgramPrice();
+        this.programLocation = programDTO.getProgramLocation();
+        this.programInquire = programDTO.getProgramInquire();
+    }
+
+    public void changeMember(Member member){
+        this.member = member;
     }
 
     @Builder
