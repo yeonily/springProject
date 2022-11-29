@@ -32,6 +32,7 @@ public class InquireTest {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
+//    문의 글 등록
     @Test
     public void inquireSaveTest(){
         InquireDTO inquireDTO = new InquireDTO();
@@ -47,20 +48,22 @@ public class InquireTest {
         inquireRepository.save(inquire);
     }
 
+//    답변이 등록되고 문의 상태 수정할 때
     @Test
     public void inquireUpdateTest(){
         InquireDTO inquireDTO = new InquireDTO();
-        Inquire inquire = inquireRepository.findById(2L).get();
+        Inquire inquire = inquireRepository.findById(7L).get();
 
         inquireDTO.setInquireId(inquire.getInquireId());
-        inquireDTO.setInquireStatus(Status.CONFIRM);
+        inquireDTO.setInquireStatus(Status.WAITING);
 
         inquire.update(inquireDTO);
     }
 
+//    문의 상태가 대기 상태인 문의 글 검색
     @Test
     public void inquireSelectTest(){
-        jpaQueryFactory.select(inquire.inquireStatus).from(inquire)
+        jpaQueryFactory.select(inquire.inquireId, inquire.inquireStatus).from(inquire)
                 .where(inquire.inquireStatus.eq(Status.valueOf("WAITING")))
                 .fetch()
                 .stream().map(Inquire -> Inquire.toString()).forEach(log::info);
@@ -71,8 +74,4 @@ public class InquireTest {
         inquireRepository.findAll().stream().map(inquire -> inquire.toString()).forEach(log::info);
     }
 
-    @Test
-    public void inquireSelectOneTest(){
-        inquireRepository.findById(2L).stream().map(inquire -> inquire.toString()).forEach(log::info);
-    }
 }

@@ -7,11 +7,15 @@ div#container .chart-no {
 }
 
 th.num { width: 9%; }
-th.content { width: 50%; }
+th.content { width: 51%; }
 th.id { width: 12%; }
 th.date { width: 13%; }
-th.boardNum { width:  10%; }
+th.boardNum { width:  9%; }
 th.delete { width: 6%; }
+
+th.content2 { width: 40%; }
+th.star { width: 11%; }
+th.id2 { width: 12%; }
 
 td.delete { padding: 0 0.3vw; }
 
@@ -33,4 +37,15 @@ div#write input[type="button"] {
     color: #ffffff;
     font-size: 17px;
     font-weight: 600;
+}
+
+table td>svg {vertical-align: top;}
+
+.star_check {
+    color: #ffde32;
+    fill: rgb(255, 215, 0);
+}
+
+.star_uncheck {
+    fill: rgb(234, 236, 238);
 }

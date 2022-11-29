@@ -22,10 +22,12 @@ public class InquireAnswerTest {
     @Autowired
     private InquireRepository inquireRepository;
 
+    
+//    문의 답변 등록
     @Test
     public void inquireAnswerSaveTest(){
         InquireAnswerDTO inquireAnswerDTO = new InquireAnswerDTO();
-        Optional<Inquire> inquire = inquireRepository.findById(2L);
+        Optional<Inquire> inquire = inquireRepository.findById(7L);
 
         inquireAnswerDTO.setInquireAnswer("답변임. 누가 뭐래도 답변임.");
         inquireAnswerDTO.setInquire(inquire.get());

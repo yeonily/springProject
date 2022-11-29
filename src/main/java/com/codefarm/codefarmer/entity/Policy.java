@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_POLICY")
-@Getter @Setter
+@Getter @Setter @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Policy extends Period{
     @Id @GeneratedValue

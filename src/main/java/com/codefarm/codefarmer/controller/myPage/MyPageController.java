@@ -15,7 +15,7 @@ import java.util.Optional;
 public class MyPageController {
 
     @GetMapping("/setting")
-//    tab : 마이페이지 메인 화면에서 탭 이동 때 사용
+//    nav : 마이페이지 메인 화면에서 탭 이동 때 사용
     public Model mainPage(@RequestParam(value = "nav", required = false)String nav, Model model){
         return model.addAttribute(Optional.ofNullable("/myPage/setting").orElse("/myPage/setting" + ("?nav=" + nav)), nav);
     }

@@ -28,6 +28,7 @@ public class Notice extends Period{
     public void update(NoticeDTO noticeDTO){
         this.noticeTitle = noticeDTO.getNoticeTitle();
         this.noticeContent = noticeDTO.getNoticeContent();
+        this.noticeViewCount = noticeDTO.getNoticeViewCount();
     }
 
     @Builder
