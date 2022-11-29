@@ -22,19 +22,14 @@ public class InquireDTO {
     private String inquireQTitle;
     private String inquireQContent;
     private Status inquireStatus;
-    private Member member;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+    private Member memberId;
 
     @QueryProjection
-    public InquireDTO(Long inquireId, String inquireQTitle, String inquireQContent, Status inquireStatus, Member member, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public InquireDTO(Long inquireId, String inquireQTitle, String inquireQContent, Status inquireStatus, Member memberId) {
         this.inquireId = inquireId;
         this.inquireQTitle = inquireQTitle;
         this.inquireQContent = inquireQContent;
         this.inquireStatus = inquireStatus;
-        this.member = member;
-        this.createdDate = createdDate;
-        this.updateDate = updateDate;
     }
 
     public Inquire toEntity(){
