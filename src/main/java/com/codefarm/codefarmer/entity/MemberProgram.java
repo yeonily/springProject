@@ -6,6 +6,8 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "TBL_MEMBER_PROGRAM")
@@ -32,15 +34,43 @@ public class MemberProgram extends Period{
     @ColumnDefault("0")
     private int programPayment;
 
+    @NotNull
+    private String programApplyName;
+
+    @NotNull
+    private String programApplyPhoneNum;
+
+    @NotNull
+    private String programApplyEmail;
+
+    @NotNull
+    private String programApplyLocation;
+
+    @NotNull
+    private LocalDateTime programApplyBirth;
+
     public void changeMember(Member member){
         this.member = member;
     }
     public void changeProgram(Program program){ this.program = program; }
 
-    @Builder
-    public MemberProgram(ProgramStatus programStatus, int programApplyCount, int programPayment) {
+   /* @Builder
+  *//*  public MemberProgram(ProgramStatus programStatus, int programApplyCount, int programPayment ,String pro) {
         this.programStatus = programStatus;
         this.programApplyCount = programApplyCount;
         this.programPayment = programPayment;
+
+    }*/
+
+    @Builder
+    public MemberProgram(ProgramStatus programStatus, int programApplyCount, int programPayment, String programApplyName, String programApplyPhoneNum, String programApplyEmail, String programApplyLocation, LocalDateTime programApplyBirth) {
+        this.programStatus = programStatus;
+        this.programApplyCount = programApplyCount;
+        this.programPayment = programPayment;
+        this.programApplyName = programApplyName;
+        this.programApplyPhoneNum = programApplyPhoneNum;
+        this.programApplyEmail = programApplyEmail;
+        this.programApplyLocation = programApplyLocation;
+        this.programApplyBirth = programApplyBirth;
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Component
 @NoArgsConstructor
@@ -28,12 +29,22 @@ public class MemberProgramDTO {
     private ProgramStatus programStatus;
     private int programApplyCount;
     private int programPayment;
+    private String programApplyName;
+    private String programApplyPhoneNum;
+    private String programApplyEmail;
+    private String programApplyLocation;
+    private LocalDateTime programApplyBirth;
 
     public MemberProgram toEntity(){
         return MemberProgram.builder()
                 .programApplyCount(programApplyCount)
                 .programPayment(programPayment)
                 .programStatus(programStatus)
+                .programApplyName(programApplyName)
+                .programApplyBirth(programApplyBirth)
+                .programApplyEmail(programApplyEmail)
+                .programApplyLocation(programApplyLocation)
+                .programApplyPhoneNum(programApplyPhoneNum)
                 .build();
     }
 
