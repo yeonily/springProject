@@ -7,6 +7,7 @@ import com.codefarm.codefarmer.repository.ProgramRepository;
 import com.codefarm.codefarmer.type.Oauth;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
+import com.codefarm.codefarmer.type.UserType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.dispatcher.JavaDispatcher;
@@ -168,6 +169,10 @@ public class ProgramTest {
     }
 
 
+    /*
+    * 프로그램 목록 기능 테스트
+    * */
+
 //    진행중 정렬
     @Test
     public void findProceedingListTest(){
@@ -179,6 +184,73 @@ public class ProgramTest {
                 .fetch()
                 .stream().map(Program -> Program.toString()).forEach(log::info);
     }
+    
+//    최근등록일순 정렬
+    @Test
+    public void findRecentListTest(){
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .orderBy(program.programApplyStartDate.desc())
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
+//    최근 마감일순 정렬
+    @Test
+    public void findOldRecenttListTest(){
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .orderBy(program.programApplyStartDate.asc())
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
+//    멘티 전용 정렬
+    @Test
+    public void findProgramTypeListByOnlyMenteeTest(){
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .where(program.programType.eq(ProgramType.ONLY_MENTEE))
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
+//    일반인용 정렬
+    @Test
+    public void findProgramTypeListByAllUserTest(){
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .where(program.programType.eq(ProgramType.ALL_USER))
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
+//    유료 프로그램 정렬
+    @Test
+    public void findProgramListByUsePayProgramTest(){
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .where(program.programPrice.gt(0))
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
+//    무료 프로그램 정렬
+    @Test
+    public void findProgramListByFreePayProgramTest(){
+        jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
+                .from(program)
+                .where(program.programPrice.eq(0))
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
+    }
+
+    /*
+    * 프로그램 상세페이지 기능 테스트
+    * */
 
 
 }
+
+
+
