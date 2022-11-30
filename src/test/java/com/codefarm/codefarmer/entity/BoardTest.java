@@ -6,6 +6,7 @@ import com.codefarm.codefarmer.repository.BoardRepository;
 import com.codefarm.codefarmer.repository.FarmerRepository;
 import com.codefarm.codefarmer.repository.ReplyRepository;
 import com.mysema.commons.lang.Assert;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.AssertionsKt;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.codefarm.codefarmer.entity.QBoard.board;
 import static com.mysema.commons.lang.Assert.assertThat;
 
 @SpringBootTest
@@ -25,6 +27,9 @@ import static com.mysema.commons.lang.Assert.assertThat;
 @Transactional
 @Rollback(false)
 public class BoardTest {
+
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -39,7 +44,7 @@ public class BoardTest {
     @Test
     public void boardSaveTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(5L);
+        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
         boardDTO.setBoardTitle("나는야 멋쟁이");
         boardDTO.setBoardContent("I am SeoSeungWoo");
         boardDTO.setMemberId(findFarmer.get());
@@ -113,6 +118,18 @@ public class BoardTest {
     public void findReplyCountBoardTest(){
         log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(7L));
     }
+
+
+//    보드 목록
+    @Test
+    public void findBoardListTest(){
+        jpaQueryFactory.select(board.boardTitle,board.boardContent,board.boardViewCount, board.member.memberNickname, board.createdDate)
+                .from(board)
+                .orderBy(board.createdDate.desc())
+                .fetch()
+                .stream().map(Board -> Board.toString()).forEach(log::info);
+    }
+
 
 
 

@@ -61,6 +61,11 @@ public class MentorBoard extends Period{
         this.mentorTextContent = mentorBoardDTO.getMentorTextContent();
     }
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
+
     @Builder
     public MentorBoard(String mentorCareer, String mentorExCareer, String mentorStrongTitle1, String mentorStrongContent1, String mentorStrongTitle2, String mentorStrongContent2, String mentorStrongTitle3, String mentorStrongContent3, String mentorTitle, String mentorTitleSub, String mentorTextTitle, String mentorTextContent) {
         this.mentorCareer = mentorCareer;

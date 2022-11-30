@@ -30,7 +30,7 @@ public class MentorBoardDTO {
     private String mentorTitleSub;
     private String mentorTextTitle;
     private String mentorTextContent;
-    private Member member;
+    private Member memberId;
 
     public MentorBoard toEntity(){
         return MentorBoard.builder()

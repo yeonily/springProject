@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 @Data
 public class ReviewDTO {
     private Long reviewId;
-    private Member member;
-    private MentorBoard mentorBoard;
+    private Member memberId;
+    private MentorBoard mentorBoardId;
     private String reviewContent;
     private int reviewStar;
     private LocalDateTime createdDate;
@@ -31,8 +31,8 @@ public class ReviewDTO {
     @QueryProjection
     public ReviewDTO(Long reviewId, Member member, MentorBoard mentorBoard, String reviewContent, int reviewStar, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.reviewId = reviewId;
-        this.member = member;
-        this.mentorBoard = mentorBoard;
+        this.memberId = member;
+        this.mentorBoardId = mentorBoard;
         this.reviewContent = reviewContent;
         this.reviewStar = reviewStar;
         this.createdDate = createdDate;
