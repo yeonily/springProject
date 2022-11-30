@@ -24,6 +24,7 @@ public class MemberAlba extends Period{
     @Enumerated(EnumType.STRING)
     private Status memberStatus;
 
+
     @Builder
     public MemberAlba(Status memberStatus) {
         this.memberStatus = memberStatus;

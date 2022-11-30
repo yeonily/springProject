@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.entity.Alba;
 import com.codefarm.codefarmer.entity.Member;
 import com.codefarm.codefarmer.entity.MemberAlba;
 import com.codefarm.codefarmer.type.Status;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +26,12 @@ public class MemberAlbaDTO {
         return MemberAlba.builder()
                 .memberStatus(memberStatus)
                 .build();
+    }
+
+@QueryProjection
+    public MemberAlbaDTO(Alba alba, Member memberId, Status memberStatus) {
+        this.alba = alba;
+        this.memberId = memberId;
+        this.memberStatus = memberStatus;
     }
 }
