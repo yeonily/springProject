@@ -99,10 +99,16 @@ public class ProgramTest {
                 .stream().map(Program -> Program.toString()).forEach(log::info);*/
 
         jpaQueryFactory.selectFrom(program)
-                .from(program)
                 .fetch()
-                .forEach(p -> log.info("값은: " + p.getProgramCrop()));
+                .stream().map(p -> p.toString()).forEach(log::info);
 
+    }
+
+    @Test
+    public void findProgramListByProgramId(){
+        jpaQueryFactory.selectFrom(program)
+                .fetch()
+                .stream().map(p -> p.toString()).forEach(log::info);
     }
 
     @Test
@@ -160,18 +166,22 @@ public class ProgramTest {
 
 //    프로그램 목록 정보들 가져오기
     @Test
+
     public void findListTest(){
         jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
                 .from(program)
                 .where(program.programId.eq(3L))
                 .fetch()
                 .stream().map(Program -> Program.toString()).forEach(log::info);
+
     }
 
 
     /*
     * 프로그램 목록 기능 테스트
     * */
+
+
 
 //    진행중 정렬
     @Test
@@ -245,9 +255,7 @@ public class ProgramTest {
                 .stream().map(Program -> Program.toString()).forEach(log::info);
     }
 
-    /*
-    * 프로그램 상세페이지 기능 테스트
-    * */
+
 
 
 }

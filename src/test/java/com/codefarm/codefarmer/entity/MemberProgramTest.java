@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public class MemberProgramTest {
     @Test
     public void saveTest(){
         MemberProgramDTO memberProgramDTO = new MemberProgramDTO();
+        LocalDateTime localDateTime = LocalDateTime.now();
         Optional<User> findUser = userRepository.findById(2L);
         Optional<Program> findProgram = programRepository.findById(3L);
         memberProgramDTO.setProgramApplyCount(10);
@@ -46,6 +48,11 @@ public class MemberProgramTest {
         memberProgramDTO.setProgramStatus(ProgramStatus.PAY_SUCCEED);
         memberProgramDTO.setMember(findUser.get());
         memberProgramDTO.setProgram(findProgram.get());
+        memberProgramDTO.setProgramApplyBirth(localDateTime);
+        memberProgramDTO.setProgramApplyName("정호석");
+        memberProgramDTO.setProgramApplyPhoneNum("01012345678");
+        memberProgramDTO.setProgramApplyEmail("wjdghtjr@naver.com");
+        memberProgramDTO.setProgramApplyLocation("동탄");
         MemberProgram memberProgram =  memberProgramDTO.toEntity();
         memberProgram.changeMember(memberProgramDTO.getMember());
         memberProgram.changeProgram(memberProgramDTO.getProgram());
@@ -59,8 +66,10 @@ public class MemberProgramTest {
                 .stream().map(memberProgram -> memberProgram.toString()).forEach(log::info);
     }
 
-    @Test void update(){
+    @Test
+    public void update(){
         List<MemberProgram> memberPrograms = memberProgramRepository.findAll();
 //        MemberProgramDTO List<memberProgramDTO> =  memberProgramRepository.findAll();
     }
+
 }
