@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_INQUIRE")
-@Getter
+@Getter @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Inquire extends Period{
     @Id @GeneratedValue
@@ -42,11 +42,11 @@ public class Inquire extends Period{
         this.inquireStatus = inquireDTO.getInquireStatus();
     }
 
-//    @QueryProjection
-//    public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
-//        this.inquireQTitle = inquireQTitle;
-//        this.inquireQContent = inquireQContent;
-//        this.inquireStatus = inquireStatus;
-//        this.member = member;
-//    }
+    @QueryProjection
+    public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
+        this.inquireQTitle = inquireQTitle;
+        this.inquireQContent = inquireQContent;
+        this.inquireStatus = inquireStatus;
+        this.member = member;
+    }
 }

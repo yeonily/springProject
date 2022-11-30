@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.entity;
 import com.codefarm.codefarmer.domain.InquireAnswerDTO;
 import com.codefarm.codefarmer.repository.InquireAnswerRepository;
 import com.codefarm.codefarmer.repository.InquireRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static com.codefarm.codefarmer.entity.QInquireAnswer.inquireAnswer1;
 
 @SpringBootTest
 @Slf4j
@@ -21,6 +24,8 @@ public class InquireAnswerTest {
     private InquireAnswerRepository inquireAnswerRepository;
     @Autowired
     private InquireRepository inquireRepository;
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
 
     
 //    문의 답변 등록
@@ -37,6 +42,15 @@ public class InquireAnswerTest {
 
         inquireAnswerRepository.save(inquireAnswer);
 
+    }
+
+//    해당 문의 글에 대한 답변
+    @Test
+    public void inquireAnswerSelectOneTest(){
+        jpaQueryFactory.select(inquireAnswer1.inquire.inquireQTitle, inquireAnswer1.inquireAnswer).from(inquireAnswer1)
+                .where(inquireAnswer1.inquire.inquireId.eq(7L))
+                .fetch()
+                .stream().map(InquireAnswer -> InquireAnswer.toString()).forEach(log::info);
     }
 
 }

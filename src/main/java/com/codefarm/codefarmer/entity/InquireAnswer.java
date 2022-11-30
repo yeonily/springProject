@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.type.Status;
+import com.querydsl.core.annotations.QueryProjection;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -27,5 +28,11 @@ public class InquireAnswer extends Period{
     @Builder
     public InquireAnswer(String inquireAnswer) {
         this.inquireAnswer = inquireAnswer;
+    }
+
+    @QueryProjection
+    public InquireAnswer(String inquireAnswer, Inquire inquire) {
+        this.inquireAnswer = inquireAnswer;
+        this.inquire = inquire;
     }
 }
