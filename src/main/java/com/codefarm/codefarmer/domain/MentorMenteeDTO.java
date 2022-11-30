@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Data
 public class MentorMenteeDTO {
     private Long mentorMenteeId;
-    private Member mentor;
-    private Member mentee;
+    private Member mentorId;
+    private Member menteeId;
     private Status menteeStatus;
     private String menteeComment;
     private LocalDateTime createdDate;
@@ -27,8 +27,8 @@ public class MentorMenteeDTO {
     @QueryProjection
     public MentorMenteeDTO(Long mentorMenteeId, Member mentor, Member mentee, Status menteeStatus, String menteeComment, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.mentorMenteeId = mentorMenteeId;
-        this.mentor = mentor;
-        this.mentee = mentee;
+        this.mentorId = mentor;
+        this.menteeId = mentee;
         this.menteeStatus = menteeStatus;
         this.menteeComment = menteeComment;
         this.createdDate = createdDate;
@@ -38,7 +38,7 @@ public class MentorMenteeDTO {
     public MentorMentee toEntity(){
         return MentorMentee.builder()
                 .menteeComment(menteeComment)
-                .menteeStatus(menteeStatus)
+                .menteeStatus(Status.WAITING)
                 .build();
     }
 }
