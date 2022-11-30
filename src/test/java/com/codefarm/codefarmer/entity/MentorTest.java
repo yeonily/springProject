@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.codefarm.codefarmer.type.Oauth.KAKAO;
+
 @SpringBootTest
 @Slf4j
 @Transactional
@@ -31,12 +33,33 @@ public class MentorTest {
 //                MEMBER_ID를 못갖고옴
 
 
+    @Test
+    public void saveTest(){
+
+        FarmerDTO farmerDTO = new FarmerDTO();
+        farmerDTO.setFarmerType(FarmerType.FARMER);
+        farmerDTO.setMemberBirth("1997-01-16");
+        farmerDTO.setMemberEmail("tmddn5656@naver.com");
+        farmerDTO.setMemberLocation("인천");
+        farmerDTO.setMemberName("서정우");
+        farmerDTO.setMemberNickname("근육돼지");
+        farmerDTO.setMemberPhone("010-1112-4321");
+        farmerDTO.setMemberOauth(KAKAO);
+
+        Farmer farmer = farmerDTO.toEntity();
+
+        farmerRepository.save(farmer);
+
+    }
+
+
+
 
 
 //    타입만 바꾸기
     @Test
     public void typeUpdateTest(){
-        Farmer farmer = farmerRepository.findById(5L).get();
+        Farmer farmer = farmerRepository.findById(2L).get();
 
         FarmerDTO farmerDTO = new FarmerDTO();
         farmerDTO.setFarmerType(FarmerType.MENTOR);
