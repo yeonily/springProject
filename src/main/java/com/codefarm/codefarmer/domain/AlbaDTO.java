@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.domain;
 
 import com.codefarm.codefarmer.entity.Alba;
 import com.codefarm.codefarmer.entity.Member;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -41,9 +42,7 @@ public class AlbaDTO {
     private String albaProfileContent1;
     private String albaProfileTitle2;
     private String albaProfileContent2;
-
-
-
+    private Member member;
 
 
     public Alba toEntity(){
@@ -77,10 +76,33 @@ public class AlbaDTO {
                 .build();
     }
 
-
-
-
-
-
-
+    @QueryProjection
+    public AlbaDTO( String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
+        this.albaTitle = albaTitle;
+        this.albaImage = albaImage;
+        this.albaTitleOne = albaTitleOne;
+        this.albaApplyStartDate = albaApplyStartDate;
+        this.albaApplyEndDate = albaApplyEndDate;
+        this.albaWorkDate = albaWorkDate;
+        this.albaApplyCount = albaApplyCount;
+        this.albaApplyTotalCount = albaApplyTotalCount;
+        this.albaAddress = albaAddress;
+        this.albaPrice = albaPrice;
+        this.albaMainTitle = albaMainTitle;
+        this.albaMainContent = albaMainContent;
+        this.albaStrongTitle1 = albaStrongTitle1;
+        this.albaStrongContent1 = albaStrongContent1;
+        this.albaStrongTitle2 = albaStrongTitle2;
+        this.albaStrongContent2 = albaStrongContent2;
+        this.albaStrongTitle3 = albaStrongTitle3;
+        this.albaStrongContent3 = albaStrongContent3;
+        this.albaBannerTitle = albaBannerTitle;
+        this.albaBannerOne = albaBannerOne;
+        this.albaTextTitle = albaTextTitle;
+        this.albaText = albaText;
+        this.albaProfileTitle1 = albaProfileTitle1;
+        this.albaProfileContent1 = albaProfileContent1;
+        this.albaProfileTitle2 = albaProfileTitle2;
+        this.albaProfileContent2 = albaProfileContent2;
+    }
 }

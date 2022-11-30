@@ -102,6 +102,10 @@ public class Alba extends Period{
         this.albaProfileContent2 = albaDTO.getAlbaProfileContent2();
     }
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
     @Builder
     public Alba(String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
         this.albaTitle = albaTitle;
