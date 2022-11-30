@@ -13,10 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QInquire.inquire;
+import static com.codefarm.codefarmer.entity.QMember.member;
+import static com.codefarm.codefarmer.entity.QPeriod.period;
 
 @SpringBootTest
 @Slf4j
@@ -39,9 +40,8 @@ public class InquireTest {
 
         Optional<Farmer> findFarmer = farmerRepository.findById(1L);
         inquireDTO.setMemberId(findFarmer.get());
-        inquireDTO.setInquireQTitle("문의사항 질문22");
-        inquireDTO.setInquireQContent("TEST  내용22");
-        inquireDTO.setInquireStatus(Status.WAITING);
+        inquireDTO.setInquireQTitle("문의 제목");
+        inquireDTO.setInquireQContent("문의 TEST  내용22");
 
         Inquire inquire  = inquireDTO.toEntity();
         inquire.changeMember(inquireDTO.getMemberId());
@@ -55,7 +55,7 @@ public class InquireTest {
         Inquire inquire = inquireRepository.findById(7L).get();
 
         inquireDTO.setInquireId(inquire.getInquireId());
-        inquireDTO.setInquireStatus(Status.WAITING);
+        inquireDTO.setInquireStatus(Status.CONFIRM);
 
         inquire.update(inquireDTO);
     }
@@ -69,9 +69,22 @@ public class InquireTest {
                 .stream().map(Inquire -> Inquire.toString()).forEach(log::info);
     }
 
+//    모든 문의 글 목록
     @Test
     public void inquireSelectAllTest(){
-        inquireRepository.findAll().stream().map(inquire -> inquire.toString()).forEach(log::info);
+//        inquireRepository.findAll().stream().map(inquire -> inquire.toString()).forEach(log::info);
+        jpaQueryFactory.select(inquire).from(inquire)
+                .fetch()
+                .stream().map(Inquire -> Inquire.toString()).forEach(log::info);
     }
 
+//    특정 문의 글 제목, 닉네임, 내용, 날짜 출력
+    @Test
+    public void inquireSelectOneTest(){
+        jpaQueryFactory.select(inquire.inquireQTitle, inquire.member.memberNickname, inquire.inquireQContent, inquire.createdDate)
+                .from(inquire)
+                .where(inquire.inquireId.eq(7L))
+                .fetch()
+                .stream().map(Inquire -> Inquire.toString()).forEach(log::info);
+    }
 }

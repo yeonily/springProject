@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -36,7 +37,7 @@ public class InquireDTO {
         return Inquire.builder()
                 .inquireQContent(inquireQContent)
                 .inquireQTitle(inquireQTitle)
-                .inquireStatus(inquireStatus)
+                .inquireStatus(Status.WAITING)
                 .build();
     }
 }

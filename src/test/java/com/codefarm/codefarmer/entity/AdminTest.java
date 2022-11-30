@@ -1,11 +1,9 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.FarmerDTO;
-import com.codefarm.codefarmer.domain.MemberProgramDTO;
-import com.codefarm.codefarmer.domain.ProgramDTO;
-import com.codefarm.codefarmer.domain.UserDTO;
+import com.codefarm.codefarmer.domain.*;
 import com.codefarm.codefarmer.repository.*;
 import com.codefarm.codefarmer.type.*;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+
+import static com.codefarm.codefarmer.entity.QAlba.alba;
+import static com.codefarm.codefarmer.entity.QFarmer.farmer;
+import static com.codefarm.codefarmer.entity.QMember.member;
+import static com.codefarm.codefarmer.entity.QMemberProgram.memberProgram;
+import static com.codefarm.codefarmer.entity.QProgram.program;
+import static com.codefarm.codefarmer.entity.QUser.user;
 
 @SpringBootTest
 @Slf4j
@@ -22,16 +30,22 @@ import java.util.Optional;
 @Rollback(false)
 public class AdminTest {
     @Autowired
+    private JPAQueryFactory jpaQueryFactory;
+
+    @Autowired
     private FarmerRepository farmerRepository;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private MemberRepository memberRepository;
 
     @Autowired
     private ProgramRepository programRepository;
     @Autowired
     private MemberProgramRepository memberProgramRepository;
+
+    @Autowired
+    private AlbaRepository albaRepository;
+    @Autowired
+    private MemberAlbaRepository memberAlbaRepository;
 
 //    농장주 유저 등록
     @Test
@@ -72,19 +86,23 @@ public class AdminTest {
 //    유저 삭제
     @Test
     public void memberDeleteTest(){
-        memberRepository.delete(memberRepository.findById(13L).get());
+
     }
 
 //    모든 유저 출력
     @Test
     public void memberSelectAllTest(){
-        memberRepository.findAll().stream().map(member -> member.toString()).forEach(log::info);
+        jpaQueryFactory.select(member, user.userType, farmer.farmerType).from(member)
+                .leftJoin(user).on(user.eq(member))
+                .leftJoin(farmer).on(farmer.eq(member))
+                .fetch()
+                .stream().forEach(m -> log.info("member : " + m));
     }
 
 //    총 유저 인원 수
     @Test
     public void memberCountTest(){
-        log.info("member count : " + memberRepository.count());
+        log.info("member count : " + (farmerRepository.count() + userRepository.count()));
     }
 
 //    ========================================================================================================
@@ -144,7 +162,12 @@ public class AdminTest {
 //    프로그램 목록
     @Test
     public void programSelectAllTest(){
-        programRepository.findAll().stream().map(program -> program.toString()).forEach(log::info);
+//        programRepository.findAll().stream().map(program -> program.toString()).forEach(log::info);
+
+        jpaQueryFactory.select(program.programTitle, program.programTitleSub, program.programCrop, program.programPrice)
+                .from(program)
+                .fetch()
+                .stream().map(Program -> Program.toString()).forEach(log::info);
     }
 
 //    ========================================================================================================
@@ -170,18 +193,82 @@ public class AdminTest {
         memberProgramRepository.save(memberProgram);
     }
 
-//    프로그램 신청 취소
+//    프로그램 신청 취소 - ***미완료
     public void memberProgramCancelTest(){
         Optional<MemberProgram> memberProgram = memberProgramRepository.findById(26L);
-
     }
-
 
 //    프로그램 지원자 목록
     @Test
-    public void memberProgramSelectAll(){
-        memberProgramRepository.findAll().stream().map(memberProgram -> memberProgram.toString()).forEach(log::info);
+    public void memberProgramSelectAllTest(){
+//        memberProgramRepository.findAll().stream().map(memberProgram -> memberProgram.toString()).forEach(log::info);
+
+        jpaQueryFactory.select(memberProgram.member.memberName, memberProgram.program.programTitle, memberProgram.programApplyCount, memberProgram.programStatus)
+                .from(memberProgram)
+                .fetch()
+                .stream().map(MemberProgram -> MemberProgram.toString()).forEach(log::info);
     }
+
+//    ========================================================================================================
+
+//    아르바이트 등록
+    @Test
+    public void albaSaveTest(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        AlbaDTO albaDTO = new AlbaDTO();
+        Optional<Farmer> findFarmer = farmerRepository.findById(10L);
+
+        albaDTO.setAlbaAddress("서울시 관악구");
+        albaDTO.setAlbaApplyCount(123);
+        albaDTO.setAlbaApplyEndDate(LocalDateTime.of(2010,3,24,0,0));
+        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2011,3,24,0,0));
+        albaDTO.setAlbaApplyTotalCount(1234);
+        albaDTO.setAlbaBannerOne("연태관 배너");
+        albaDTO.setAlbaBannerTitle("연태관 배너 제목");
+        albaDTO.setAlbaImage("연태관 이미지");
+        albaDTO.setAlbaMainContent("연태관 메인컨텐트");
+        albaDTO.setAlbaMainTitle("연태관 메인제목123");
+        albaDTO.setAlbaPrice(10_200);
+        albaDTO.setAlbaProfileContent1("연태관 알바프로필내용1");
+        albaDTO.setAlbaProfileContent2("연태관 알바프로필내용2");
+        albaDTO.setAlbaProfileTitle1("연태관 알바프로필제목1");
+        albaDTO.setAlbaProfileTitle2("연태관 알바프로필제목2");
+        albaDTO.setAlbaStrongContent1("연태관 알바소개내용1");
+        albaDTO.setAlbaStrongContent2("연태관 알바소개내용2");
+        albaDTO.setAlbaStrongContent3("연태관 알바소개내용3");
+        albaDTO.setAlbaStrongTitle1("연태관 알바소개제목1");
+        albaDTO.setAlbaStrongTitle2("연태관 알바소개제목1");
+        albaDTO.setAlbaStrongTitle3("연태관 알바소개제목1");
+        albaDTO.setAlbaText("연태관 알바문자");
+        albaDTO.setAlbaTextTitle("연태관 알바문자제목");
+        albaDTO.setAlbaTitle("연태관 알바제목");
+        albaDTO.setAlbaTitleOne("연태관 알바제목원");
+        albaDTO.setAlbaWorkDate(localDateTime);
+        albaDTO.setMember(findFarmer.get());
+
+        Alba alba = albaDTO.toEntity();
+        alba.changeMember(albaDTO.getMember());
+        albaRepository.save(alba);
+    }
+
+//    아르바이트 목록
+    @Test
+    public void albaSelectAllTest(){
+        albaRepository.findAll().stream().map(Alba -> Alba.toString()).forEach(log::info);
+
+        jpaQueryFactory.select(alba.albaTitle, alba.albaMainTitle).from(alba)
+                .fetch()
+                .stream().map(Alba -> Alba.toString()).forEach(log::info);
+    }
+
+//    아르바이트 삭제
+    @Test
+    public void albaDeleteTest(){
+        albaRepository.delete(albaRepository.findById(31L).get());
+    }
+
+
 
 
 

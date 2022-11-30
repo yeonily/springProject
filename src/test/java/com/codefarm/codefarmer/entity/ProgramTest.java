@@ -71,7 +71,7 @@ public class ProgramTest {
         programDTO.setProgramInfoTitle4("프로그램 소개 타이틀 4");
         programDTO.setProgramInfoContent4("프로그램 소개 본문 4");
         programDTO.setProgramWorkDate(localDateTime);
-        programDTO.setProgramWorkStartTime(localDateTime);
+        programDTO.setProgramWorkStartTime( localDateTime);
         programDTO.setProgramApplyStartDate(localDateTime);
         programDTO.setProgramApplyEndDate(localDateTime);
         programDTO.setProgramWorkEndTime(localDateTime);

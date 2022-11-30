@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
 import com.codefarm.codefarmer.repository.CropRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.codefarm.codefarmer.entity.QCrop.crop;
+
 @SpringBootTest
 @Slf4j
 @Transactional
@@ -18,18 +21,23 @@ public class CropTest {
     @Autowired
     private CropRepository cropRepository;
 
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
+
+//    작물 입력
     @Test
     public void cropSaveTest(){
         Crop crop = new Crop();
 
-        crop.setCropTitle("제목~~");
-        crop.setCropContent("테쑤뜨");
+        crop.setCropTitle("제목임~~");
+        crop.setCropContent("테스트임~~~");
         crop.setCropKeyword("category");
         crop.setCropImage("image");
 
         cropRepository.save(crop);
     }
 
+//    작물 수정
     @Test
     public void cropUpdateTest(){
 //        Crop crop = cropRepository.findById(7L).get();
@@ -40,8 +48,18 @@ public class CropTest {
 //        cropRepository.save(crop);
     }
 
+//    삭제
     @Test
     public void cropDeleteTest(){
         cropRepository.delete(cropRepository.findById(8L).get());
+    }
+
+//    목록
+    @Test
+    public void cropSelectAllTest(){
+        jpaQueryFactory.select(crop).from(crop)
+//                .where(crop.cropId.eq(27L))
+                .fetch()
+                .stream().map(crop -> crop.toString()).forEach(log::info);
     }
 }

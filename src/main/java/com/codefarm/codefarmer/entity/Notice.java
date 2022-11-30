@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "TBL_NOTICE")
-@Getter
+@Getter @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notice extends Period{
     @Id @GeneratedValue
