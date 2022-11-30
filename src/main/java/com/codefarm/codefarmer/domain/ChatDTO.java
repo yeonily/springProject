@@ -25,6 +25,7 @@ public class ChatDTO {
     private String chatMessage;
     private ChatStatus chatStatus;
     private LocalDateTime chatDate;
+    private Member memberId;
 
     @QueryProjection
     public ChatDTO(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, LocalDateTime chatDate) {
