@@ -20,6 +20,11 @@ public class Chat extends ChatPeriod{
 
     @NotNull
     private String chatMessage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private ChatStatus chatStatus;
@@ -30,6 +35,9 @@ public class Chat extends ChatPeriod{
         this.chatStatus = chatStatus;
     }
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
     public void changeChatRoom(ChatRoom chatRoom) {this.chatRoom = chatRoom;}
 }
 

@@ -15,7 +15,6 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -54,52 +53,56 @@ public class ChatTest {
     @Test
     public void chatRoomSaveTest() {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
-        User user = userRepository.findById(6L).get(); // 일반 회원
-        Member mentor = mentorRepository.findById(5L).get().getMember(); // 멘토 회원
+        User user = userRepository.findById(6L).get(); // 일반 회원(유저ID)
+        Member mentor = mentorRepository.findById(16L).get().getMember(); // 멘토 회원(멘토ID)
 
         chatRoomDTO.setMentor(mentor);
         chatRoomDTO.setMentee(user);
-
 
         ChatRoom chatRoom = chatRoomDTO.toEntity();
         chatRoomRepository.save(chatRoom);
     }
 
 
-    /*대화방에 참여하여 채팅 전송*/
-    /*확인 필요한 부분 : 채팅을 보낸 사람은 어떻게 구분하는지? 필요 시 보낸 사람을 알아볼 수 있게 MEMBER_ID 컬럼 추가 필요*/
-    @Test
-    public void sendChatTest() {
-        ChatDTO chatDTO = new ChatDTO();
-        ChatRoom chatRoom = chatRoomRepository.findById(12L).get(); // 12번 방을 저장
-
-        chatDTO.setChatMessage("저도 알아요! - 김덕배");
-        chatDTO.setChatStatus(ChatStatus.UNREAD); // 초기 전송 시에는 읽지 않았기 때문에 UNREAD로 전송
-        chatDTO.setChatRoom(chatRoom);
-
-        Chat chat = chatDTO.toEntity();
-        chat.changeChatRoom(chatDTO.getChatRoom()); // 12번방에 위에서 작성한 메세지 저장
-        chatRepository.save(chat);
-    }
-
-
-    /*채팅방 조회(6번 회원 기준으로 찾음)*/
+    /*채팅방 조회(3번 회원 기준으로 찾음)*/
     @Test
     public void chatList() {
         List<ChatRoom> chatRooms = chatRoomRepository.findAll(); // 전체 대화방을 불러옴
 
         for(ChatRoom chatRoom : chatRooms) {
-            // 전체 대화방 중 MEMBER_ID가 6인 회원이 참여 중인 방들을 찾아 출력
-            if(chatRoom.getMentor().getMemberId() == 6L || chatRoom.getMentee().getMemberId() == 6L) {
+            // 전체 대화방 중 MEMBER_ID가 3인 회원이 참여 중인 방들을 찾아 출력
+            if(chatRoom.getMentor().getMemberId() == 3L || chatRoom.getMentee().getMemberId() == 3L) {
                 log.info("결과 : " + chatRoom.getChatRoomId());
             }
         }
     }
 
-    /*채팅방 나가기*/
+
+    /*대화방에 참여하여 채팅 전송*/
+    @Test
+    public void sendChatTest() {
+        ChatDTO chatDTO = new ChatDTO();
+        ChatRoom chatRoom = chatRoomRepository.findById(17L).get(); // 17번 방을 저장
+        Member member = userRepository.findById(6L).get(); // 현재 로그인 한 회원을 객체로 저장(임시 3L)
+
+        log.info("결과 : " + member.getMemberId());
+
+//        chatDTO.setChatMessage("멘토가 입력함");
+//        chatDTO.setChatStatus(ChatStatus.UNREAD); // 초기 전송 시에는 읽지 않았기 때문에 UNREAD로 전송
+//        chatDTO.setChatRoom(chatRoom);
+//        chatDTO.setMemberId(member);
+//
+//        Chat chat = chatDTO.toEntity();
+//        chat.changeChatRoom(chatDTO.getChatRoom()); // 12번방에 위에서 작성한 메세지 저장
+//        chat.changeMember(chatDTO.getMemberId());
+
+//        chatRepository.save(chat);
+    }
 
 
-    /*채팅방 알림(읽지않은 메세지 조회)*/
+
+
+    /*채팅방 알림(읽지않은 메세지 조회)[진행중]*/
     @Test
     public void readChat() {
         List<ChatRoom> chatRooms = chatRoomRepository.findAll();
