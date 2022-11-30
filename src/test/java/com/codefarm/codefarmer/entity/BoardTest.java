@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.domain.BoardDTO;
 import com.codefarm.codefarmer.domain.QBoardDTO;
 import com.codefarm.codefarmer.repository.BoardRepository;
 import com.codefarm.codefarmer.repository.FarmerRepository;
+import com.codefarm.codefarmer.repository.ReplyRepository;
 import com.mysema.commons.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -31,11 +32,14 @@ public class BoardTest {
     @Autowired
     private FarmerRepository farmerRepository;
 
+    @Autowired
+    private ReplyRepository replyRepository;
+
 //    게시판 제목, 내용 작성
     @Test
     public void boardSaveTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(4L);
+        Optional<Farmer> findFarmer = farmerRepository.findById(5L);
         boardDTO.setBoardTitle("나는야 멋쟁이");
         boardDTO.setBoardContent("I am SeoSeungWoo");
         boardDTO.setMemberId(findFarmer.get());
@@ -86,20 +90,29 @@ public class BoardTest {
         }
     }
 
-//    누가 댓글 남겼는지 상단에 최신꺼 한개 갖고오기
+//    누가 댓글 남겼는지 상단에 최신꺼 한개 갖고오기(컨트롤러에서 작업)
 
+//    글 올라왔는지 총 몇분 됐는지(컨트롤러에서 작업)
 
-//    viewCount 갖고오기
-
-
-//    해당 게시판의 댓글 수 갖고오기
+//    내가 게시한 게시글 총 개수
     @Test
-    public void countBoardReply(){
+    public void findBoardCountMine(){
+        log.info("내가 등록한 게시글 총 수 : " + boardRepository.countByMemberMemberId(5L));
+    }
 
+//    viewCount 갖고오기(count++하는건 컨트롤러에서 작업)
+    @Test
+    public void findBoardViewCount(){
+        Optional<Board> findBoardViewCount = boardRepository.findById(7L);
+        log.info("viewCount : " + findBoardViewCount.get().getBoardViewCount());
     }
 
 
-//    글 올라왔는지 총 몇분 됐는지
+    //    해당 보드 댓글 총 수
+    @Test
+    public void findReplyCountBoardTest(){
+        log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(7L));
+    }
 
 
 

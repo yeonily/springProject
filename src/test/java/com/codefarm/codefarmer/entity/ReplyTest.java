@@ -81,13 +81,13 @@ public class ReplyTest {
 //    내가 등록한 댓글 총 수
     @Test
     public void findReplyCountMineTest(){
-        log.info("여기엔 뭐가? : " + replyRepository.countByMemberMemberId(5L));
+        log.info("내가 쓴 댓글 총 수 : " + replyRepository.countByMemberMemberId(5L));
     }
 
 //    해당 보드 댓글 총 수
     @Test
     public void findReplyCountBoardTest(){
-        log.info("여기엔 뭐가? : " + replyRepository.countByBoard_BoardId(7L));
+        log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(7L));
     }
 
 
