@@ -32,6 +32,14 @@ public class Review extends Period{
         this.reviewContent = reviewDTO.getReviewContent();
         this.reviewStar = reviewDTO.getReviewStar();
     }
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
+    public void changeMentorBoard(MentorBoard mentorBoard){
+        this.mentorBoard = mentorBoard;
+    }
+
 
     @Builder
     public Review(String reviewContent, int reviewStar) {

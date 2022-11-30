@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.entity;
 import com.codefarm.codefarmer.type.Status;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -22,11 +23,21 @@ public class MentorMentee extends Period{
     @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTEE_ID", nullable = false)
     private Member mentee;
 
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Status menteeStatus;
+
     @NotNull
     private String menteeComment;
+
+    public void changeMentor(Member mentor){
+        this.mentor = mentor;
+    }
+
+    public void changeMentee(Member mentee){
+        this.mentee = mentee;
+    }
 
     @Builder
     public MentorMentee(Status menteeStatus, String menteeComment) {

@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.domain.ReplyDTO;
 import com.codefarm.codefarmer.repository.BoardRepository;
 import com.codefarm.codefarmer.repository.FarmerRepository;
 import com.codefarm.codefarmer.repository.ReplyRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.swing.text.html.Option;
 import java.util.Optional;
 
+import static com.codefarm.codefarmer.entity.QReply.reply;
+
 @SpringBootTest
 @Slf4j
 @Transactional
 @Rollback(false)
 public class ReplyTest {
+
+
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
 
     @Autowired
     private ReplyRepository replyRepository;
@@ -33,11 +40,11 @@ public class ReplyTest {
     @Test
     public void replySaveTest(){
         ReplyDTO replyDTO =  new ReplyDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(5L);
-        Optional<Board> findBoard = boardRepository.findById(13L);
+        Optional<Farmer> findFarmer = farmerRepository.findById(3L);
+        Optional<Board> findBoard = boardRepository.findById(38L);
 
         if(findFarmer.isPresent() && findBoard.isPresent()){
-            replyDTO.setReplyContent("안뇽하세용");
+            replyDTO.setReplyContent("서승우는 멋쟁이가 맞아");
             replyDTO.setBoardId(findBoard.get());
             replyDTO.setMemberId(findFarmer.get());
         }
@@ -90,11 +97,21 @@ public class ReplyTest {
         log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(7L));
     }
 
+//    보드 누가 댓글 최신에 달았는지 보여주는 테스트
+    @Test
+    public void findReplyListDescTest(){
+       log.info(jpaQueryFactory.select(reply.member.memberNickname)
+                .from(reply)
+                .where(reply.board.boardId.eq(36L))
+                .orderBy(reply.createdDate.desc())
+                .limit(1)
+                .fetchOne());
+    }
+
 
 // 댓글 삭제
     @Test
     public void replyDeleteTest(){
         replyRepository.deleteById(15L);
     }
-
 }

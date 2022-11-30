@@ -39,5 +39,6 @@ public class Chat extends ChatPeriod{
         this.member = member;
     }
     public void changeChatRoom(ChatRoom chatRoom) {this.chatRoom = chatRoom;}
+    public void changeChatStatus(ChatStatus chatStatus) {this.chatStatus = chatStatus;}
 }
 
