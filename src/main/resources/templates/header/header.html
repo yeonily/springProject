@@ -20,99 +20,97 @@
                     <!--대카 메뉴-->
                     <ul class="nav_ul">
                         <!--필요에 따라 스킬업 부분 텍스트 바꿔서 li a 태그 안에 div 삽입 시 오른쪽에 미니 글자 나옴-->
-                        <li><a href="/mento/intro">멘토</a></li>
-                        <li><a href="/program/list">프로그램</a></li>
-                        <li><a href="/alba/list">아르바이트</a></li>
-                        <li><a href="/community/list">커뮤니티</a></li>
-                        <li><a href="/information/policy">정보마당</a></li>
+                        <li><a th:href="@{/mento/intro}">멘토</a></li>
+                        <li><a th:href="@{/program/list}">프로그램</a></li>
+                        <li><a th:href="@{/alba/list}">아르바이트</a></li>
+                        <li><a th:href="@{/community/list}">커뮤니티</a></li>
+                        <li><a th:href="@{/information/policy}">정보마당</a></li>
                         <div class="m_font">스킬업!</div>
                     </ul>
 
                     <!--오른쪽 메뉴-->
                     <aside>
                         <!--오른쪽 메뉴(로그인 전)-->
-<!--                        <ul class="nav_right">-->
-<!--                            <li><a href="#">제휴관리자</a></li>-->
-<!--                            <li><a href="#">가입/로그인</a></li>-->
-<!--                            <li><a href="#">멘토신청</a></li>-->
-<!--                            &lt;!&ndash;검색 부분&ndash;&gt;-->
-<!--                            <div class="search_form">-->
-<!--                                <input class="search_keyword" autocomplete="off" type="text" placeholder="각 기능에 맞게 구현 필요">-->
-<!--                                <button type="button" class="search_img"/>-->
-<!--                            </div>-->
-<!--                        </ul>-->
-
-                        <!--오른쪽 메뉴(로그인 후)-->
-                        <ul class="nav_right_after">
-                            <li>
-                                <div class="noti-button-container">
-                                    <div class="c-application c-badge--container absolute">
-                                        <button type="button" class="c-application c-icon-button medium"
-                                                style="opacity: 1;">
-                                            <!--알림이 있는 경우 빨간 원 표시-->
-                                            <span class="alarm-red"></span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="black"
-                                                 xmlns="http://www.w3.org/2000/svg" class="c-application c-icon"
-                                                 style="fill: rgb(148, 155, 160);">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                  d="M6.88889 13.9814L6.41315 16.5H17.5869L17.1111 13.9814V9.61111C17.1111 6.78832 14.8228 4.5 12 4.5C9.17722 4.5 6.88889 6.78832 6.88889 9.61111V13.9814ZM4.88889 13.7941L4.22395 17.3144C4.10764 17.9302 4.57989 18.5 5.20658 18.5H18.7934C19.4201 18.5 19.8924 17.9302 19.7761 17.3144L19.1111 13.7941V9.61111C19.1111 5.68375 15.9274 2.5 12 2.5C8.07265 2.5 4.88889 5.68375 4.88889 9.61111V13.7941Z"/>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                  d="M11 18.5C11 19.0523 11.4477 19.5 12 19.5C12.5523 19.5 13 19.0523 13 18.5H15C15 20.1569 13.6569 21.5 12 21.5C10.3431 21.5 9 20.1569 9 18.5H11Z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <a href="#" class="">
-                                    <div class="c-application c-badge--container absolute">
-                                        <button type="button" class="c-application c-icon-button c-pointer medium"
-                                                style="opacity: 1;">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="black"
-                                                 xmlns="http://www.w3.org/2000/svg" class="c-application c-icon"
-                                                 style="fill: rgb(148, 155, 160);">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                      d="M18 5H6V18.1643L10.3939 15.3791C11.3744 14.7575 12.6256 14.7575 13.6061 15.3791L18 18.1643V5ZM6 3C4.89543 3 4 3.89543 4 5V19.9821C4 20.7704 4.86958 21.2488 5.53538 20.8267L11.4646 17.0683C11.7915 16.8611 12.2085 16.8611 12.5354 17.0683L18.4646 20.8267C19.1304 21.2488 20 20.7704 20 19.9821V5C20 3.89543 19.1046 3 18 3H6Z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="myPageBtn">
-                                <div class="v-popover c-application popover-container">
-                                    <div class="trigger" style="display: inline-block;">
-                                        <button type="button" class="c-application c-icon-button medium"
-                                                style="opacity: 1;">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="black"
-                                                 xmlns="http://www.w3.org/2000/svg" class="c-application c-icon"
-                                                 style="fill: rgb(148, 155, 160);">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                      d="M12 9C13.1046 9 14 8.10457 14 7C14 5.89543 13.1046 5 12 5C10.8954 5 10 5.89543 10 7C10 8.10457 10.8954 9 12 9ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                      d="M16.7098 16.6703L16.5547 16.4376C15.5394 14.9147 13.8303 14 12 14C10.1697 14 8.46055 14.9147 7.44529 16.4376L7.29018 16.6703C6.62629 17.6661 7.34016 19 8.53701 19H15.463C16.6598 19 17.3737 17.6661 16.7098 16.6703ZM12 12C9.50102 12 7.16738 13.2489 5.78119 15.3282L5.62608 15.5609C4.07611 17.8858 5.74277 21 8.53701 21H15.463C18.2572 21 19.9239 17.8858 18.3739 15.5609L18.2188 15.3282C16.8326 13.2489 14.499 12 12 12Z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!--마이페이지 버튼 클릭 시 나올 서브메뉴-->
-                                <div class="sub-menu" style="visibility: hidden; border: 1px solid rgb(250 250 250);">
-                                    <ul>
-                                        <li style="display: block; margin-left: 5px;"><div><span class="mypageLink"/><a th:href="@{/mypage/setting}">마이페이지</a></div></li><hr>
-                                        <li style="display: block; margin-left: 5px;"><div><span class="commuLink"/><a th:href="@{/mypage/community}">커뮤니티 활동</a></div></li><hr>
-                                        <li style="display: block; margin-left: 5px;"><div><span class="chatLink"/><a th:href="@{/mento/chatting}">채팅방</a></div></li><hr>
-                                        <li style="display: block; margin-left: 5px;"><div><span class="logout"/><a href="javascript:void(0);">로그아웃</a></div></li>
-                                    </ul>
-                                </div>
-                            </li>
-
+                        <ul class="nav_right">
+                            <li><a th:href="@{/register/}">가입/로그인</a></li>
                             <!--검색 부분-->
                             <div class="search_form">
                                 <input class="search_keyword" autocomplete="off" type="text" placeholder="검색어를 입력하세요.">
                                 <button type="button" class="search_img"/>
                             </div>
                         </ul>
+
+                        <!--오른쪽 메뉴(로그인 후)-->
+<!--                        <ul class="nav_right_after">-->
+<!--                            <li>-->
+<!--                                <div class="noti-button-container">-->
+<!--                                    <div class="c-application c-badge&#45;&#45;container absolute">-->
+<!--                                        <button type="button" class="c-application c-icon-button medium"-->
+<!--                                                style="opacity: 1;">-->
+<!--                                            &lt;!&ndash;알림이 있는 경우 빨간 원 표시&ndash;&gt;-->
+<!--                                            <span class="alarm-red"></span>-->
+<!--                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="black"-->
+<!--                                                 xmlns="http://www.w3.org/2000/svg" class="c-application c-icon"-->
+<!--                                                 style="fill: rgb(148, 155, 160);">-->
+<!--                                                <path fill-rule="evenodd" clip-rule="evenodd"-->
+<!--                                                  d="M6.88889 13.9814L6.41315 16.5H17.5869L17.1111 13.9814V9.61111C17.1111 6.78832 14.8228 4.5 12 4.5C9.17722 4.5 6.88889 6.78832 6.88889 9.61111V13.9814ZM4.88889 13.7941L4.22395 17.3144C4.10764 17.9302 4.57989 18.5 5.20658 18.5H18.7934C19.4201 18.5 19.8924 17.9302 19.7761 17.3144L19.1111 13.7941V9.61111C19.1111 5.68375 15.9274 2.5 12 2.5C8.07265 2.5 4.88889 5.68375 4.88889 9.61111V13.7941Z"/>-->
+<!--                                                <path fill-rule="evenodd" clip-rule="evenodd"-->
+<!--                                                  d="M11 18.5C11 19.0523 11.4477 19.5 12 19.5C12.5523 19.5 13 19.0523 13 18.5H15C15 20.1569 13.6569 21.5 12 21.5C10.3431 21.5 9 20.1569 9 18.5H11Z"/>-->
+<!--                                            </svg>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <div>-->
+<!--                                    <a href="#" class="">-->
+<!--                                    <div class="c-application c-badge&#45;&#45;container absolute">-->
+<!--                                        <button type="button" class="c-application c-icon-button c-pointer medium"-->
+<!--                                                style="opacity: 1;">-->
+<!--                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="black"-->
+<!--                                                 xmlns="http://www.w3.org/2000/svg" class="c-application c-icon"-->
+<!--                                                 style="fill: rgb(148, 155, 160);">-->
+<!--                                                <path fill-rule="evenodd" clip-rule="evenodd"-->
+<!--                                                      d="M18 5H6V18.1643L10.3939 15.3791C11.3744 14.7575 12.6256 14.7575 13.6061 15.3791L18 18.1643V5ZM6 3C4.89543 3 4 3.89543 4 5V19.9821C4 20.7704 4.86958 21.2488 5.53538 20.8267L11.4646 17.0683C11.7915 16.8611 12.2085 16.8611 12.5354 17.0683L18.4646 20.8267C19.1304 21.2488 20 20.7704 20 19.9821V5C20 3.89543 19.1046 3 18 3H6Z"></path>-->
+<!--                                            </svg>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li class="myPageBtn">-->
+<!--                                <div class="v-popover c-application popover-container">-->
+<!--                                    <div class="trigger" style="display: inline-block;">-->
+<!--                                        <button type="button" class="c-application c-icon-button medium"-->
+<!--                                                style="opacity: 1;">-->
+<!--                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="black"-->
+<!--                                                 xmlns="http://www.w3.org/2000/svg" class="c-application c-icon"-->
+<!--                                                 style="fill: rgb(148, 155, 160);">-->
+<!--                                                <path fill-rule="evenodd" clip-rule="evenodd"-->
+<!--                                                      d="M12 9C13.1046 9 14 8.10457 14 7C14 5.89543 13.1046 5 12 5C10.8954 5 10 5.89543 10 7C10 8.10457 10.8954 9 12 9ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path>-->
+<!--                                                <path fill-rule="evenodd" clip-rule="evenodd"-->
+<!--                                                      d="M16.7098 16.6703L16.5547 16.4376C15.5394 14.9147 13.8303 14 12 14C10.1697 14 8.46055 14.9147 7.44529 16.4376L7.29018 16.6703C6.62629 17.6661 7.34016 19 8.53701 19H15.463C16.6598 19 17.3737 17.6661 16.7098 16.6703ZM12 12C9.50102 12 7.16738 13.2489 5.78119 15.3282L5.62608 15.5609C4.07611 17.8858 5.74277 21 8.53701 21H15.463C18.2572 21 19.9239 17.8858 18.3739 15.5609L18.2188 15.3282C16.8326 13.2489 14.499 12 12 12Z"></path>-->
+<!--                                            </svg>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;마이페이지 버튼 클릭 시 나올 서브메뉴&ndash;&gt;-->
+<!--                                <div class="sub-menu" style="visibility: hidden; border: 1px solid rgb(250 250 250);">-->
+<!--                                    <ul>-->
+<!--                                        <li style="display: block; margin-left: 5px;"><div><span class="mypageLink"/><a th:href="@{/mypage/setting}">마이페이지</a></div></li><hr>-->
+<!--                                        <li style="display: block; margin-left: 5px;"><div><span class="commuLink"/><a th:href="@{/mypage/community}">커뮤니티 활동</a></div></li><hr>-->
+<!--                                        <li style="display: block; margin-left: 5px;"><div><span class="chatLink"/><a th:href="@{/mento/chatting}">채팅방</a></div></li><hr>-->
+<!--                                        <li style="display: block; margin-left: 5px;"><div><span class="logout"/><a href="javascript:void(0);">로그아웃</a></div></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </li>-->
+
+<!--                            &lt;!&ndash;검색 부분&ndash;&gt;-->
+<!--                            <div class="search_form">-->
+<!--                                <input class="search_keyword" autocomplete="off" type="text" placeholder="검색어를 입력하세요.">-->
+<!--                                <button type="button" class="search_img"/>-->
+<!--                            </div>-->
+<!--                        </ul>-->
                     </aside>
                 </div>
             </div>
