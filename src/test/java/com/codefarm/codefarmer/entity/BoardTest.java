@@ -47,10 +47,10 @@ public class BoardTest {
         Optional<Farmer> findFarmer = farmerRepository.findById(1L);
         boardDTO.setBoardTitle("나는야 멋쟁이");
         boardDTO.setBoardContent("I am SeoSeungWoo");
-        boardDTO.setMemberId(findFarmer.get());
+        boardDTO.setMember(findFarmer.get());
 
         Board board = boardDTO.toEntity();
-        board.changeMember(boardDTO.getMemberId());
+        board.changeMember(boardDTO.getMember());
         boardRepository.save(board);
     }
 
@@ -63,7 +63,7 @@ public class BoardTest {
 
         boardDTO.setBoardTitle("수정된 제목");
         boardDTO.setBoardContent("수정된 내용");
-        boardDTO.setMemberId(findFarmer.get());
+        boardDTO.setMember(findFarmer.get());
         boardDTO.setBoardId(board.getBoardId());
 //        boardDTO.setMemberId(findFarmer.get());
 //
@@ -75,7 +75,7 @@ public class BoardTest {
 //   Detail 게시글 작성한 사람 닉네임 갖고오기
     @Test
     public void findGetBoardUser(){
-        Optional<Board> findBoardUser = boardRepository.findById(7L);
+        Optional<Board> findBoardUser = boardRepository.findById(38L);
             log.info("board : " + findBoardUser.get().getBoardId());
             log.info("nickName : " + findBoardUser.get().getMember().getMemberNickname());
 //            log.info("nickName : " + findBoardUser.get().getBoardFiles());
@@ -102,7 +102,7 @@ public class BoardTest {
 //    내가 게시한 게시글 총 개수
     @Test
     public void findBoardCountMine(){
-        log.info("내가 등록한 게시글 총 수 : " + boardRepository.countByMemberMemberId(5L));
+        log.info("내가 등록한 게시글 총 수 : " + boardRepository.countByMemberMemberId(1L));
     }
 
 //    viewCount 갖고오기(count++하는건 컨트롤러에서 작업)
@@ -116,19 +116,19 @@ public class BoardTest {
     //    해당 보드 댓글 총 수
     @Test
     public void findReplyCountBoardTest(){
-        log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(7L));
+        log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(38L));
     }
 
 
 //    보드 목록
-    @Test
-    public void findBoardListTest(){
-        jpaQueryFactory.select(board.boardTitle,board.boardContent,board.boardViewCount, board.member.memberNickname, board.createdDate)
-                .from(board)
-                .orderBy(board.createdDate.desc())
-                .fetch()
-                .stream().map(Board -> Board.toString()).forEach(log::info);
-    }
+//    @Test
+//    public void findBoardListTest(){
+//        jpaQueryFactory.select(board.boardTitle,board.boardContent,board.boardViewCount, board.member.memberNickname, board.createdDate)
+//                .from(board)
+//                .orderBy(board.createdDate.desc())
+//                .fetch()
+//                .stream().map(Board -> Board.toString()).forEach(log::info);
+//    }
 
 
 
