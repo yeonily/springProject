@@ -37,7 +37,7 @@ public class BoardServiceTest {
         Optional<Farmer> findFarmer = farmerRepository.findById(1L);
         boardDTO.setBoardTitle("나는야 멋쟁이");
         boardDTO.setBoardContent("I am SeoSeungWoo");
-        boardDTO.setMemberId(findFarmer.get());
+        boardDTO.setMember(findFarmer.get());
 
         boardService.boardAdd(boardDTO);
     }
@@ -51,7 +51,7 @@ public class BoardServiceTest {
 
         boardDTO.setBoardTitle("수정된 제목2");
         boardDTO.setBoardContent("수정된 내용2");
-        boardDTO.setMemberId(findFarmer.get());
+        boardDTO.setMember(findFarmer.get());
         boardDTO.setBoardId(board.getBoardId());
 
         boardService.boardUpdate(boardDTO);
@@ -64,7 +64,35 @@ public class BoardServiceTest {
         log.info(""+boardService.boardShowDetail(42L));
     }
 
+//  내가 게시한 게시글 총 개수 갖고오기
+    @Test
+    public void showBoardCountMineTest(){
+        log.info("해당 회원이 게시한 총 게시글 수 : " +   boardService.showBoardCountMine(1L));
+    }
 
+//   해당 보드의 조회 수
+    @Test
+    public void showViewCountTest(){
+        log.info("조회 수 : " + boardService.showViewCount(42L));
+    }
+
+//    해당 보드의 댓글 수
+    @Test
+    public void showBoardReplyCountTest(){
+        log.info("보드 댓글 수 : " + boardService.showBoardReplyCount(42L));
+    }
+
+//    보드 목록 가져오기
+//    @Test
+//    public void showBoardListTest(){
+//        boardService.showBoardList().forEach(t ->log.info("전체 보드 목록: " + t.toString()));
+//    }
+
+//    보드 지우기
+    @Test
+    public void removeBoardTest(){
+        boardService.removeBoard(37L);
+    }
 
 
 
