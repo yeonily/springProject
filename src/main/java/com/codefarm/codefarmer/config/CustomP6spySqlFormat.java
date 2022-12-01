@@ -9,6 +9,7 @@ import java.util.Locale;
 public class CustomP6spySqlFormat implements MessageFormattingStrategy {
     @Override
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
+        if(connectionId == 12) { return ""; }
         sql = formatSql(category, sql);
         return now + "|" + elapsed + "ms|" + category + "|connection " + connectionId + "|" + sql;
     }
