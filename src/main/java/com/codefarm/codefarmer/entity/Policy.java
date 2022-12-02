@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_POLICY")
 @Getter @Setter @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Policy extends Period{
     @Id @GeneratedValue
     private Long policyId;
@@ -18,6 +18,12 @@ public class Policy extends Period{
     private String policyTitle;
     @NotNull
     private String policyContent;
+
+    public void update(Policy policy){
+        this.policyKeyword = policy.getPolicyKeyword();
+        this.policyTitle = policy.getPolicyTitle();
+        this.policyContent = policy.getPolicyContent();
+    }
 
     @Builder
     public Policy(String policyKeyword, String policyTitle, String policyContent) {

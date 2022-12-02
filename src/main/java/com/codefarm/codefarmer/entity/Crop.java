@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_CROP")
-@Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter @Setter @ToString
+@NoArgsConstructor
 public class Crop extends Period{
     @Id @GeneratedValue
     private Long cropId;
@@ -20,6 +20,13 @@ public class Crop extends Period{
     private String cropImage;
     @NotNull
     private String cropContent;
+
+    public void update(Crop crop){
+        this.cropKeyword = crop.getCropKeyword();
+        this.cropTitle = crop.getCropTitle();
+        this.cropImage = crop.getCropImage();
+        this.cropContent = crop.getCropContent();
+    }
 
     @Builder
     public Crop(String cropKeyword, String cropTitle, String cropImage, String cropContent) {
