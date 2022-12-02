@@ -1,6 +1,5 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.NoticeDTO;
 import com.codefarm.codefarmer.repository.NoticeRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -32,26 +31,23 @@ public class NoticeTest {
 //    공지 등록
     @Test
     public void noticeSaveTest(){
-        NoticeDTO noticeDTO = new NoticeDTO();
+        Notice notice = new Notice();
 
-        noticeDTO.setNoticeTitle("공지 제목");
-        noticeDTO.setNoticeContent("공지 내용");
+        notice.setNoticeTitle("공지 제목 TEST");
+        notice.setNoticeContent("공지 내용");
 
-        Notice notice = noticeDTO.toEntity();
         noticeRepository.save(notice);
     }
 
 //    공지 수정
     @Test
     public void noticeUpdateTest(){
-        NoticeDTO noticeDTO = new NoticeDTO();
         Notice notice = noticeRepository.findById(6L).get();
 
-        noticeDTO.setNoticeTitle("제목임");
-        noticeDTO.setNoticeContent("수정테스트");
-        noticeDTO.setNoticeId(notice.getNoticeId());
+        notice.setNoticeTitle("제목");
+        notice.setNoticeContent("테스트");
 
-        notice.update(noticeDTO);
+        noticeRepository.save(notice);
     }
 
 //    공지 삭제
