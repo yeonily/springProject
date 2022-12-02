@@ -17,21 +17,21 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContent;
     private int boardViewCount;
-    private Member memberId;
+    private Member member;
     private String memberNickName;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 
     @QueryProjection
-    public BoardDTO(Long boardId, String boardTitle, String boardContent, Long memberId, String memberNickName ,int boardViewCount, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.boardId = boardId;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;
-        this.memberNickName = memberNickName;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
     }
+
 
     public Board toEntity(){
         return Board.builder()

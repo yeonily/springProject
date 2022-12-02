@@ -42,14 +42,14 @@ public class ReplyTest {
     @Test
     public void replySaveTest(){
         ReplyDTO replyDTO =  new ReplyDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(3L);
-        Optional<Board> findBoard = boardRepository.findById(38L);
+        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
+        Optional<Board> findBoard = boardRepository.findById(42L);
 
-        if(findFarmer.isPresent() && findBoard.isPresent()){
-            replyDTO.setReplyContent("서승우는 멋쟁이가 맞아");
+
+            replyDTO.setReplyContent("곧 크리스마스.. 취업하고프다");
             replyDTO.setBoardId(findBoard.get());
             replyDTO.setMemberId(findFarmer.get());
-        }
+
 
         Reply reply = replyDTO.toEntity();
         reply.changeMember(replyDTO.getMemberId());

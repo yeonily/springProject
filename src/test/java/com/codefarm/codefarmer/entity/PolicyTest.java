@@ -39,8 +39,9 @@ public class PolicyTest {
     @Test
     public void policyUpdateTest(){
         Policy policy = policyRepository.findById(2L).get();
-        policy.setPolicyKeyword("키워드 수정");
-        policyRepository.save(policy);
+        policy.setPolicyKeyword("키워드 수정2222222");
+
+        policy.update(policy);
     }
 
 //    정책 삭제
@@ -53,9 +54,9 @@ public class PolicyTest {
     @Test
     public void policySelectAllTest(){
 //        policyRepository.findAll().stream().map(policy -> policy.toString()).forEach(log::info);
-        jpaQueryFactory.select(policy).from(policy)
-                .fetch()
-                .stream().map(policy -> policy.toString()).forEach(log::info);
+//        jpaQueryFactory.select(policy).from(policy)
+//                .fetch()
+//                .stream().map(policy -> policy.toString()).forEach(log::info);
     }
 
 }
