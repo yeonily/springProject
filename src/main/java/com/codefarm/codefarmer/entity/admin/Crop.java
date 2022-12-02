@@ -8,15 +8,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_CROP")
-<<<<<<< HEAD:src/main/java/com/codefarm/codefarmer/entity/admin/Crop.java
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Crop extends Period {
-=======
-@Getter @Setter @ToString
 @NoArgsConstructor
-public class Crop extends Period{
->>>>>>> origin/master:src/main/java/com/codefarm/codefarmer/entity/Crop.java
+public class Crop extends Period {
+
     @Id @GeneratedValue
     private Long cropId;
     @NotNull

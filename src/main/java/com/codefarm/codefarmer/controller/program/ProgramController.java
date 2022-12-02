@@ -23,7 +23,6 @@ public class ProgramController {
     public void list(Model model){
         List<ProgramDTO> lists = programListService.showAll();
         String type = lists.get(1).getProgramType().toString();
-        log.info(type);
         model.addAttribute("lists",lists);
     }
 

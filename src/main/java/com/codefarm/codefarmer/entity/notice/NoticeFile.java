@@ -8,15 +8,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_NOTICE_FILE")
-<<<<<<< HEAD:src/main/java/com/codefarm/codefarmer/entity/notice/NoticeFile.java
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class NoticeFile extends Period {
-=======
-@Getter @Setter
-@NoArgsConstructor
+@Getter
 public class NoticeFile extends Period{
->>>>>>> origin/master:src/main/java/com/codefarm/codefarmer/entity/NoticeFile.java
     @Id @GeneratedValue
     private Long fileId;
     @NotNull
