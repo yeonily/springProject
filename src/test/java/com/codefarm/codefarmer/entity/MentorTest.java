@@ -1,13 +1,15 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.FarmerDTO;
-import com.codefarm.codefarmer.domain.MentorBoardDTO;
-import com.codefarm.codefarmer.domain.MentorDTO;
-import com.codefarm.codefarmer.domain.UserDTO;
-import com.codefarm.codefarmer.repository.FarmerRepository;
-import com.codefarm.codefarmer.repository.MentorBoardRepository;
-import com.codefarm.codefarmer.repository.MentorRepository;
-import com.codefarm.codefarmer.repository.UserRepository;
+import com.codefarm.codefarmer.domain.member.FarmerDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.member.UserDTO;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
+import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.type.FarmerType;
 import com.codefarm.codefarmer.type.UserType;
 import lombok.extern.slf4j.Slf4j;

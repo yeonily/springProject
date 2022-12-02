@@ -1,11 +1,13 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.MemberProgramDTO;
-import com.codefarm.codefarmer.repository.MemberProgramRepository;
-import com.codefarm.codefarmer.repository.ProgramRepository;
-import com.codefarm.codefarmer.repository.UserRepository;
+import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
+import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
+import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.repository.program.MemberProgramRepository;
+import com.codefarm.codefarmer.repository.program.ProgramRepository;
+import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.type.ProgramStatus;
-import com.codefarm.codefarmer.type.ProgramType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

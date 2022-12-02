@@ -1,9 +1,11 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.InquireDTO;
-import com.codefarm.codefarmer.repository.FarmerRepository;
-import com.codefarm.codefarmer.repository.InquireAnswerRepository;
-import com.codefarm.codefarmer.repository.InquireRepository;
+import com.codefarm.codefarmer.domain.inquire.InquireDTO;
+import com.codefarm.codefarmer.entity.inquire.Inquire;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.inquire.InquireAnswerRepository;
+import com.codefarm.codefarmer.repository.inquire.InquireRepository;
 import com.codefarm.codefarmer.type.Status;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QInquire.inquire;
-import static com.codefarm.codefarmer.entity.QMember.member;
-import static com.codefarm.codefarmer.entity.QPeriod.period;
 
 @SpringBootTest
 @Slf4j

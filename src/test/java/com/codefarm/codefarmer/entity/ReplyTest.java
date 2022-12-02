@@ -1,9 +1,12 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.ReplyDTO;
-import com.codefarm.codefarmer.repository.BoardRepository;
-import com.codefarm.codefarmer.repository.FarmerRepository;
-import com.codefarm.codefarmer.repository.ReplyRepository;
+import com.codefarm.codefarmer.domain.board.ReplyDTO;
+import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.board.Reply;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.repository.board.BoardRepository;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -12,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QReply.reply;

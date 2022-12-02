@@ -1,26 +1,22 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.BoardDTO;
-import com.codefarm.codefarmer.domain.QBoardDTO;
-import com.codefarm.codefarmer.repository.BoardRepository;
-import com.codefarm.codefarmer.repository.FarmerRepository;
-import com.codefarm.codefarmer.repository.ReplyRepository;
-import com.mysema.commons.lang.Assert;
+import com.codefarm.codefarmer.domain.board.BoardDTO;
+import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.repository.board.BoardRepository;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.AssertionsKt;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QBoard.board;
-import static com.mysema.commons.lang.Assert.assertThat;
 
 @SpringBootTest
 @Slf4j

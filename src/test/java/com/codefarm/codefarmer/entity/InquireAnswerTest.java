@@ -1,8 +1,10 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.InquireAnswerDTO;
-import com.codefarm.codefarmer.repository.InquireAnswerRepository;
-import com.codefarm.codefarmer.repository.InquireRepository;
+import com.codefarm.codefarmer.domain.inquire.InquireAnswerDTO;
+import com.codefarm.codefarmer.entity.inquire.Inquire;
+import com.codefarm.codefarmer.entity.inquire.InquireAnswer;
+import com.codefarm.codefarmer.repository.inquire.InquireAnswerRepository;
+import com.codefarm.codefarmer.repository.inquire.InquireRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,10 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.AlbaDTO;
-import com.codefarm.codefarmer.repository.AlbaRepository;
-import com.codefarm.codefarmer.repository.FarmerRepository;
+import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.repository.alba.AlbaRepository;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

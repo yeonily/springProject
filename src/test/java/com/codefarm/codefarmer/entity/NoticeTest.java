@@ -1,18 +1,20 @@
 package com.codefarm.codefarmer.entity;
 
+<<<<<<< HEAD
+import com.codefarm.codefarmer.domain.notice.NoticeDTO;
+import com.codefarm.codefarmer.entity.notice.Notice;
+import com.codefarm.codefarmer.repository.notice.NoticeRepository;
+=======
 import com.codefarm.codefarmer.repository.NoticeRepository;
+>>>>>>> origin/master
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.query.JpaQueryCreator;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
-import java.util.List;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QNotice.notice;
