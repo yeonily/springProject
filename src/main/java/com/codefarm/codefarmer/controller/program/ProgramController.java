@@ -22,7 +22,6 @@ public class ProgramController {
     @GetMapping("/list")
     public void list(Model model){
         List<ProgramDTO> lists = programListService.showAll();
-        String type = lists.get(1).getProgramType().toString();
         model.addAttribute("lists",lists);
     }
 
