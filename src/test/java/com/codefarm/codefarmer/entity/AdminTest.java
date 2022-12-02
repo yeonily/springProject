@@ -1,7 +1,21 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.*;
-import com.codefarm.codefarmer.repository.*;
+import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.member.FarmerDTO;
+import com.codefarm.codefarmer.domain.member.UserDTO;
+import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
+import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.repository.alba.AlbaRepository;
+import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.UserRepository;
+import com.codefarm.codefarmer.repository.program.MemberProgramRepository;
+import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.codefarm.codefarmer.type.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -11,10 +25,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QAlba.alba;

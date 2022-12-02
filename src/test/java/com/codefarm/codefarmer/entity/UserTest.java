@@ -1,8 +1,8 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.UserDTO;
-import com.codefarm.codefarmer.repository.UserRepository;
-import com.codefarm.codefarmer.type.FarmerType;
+import com.codefarm.codefarmer.domain.member.UserDTO;
+import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.type.UserType;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;

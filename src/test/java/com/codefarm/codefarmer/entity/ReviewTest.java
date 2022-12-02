@@ -1,12 +1,14 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.ReviewDTO;
-import com.codefarm.codefarmer.repository.FarmerRepository;
-import com.codefarm.codefarmer.repository.MentorBoardRepository;
-import com.codefarm.codefarmer.repository.ReviewRepository;
-import com.codefarm.codefarmer.repository.UserRepository;
+import com.codefarm.codefarmer.domain.mentor.ReviewDTO;
+import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.mentor.MentorBoard;
+import com.codefarm.codefarmer.entity.mentor.Review;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
+import com.codefarm.codefarmer.repository.mentor.ReviewRepository;
+import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.type.UserType;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

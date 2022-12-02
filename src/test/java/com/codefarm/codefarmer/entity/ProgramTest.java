@@ -1,16 +1,14 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.ProgramDTO;
-import com.codefarm.codefarmer.repository.FarmerRepository;
-import com.codefarm.codefarmer.repository.MemberProgramRepository;
-import com.codefarm.codefarmer.repository.ProgramRepository;
-import com.codefarm.codefarmer.type.Oauth;
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
-import com.codefarm.codefarmer.type.UserType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -235,7 +233,7 @@ public class ProgramTest {
                 .stream().map(Program -> Program.toString()).forEach(log::info);
     }
 
-//    유료 프로그램 정렬
+//    유료 프로그램 창렬
     @Test
     public void findProgramListByUsePayProgramTest(){
         jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
@@ -245,7 +243,7 @@ public class ProgramTest {
                 .stream().map(Program -> Program.toString()).forEach(log::info);
     }
 
-//    무료 프로그램 정렬
+//    무료 프로그램 창렬
     @Test
     public void findProgramListByFreePayProgramTest(){
         jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)

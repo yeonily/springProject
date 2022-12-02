@@ -22,13 +22,13 @@
         <section class="filter">
             <div class="filter-name">
                 <div class="filter-list">
-                    <span class="filter-button">진행중</span>
-                    <span class="filter-button">최근등록일순</span>
-                    <span class="filter-button">최근마감일순</span>
-                    <span class="filter-button">멘티전용</span>
-                    <span class="filter-button">일반인용</span>
-                    <span class="filter-button">유료</span>
-                    <span class="filter-button">무료</span>
+                    <span class="filter-button" id="progress-btn">진행중</span>
+                    <span class="filter-button" id="recent-register-btn">최근등록일순</span>
+                    <span class="filter-button" id="recent-end-btn">최근마감일순</span>
+                    <span class="filter-button" id="mentee-btn">멘티전용</span>
+                    <span class="filter-button" id="user-btn">일반인용</span>
+                    <span class="filter-button" id="pay-btn">유료</span>
+                    <span class="filter-button" id="free-btn">무료</span>
                 </div>
             </div>
             <div class="select-filter">
@@ -38,7 +38,40 @@
         </section>
         <div class="program-container">
             <div class="program-list-container">
-                <div class="list-container">
+                <th:block th:each="list:${lists}">
+                     <div class="list-container" th:object="${list}">
+                        <a th:href="@{/program/detail}">
+                            <article class="list-article">
+                                <div class="list-image-container">
+                                    <div class="list-point">
+                                        <div th:if="${#strings.equals(list.programType,'ONLY_MENTEE')}">
+                                            <span class="list-point-m">멘토 전용</span>
+                                        </div>
+                                        <div th:unless="${#strings.equals(list.programType,'ONLY_MENTEE')}">
+
+                                        </div>
+                                    </div>
+                                    <img class="pg-image" src="/image/program/pgimage.gif">
+                                </div>
+                                <div class="list-info">
+                                    <div class="pg-subtitle">
+                                        <div class="pg-location" th:text="*{programLocation}"></div>
+                                        <div class="pg-dot"> · </div>
+                                        <div class="pg-price" th:if="${list.programPrice} == 0" th:text="무료"></div>
+                                        <div class="pg-price" th:unless="${list.programPrice} == 0" th:text="*{programPrice}"></div>
+                                    </div>
+                                    <div class="pg-title">
+                                        <div class="pg-title-name" th:text="*{programTitle}"></div>
+                                    </div>
+                                    <div class="pg-caption">
+                                        <span class="pg-date" th:text="${#temporals.format(list.programWorkDate,'MM월 dd일 시작')}"></span>
+                                    </div>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                </th:block>
+                <!--<div class="list-container">
                     <a th:href="@{/program/detail}">
                         <article class="list-article">
                             <div class="list-image-container">
@@ -212,32 +245,7 @@
                             </div>
                         </article>
                     </a>
-                </div>
-                <div class="list-container">
-                    <a th:href="@{/program/detail}">
-                        <article class="list-article">
-                            <div class="list-image-container">
-                                <div class="list-point">
-                                    <div><span class="list-point-m">멘티전용</span></div>
-                                </div>
-                                <img class="pg-image" src="/image/program/pgimage.gif">
-                            </div>
-                            <div class="list-info">
-                                <div class="pg-subtitle">
-                                    <div class="pg-location">경기도</div>
-                                    <div class="pg-dot"> · </div>
-                                    <div class="pg-price">무료</div>
-                                </div>
-                                <div class="pg-title">
-                                    <div class="pg-title-name">일일 무 뽑기 프로그램</div>
-                                </div>
-                                <div class="pg-caption">
-                                    <span class="pg-date">11월 28일 시작</span>
-                                </div>
-                            </div>
-                        </article>
-                    </a>
-                </div>
+                </div>-->
                 <div class="list-container">
                     <a th:href="@{/program/detail}">
                         <article class="list-article">

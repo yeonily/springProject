@@ -1,12 +1,16 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.ChatDTO;
-import com.codefarm.codefarmer.domain.ChatRoomDTO;
-import com.codefarm.codefarmer.domain.UserDTO;
-import com.codefarm.codefarmer.repository.*;
+import com.codefarm.codefarmer.domain.chat.ChatDTO;
+import com.codefarm.codefarmer.domain.chat.ChatRoomDTO;
+import com.codefarm.codefarmer.entity.chat.Chat;
+import com.codefarm.codefarmer.entity.chat.ChatRoom;
+import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.repository.chat.ChatRepository;
+import com.codefarm.codefarmer.repository.chat.ChatRoomRepository;
+import com.codefarm.codefarmer.repository.member.UserRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.type.ChatStatus;
-import com.codefarm.codefarmer.type.Oauth;
-import com.codefarm.codefarmer.type.UserType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

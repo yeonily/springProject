@@ -1,7 +1,11 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.domain.MentorBoardDTO;
-import com.codefarm.codefarmer.repository.*;
+import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.mentor.MentorBoard;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.type.FarmerType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QMentorBoard.mentorBoard;

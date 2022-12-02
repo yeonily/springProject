@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity;
 
-import com.codefarm.codefarmer.repository.PolicyRepository;
+import com.codefarm.codefarmer.entity.admin.Policy;
+import com.codefarm.codefarmer.repository.admin.PolicyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -8,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.QPolicy.policy;
 
