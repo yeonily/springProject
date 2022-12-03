@@ -49,12 +49,12 @@ public class MentorTest {
 public void saveUserTest(){
     UserDTO UserDTO = new UserDTO();
     UserDTO.setUserType(UserType.USER);
-    UserDTO.setMemberBirth("1931-03-21");
-    UserDTO.setMemberEmail("98ff@naver.com");
+    UserDTO.setMemberBirth("1997-03-21");
+    UserDTO.setMemberEmail("runner123@naver.com");
     UserDTO.setMemberLocation("인천");
-    UserDTO.setMemberName("장보고");
-    UserDTO.setMemberNickname("용가리");
-    UserDTO.setMemberPhone("010-1564-1121");
+    UserDTO.setMemberName("연태관");
+    UserDTO.setMemberNickname("러너");
+    UserDTO.setMemberPhone("010-1564-2315");
     UserDTO.setMemberOauth(KAKAO);
 
     User user = UserDTO.toEntity();
@@ -69,12 +69,12 @@ public void saveUserTest(){
 
         FarmerDTO farmerDTO = new FarmerDTO();
         farmerDTO.setFarmerType(FarmerType.FARMER);
-        farmerDTO.setMemberBirth("1997-01-16");
-        farmerDTO.setMemberEmail("tmdd2336@naver.com");
+        farmerDTO.setMemberBirth("1997-04-16");
+        farmerDTO.setMemberEmail("gimchi2336@naver.com");
         farmerDTO.setMemberLocation("인천");
-        farmerDTO.setMemberName("서승우");
-        farmerDTO.setMemberNickname("멋쟁이");
-        farmerDTO.setMemberPhone("010-1234-4321");
+        farmerDTO.setMemberName("김민혁");
+        farmerDTO.setMemberNickname("김장킬러");
+        farmerDTO.setMemberPhone("010-4343-4321");
         farmerDTO.setMemberOauth(KAKAO);
 
         Farmer farmer = farmerDTO.toEntity();
@@ -87,7 +87,7 @@ public void saveUserTest(){
     //    유저타입만 바꾸기(멘티로)
     @Test
     public void typeUserUpdateTest(){
-        User user = userRepository.findById(1L).get();
+        User user = userRepository.findById(16L).get();
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUserType(UserType.MENTEE);
@@ -102,7 +102,7 @@ public void saveUserTest(){
     //    농장주타입만 바꾸기
     @Test
     public void typeFarmerUpdateTest(){
-        Farmer farmer = farmerRepository.findById(4L).get();
+        Farmer farmer = farmerRepository.findById(14L).get();
 
         FarmerDTO farmerDTO = new FarmerDTO();
         farmerDTO.setFarmerType(FarmerType.MENTOR);

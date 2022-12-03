@@ -29,5 +29,5 @@ $(document).ready(function () {
 
 var btnList = [];
 btnList = $('div.menuList ul li button');
-$(btnList[0]).attr("onclick", "location.href='/community'");
+$(btnList[0]).attr("onclick", "location.href='/community/list'");
 $(btnList[1]).attr("onclick", "location.href='/notice'");
