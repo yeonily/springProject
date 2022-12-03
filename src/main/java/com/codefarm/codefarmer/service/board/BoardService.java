@@ -1,12 +1,19 @@
 package com.codefarm.codefarmer.service.board;
 
 import com.codefarm.codefarmer.domain.board.BoardDTO;
+import com.codefarm.codefarmer.domain.board.QBoardDTO;
 import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.board.QBoard;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.codefarm.codefarmer.entity.board.QBoard.board;
 
 
 @Service
@@ -43,7 +50,7 @@ public class BoardService {
         return boardDTO;
     }
 
-//    내가 게시한 게시글 총 개수
+//    내가 작성한 게시글 총 개수
     public Long showBoardCountMine(Long memberId){
         return boardRepository.countByMemberMemberId(memberId);
     }
@@ -61,18 +68,20 @@ public class BoardService {
     }
 
 //    보드 목록 갖고오기
-//    public List<BoardDTO> showBoardList(){
-//         return jpaQueryFactory.select(new QBoardDTO(
-//                 board.boardId,
-//                 board.boardTitle,
-//                 board.boardContent,
-//                 board.boardViewCount,
-//                 board.createdDate,
-//                 board.updatedDate
-//                 )).from(board)
-//                 .orderBy(board.createdDate.desc())
-//                 .fetch();
-//    }
+    public List<BoardDTO> getBoardList(){
+         return jpaQueryFactory.select(new QBoardDTO(
+                 board.boardId,
+                 board.boardTitle,
+                 board.boardContent,
+                 board.boardViewCount,
+                 board.createdDate,
+                 board.updatedDate
+                 )).from(board)
+                 .orderBy(board.createdDate.desc())
+                 .fetch();
+    }
+
+
 
 
 //    게시판 지우기

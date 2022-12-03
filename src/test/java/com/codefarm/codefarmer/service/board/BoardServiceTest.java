@@ -35,9 +35,9 @@ public class BoardServiceTest {
     @Test
     public void addTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        boardDTO.setBoardTitle("나는야 멋쟁이");
-        boardDTO.setBoardContent("I am SeoSeungWoo");
+        Optional<Farmer> findFarmer = farmerRepository.findById(15L);
+        boardDTO.setBoardTitle("김장 빡세다.. ");
+        boardDTO.setBoardContent("너넨 이런거 하지마라..");
         boardDTO.setMember(findFarmer.get());
 
         boardService.boardAdd(boardDTO);
@@ -77,7 +77,7 @@ public class BoardServiceTest {
         log.info("조회 수 : " + boardService.showViewCount(42L));
     }
 
-//    해당 보드의 댓글 수
+//    해당 보드의 댓글 총 수
     @Test
     public void showBoardReplyCountTest(){
         log.info("보드 댓글 수 : " + boardService.showBoardReplyCount(42L));
@@ -88,6 +88,13 @@ public class BoardServiceTest {
 //    public void showBoardListTest(){
 //        boardService.showBoardList().forEach(t ->log.info("전체 보드 목록: " + t.toString()));
 //    }
+
+    @Test
+    public void getBoardList(){
+        log.info("보드 목록 : " + boardService.getBoardList());
+    }
+
+
 
 //    보드 지우기
     @Test
