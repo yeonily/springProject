@@ -33,11 +33,11 @@
             </div>
             <div class="select-filter">
                 <img src="/image/program/mark.gif" class="select-image">
-                <div class="select-filter-name">진행중</div>
+                <div class="select-filter-name" id="current-status">전체 목록</div>
             </div>
         </section>
         <div class="program-container">
-            <div class="program-list-container">
+            <div class="program-list-container" id="list-foreach">
                 <th:block th:each="list:${lists}">
                      <div class="list-container" th:object="${list}">
                         <a th:href="@{/program/detail}">
