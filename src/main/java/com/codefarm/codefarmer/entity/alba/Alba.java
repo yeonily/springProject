@@ -137,4 +137,6 @@ public class Alba extends Period {
         this.albaProfileTitle2 = albaProfileTitle2;
         this.albaProfileContent2 = albaProfileContent2;
     }
+
+
 }

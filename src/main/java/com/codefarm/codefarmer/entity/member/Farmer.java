@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_FARMER")
 @Getter
-@NoArgsConstructor //(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DiscriminatorValue("FARMER")
 public class Farmer extends Member{
     @NotNull

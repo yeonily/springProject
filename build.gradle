@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.oracle.database.security:osdt_cert:21.3.0.0'
     implementation 'com.oracle.database.security:oraclepki:21.3.0.0'
     implementation 'com.oracle.database.security:osdt_core:21.3.0.0'
+    implementation 'com.google.code.gson:gson:2.8.7'
 //    compileOnly 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -58,6 +59,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'org.springframework.security:spring-security-test'
+
 }
 
 tasks.named('test') {

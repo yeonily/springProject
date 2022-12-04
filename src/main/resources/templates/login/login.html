@@ -19,7 +19,7 @@
                     <div class="oauth-logo">
                         <img src="https://cdn.comento.kr/icon/icon-kakao-medium.svg">
                     </div>
-                    <div class="oauth-txt" style="color: #181600;">카카오로 1초만에 시작하기</div>
+                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=b6c8cc415d06296f3dad49e498e431cc&redirect_uri=http://localhost:5555/login/kakao&response_type=code" class="oauth-txt" style="color: #181600;">카카오로 1초만에 시작하기</a>
                 </section>
                 <section class="naver">
                     <div class="oauth-logo">
@@ -44,4 +44,10 @@
     </div>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+
+    // 헤더 검색창 없애기
+    $(".search_form").css("visibility", "hidden");
+</script>
 </html>
