@@ -1,8 +1,12 @@
 package com.codefarm.codefarmer.entity.member;
 
 import com.codefarm.codefarmer.domain.member.FarmerDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
+import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.board.QBoard;
 import com.codefarm.codefarmer.entity.member.Farmer;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.QProgram;
@@ -21,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.*;
+import static com.codefarm.codefarmer.entity.board.QBoard.*;
 import static com.codefarm.codefarmer.entity.member.QFarmer.*;
 import static com.codefarm.codefarmer.entity.program.QProgram.*;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
@@ -43,11 +48,11 @@ public class FarmerTest {
             FarmerDTO farmerDTO = new FarmerDTO();
             farmerDTO.setFarmerType(FarmerType.FARMER);
             farmerDTO.setMemberBirth("1994-10-21");
-            farmerDTO.setMemberEmail("a@naver.com");
-            farmerDTO.setMemberLocation("서울");
+            farmerDTO.setMemberEmail("a222@naver.com");
+            farmerDTO.setMemberLocation("서울222");
             farmerDTO.setMemberName("김지연");
-            farmerDTO.setMemberNickname("r22");
-            farmerDTO.setMemberPhone("010-1112-1111");
+            farmerDTO.setMemberNickname("r21112");
+            farmerDTO.setMemberPhone("010-1112-1611");
             farmerDTO.setMemberOauth(KAKAO);
 
             Farmer farmer = farmerDTO.toEntity();
@@ -98,6 +103,18 @@ public class FarmerTest {
         farmer.update(farmerDTO);
     }
 
+//    타입변경 update
+    @Test
+    public void typeChangeTest(){
+        long execute = jpaQueryFactory
+                .update(farmer)
+                .set(farmer.farmerType, FarmerType.MENTOR)
+                .where(farmer.memberId.eq(37l))
+                .execute();
+
+        assertThat(farmerRepository.findById(37l).get().getFarmerType()).isEqualTo("MENTOR");
+    }
+
 
     @Test
     public void deleteTest(){
@@ -123,4 +140,17 @@ public class FarmerTest {
                 .where(program.member.memberId.eq(1l))
                 .fetchJoin().fetch().stream().map(Program::toString).forEach(log::info);
     }
+
+    //내가 쓴 글 select
+    @Test
+    public void findMyBoardTest(){
+        jpaQueryFactory.select(board)
+                .from(board).join(board.member)
+                .where(board.member.memberId.eq(15l))
+                .fetchJoin().fetch().stream().map(Board::getBoardTitle).forEach(log::info);
+    }
+
+    //멘토신청하기 SAVE
+
+
 }

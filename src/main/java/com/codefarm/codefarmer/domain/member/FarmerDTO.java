@@ -47,4 +47,17 @@ public class FarmerDTO {
         this.memberEmail = memberEmail;
         this.memberOauth = memberOauth;
     }
+
+    public FarmerDTO(Farmer entity) {
+        this.memberId = memberId;
+        this.memberName = memberName;
+        this.memberNickname = memberNickname;
+        this.memberPhone = memberPhone;
+        this.memberLocation = memberLocation;
+        this.memberBirth = memberBirth;
+        this.memberEmail = memberEmail;
+        this.memberOauth = memberOauth;
+    }
+
+
 }

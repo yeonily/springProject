@@ -3,10 +3,12 @@ package com.codefarm.codefarmer.entity.member;
 import com.codefarm.codefarmer.domain.member.UserDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.QMemberAlba;
+import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.QMemberProgram;
 import com.codefarm.codefarmer.repository.member.UserRepository;
+import com.codefarm.codefarmer.type.FarmerType;
 import com.codefarm.codefarmer.type.UserType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,9 @@ import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
 import static com.codefarm.codefarmer.entity.alba.QMemberAlba.*;
+import static com.codefarm.codefarmer.entity.board.QBoard.board;
+import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
+import static com.codefarm.codefarmer.entity.member.QUser.*;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.*;
 import static com.codefarm.codefarmer.type.Oauth.KAKAO;
 import static org.assertj.core.api.Assertions.*;
@@ -75,6 +80,18 @@ public class UserTest {
         user.update(UserDTO);
     }
 
+    //    타입변경 update
+    @Test
+    public void typeChangeTest(){
+        long execute = jpaQueryFactory
+                .update(user)
+                .set(user.userType, UserType.USER)
+                .where(user.memberId.eq(2l))
+                .execute();
+
+        assertThat(userRepository.findById(2l).get().getUserType()).isEqualTo("USER");
+    }
+
     @Test
     public void deleteTest(){
         userRepository.deleteById(1l);
@@ -100,5 +117,14 @@ public class UserTest {
 
 //        Assertions.assertThat(user.get().getMember().getMemberName()).isEqualTo("김지연");
         user.stream().map(MemberProgram::getMember).forEach(member -> log.info(member.getMemberName()));
+    }
+
+    //내가 쓴 글 select
+    @Test
+    public void findMyBoardTest(){
+        jpaQueryFactory.select(board)
+                .from(board).join(board.member)
+                .where(board.member.memberId.eq(15l))
+                .fetchJoin().fetch().stream().map(Board::getBoardTitle).forEach(log::info);
     }
 }

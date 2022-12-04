@@ -133,7 +133,7 @@ public class AdminTest {
         ProgramDTO programDTO = new ProgramDTO();
         Optional<Farmer> findFarmer = farmerRepository.findById(10L);
 
-        programDTO.setMember(findFarmer.get());
+//        programDTO.setMember(findFarmer.get());
         programDTO.setProgramCrop("블루베리");
         programDTO.setProgramType(ProgramType.ALL_USER);
         programDTO.setProgramTarget1("대상1");
@@ -167,7 +167,7 @@ public class AdminTest {
         programDTO.setProgramInquire(findFarmer.get().getMemberEmail());
 
         Program program = programDTO.toEntity();
-        program.changeMember(programDTO.getMember());
+//        program.changeMember(programDTO.getMember());
         programRepository.save(program);
     }
 
