@@ -9,11 +9,11 @@ div#container .chart-no {
 }
 
 th.num { width: 6%; }
-th.title { width: 21%; }
-th.content { width: 27%; }
+th.title { width: 23%; }
+th.content { width: 29%; }
 th.id { width: 7%; }
 th.file-check { width: 7%; }
-th.date { width: 13%; }
+th.date { width: 9%; }
 th.hits { width:  7%; }
 th.revise, th.delete { width: 6%; }
 

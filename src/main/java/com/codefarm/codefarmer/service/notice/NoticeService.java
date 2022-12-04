@@ -13,30 +13,37 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
 //    공지 글 작성
-    public void noticeAdd(Notice notice){
+    public void register(Notice notice){
         noticeRepository.save(notice);
     }
 
 //    공지 글 수정
-    public void noticeUpdate(Notice notice){
+    public void update(Notice notice){
         Notice noticeModify = noticeRepository.findById(notice.getNoticeId()).get();
         noticeRepository.save(noticeModify);
     }
 
+//    공지 조회수 증가
+    public void updateViewCount(Long noticeId){
+        noticeRepository.updateViewCount(noticeId);
+    }
+
 //    공지 글 삭제
-    public Long noticeDelete(Long noticeId){
+    public Long remove(Long noticeId){
         noticeRepository.delete(noticeRepository.findById(noticeId).get());
         return noticeId;
     }
 
 //    공지 목록
-    public List<Notice> noticeSelectAll(){
-        return noticeRepository.findAll();
+    public List<Notice> showAll(){
+        return noticeRepository.OrderByNoticeId();
     }
 
 //    공지 디테일 보기
-    public Notice noticeSelectOne(Long noticeId){
+    public Notice showOne(Long noticeId){
         return noticeRepository.findById(noticeId).get();
     }
 
+//    공지 글 개수
+    public int countByNotice() {return noticeRepository.countByNotice();}
 }

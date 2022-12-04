@@ -64,7 +64,7 @@
         <!-- 프로그램 리스트 출력 틀 -->
         <div class="p-contents contents-bottom">
                 <span class="list-count">총
-                    <span>2476</span>건
+                    <span th:text="${noticeCount}"></span>건
                 </span>
 
             <table>
@@ -80,39 +80,32 @@
                     <th class="delete"></th>
                 </tr>
                 <!-- ↓ 데이터 출력 -->
-                <tr>
-                    <td>12432</td>
-                    <td class="title" onclick="location.href='/notice/detail'">첫 번째 공지</td>
-                    <td class="content">첫 번째 공지입니다.</td>
-                    <td>관리자</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-10-03 10:00</td>
-                    <td>86</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/notice-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteNoticeCheck()"></td>
-                </tr>
-                <tr>
-                    <td>12432</td>
-                    <td class="title" onclick="location.href='/notice/detail'">두 번째 공지</td>
-                    <td class="content">두 번째 공지입니다.</td>
-                    <td>관리자</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-10-03 10:00</td>
-                    <td>86</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/notice-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteNoticeCheck()"></td>
-                </tr>
-                <tr>
-                    <td>12432</td>
-                    <td class="title" onclick="location.href='/notice/detail'">세 번째 공지</td>
-                    <td class="content">세 번째 공지입니다.</td>
-                    <td>관리자</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-10-03 10:00</td>
-                    <td>86</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/notice-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteNoticeCheck()"></td>
-                </tr>
+                <th:block th:each="notice:${noticeLists}">
+                    <tr th:object="${notice}">
+                        <td th:text="*{noticeId}"></td>
+                        <td class="title" th:onclick="'location.href=\''+ @{/notice/detail(noticeId=*{noticeId})} + '\''" th:text="*{noticeTitle}"></td>
+                        <td class="content" th:text="*{noticeContent}"></td>
+                        <td>관리자</td>
+                        <td>
+                            <div th:if="${#lists.isEmpty(countFiles)}">-</div>
+                            <div th:unless="${#lists.isEmpty(countFiles)}">
+                                <div th:if="${countFiles[noticeStat.index] == 0}">-</div>
+                                <div th:unless="${countFiles[noticeStat.index] == 0}">
+                                    <img src="/image/admin/fileImage.png">
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                        <td th:text="*{noticeViewCount}"></td>
+                        <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/notice-update(noticeId=*{noticeId})} + '\''"></td>
+                        <td class="delete">
+                            <form method="post" class="deleteForm" th:action="@{/admin/notice/delete}">
+                                <input type="text" hidden name="noticeId" th:value="*{noticeId}">
+                                <input type="button" value="삭제" class="deleteBtn">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
             </table>
             <div id="write" style="float: right;">
                 <input type="button" onclick="location.href='/admin/notice-write'" value="작성">
@@ -141,5 +134,23 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    var msg = "공지를 삭제 하시겠습니까?";
+
+    // 공지 삭제
+    $(".deleteBtn").on("click", function () {
+        var flag = confirm(msg);
+        let noticeId = $(this).data("id");
+
+        // $(document).ready(function(){
+            if(flag){
+                $(this).parents("form.deleteForm").submit();
+                // alert("공지사항 " + parseInt(noticeId) + "번 삭제완료.");
+            }
+            // history.replaceState({}, null, null);
+        });
+    // });
+</script>
 </body>
 <html>

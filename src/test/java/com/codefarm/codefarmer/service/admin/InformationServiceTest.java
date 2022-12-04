@@ -29,8 +29,8 @@ public class InformationServiceTest {
     public void policyAddTest(){
         Policy policy = new Policy();
 //        Policy policy = new Policy();
-        policy.setPolicyKeyword("Policy키워드");
-        policy.setPolicyTitle("정책 서비스 제목");
+        policy.setPolicyKeyword("키워드");
+        policy.setPolicyTitle("정책 서비스 제목 테스트");
         policy.setPolicyContent("정첵 서비스 테스트");
 
         informationService.policyAdd(policy);
@@ -50,7 +50,7 @@ public class InformationServiceTest {
 //    정책 삭제
     @Test
     public void policyDeleteTest(){
-        log.info("" + informationService.policyDelete(2L));
+        log.info("" + informationService.policyDelete(3L));
     }
 
 //    정책 목록 불러오기

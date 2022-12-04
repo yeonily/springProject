@@ -8,6 +8,7 @@ body, button {
     word-break: keep-all;
     word-wrap: break-word;
 }
+pre {font-family: "Pretendard";}
 
 a {text-decoration: none;}
 div.flex {display: flex;}

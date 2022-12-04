@@ -15,22 +15,16 @@
 <div id="main">
     <div id="notice-wrap">
         <div id="n-wrap">
-            <div id="n-w-wrap">
-                <div id="notice-title">[업데이트 소식] 너와농부싶어가 새로운 옷을 입었습니다.</div>
+            <div id="n-w-wrap" th:object="${notice}">
+                <div id="notice-title" th:text="*{noticeTitle}"></div>
                 <div id="notice-profile">
                     <div class="p-name">너와농부싶어 운영자</div>
                     <div class="p-img"><img src="/image/header/favicon.png"></div>
                 </div>
                 <div id="notice-content">
-                    <p data-v-d3bb83e4="" data-v-581a35be="" class="c-application c-typography c-body1" data-v-1d8d6f66="" style="color: rgb(32, 35, 37);">
-                    <p>안녕하세요.</p>
-                    <p>너와농부싶어 팀의 코드팜입니다.</p><p><br></p>
-                    <p>우선, 그 동안 너와농부싶어 팀이 <strong>더 투명하게 서비스의 업데이트 내용이나 앞으로의 방향성에 대해서 유저 분들께 안내 드리고 설명 드리지 못했던 점 진심으로 죄송합니다.</strong></p><p><br></p><p>앞으로는 다양한 업데이트 내용과 이유, 또는 서비스에서 발생하고 있는 문제, 앞으로의 변화 방향성 및 유저 분들의 요구 사항과 그에 대해 어떻게 대응할 것 인지에 대해 <strong>적극적으로 소통</strong>하겠습니다.</p>
-                    <p><br></p><p><br></p>
-                    <p>너와농부싶어는 처음에 청년농 분들이 농부를 만나서 편하게 대화하고 정보를 얻을 수 있도록 “귀농 멘토링” 서비스로 시작했습니다. 하지만 시간이 오래 지나면서 코멘토 커뮤니티에 참여하는 분들의 범위가 넓어지고 또 코멘토 커뮤니티에서 얻어가고 싶은 가치가 확장됨에 따라,
-                    <strong>오래된 옷을 벗어던지고 현재와 미래의 너와농부싶어를 더 잘 표현할 수 있는 옷으로 갈아입는 것을 결정했습니다.</strong></p></p>
+                    <pre th:text="*{noticeContent}"></pre>
                 </div>
-                <div id="notice-date">2022.11.19 17:04</div>
+                <div id="notice-date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></div>
                 <div id="files">
                     <div class="file">
                         <span class="f-img"><img src="/image/community/clip.png"></span>

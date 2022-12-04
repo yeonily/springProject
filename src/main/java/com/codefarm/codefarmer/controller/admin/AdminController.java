@@ -1,12 +1,34 @@
 package com.codefarm.codefarmer.controller.admin;
 
+import com.codefarm.codefarmer.entity.admin.Policy;
+import com.codefarm.codefarmer.entity.notice.Notice;
+import com.codefarm.codefarmer.service.admin.InformationService;
+import com.codefarm.codefarmer.service.notice.NoticeFileService;
+import com.codefarm.codefarmer.service.notice.NoticeService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/*")
+@Slf4j
 public class AdminController {
+//    공지
+    private final NoticeService noticeService;
+    private final NoticeFileService noticeFileService;
+//    작물, 정책
+    private final InformationService informationService;
 
     // 문의 관리
     @GetMapping("/ask")
@@ -37,7 +59,7 @@ public class AdminController {
     }
 
     // 농업정보 관리
-    @GetMapping("/cropInformation")
+    @GetMapping("/crop")
     public String adminCropInformation() {return "/admin/cropInformation";
     }
 
@@ -47,6 +69,13 @@ public class AdminController {
 
     @GetMapping("/cropInformation-update")
     public String adminCropInformationUpdate() {return "/admin/cropInformation-update";
+    }
+
+//    농업정보 삭제
+    @PostMapping("/crop/delete")
+    public RedirectView cropDelete(Long cropId){
+        informationService.cropDelete(cropId);
+        return new RedirectView("/admin/crop");
     }
 
     // 알바 관리
@@ -68,30 +97,83 @@ public class AdminController {
     @GetMapping("/promotion")
     public String adminMentorPromotion(){return "/admin/promotion";}
 
-    // 공지사항 관리
+    // 공지 목록
     @GetMapping("/notice")
-    public String adminNotice() {return "/admin/notice";
+    public String adminNotice(Model model) {
+        List<Integer> countFiles = new ArrayList<>();
+        for (int i=0; i < noticeService.countByNotice(); i++) {
+            countFiles.add(noticeFileService.count(noticeService.showAll().get(i).getNoticeId()));
+        }
+
+        model.addAttribute("countFiles", countFiles);
+        model.addAttribute("noticeLists", noticeService.showAll());
+        model.addAttribute("noticeCount", noticeService.countByNotice());
+        return "/admin/notice";
     }
 
+//    공지 작성
     @GetMapping("/notice-write")
-    public String adminNoticeWrite() {return "/admin/notice-write";
+    public String adminNoticeWrite(Model model) {
+        model.addAttribute("notice", new Notice());
+        return "/admin/notice-write";
     }
 
+    @PostMapping("/notice-write")
+    public RedirectView adminNoticeDetail(Notice notice, RedirectAttributes redirectAttributes) {
+        noticeService.register(notice);
+        redirectAttributes.addFlashAttribute("noticeId", notice.getNoticeId());
+        return new RedirectView("/admin/notice-write");
+    }
+
+//    공지 수정
     @GetMapping("/notice-update")
-    public String adminNoticeDetail() {return "/admin/notice-update";
+    public String adminNoticeDetail() {
+        return "/admin/notice-update";
+    }
+
+//    공지 삭제
+    @PostMapping("/notice/delete")
+    public RedirectView noticeDelete(Long noticeId){
+        if(noticeFileService.count(noticeId) > 0) {
+            noticeFileService.remove(noticeId);
+        }
+        noticeService.remove(noticeId);
+        return new RedirectView("/admin/notice");
     }
 
     // 청년정책 관리
     @GetMapping("/policy")
-    public String adminPolicy() {return "/admin/policy";
+    public String adminPolicy(Model model) {
+        model.addAttribute("policyLists", informationService.policySelectAll());
+        model.addAttribute("policyCounts", informationService.countByPolicy());
+        return "/admin/policy";
     }
 
-    @GetMapping("/policy-write")
-    public String adminPolicyWrite() {return "/admin/policy-write";
+//    정책 작성
+    @GetMapping("/policy/write")
+    public String adminPolicyWrite(Model model) {
+        model.addAttribute("policy", new Policy());
+        return "/admin/policy-write";
     }
 
+    @PostMapping("/policy/write")
+    public RedirectView policyWrite(Policy policy, RedirectAttributes redirectAttributes) {
+        informationService.policyAdd(policy);
+        redirectAttributes.addFlashAttribute("policyId", policy.getPolicyId());
+        return new RedirectView("/admin/policy");
+    }
+
+//    정책 수정
     @GetMapping("/policy-update")
     public String adminPolicyUpdate() {return "/admin/policy-update";
+    }
+
+//    정책 삭제
+    @PostMapping("/policy/delete")
+    public RedirectView policyDelete(Long policyId){
+        log.info("정책번호 -> " + policyId);
+        informationService.policyDelete(policyId);
+        return new RedirectView("/admin/policy");
     }
 
     // 프로그램 관리
