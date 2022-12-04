@@ -26,6 +26,7 @@ import java.util.List;
 import static com.codefarm.codefarmer.entity.chat.QChat.chat;
 import static com.codefarm.codefarmer.entity.chat.QChatRoom.chatRoom;
 import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
+import static com.codefarm.codefarmer.entity.member.QMember.member;
 import static com.codefarm.codefarmer.entity.member.QUser.user;
 
 
@@ -51,8 +52,8 @@ public class ChatTest {
     @Test
     public void chatRoomSaveTest() {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
-        User user = userRepository.findById(15L).get(); // 일반 회원(유저ID)
-        Member mentor = mentorRepository.findById(10L).get().getMember(); // 멘토 회원(멘토ID)
+        User user = userRepository.findById(13L).get(); // 일반 회원(유저ID)
+        Member mentor = mentorRepository.findById(11L).get().getMember(); // 멘토 회원(멘토ID)
 
         chatRoomDTO.setMentor(mentor);
         chatRoomDTO.setMentee(user);
@@ -62,7 +63,7 @@ public class ChatTest {
     }
 
 
-    /*채팅방 목록 조회(회원번호 기준으로 찾음)*/
+    /*채팅방 목록 조회(회원번호 기준으로 찾음) ㅇ*/
     @Test
     public void chatList() {
         jpaQueryFactory.select(chatRoom.chatRoomId, chatRoom.chatDate, chatRoom.mentee, chatRoom.mentor)
