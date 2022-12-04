@@ -183,7 +183,7 @@ div.cancelBtn{
     display: flex;
     justify-content: center;
     position: absolute;
-    top: 660px;
+    top: 700px;
     right: 421px;
     width: 22px;
     height: 22px;
@@ -201,5 +201,5 @@ img.uploadImg{
     position: absolute;
     right: 440px;
     width: 250px;
-    bottom: 125px;
+    bottom: 90px;
 }

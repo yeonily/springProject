@@ -32,14 +32,6 @@ function deleteBannerCheck() {
     if (flag) alert('삭제 완료');
 }
 
-// 공지 삭제
-function deleteNoticeCheck() {
-    var msg = "공지를 삭제 하시겠습니까?";
-    var flag = confirm(msg);
-
-    if (flag) alert('삭제 완료');
-}
-
 // 공지글 수정
 function reviseNoticeCheck() {
     var msg = "글을 수정 하시겠습니까?";
@@ -113,17 +105,6 @@ function saveNoticeCheck() {
 
     if (flag) {
         location.href="/admin/notice";
-        alert('등록 완료');
-    }
-}
-
-// 정책정보글 등록
-function savePolicyCheck() {
-    var msg = "글을 등록하시겠습니까?";
-    var flag = confirm(msg);
-
-    if (flag) {
-        location.href="/admin/policy";
         alert('등록 완료');
     }
 }

@@ -22,7 +22,7 @@ public class NoticeServiceTest {
 
 //    공지 등록
     @Test
-    public void addTest(){
+    public void registerTest(){
         Notice notice = new Notice();
 
 //        List<NoticeFile> files = new ArrayList<>();
@@ -43,38 +43,44 @@ public class NoticeServiceTest {
 //        files.add(noticeFile01);
 //        files.add(fileVO2);
 
-        notice.setNoticeTitle("공지 서비스");
+        notice.setNoticeTitle("공지 TEST");
         notice.setNoticeContent("서비스 내용");
 //        noticeDTO.setNoticeFiles(files);
 
-        noticeService.noticeAdd(notice);
+        noticeService.register(notice);
     }
 
 //    공지 수정
     @Test
     public void upateTest(){
-        Notice notice = noticeService.noticeSelectOne(40L);
+        Notice notice = noticeService.showOne(40L);
         notice.setNoticeContent("수정임");
 
-        noticeService.noticeUpdate(notice);
+        noticeService.update(notice);
     }
 
 //    공지 삭제
     @Test
-    public void deleteTest(){
-        log.info("공지 번호" + noticeService.noticeDelete(4L));
+    public void removeTest(){
+        log.info("공지 번호" + noticeService.remove(4L));
     }
 
 //    공지 목록
     @Test
     public void selectAllTest() {
-        noticeService.noticeSelectAll().stream().forEach(n -> log.info("" + n));
+        noticeService.showAll().stream().forEach(n -> log.info("" + n));
     }
 
 //    공지 디테일
     @Test
     public void selectOneTest(){
-        log.info("" + noticeService.noticeSelectOne(40L));
+        log.info("" + noticeService.showOne(40L));
+    }
+
+//    공지 글 개수
+    @Test
+    public void countByNoticeTest() {
+        log.info("" + noticeService.countByNotice());
     }
 
 }
