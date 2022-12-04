@@ -29,7 +29,7 @@ public class ProgramListServiceTest {
 
     /*진행중 프로그램 정렬*/
     @Test
-    public void showListByContinueTest(){
+    public void showListByContinueTest() throws Exception{
         programListService.showListByContinue().forEach(t -> log.info("진행중인 프로그램 정렬 : " + t.toString()));
     }
 
