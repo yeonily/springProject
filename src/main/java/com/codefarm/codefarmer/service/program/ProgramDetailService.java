@@ -21,7 +21,7 @@ public class ProgramDetailService {
     private final JPAQueryFactory jpaQueryFactory;
 
     //    상세페이지 내용 출력
-    public List<ProgramDTO> showAll(){
+    public List<ProgramDTO> showAll() {
 
         return jpaQueryFactory.select(new QProgramDTO(
 
@@ -61,6 +61,50 @@ public class ProgramDetailService {
                 program.member.memberId
 
         )).from(program).fetch();
+    }
 
+//    해당 프로그램 내용 상세페이지 출력
+    public ProgramDTO showByProgramId(Long programId) {
+
+        return jpaQueryFactory.select(new QProgramDTO(
+
+                program.programId,
+                program.programCrop,
+                program.programType,
+                program.programTarget1,
+                program.programTarget2,
+                program.programTarget3,
+                program.programTarget4,
+                program.programTitle,
+                program.programTitleSub,
+                program.programLevel,
+                program.programResult1,
+                program.programResult2,
+                program.programResult3,
+                program.programResult4,
+                program.programFarmerInfo,
+                program.programInfoTitle1,
+                program.programInfoTitle2,
+                program.programInfoTitle3,
+                program.programInfoTitle4,
+                program.programInfoContent1,
+                program.programInfoContent2,
+                program.programInfoContent3,
+                program.programInfoContent4,
+                program.programWorkDate,
+                program.programWorkStartTime,
+                program.programWorkEndTime,
+                program.programApplyStartDate,
+                program.programApplyEndDate,
+                program.programApplyCount,
+                program.programApplyTotalCount,
+                program.programPrice,
+                program.programLocation,
+                program.programInquire,
+                program.member.memberId
+
+        )).from(program)
+          .where(program.programId.eq(programId))
+          .fetchOne();
     }
 }

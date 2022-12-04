@@ -23,6 +23,7 @@ $(".filter-button").on("click", function(){
 let check = false;
 
 
+
 //진행중 정렬 클릭 시
 $("#progress-btn").on("click", function () {
     if(check == true){
@@ -69,9 +70,11 @@ $("#progress-btn").on("click", function () {
                 text += '<div class="pg-title-name">'+ list.programTitle +'</div>'
                 text += '</div>'
                 text += '<div class="pg-caption">'
+
                 let date = new Date(list.programWorkDate);
-                let month = date.getMonth();
+                let month = date.getMonth()+1;
                 let day = date.getDate();
+
                 text += '<span class="pg-date">'+ month + '월' + day  + '일 시작'   +'</span>'
                 text += '</div>'
                 text += '</div>'
@@ -130,7 +133,7 @@ $("#recent-register-btn").on("click", function () {
                 text += '</div>'
                 text += '<div class="pg-caption">'
                 let date = new Date(list.programWorkDate);
-                let month = date.getMonth();
+                let month = date.getMonth()+1;
                 let day = date.getDate();
                 text += '<span class="pg-date">'+ month + '월' + day  + '일 시작'   +'</span>'
                 text += '</div>'
@@ -191,7 +194,7 @@ $("#recent-end-btn").on("click", function () {
                 text += '</div>'
                 text += '<div class="pg-caption">'
                 let date = new Date(list.programWorkDate);
-                let month = date.getMonth();
+                let month = date.getMonth()+1;
                 let day = date.getDate();
                 text += '<span class="pg-date">'+ month + '월' + day  + '일 시작'   +'</span>'
                 text += '</div>'
@@ -252,7 +255,7 @@ $("#mentee-btn").on("click", function () {
                 text += '</div>'
                 text += '<div class="pg-caption">'
                 let date = new Date(list.programWorkDate);
-                let month = date.getMonth();
+                let month = date.getMonth()+1;
                 let day = date.getDate();
                 text += '<span class="pg-date">'+ month + '월' + day  + '일 시작'   +'</span>'
                 text += '</div>'
@@ -314,7 +317,7 @@ $("#user-btn").on("click", function () {
                 text += '</div>'
                 text += '<div class="pg-caption">'
                 let date = new Date(list.programWorkDate);
-                let month = date.getMonth();
+                let month = date.getMonth()+1;
                 let day = date.getDate();
                 text += '<span class="pg-date">'+ month + '월' + day  + '일 시작'   +'</span>'
                 text += '</div>'
@@ -376,7 +379,7 @@ $("#pay-btn").on("click", function () {
                 text += '</div>'
                 text += '<div class="pg-caption">'
                 let date = new Date(list.programWorkDate);
-                let month = date.getMonth();
+                let month = date.getMonth()+1;
                 let day = date.getDate();
                 text += '<span class="pg-date">'+ month + '월' + day  + '일 시작'   +'</span>'
                 text += '</div>'
@@ -438,7 +441,7 @@ $("#free-btn").on("click", function () {
                 text += '</div>'
                 text += '<div class="pg-caption">'
                 let date = new Date(list.programWorkDate);
-                let month = date.getMonth();
+                let month = date.getMonth()+1;
                 let day = date.getDate();
                 text += '<span class="pg-date">'+ month + '월' + day  + '일 시작'   +'</span>'
                 text += '</div>'

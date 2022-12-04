@@ -14,7 +14,7 @@
 <div th:replace="/header/header.html :: header" class="header"/>
 <div id="main-grid">
     <div class="d-application-row">
-    <div class="d-application-col">
+    <div class="d-application-col" th:object="${list}">
         <div class="grid-fluid">
         <div class="grid-fluid-row">
             <div class="banner-background"></div>
@@ -23,9 +23,10 @@
             <div class="grid-container-col">
                 <section class="pg-detail-banner">
                     <div class="banner-title-container">
-                        <span class="pg-detail-banner-chip">무료</span>
-                        <div class="pg-detail-banner-title">일일 무 뽑기 프로그램</div>
-                        <div class="pg-detail-banner-headline">무를 한 번 뽑아보아요!</div>
+                        <span class="pg-detail-banner-chip" th:if="${programPrice} == 0" th:text="무료"></span>
+                        <span class="pg-detail-banner-chip" th:unless="${programPrice} == 0" th:text="*{programPrice}"></span>
+                        <div class="pg-detail-banner-title" th:text="*{programTitle}"></div>
+                        <div class="pg-detail-banner-headline" th:text="*{programTitleSub}"></div>
                     </div>
                     <div class="banner-image-container">
                         <img class="pg-detail-banner-image" src="/image/program/pgimage.gif">
@@ -39,9 +40,9 @@
                         <article class="pg-detail-sidebox">
                             <div class="pg-typography">
                                 <div class="sidebox-category">
-                                    <div class="sidebox-category-name">농작물이름</div>
+                                    <div class="sidebox-category-name" th:text="*{programCrop}"></div>
                                 </div>
-                                <div class="sidebox-title">일일 무 뽑기 프로그램</div>
+                                <div class="sidebox-title" th:text="*{programTitle}"></div>
                                 <div class="sidebox-detail">
                                     <div class="sidebox-difficulty">
                                         <img class="sidebox-image" src="https://cdn.comento.kr/images/emojis/emoji-seedling.svg">
@@ -83,8 +84,7 @@
                                     <img class="content-img" src="/image/program/redmark.gif">
                                     <div class="timer-caption">
                                         <div class="timer-caption-line">
-                                            <span class="timer-caption-point">3일 3시간 46분 50초</span>
-                                            후 프로그램이 마감돼요.
+                                            <span class="timer-caption-point">3일 3시간 46분 50초</span>후 프로그램이 마감돼요.
                                         </div>
                                     </div>
                                 </div>
@@ -164,10 +164,10 @@
                     <section class="pg-detail-target-user">
                         <h4 class="pg-detail-target-user-title">이런 분들이라면 꼭 들으세요!</h4>
                         <div class="pg-detail-target-user-background">
-                        <div class="target-user-background"><div class="target-user-body">일일 농촌 프로그램을 체험해 보고 싶은 사람</div></div>
-                        <div class="target-user-background"><div class="target-user-body">무 재배 과정을 체험해 보고 싶은 사람</div></div>
-                        <div class="target-user-background"><div class="target-user-body">무 농사에 관심이 있는 사람</div></div>
-                        <div class="target-user-background"><div class="target-user-body">무 농사 기술에 대해 배워보고 싶은 사람</div></div>
+                        <div class="target-user-background"><div class="target-user-body" th:text="*{programTarget1}"></div></div>
+                        <div class="target-user-background"><div class="target-user-body" th:text="*{programTarget2}"></div></div>
+                        <div class="target-user-background"><div class="target-user-body" th:text="*{programTarget3}"></div></div>
+                        <div class="target-user-background"><div class="target-user-body" th:text="*{programTarget4}"></div></div>
                         </div>
                     </section>
                 </div>
@@ -182,8 +182,8 @@
                             <div class="grid-container-col2">
                     <section class="pg-detail-target-user">
                         <img class="mentor-img" src="https://cdn.comento.kr/images/class/pt/detail/icon/doublequote-icon.png">
-                        <p class="pg-mentor-body">
-                            농장주소개글내용<br>
+                        <p class="pg-mentor-body" th:text="*{programFarmerInfo}">
+                            <!--농장주소개글내용<br>
                             안녕하세요,<br>
                             저는 국내 프리랜서 마켓 No.1 '크몽'에서 CRM 마케팅 업무를 진행하고 있습니다.<br><br>
                             퍼포먼스 마케터로 커리어를 시작하여 다양한 DA, SA 채널을 운영했으며, 이러한 시야를 바탕으로 우리 고객 데이터와 Braze(브레이즈) 를 활용한 리텐션, LTV 를 올리는 CRM 마케터로 커리어를 이어가고 있습니다.<br><br>
@@ -191,7 +191,7 @@
                             특히 구글, 페이스북, 애플 등 글로벌 기업에서 개인 정보 이슈 등으로 3rd-party data 를 활용하는 퍼포먼스 마케팅 제한이 점점 심해지면서 우리 고객 데이터인 first-party data 를 활용하는 CRM 마케팅 대세로 떠오르고 있습니다.<br><br>
                             CRM 마케팅 실무를 하시면서 CRM 마케팅 주요 지표, 타겟, 캠페인 설계, 그리고 Braze(브레이즈) 활용한 고객 행동별 개인화, 자동화 된 메세지 등에 관심은 있으시지만, 막상 혼자서 해보려고 하다 보면 막히는 부분들이 많아서 어려우셨을 것 같습니다. 체계적으로 CRM 마케팅을 하셨다기 보다는 혼자서 고군분투 했을 모습이 상상이 됩니다. 그만큼 CRM 마케팅 관련 정보가 많이 없기 때문이기도 하지요.<br><br>
                             이번 기회를 통해서 고객 행동 기반으로 CRM 마케팅의 주요 지표, 타겟 설정 + 개인화 CRM 마케팅 설계 + Braze(브레이즈) 활용한 고객 행동별 개인화 된 CRM 마케팅 설정까지 직접 해보시겠어요?<br><br>
-                            여러분들과 만날 날을 기대하겠습니다!
+                            여러분들과 만날 날을 기대하겠습니다!-->
                         </p>
                     </section>
                 </div>
@@ -208,19 +208,19 @@
                         <h4 class="pg-detail-target-user-title">프로그램을 수강한 당신은<br>이렇게 됩니다.</h4>
                         <div class="pg-detail-result-background">
                             <div class="target-result-background mb-15">
-                                <div class="target-result-body">무 재배 과정에 대해 알 수 있습니다.</div>
+                                <div class="target-result-body" th:text="*{programResult1}"></div>
                                 <img class="result-img" src="/image/program/farmer.png">
                             </div>
                             <div class="target-result-background mb-15">
-                                <div class="target-result-body">무 재배를 할 수 있습니다.</div>
+                                <div class="target-result-body" th:text="*{programResult2}"></div>
                                 <img class="result-img" src="/image/program/woman_farmer.png">
                             </div>
                             <div class="target-result-background">
-                                <div class="target-result-body">무 농사에 필요한 정보를 알 수 있습니다.</div>
+                                <div class="target-result-body" th:text="*{programResult3}"></div>
                                 <img class="result-img" src="/image/program/crate.png">
                             </div>
                             <div class="target-result-background">
-                                <div class="target-result-body">무 농사에 필요한 기술을 알 수 있습니다.</div>
+                                <div class="target-result-body" th:text="*{programResult4}"></div>
                                 <img class="result-img" src="/image/program/pick-up-truck.png">
                             </div>
                         </div>
@@ -237,20 +237,24 @@
                         <div class="pg-detail-target-user-background">
                             <div class="pg-info-background mb-15">
                                 <div class="pg-info-title-number">01.</div>
-                                <div class="pg-info-title">프로그램 소개 타이틀</div>
-                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                                <div class="pg-info-title" th:text="*{programInfoTitle1}"></div>
+                                <div class="pg-info-content" th:text="*{programInfoContent1}"></div>
+                            </div>
                             <div class="pg-info-background mb-15">
                                 <div class="pg-info-title-number">02.</div>
-                                <div class="pg-info-title">프로그램 소개 타이틀</div>
-                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                                <div class="pg-info-title" th:text="*{programInfoTitle2}"></div>
+                                <div class="pg-info-content" th:text="*{programInfoContent2}"></div>
+                            </div>
                             <div class="pg-info-background mb-15">
                                 <div class="pg-info-title-number">03.</div>
-                                <div class="pg-info-title">프로그램 소개 타이틀</div>
-                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                                <div class="pg-info-title" th:text="*{programInfoTitle3}"></div>
+                                <div class="pg-info-content" th:text="*{programInfoContent3}"></div>
+                            </div>
                             <div class="pg-info-background">
                                 <div class="pg-info-title-number">04.</div>
-                                <div class="pg-info-title">프로그램 소개 타이틀</div>
-                                <div class="pg-info-content">프로그램 소개 본문 내용<br>프로그램 소개 본문 내용<br>프로그램 소개 본문 내용</div></div>
+                                <div class="pg-info-title" th:text="*{programInfoTitle4}"></div>
+                                <div class="pg-info-content" th:text="*{programInfoContent4}"></div>
+                            </div>
                         </div>
                         <div class="pg-info-background">
                         <div class="register-img-wrapper">(글 등록시 업로드하는 이미지, 링크 들어가는 영역)
@@ -282,16 +286,16 @@
                                             <div class="pg-detail-info-content">2022-11-10 ~ 2022-11-20</div></div>
                                         <div class="pg-detail-info-background mb-15">
                                             <div class="pg-detail-info-title">신청 인원</div>
-                                            <div class="pg-detail-info-content">10명</div></div>
+                                            <div class="pg-detail-info-content" th:text="*{programApplyTotalCount} + '명'"></div></div>
                                         <div class="pg-detail-info-background mb-15">
                                             <div class="pg-detail-info-title">참여 비용</div>
                                             <div class="pg-detail-info-content">무료</div></div>
                                         <div class="pg-detail-info-background mb-15">
                                             <div class="pg-detail-info-title">장소</div>
-                                            <div class="pg-detail-info-content">서울 노원구 중계로 8길 56 천수텃밭농원</div></div>
+                                            <div class="pg-detail-info-content" th:text="*{programLocation}"></div></div>
                                         <div class="pg-detail-info-background">
                                             <div class="pg-detail-info-title">문의</div>
-                                            <div class="pg-detail-info-content">02-0000-0000</div></div>
+                                            <div class="pg-detail-info-content" th:text="*{programInquire}"></div></div>
                                     </div>
                                 </section>
                             </div>
