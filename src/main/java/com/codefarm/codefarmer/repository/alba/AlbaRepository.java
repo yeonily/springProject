@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface AlbaRepository extends JpaRepository<Alba, Long>, AlbaCustomRepository {
 
-import java.util.List;
+//import java.util.List;
 
-public interface AlbaRepository extends JpaRepository<Alba, Long> {
+//public interface AlbaRepository extends JpaRepository<Alba, Long> {
 //    public List<Alba> findTop8ByOOrderByAlbaApplyEndDateDesc();
 
 }
