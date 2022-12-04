@@ -40,7 +40,7 @@
             <div class="program-list-container" id="list-foreach">
                 <th:block th:each="list:${lists}">
                      <div class="list-container" th:object="${list}">
-                        <a th:href="@{/program/detail}">
+                        <a th:href="@{/program/detail(programId=${list.programId})} ">
                             <article class="list-article">
                                 <div class="list-image-container">
                                     <div class="list-point">
@@ -284,4 +284,8 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/program/list.js"></script>
+<script>
+    let date = new Date();
+
+</script>
 </html>
