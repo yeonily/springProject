@@ -21,7 +21,7 @@ public class MemberAlba extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private Member memberId;
+    private Member member;
 
     @Enumerated(EnumType.STRING)
     private Status memberStatus;
