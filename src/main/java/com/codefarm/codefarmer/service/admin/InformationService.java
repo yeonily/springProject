@@ -34,8 +34,11 @@ public class InformationService {
 
 //    정책 목록
     public List<Policy> policySelectAll(){
-        return policyRepository.findAll();
+        return policyRepository.OrderByPolicyId();
     }
+
+//    정책 글 개수
+    public int countByPolicy() { return policyRepository.countByPolicy(); }
 
 //    농업정보 추가
     public void cropAdd(Crop crop){
@@ -56,6 +59,9 @@ public class InformationService {
 
 //    농업정보 목록
     public List<Crop> cropSelectAll(){
-        return cropRepository.findAll();
+        return cropRepository.OrderByCropId();
     }
+
+//    농업정보 글 개수
+    public int countByCrop() { return cropRepository.countByCrop(); }
 }

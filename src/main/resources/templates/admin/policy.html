@@ -69,7 +69,7 @@
         <!-- 프로그램 리스트 출력 틀 -->
         <div class="p-contents contents-bottom">
                 <span class="list-count">총
-                    <span>2476</span>건
+                    <span th:text="${policyCounts}"></span>건
                 </span>
 
             <table>
@@ -83,36 +83,28 @@
                     <th class="delete"></th>
                 </tr>
                 <!-- ↓ 데이터 출력 -->
-                <tr>
-                    <td>1</td>
-                    <td class="title">첫 번째 청년정책</td>
-                    <td class="content">첫 번째 청년정책입니다.</td>
-                    <td>관리자</td>
-                    <td>2022-11-14 10:00</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/policy-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="title">두 번째 청년정책</td>
-                    <td class="content">두 번째 청년정책입니다.</td>
-                    <td>관리자</td>
-                    <td>2022-11-14 11:00</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/policy-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="title">세 번째 청년정책</td>
-                    <td class="content">세 번째 청년정책입니다.</td>
-                    <td>관리자</td>
-                    <td>2022-11-14 12:00</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/policy-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
+                <th:block th:each="policy:${policyLists}">
+                    <tr th:object="${policy}">
+                        <td th:text="*{policyId}"></td>
+                        <td class="title">
+                            [<span th:text="*{policyKeyword}"></span>]
+                            <span th:text="*{policyTitle}"></span>
+                        </td>
+                        <td class="content"><pre th:utext="*{policyContent}"></pre></td>
+                        <td>관리자</td>
+                        <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                        <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/policy-update(policyId=*{policyId})} + '\''"></td>
+                        <td class="delete">
+                            <form method="post" class="deleteForm" th:action="@{/admin/policy/delete}">
+                                <input type="text" hidden name="policyId" th:value="*{policyId}">
+                                <input type="button" value="삭제" class="deleteBtn">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
             </table>
             <div id="write" style="float: right;">
-                <input type="button" onclick="location.href='/admin/policy-write'" value="작성">
+                <input type="button" th:onclick="'location.href=\''+ @{/admin/policy/write} + '\''" value="작성">
             </div>
 
             <!-- 페이징 -->
@@ -138,5 +130,22 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    var msg = "삭제 하시겠습니까?";
+
+    // 공지 삭제
+    $(".deleteBtn").on("click", function () {
+        var flag = confirm(msg);
+        let policyId = $(this).data("id");
+
+        // $(document).ready(function(){
+        if(flag){
+            $(this).parent("form.deleteForm").submit();
+        }
+        // history.replaceState({}, null, null);
+    });
+    // });
+</script>
 </body>
 <html>

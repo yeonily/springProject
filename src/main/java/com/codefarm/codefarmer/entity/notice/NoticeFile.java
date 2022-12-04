@@ -28,6 +28,10 @@ public class NoticeFile extends Period{
     @JoinColumn(name = "NOTICE_ID")
     private Notice notice;
 
+    public void changeNotice(Notice notice){
+        this.notice = notice;
+    }
+
     @Builder
     public NoticeFile(String fileName, String fileUploadPath, String fileUuid, Long fileSize, boolean fileImageCheck) {
         this.fileName = fileName;

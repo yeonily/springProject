@@ -1,29 +1,4 @@
 @charset "utf-8";
-@media only screen and (min-width: 768px) {
-    html ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-        border: 3px solid #fff;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    html ::-webkit-scrollbar-thumb {
-        height: 50px;
-        width: 50px;
-        background: #eaecee;
-        border-radius: 8px;
-        -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 10%);
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    html ::-webkit-scrollbar-track {
-        background: #f3f4f5;
-        border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 20%);
-    }
-}
 
 body {
     color: #495057;
@@ -38,13 +13,12 @@ html {
     line-height: 1.15;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-}
-
-html {
     min-height: 100%;
     font-size: 10px;
     position: relative;
 }
+
+pre {font-family: "Pretendard";}
 
 *, :after, :before {
     -webkit-box-sizing: border-box;
@@ -97,20 +71,25 @@ body ::selection {
     outline: none;
 }
 
-p {
-    font-size: 18px;
-    line-height: 25px;
+p, pre {
+    font-size: 17px;
+    line-height: 6px;
     word-break: keep-all;
     word-wrap: break-word;
     font-weight: 400;
 }
 
-p {
+p, pre {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+}
+
+pre {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 ul {
@@ -356,14 +335,28 @@ div.footerMargin {
 
 .text-primary {
     color: #2a7de1;
+    max-width: 23%;
 }
 
 #faq .faq-board-list-question {
+    display: flex;
+    align-items: center;
     position: relative;
     padding: 0 60px 0 30px;
     width: 100%;
-    line-height: 70px;
+    line-height: 35px;
     cursor: pointer;
+}
+
+.lh {line-height: 55px;}
+
+#faq .faq-board-list-question>span {
+    overflow: hidden; /*정해진 너비를 넘어서는 문자열에 대해서는 숨김 처리함*/
+    text-overflow: ellipsis; /*생략부호를 표시함*/
+    white-space: nowrap
+}
+#faq .faq-board-list-question>span.p-title {
+    width: 76%;
 }
 
 #faq .faq-board-list {
@@ -373,10 +366,7 @@ div.footerMargin {
     margin: 0 auto;
 }
 
-#faq .faq-board-list-answer {
-    display: none;
-    line-height: 25px;
-}
+#faq .faq-board-list-answer {line-height: 25px;}
 
 /*#faq .faq-board-list-question:before {*/
 /*    display: inline-block;*/
@@ -510,58 +500,6 @@ div.footer-bottom-wrap {
 }
 
 
-/*페이징*/
-#page {
-    margin: 0 auto;
-    text-align:center;
-}
-
-.page_nation {
-    display:inline-block;
-}
-.page_nation .none {
-    display:none;
-}
-.page_nation a {
-    display:block;
-    margin:0 3px;
-    float:left;
-    border:1px solid #e6e6e6;
-    width:28px;
-    height:28px;
-    line-height:28px;
-    text-align:center;
-    background-color:#fff;
-    font-size:13px;
-    color:#999999;
-    text-decoration:none;
-}
-.page_nation .arrow {
-    border:1px solid #ccc;
-}
-.page_nation .pprev {
-    width:28px;
-    height:28px;
-    background:#f8f8f8 url('/image/admin/page_pprev.png') no-repeat center center;
-    margin-left:0;
-}
-.page_nation .prev {
-    background:#f8f8f8 url('/image/admin/page_prev.png') no-repeat center center;
-    margin-right:7px;
-}
-.page_nation .next {
-    background:#f8f8f8 url('/image/admin/page_next.png') no-repeat center center;
-    margin-left:7px;
-}
-.page_nation .nnext {
-    background:#f8f8f8 url('/image/admin/page_nnext.png') no-repeat center center;
-    margin-right:0;
-}
-
-.page_nation a.active, .page_nation a:hover {
-    border: 1px solid #38b57c;
-    color:#38b57c;
-}
 
 .selected-header{
     color: #040505!important;
@@ -571,6 +509,31 @@ div.footer-bottom-wrap {
 
 @media only screen and (min-width: 768px) {
     #faq .faq-board {
-        width: 60%;
+        width: 64%;
+    }
+}
+@media only screen and (min-width: 768px) {
+    html ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        border: 3px solid #fff;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    html ::-webkit-scrollbar-thumb {
+        height: 50px;
+        width: 50px;
+        background: #eaecee;
+        border-radius: 8px;
+        -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 10%);
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    html ::-webkit-scrollbar-track {
+        background: #f3f4f5;
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 20%);
     }
 }
