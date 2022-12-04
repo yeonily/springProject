@@ -45,7 +45,7 @@ public class BoardTest {
         boardDTO.setMember(findFarmer.get());
 
         Board board = boardDTO.toEntity();
-        board.changeMember(boardDTO.getMember());
+        boardDTO.getMember();
         boardRepository.save(board);
     }
 
