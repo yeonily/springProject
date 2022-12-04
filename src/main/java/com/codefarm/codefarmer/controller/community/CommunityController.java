@@ -7,9 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -18,15 +21,13 @@ import org.springframework.web.servlet.view.RedirectView;
 public class CommunityController {
     private final BoardService boardService;
 
-    @GetMapping("/list")
-    public String communityPage(){
-        return "/community/community";
+    @GetMapping("/community")
+    public void communityPage(Model model){
+        List<BoardDTO> lists =  boardService.getBoardList();
+        model.addAttribute("lists" , lists);
+//        return "/community/community";
     }
 
-//    @GetMapping("/list")
-//    public void communityList(){
-//
-//    }
 
     @GetMapping("/detail")
     public void detailPage(){
@@ -37,9 +38,10 @@ public class CommunityController {
         model.addAttribute("board", new BoardDTO());
     }
 
-    public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
-        boardService.boardAdd(boardDTO);
-        redirectAttributes.addFlashAttribute("boardId", boardDTO.getBoardId());
-        return  new RedirectView("list");
-    }
+//    @PostMapping("/register")
+//    public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
+//        boardService.boardAdd(boardDTO);
+//        redirectAttributes.addFlashAttribute("boardId", boardDTO.getBoardId());
+//        return  new RedirectView("list");
+//    }
 }

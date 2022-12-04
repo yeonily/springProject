@@ -36,10 +36,10 @@ public class BoardServiceTest {
     public void addTest(){
         BoardDTO boardDTO = new BoardDTO();
         Optional<Farmer> findFarmer = farmerRepository.findById(15L);
-        boardDTO.setBoardTitle("김장 빡세다.. ");
-        boardDTO.setBoardContent("너넨 이런거 하지마라..");
+        log.info(findFarmer.get().toString());
+        boardDTO.setBoardTitle("테스트용");
+        boardDTO.setBoardContent("테스트용");
         boardDTO.setMember(findFarmer.get());
-
         boardService.boardAdd(boardDTO);
     }
 
@@ -48,7 +48,7 @@ public class BoardServiceTest {
     public void updateTest(){
         BoardDTO boardDTO = new BoardDTO();
         Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        Board board = boardRepository.findById(42L).get();
+        Board board = boardRepository.findById(29L).get();
 
         boardDTO.setBoardTitle("수정된 제목2");
         boardDTO.setBoardContent("수정된 내용2");
@@ -61,8 +61,8 @@ public class BoardServiceTest {
 //    게시판 제목, 내용 상세페이지에서 확인하기
     @Test
     public void showDetailTest(){
-        boardService.boardShowDetail(42L);
-        log.info(""+boardService.boardShowDetail(42L));
+        boardService.boardShowDetail(29L);
+        log.info(""+boardService.boardShowDetail(29L));
     }
 
 //  내가 게시한 게시글 총 개수 갖고오기
