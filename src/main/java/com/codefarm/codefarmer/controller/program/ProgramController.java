@@ -21,6 +21,7 @@ public class ProgramController {
 
     @GetMapping("/list")
     public void list(Model model){
+        log.info("들어옴1");
         List<ProgramDTO> lists = programListService.showAll();
         model.addAttribute("lists",lists);
     }

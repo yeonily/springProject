@@ -58,14 +58,15 @@ public class ProgramListService {
                 program.programApplyTotalCount,
                 program.programPrice,
                 program.programLocation,
-                program.programInquire
+                program.programInquire,
+                program.member.memberId
 
         )).from(program).fetch();
 
     }
 
 //    진행중 정렬
-    public List<ProgramDTO> showListByContinue(){
+    public List<ProgramDTO> showListByContinue() throws Exception{
 
         LocalDateTime localDateTime = LocalDateTime.now();
 
@@ -103,7 +104,8 @@ public class ProgramListService {
                 program.programApplyTotalCount,
                 program.programPrice,
                 program.programLocation,
-                program.programInquire
+                program.programInquire,
+                program.member.memberId
 
         )).from(program)
          .where(program.programWorkStartTime.before(localDateTime).and(program.programWorkEndTime.after(localDateTime)))
@@ -150,7 +152,8 @@ public List<ProgramDTO> showListByRecentApplyDate(){
             program.programApplyTotalCount,
             program.programPrice,
             program.programLocation,
-            program.programInquire
+            program.programInquire,
+            program.member.memberId
 
     )).from(program)
             .orderBy(program.programApplyStartDate.desc())
@@ -196,7 +199,8 @@ public List<ProgramDTO> showListByRecentEndDate(){
             program.programApplyTotalCount,
             program.programPrice,
             program.programLocation,
-            program.programInquire
+            program.programInquire,
+            program.member.memberId
 
     )).from(program)
             .orderBy(program.programApplyEndDate.desc())
@@ -242,7 +246,8 @@ public List<ProgramDTO> showListByOnlyMentee(){
             program.programApplyTotalCount,
             program.programPrice,
             program.programLocation,
-            program.programInquire
+            program.programInquire,
+            program.member.memberId
 
     )).from(program)
             .where(program.programType.eq(ProgramType.ONLY_MENTEE))
@@ -288,7 +293,8 @@ public List<ProgramDTO> showListByOnlyUser(){
             program.programApplyTotalCount,
             program.programPrice,
             program.programLocation,
-            program.programInquire
+            program.programInquire,
+            program.member.memberId
 
     )).from(program)
             .where(program.programType.eq(ProgramType.ALL_USER))
@@ -334,7 +340,8 @@ public List<ProgramDTO> showListByUsePrice(){
             program.programApplyTotalCount,
             program.programPrice,
             program.programLocation,
-            program.programInquire
+            program.programInquire,
+            program.member.memberId
 
     )).from(program)
             .where(program.programPrice.gt(0))
@@ -381,7 +388,8 @@ public List<ProgramDTO> showListByFreePrice(){
             program.programApplyTotalCount,
             program.programPrice,
             program.programLocation,
-            program.programInquire
+            program.programInquire,
+            program.member.memberId
 
     )).from(program)
             .where(program.programPrice.eq(0))

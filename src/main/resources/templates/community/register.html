@@ -20,14 +20,14 @@
                 <p>다양한 사람들과 <strong>자유롭게</strong> 이야기를 나눠보세요.</p>
             </h1>
             <div>
-                <form action="" name="boardForm" enctype="multipart/form-data">
+                <form th:action="@{/community/register}" name="boardForm" th:object="${board}" enctype="multipart/form-data">
                     <div class="r-title">
-                        <input type="text" name="title" id="r-title" class="r-input" placeholder="제목을 입력하세요.">
+                        <input th:field="*{boardTitle}" type="text" name="title" id="r-title" class="r-input" placeholder="제목을 입력하세요.">
                         <label for="r-title" class="r-label">글 제목</label>
                     </div>
                     <div>
                         <div class="r-content">
-                            <textarea type="text" name="content" id="r-content" class="r-input" placeholder="내용을 입력하세요."></textarea>
+                            <textarea th:field="*{boardContent}" type="text" name="content" id="r-content" class="r-input" placeholder="내용을 입력하세요."></textarea>
                             <label for="r-content" class="r-label">글 내용</label>
                         </div>
                         <div id="count-wrap">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div style="margin-top: 27px;">
-                        <button class="writeBtn">등록하기</button>
+                        <button type="submit" class="writeBtn">등록하기</button>
                     </div>
                 </form>
             </div>
