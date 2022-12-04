@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @RequestMapping("/main/*")
 public class MainController {
+
     @GetMapping("main")
     public void product(){
 
