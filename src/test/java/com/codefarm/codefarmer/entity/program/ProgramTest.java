@@ -78,10 +78,9 @@ public class ProgramTest {
         programDTO.setProgramPrice(0);
         programDTO.setProgramLocation("충남 영동");
         programDTO.setProgramInquire("wjdghtjr5345@gmail.com");
-        programDTO.setMember(findFarmer.get());
+        programDTO.setMemberId(findFarmer.get().getMemberId());
 
         Program program = programDTO.toEntity();
-        program.changeMember(programDTO.getMember());
         programRepository.save(program);
     }
 
@@ -149,7 +148,7 @@ public class ProgramTest {
         programDTO.setProgramPrice(0);
         programDTO.setProgramLocation("경기 동탄");
         programDTO.setProgramInquire("wjdghtjr5345@gmail.com2");
-        programDTO.setMember(findFarmer.get());
+        programDTO.setMemberId(findFarmer.get().getMemberId());
 
 //        Program program = programDTO.toEntity();
 //        program.changeMember(programDTO.getMember());

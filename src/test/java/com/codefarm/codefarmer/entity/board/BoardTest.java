@@ -40,12 +40,12 @@ public class BoardTest {
     public void boardSaveTest(){
         BoardDTO boardDTO = new BoardDTO();
         Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        boardDTO.setBoardTitle("나는야 멋쟁이");
-        boardDTO.setBoardContent("I am SeoSeungWoo");
+        boardDTO.setBoardTitle("과연 값이 들어갈까");
+        boardDTO.setBoardContent("값 들어옴! 대박");
         boardDTO.setMember(findFarmer.get());
 
         Board board = boardDTO.toEntity();
-        board.changeMember(boardDTO.getMember());
+        boardDTO.getMember();
         boardRepository.save(board);
     }
 
@@ -113,7 +113,6 @@ public class BoardTest {
     public void findReplyCountBoardTest(){
         log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(38L));
     }
-
 
 //    보드 목록
 //    @Test

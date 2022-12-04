@@ -57,7 +57,8 @@ public class ProgramDetailService {
                 program.programApplyTotalCount,
                 program.programPrice,
                 program.programLocation,
-                program.programInquire
+                program.programInquire,
+                program.member.memberId
 
         )).from(program).fetch();
 

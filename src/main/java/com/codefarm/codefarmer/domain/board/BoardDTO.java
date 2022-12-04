@@ -22,15 +22,19 @@ public class BoardDTO {
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 
+
     @QueryProjection
-    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, String memberNickName, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.boardId = boardId;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;
+        this.memberNickName = memberNickName;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
     }
+
+
 
 
     public Board toEntity(){
