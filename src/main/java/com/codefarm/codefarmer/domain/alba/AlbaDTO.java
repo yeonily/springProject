@@ -42,7 +42,7 @@ public class AlbaDTO {
     private Member member;
 
 
-    public Alba toEntity(){
+    public Alba toEntity() {
         return Alba.builder()
                 .albaAddress(albaAddress)
                 .albaApplyCount(albaApplyCount)
@@ -74,7 +74,7 @@ public class AlbaDTO {
     }
 
     @QueryProjection
-    public AlbaDTO( String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
+    public AlbaDTO(String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
         this.albaTitle = albaTitle;
         this.albaImage = albaImage;
         this.albaTitleOne = albaTitleOne;
@@ -101,5 +101,34 @@ public class AlbaDTO {
         this.albaProfileContent1 = albaProfileContent1;
         this.albaProfileTitle2 = albaProfileTitle2;
         this.albaProfileContent2 = albaProfileContent2;
+    }
+
+    public AlbaDTO(Alba entity) {
+        this.albaTitle = entity.getAlbaTitle();
+        this.albaImage = entity.getAlbaImage();
+        this.albaTitleOne = entity.getAlbaTitleOne();
+        this.albaApplyStartDate = entity.getAlbaApplyStartDate();
+        this.albaApplyEndDate = entity.getAlbaApplyEndDate();
+        this.albaWorkDate = entity.getAlbaWorkDate();
+        this.albaApplyCount = entity.getAlbaApplyCount();
+        this.albaApplyTotalCount = entity.getAlbaApplyTotalCount();
+        this.albaAddress = entity.getAlbaAddress();
+        this.albaPrice = entity.getAlbaPrice();
+        this.albaMainTitle = entity.getAlbaMainTitle();
+        this.albaMainContent = entity.getAlbaMainContent();
+        this.albaStrongTitle1 = entity.getAlbaStrongTitle1();
+        this.albaStrongContent1 = entity.getAlbaStrongContent1();
+        this.albaStrongTitle2 = entity.getAlbaStrongTitle2();
+        this.albaStrongContent2 = entity.getAlbaStrongContent2();
+        this.albaStrongTitle3 = entity.getAlbaStrongTitle3();
+        this.albaStrongContent3 = entity.getAlbaStrongContent3();
+        this.albaBannerTitle = entity.getAlbaBannerTitle();
+        this.albaBannerOne = entity.getAlbaBannerOne();
+        this.albaTextTitle = entity.getAlbaTextTitle();
+        this.albaText = entity.getAlbaText();
+        this.albaProfileTitle1 = entity.getAlbaProfileTitle1();
+        this.albaProfileContent1 = entity.getAlbaProfileContent1();
+        this.albaProfileTitle2 = entity.getAlbaProfileTitle2();
+        this.albaProfileContent2 = entity.getAlbaProfileContent2();
     }
 }

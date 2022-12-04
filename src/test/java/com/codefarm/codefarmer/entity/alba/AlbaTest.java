@@ -176,4 +176,15 @@ public class AlbaTest {
                 .fetch()
                 .stream().map(Alba -> Alba.toString()).forEach(log::info);
     }
+
+
+//    메인에서 알바리스트 뽑기
+    @Test
+    public void findByLatestTest(){
+        albaRepository.findByLatest().stream().map(Alba::getAlbaId).forEach(a -> log.info("알바 번호:"+ a));
+    }
+
+
+
 }
+

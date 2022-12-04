@@ -375,39 +375,13 @@
                 <!--슬라이드 배너-->
                 <div class="swiper mySwiper5">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <div class="swiper-slide" th:each="alba:${albas}">
+                            <div th:onclick="|location.href='@{/alba/detail/{albaId}(albaId=${abla.id})}'|">
                             <div class="imgDiv" style="background-image: url('https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201905/30/de84a1a8-b47d-4e9c-953d-8a9aba4c4f4c.jpg');"></div>
                             <div class="textDiv">
-                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
-                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
+                                <p><span th:text="${alba.albaApplyCount}"/>/<span th:text="${alba.albaApplyTotalCount}"/>명 <span style="color: rgb(238, 126, 65)" >・ 시급: <span th:text="${alba.albaPrice}"/>원</span></p>
+                                <h3 th:text="${alba.albaMainTitle}"></h3>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS72IVJx4Q7II7Y4de6T0yStpQuzIENR5Lkrg&usqp=CAU');"></div>
-                            <div class="textDiv">
-                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
-                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://newsimg.sedaily.com/2021/09/09/22RECMO715_1.jpg');"></div>
-                            <div class="textDiv">
-                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
-                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('http://www.dailydgnews.com/data/photos/20200520/art_15893586142009_3d56dd.jpg');"></div>
-                            <div class="textDiv">
-                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
-                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://www.kukinews.com/data/kuk/image/2022/05/17/kuk202205170117.680x.9.jpg');"></div>
-                            <div class="textDiv">
-                                <p>0/4명 <span style="color: rgb(238, 126, 65)">・ 시급: 10,200원</span></p>
-                                <h3>백엔드 개발자도 서버 ・ 인프라 관리를 할 수 있는 DevOps 실무</h3>
                             </div>
                         </div>
                     </div>
@@ -429,5 +403,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script>
 
+    // 헤더 검색창 없애기
+    $(".search_form").css("visibility", "hidden");
 </script>
 </html>
