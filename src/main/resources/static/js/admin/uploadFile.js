@@ -194,36 +194,36 @@ $("#left-menu ul li:nth-child(5)").on("click",function(){
 /*-----------------------------------------------------------*/
 /*첨부파일 이미지 미리보기*/
 /*-----------------------------------------------------------*/
-function readImage(input) {
-    var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
-    // 인풋 태그에 파일이 있는 경우
-    if(input.files && input.files[0]) {
-        // 이미지 파일인지 검사 (생략)
-        // FileReader 인스턴스 생성
-        const reader = new FileReader()
-        // 이미지가 로드가 된 경우
-
-        /*이미지 외의 파일 선택 시*/
-        if(!$(input).val().match(fileForm)) {
-            $("#preview-image").attr("src", "/image/admin/uploadFile.png");
-            $("#input-image").val('');
-            return;
-        }
-
-        reader.onload = e => {
-            const previewImage = document.getElementById("preview-image")
-            previewImage.src = e.target.result
-        }
-        // reader가 이미지 읽도록 하기
-        reader.readAsDataURL(input.files[0])
-        $(".input-file-button").text("수정");
-    }
-}
-// input file에 change 이벤트 부여
-const inputImage = document.getElementById("input-image")
-inputImage.addEventListener("change", e => {
-    readImage(e.target)
-})
+// function readImage(input) {
+//     var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+//     // 인풋 태그에 파일이 있는 경우
+//     if(input.files && input.files[0]) {
+//         // 이미지 파일인지 검사 (생략)
+//         // FileReader 인스턴스 생성
+//         const reader = new FileReader()
+//         // 이미지가 로드가 된 경우
+//
+//         /*이미지 외의 파일 선택 시*/
+//         if(!$(input).val().match(fileForm)) {
+//             $("#preview-image").attr("src", "/image/admin/uploadFile.png");
+//             $("#input-image").val('');
+//             return;
+//         }
+//
+//         reader.onload = e => {
+//             const previewImage = document.getElementById("preview-image")
+//             previewImage.src = e.target.result
+//         }
+//         // reader가 이미지 읽도록 하기
+//         reader.readAsDataURL(input.files[0])
+//         $(".input-file-button").text("수정");
+//     }
+// }
+// // input file에 change 이벤트 부여
+// const inputImage = document.getElementById("input-image")
+// inputImage.addEventListener("change", e => {
+//     readImage(e.target)
+// })
 
 
 /*-----------------------------------------------------------*/
