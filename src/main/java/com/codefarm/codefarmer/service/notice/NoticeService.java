@@ -3,6 +3,8 @@ package com.codefarm.codefarmer.service.notice;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.repository.notice.NoticeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +37,8 @@ public class NoticeService {
     }
 
 //    공지 목록
-    public List<Notice> showAll(){
-        return noticeRepository.OrderByNoticeId();
+    public Page<Notice> showAll(Pageable pageable){
+        return noticeRepository.findAll(pageable);
     }
 
 //    공지 디테일 보기
