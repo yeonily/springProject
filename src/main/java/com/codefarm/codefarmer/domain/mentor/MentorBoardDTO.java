@@ -25,6 +25,9 @@ public class MentorBoardDTO {
     private String mentorTextContent;
     private Member memberId;
 
+
+
+
     public MentorBoard toEntity(){
         return MentorBoard.builder()
                 .mentorCareer(mentorCareer)
