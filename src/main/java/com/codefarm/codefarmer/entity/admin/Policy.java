@@ -1,14 +1,17 @@
 package com.codefarm.codefarmer.entity.admin;
 
 import com.codefarm.codefarmer.entity.period.Period;
+import com.codefarm.codefarmer.repository.admin.PolicyRepository;
 import com.sun.istack.NotNull;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_POLICY")
 @Getter @Setter @ToString
+@Slf4j
 @NoArgsConstructor
 public class Policy extends Period{
     @Id @GeneratedValue
@@ -24,12 +27,5 @@ public class Policy extends Period{
         this.policyKeyword = policy.getPolicyKeyword();
         this.policyTitle = policy.getPolicyTitle();
         this.policyContent = policy.getPolicyContent();
-    }
-
-    @Builder
-    public Policy(String policyKeyword, String policyTitle, String policyContent) {
-        this.policyKeyword = policyKeyword;
-        this.policyTitle = policyTitle;
-        this.policyContent = policyContent;
     }
 }

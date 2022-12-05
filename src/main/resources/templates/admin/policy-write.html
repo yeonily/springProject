@@ -40,7 +40,7 @@
 
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form th:action="@{/admin/policy/write}" th:object="${policy}" id="policyForm" method="post">
+            <form th:action="@{/admin/policy/write}" th:object="${policy}" name="policyForm" method="post">
                 <table>
                     <colgroup>
                         <col width="20%;">
@@ -75,7 +75,7 @@
                 </table>
                 <div class="btns-group">
                     <input type="button" onclick="backList()" class="g-btn list" value="청년정책 목록">
-                    <input type="submit" class="g-btn submit" value="등록">
+                    <input type="button" class="g-btn submit p-submit" value="등록">
                 </div>
             </form>
         </div>
@@ -84,19 +84,11 @@
 
 </div>
 <script>
-    // 정책정보글 등록
-    function backList() {
-        var msg = "글을 저장하지 않고 나가시겠습니까?";
-        var flag = confirm(msg);
-
-        if (flag) {
-            location.href="/admin/policy";
-        }
-    }
 </script>
 </body>
 <!-- 썸머노트 -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="/js/admin/summerNote.js"></script>
+<script src="/js/admin/write.js"></script>
 <html>

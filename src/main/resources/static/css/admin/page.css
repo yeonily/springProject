@@ -47,7 +47,7 @@
     margin-right:0;
 }
 
-.page_nation a.active, .page_nation a:hover {
+.page_nation .active, .page_nation a:hover {
     border: 1px solid #262626;
     color:#262626;
 }

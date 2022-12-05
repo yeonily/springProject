@@ -37,7 +37,7 @@ public class PolicyTest {
 //    정첵 수정
     @Test
     public void policyUpdateTest(){
-        Policy policy = policyRepository.findById(2L).get();
+        Policy policy = policyRepository.findById(69L).get();
         policy.setPolicyKeyword("키워드 수정2222222");
 
         policy.update(policy);

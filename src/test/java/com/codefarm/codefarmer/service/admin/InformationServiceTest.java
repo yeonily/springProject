@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @SpringBootTest
 @Slf4j
 @Transactional
@@ -39,10 +41,11 @@ public class InformationServiceTest {
 //    정책 수정
     @Test
     public void policyUpdateTest(){
-        Policy policy = policyRepository.findById(36L).get();
+        Policy policy = policyRepository.findById(77L).get();
 
-        policy.setPolicyTitle("정책 서비스 제목 수정");
-        policy.setPolicyContent("서비스 수정");
+        policy.setPolicyKeyword("키워드2");
+//        policy.setPolicyTitle("정책 수정");
+//        policy.setPolicyContent("서비스 수정22");
 
         informationService.policyUpdate(policy);
     }
@@ -56,7 +59,7 @@ public class InformationServiceTest {
 //    정책 목록 불러오기
     @Test
     public void policySelectAllTest(){
-        informationService.policySelectAll().stream().forEach(p -> log.info("" + p));
+        informationService.policyShowAll().stream().forEach(p -> log.info("" + p));
     }
 
 //    농업정보 추가
@@ -75,7 +78,7 @@ public class InformationServiceTest {
 //    농업정보 수정
     @Test
     public void cropUpdateTest(){
-        Crop crop = cropRepository.findById(27L).get();
+        Crop crop = cropRepository.findById(69L).get();
 
         crop.setCropContent("Service 내용 수정");
         crop.setCropImage("Image 수정");
@@ -92,6 +95,12 @@ public class InformationServiceTest {
 //    농업정보 목록
     @Test
     public void cropSelectAllTest(){
-        informationService.cropSelectAll().stream().forEach(c -> log.info("" + c));
+        informationService.cropShowAll().stream().forEach(c -> log.info("" + c));
+    }
+
+//    농업정보 디테일
+    @Test
+    public void cropSelectOneTest(){
+        log.info("" + informationService.cropShowOne(69L));
     }
 }
