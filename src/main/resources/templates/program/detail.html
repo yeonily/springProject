@@ -23,8 +23,8 @@
             <div class="grid-container-col">
                 <section class="pg-detail-banner">
                     <div class="banner-title-container">
-                        <span class="pg-detail-banner-chip" th:if="${programPrice} == 0" th:text="무료"></span>
-                        <span class="pg-detail-banner-chip" th:unless="${programPrice} == 0" th:text="*{programPrice}"></span>
+                        <span class="pg-detail-banner-chip" th:if="${list.programPrice} == 0" th:text="무료"></span>
+                        <span class="pg-detail-banner-chip" th:unless="${list.programPrice} == 0" th:text="*{programPrice}"></span>
                         <div class="pg-detail-banner-title" th:text="*{programTitle}"></div>
                         <div class="pg-detail-banner-headline" th:text="*{programTitleSub}"></div>
                     </div>
@@ -52,19 +52,19 @@
                                         <div class="sidebox-item-content">
                                             <div class="sidebox-item-content-info">
                                                 <img class="content-img" src="/image/program/date.gif">
-                                                <div class="content-caption">2022.11.30(수)</div>
+                                                <div class="content-caption" th:with="weekday=${#temporals.dayOfWeekNameShort(list.programWorkDate)}" th:text="${#temporals.format(list.programWorkDate,'YYYY.MM.dd(' +weekday + ')')}"></div>
                                             </div>
                                             <div class="sidebox-item-content-info">
                                                 <img class="content-img" src="/image/program/time.gif">
-                                                <div class="content-caption">09:00~18:00</div>
+                                                <div class="content-caption" th:text=" ${#temporals.format(list.programWorkStartTime,'HH:mm~')} + ${#temporals.format(list.programWorkEndTime,'HH:mm')}"></div>
                                             </div>
                                             <div class="sidebox-item-content-info">
                                                 <img class="content-img" src="/image/program/count.gif">
-                                                <div class="content-caption">정원 10명</div>
+                                                <div class="content-caption" th:text="'정원 ' + *{programApplyTotalCount} + '명'"></div>
                                             </div>
                                             <div class="sidebox-item-content-info">
                                                 <img class="content-img" src="/image/program/money.gif">
-                                                <div class="content-caption">10,000원</div>
+                                                <div class="content-caption" th:text="*{programPrice} + '원'"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                     <img class="content-img" src="/image/program/redmark.gif">
                                     <div class="timer-caption">
                                         <div class="timer-caption-line">
-                                            <span class="timer-caption-point">3일 3시간 46분 50초</span>후 프로그램이 마감돼요.
+                                            <span class="timer-caption-point" th:text="${#temporals.format(list.programApplyEndDate - times,'d일 HH시간 mm분 ss초')}">3일 3시간 46분 50초</span>후 프로그램이 마감돼요.
                                         </div>
                                     </div>
                                 </div>
@@ -277,13 +277,13 @@
                                     <div class="pg-detail-target-user-background">
                                         <div class="pg-detail-info-background mb-15">
                                             <div class="pg-detail-info-title">진행 일정</div>
-                                            <div class="pg-detail-info-content">2022-11-30(수)</div></div>
+                                            <div class="pg-detail-info-content" th:with="weekday=${#temporals.dayOfWeekNameShort(list.programWorkDate)}" th:text="${#temporals.format(list.programWorkDate,'YYYY-MM-dd(' +weekday + ')')}"></div></div>
                                         <div class="pg-detail-info-background mb-15">
                                             <div class="pg-detail-info-title">진행 시간</div>
-                                            <div class="pg-detail-info-content">09:00 ~ 18:00</div></div>
+                                            <div class="pg-detail-info-content" th:text=" ${#temporals.format(list.programWorkStartTime,'HH:mm~')} + ${#temporals.format(list.programWorkEndTime,'HH:mm')}"></div></div>
                                         <div class="pg-detail-info-background mb-15">
                                             <div class="pg-detail-info-title">신청 기간</div>
-                                            <div class="pg-detail-info-content">2022-11-10 ~ 2022-11-20</div></div>
+                                            <div class="pg-detail-info-content" th:text=" ${#temporals.format(list.programApplyStartDate,'YYYY-MM-dd ~ ')} + ${#temporals.format(list.programApplyEndDate,'YYYY-MM-dd')}"></div></div>
                                         <div class="pg-detail-info-background mb-15">
                                             <div class="pg-detail-info-title">신청 인원</div>
                                             <div class="pg-detail-info-content" th:text="*{programApplyTotalCount} + '명'"></div></div>
