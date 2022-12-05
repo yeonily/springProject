@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,8 +68,8 @@ public class NoticeServiceTest {
 
 //    공지 목록
     @Test
-    public void selectAllTest() {
-        noticeService.showAll().stream().forEach(n -> log.info("" + n));
+    public void selectAllTest(Pageable pageable) {
+        noticeService.showAll(pageable).stream().forEach(n -> log.info("" + n));
     }
 
 //    공지 디테일

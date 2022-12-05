@@ -41,112 +41,99 @@
         </header>
         <div id="wrapContents">
         <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents chart-no">
+            <div class="p-contents chart-no">
 
-            <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
-                <div class="search-form">
-                        <span class="s-form">
-                            <select name="searchSelect">
-                                <option value="title">제목</option>
-                                <option value="content">내용</option>
-                                <option value="all">제목 + 내용</option>
-                            </select>
-                        </span>
-                    <span class="s-f-input">
-                            <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                <!-- 검색어 입력 폼 -->
+                <form action="" name="searchForm" method="post">
+                    <div class="search-form">
+                            <span class="s-form">
+                                <select name="searchSelect">
+                                    <option value="title">제목</option>
+                                    <option value="content">내용</option>
+                                    <option value="all">제목 + 내용</option>
+                                </select>
                             </span>
-                        </span>
-                    <button type="button" class="">
-                        <img src="/image/admin/search.png">
-                    </button>
-                </div>
-            </form>
+                        <span class="s-f-input">
+                                <span class="search-input">
+                                    <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                                </span>
+                            </span>
+                        <button type="button" class="">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
 
-        </div>
+            </div>
 
-        <!-- 프로그램 리스트 출력 틀 -->
-        <div class="p-contents contents-bottom">
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
                 <span class="list-count">총
                     <span th:text="${policyCounts}"></span>건
                 </span>
 
-            <table>
-                <tr class="title">
-                    <th class="num">글번호</th>
-                    <th class="title">제목</th>
-                    <th class="content">내용</th>
-                    <th class="id">작성자</th>
-                    <th class="date">작성날짜</th>
-                    <th class="revise"></th>
-                    <th class="delete"></th>
-                </tr>
-                <!-- ↓ 데이터 출력 -->
-                <th:block th:each="policy:${policyLists}">
-                    <tr th:object="${policy}">
-                        <td th:text="*{policyId}"></td>
-                        <td class="title">
-                            [<span th:text="*{policyKeyword}"></span>]
-                            <span th:text="*{policyTitle}"></span>
-                        </td>
-                        <td class="content" th:utext="*{policyContent}"></td>
-                        <td>관리자</td>
-                        <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
-                        <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/policy/update(policyId=*{policyId})} + '\''"></td>
-                        <td class="delete">
-                            <form method="post" class="deleteForm" th:action="@{/admin/policy/delete}">
-                                <input type="text" hidden name="policyId" th:value="*{policyId}">
-                                <input type="button" value="삭제" class="deleteBtn">
-                            </form>
-                        </td>
+                <table>
+                    <tr class="title">
+                        <th class="num">정책 번호</th>
+                        <th class="title">제목</th>
+                        <th class="content">내용</th>
+                        <th class="id">작성자</th>
+                        <th class="date">작성날짜</th>
+                        <th class="revise"></th>
+                        <th class="delete"></th>
                     </tr>
-                </th:block>
-            </table>
-            <div id="write" style="float: right;">
-                <input type="button" th:onclick="'location.href=\''+ @{/admin/policy/write} + '\''" value="작성">
-            </div>
-
-            <!-- 페이징 -->
-            <div id="page" th:object="${pagination}">
-                <div class="page_nation">
-                    <th:block  th:if="*{prev}">
-                        <a class="arrow pprev" th:href="*{1}" th:if="*{prev}"></a>
-                        <a class="arrow prev" th:href="*{startPage - 1}"></a>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="policy:${policies}">
+                        <tr th:object="${policy}">
+                            <td th:text="*{policyId}"></td>
+                            <td class="title">
+                                [<span th:text="*{policyKeyword}"></span>]
+                                <span th:text="*{policyTitle}"></span>
+                            </td>
+                            <td class="content" th:utext="*{policyContent}"></td>
+                            <td>관리자</td>
+                            <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                            <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/policy/update(policyId=*{policyId})} + '\''"></td>
+                            <td class="delete">
+                                <form method="post" class="deleteForm" th:action="@{/admin/policy/delete}">
+                                    <input type="text" hidden name="policyId" th:value="*{policyId}">
+                                    <input type="button" value="삭제" class="deleteBtn">
+                                </form>
+                            </td>
+                        </tr>
                     </th:block>
-                    <th:block th:each="page:${#numbers.sequence(pagination.startPage, pagination.endPage)}">
-                        <a th:href="${page}" th:if="${pagination.criteria.page != page}"><code th:text="${page}"></code></a>
-                        <code class="active" th:unless="${pagination.criteria.page != page}" th:text="${page}"></code>
-                    </th:block>
-<!--                    <a href="#" class="active">1</a>-->
-<!--                    <a href="#">2</a>-->
-<!--                    <a href="#">3</a>-->
-<!--                    <a href="#">4</a>-->
-<!--                    <a href="#">5</a>-->
-<!--                    <a href="#">6</a>-->
-<!--                    <a href="#">7</a>-->
-<!--                    <a href="#">8</a>-->
-<!--                    <a href="#">9</a>-->
-<!--                    <a href="#">10</a>-->
-                    <th:block  th:if="*{next}">
-                        <a class="arrow next"  th:href="*{endPage + 1}"></a>
-                        <a class="arrow nnext" th:href="*{realEnd}"></a>
-                    </th:block>
+                </table>
+                <div id="write" style="float: right;">
+                    <input type="button" th:onclick="'location.href=\''+ @{/admin/policy/write} + '\''" value="작성">
                 </div>
-                <form th:action="@{/admin/policy//list}" th:object="${criteria}" name="pageForm">
-                    <input type="hidden" th:field="*{page}">
-                    <input type="hidden" th:field="*{amount}">
-                    <input type="hidden" th:field="*{type}">
-                    <input type="hidden" th:field="*{keyword}">
-                </form>
+
+                <!-- 페이징 -->
+                <div id="page">
+                    <div class="page_nation">
+                        <th:block th:with="start=${(policies.number/maxPage)*maxPage + 1}, end=(${(policies.totalPages == 0) ? 1 : (start + (maxPage - 1) < policies.totalPages ? start + (maxPage - 1) : policies.totalPages)})">
+                            <th:block th:if="${policies.pageable.pageNumber > 0}">
+                                <a class="arrow pprev" th:href="@{/admin/policy(page=0)}"></a>
+                                <a class="arrow prev" th:href="@{/admin/policy(page=${((policies.pageable.pageNumber/10)*10) - 1})}"></a>
+                            </th:block >
+
+                            <th:block  th:each="i: ${#numbers.sequence(start, end)}">
+                                <a th:href="@{/admin/policy(page=${i - 1})}" th:classappend="${i == policies.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                            </th:block >
+
+                            <th:block th:if="${end < policies.totalPages}">
+                                <a class="arrow next" th:href="@{/admin/policy(page=${end})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/policy(page=${policies.totalPages - 1})}"></a>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+
             </div>
-        </div>
         </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script th:inline="javascript">
-    let queryString = [[${pagination.criteria.queryString}]];
     let text = "";
 
     $("td.content").each(function (i, e) {
