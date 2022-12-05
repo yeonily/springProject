@@ -134,8 +134,13 @@ table td {
 td.title, td.content{
     /*text-align: left;*/
     padding-left: 10px;
+    white-space: nowrap;
 }
 
+td>p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
 
 @media screen and (max-width: 990px) {
     div#contents-top {

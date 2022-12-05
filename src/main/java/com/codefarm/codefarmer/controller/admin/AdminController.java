@@ -1,5 +1,7 @@
 package com.codefarm.codefarmer.controller.admin;
 
+import com.codefarm.codefarmer.domain.admin.Criteria;
+import com.codefarm.codefarmer.domain.admin.PageDTO;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.service.admin.InformationService;
@@ -143,15 +145,22 @@ public class AdminController {
 
     // 청년정책 관리
     @GetMapping("/policy")
-    public String adminPolicy(Model model) {
-        model.addAttribute("policyLists", informationService.policySelectAll());
-        model.addAttribute("policyCounts", informationService.countByPolicy());
+    public String policy(Criteria criteria, Model model) {
+        PageDTO pageDTO = new PageDTO();
+        if(criteria.getPage() == 0){
+            criteria.createCriteria();
+        }
+        pageDTO.createPageDTO(criteria, informationService.countByPolicy(criteria));
+
+        model.addAttribute("policyLists", informationService.policyShowAll(criteria));
+        model.addAttribute("policyCounts", informationService.countByPolicy(criteria));
+        model.addAttribute("pagination", pageDTO);
         return "/admin/policy";
     }
 
 //    정책 작성
     @GetMapping("/policy/write")
-    public String adminPolicyWrite(Model model) {
+    public String policyWrite(Model model) {
         model.addAttribute("policy", new Policy());
         return "/admin/policy-write";
     }
@@ -164,14 +173,22 @@ public class AdminController {
     }
 
 //    정책 수정
-    @GetMapping("/policy-update")
-    public String adminPolicyUpdate() {return "/admin/policy-update";
+    @GetMapping("/policy/update")
+    public String policyUpdate(Long policyId, Model model) {
+        model.addAttribute("policy", informationService.policyShowOne(policyId));
+        return "/admin/policy-update";
+    }
+    @PostMapping("/policy/update")
+    public RedirectView policyUpdate(Policy policy/*, RedirectAttributes redirectAttributes*/) {
+        informationService.policyUpdate(policy);
+//        redirectAttributes.addFlashAttribute("policyId", policy.getPolicyId());
+
+        return new RedirectView("/admin/policy");
     }
 
 //    정책 삭제
     @PostMapping("/policy/delete")
     public RedirectView policyDelete(Long policyId){
-        log.info("정책번호 -> " + policyId);
         informationService.policyDelete(policyId);
         return new RedirectView("/admin/policy");
     }

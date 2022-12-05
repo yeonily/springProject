@@ -90,10 +90,10 @@
                             [<span th:text="*{policyKeyword}"></span>]
                             <span th:text="*{policyTitle}"></span>
                         </td>
-                        <td class="content"><pre th:utext="*{policyContent}"></pre></td>
+                        <td class="content" th:utext="*{policyContent}"></td>
                         <td>관리자</td>
                         <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
-                        <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/policy-update(policyId=*{policyId})} + '\''"></td>
+                        <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/policy/update(policyId=*{policyId})} + '\''"></td>
                         <td class="delete">
                             <form method="post" class="deleteForm" th:action="@{/admin/policy/delete}">
                                 <input type="text" hidden name="policyId" th:value="*{policyId}">
@@ -108,23 +108,37 @@
             </div>
 
             <!-- 페이징 -->
-            <div id="page">
+            <div id="page" th:object="${pagination}">
                 <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
+                    <th:block  th:if="*{prev}">
+                        <a class="arrow pprev" th:href="*{1}" th:if="*{prev}"></a>
+                        <a class="arrow prev" th:href="*{startPage - 1}"></a>
+                    </th:block>
+                    <th:block th:each="page:${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+                        <a th:href="${page}" th:if="${pagination.criteria.page != page}"><code th:text="${page}"></code></a>
+                        <code class="active" th:unless="${pagination.criteria.page != page}" th:text="${page}"></code>
+                    </th:block>
+<!--                    <a href="#" class="active">1</a>-->
+<!--                    <a href="#">2</a>-->
+<!--                    <a href="#">3</a>-->
+<!--                    <a href="#">4</a>-->
+<!--                    <a href="#">5</a>-->
+<!--                    <a href="#">6</a>-->
+<!--                    <a href="#">7</a>-->
+<!--                    <a href="#">8</a>-->
+<!--                    <a href="#">9</a>-->
+<!--                    <a href="#">10</a>-->
+                    <th:block  th:if="*{next}">
+                        <a class="arrow next"  th:href="*{endPage + 1}"></a>
+                        <a class="arrow nnext" th:href="*{realEnd}"></a>
+                    </th:block>
                 </div>
+                <form th:action="@{/admin/policy//list}" th:object="${criteria}" name="pageForm">
+                    <input type="hidden" th:field="*{page}">
+                    <input type="hidden" th:field="*{amount}">
+                    <input type="hidden" th:field="*{type}">
+                    <input type="hidden" th:field="*{keyword}">
+                </form>
             </div>
         </div>
         </div>
@@ -132,6 +146,15 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script th:inline="javascript">
+    let queryString = [[${pagination.criteria.queryString}]];
+    let text = "";
+
+    $("td.content").each(function (i, e) {
+        text = $(this).html().replace(/<br>/ig, "&nbsp;");
+        text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+        $(this).html(text);
+    });
+
     var msg = "삭제 하시겠습니까?";
 
     // 공지 삭제
