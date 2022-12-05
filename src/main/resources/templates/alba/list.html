@@ -32,49 +32,16 @@
 
         <!--가장 인기 있는 아르바이트 목록(PC : 8개, Mobile : 4개)-->
         <div id="alba_list">
-            <h2>곧 마감인 아르바이트 정보</h2>
+            <h2>곧! 아르바이트가 마감돼요</h2>
             <div class="alba_list_list">
                 <!--아래부터 div 추가-->
-                <div class="alba_div" onclick="location.href='/alba/detail'">
+                <th:block th:each="list:${lists}">
+                <div class="alba_div" onclick="location.href='/alba/detail'" th:object="${list}">
                     <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
+                    <div>0/4명 ・ <span th:text="*{albaPrice} + '원'"></span></div>
+                    <p class="alba_title" th:text="*{albaTitle}"></p>
                 </div>
-                <div class="alba_div">
-                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
-                </div>
-                <div class="alba_div">
-                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
-                </div>
-                <div class="alba_div">
-                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
-                </div>
-                <div class="alba_div">
-                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
-                </div>
-                <div class="alba_div">
-                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
-                </div>
-                <div class="alba_div">
-                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
-                </div>
-                <div class="alba_div">
-                    <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span>시급: 10,200원</span></div>
-                    <p class="alba_title">논산에서 함께 딸기재배를 진행할 아르바이트생을 구합니다.</p>
-                </div>
+                </th:block>
             </div>
         </div>
 
@@ -83,12 +50,12 @@
             <!--목록 위에 총 개수 + 필터 메뉴-->
             <div class="top-div">
                 <h1>일반 채용정보</h1>
-                <p>총 <span>20</span>건</p>
+                <p>총 <span th:text="*{counts}"></span>건</p>
             </div>
             <div class="top-div-filter">
-                <span style="color: #000000">최신순</span>
-                <span>시급순</span>
-                <span>모집중</span>
+                <span id="recent-btn" style="color: #000000">최신순</span>
+                <span id="pay-btn">시급순</span>
+                <span id="progress-btn">모집중</span>
             </div>
 
             <!--알바 찐 목록 list-->
@@ -102,47 +69,20 @@
                     <span class="registerDay">등록일</span>
                 </div>
                 <!--아래부터 리스트 쭉 출력해야함-->
-                <div class="list_td">
-                    <div class="location"><p>서울 강서구</p></div>
-                    <div class="title"><a href="/alba/detail">논산 딸기재배 아르바이트 (<span>모집중</span>)</a></div>
-                    <div class="workDay">2022년 11월 10일</div>
-                    <div class="pay">
+                <div id="list-foreach">
+                <th:block th:each="recent:${recents}">
+                <div class="list_td"th:object="${recent}" >
+                    <div class="location"><p th:text="*{albaAddress}"></p></div>
+                    <div class="title"><a href="/alba/detail" th:text="*{albaTitle}">(<span>모집중</span>)</a></div>
+                    <div class="workDay" th:text="${#temporals.format(recent.albaWorkDate,'yyyy년 MM월 dd일')}"></div>
+                    <div class="pay" >
                         <p class="miniText">시급</p>
-                        12,000
+                        <div th:text="*{albaPrice}"></div>
                     </div>
-                    <div class="registerDay">3분 전</div>
+                    <div class="registerDay" th:text="${#temporals.format(recent.albaApplyStartDate,'yyyy년 MM월 dd일')}"></div>
                 </div>
-                <div class="list_td">
-                    <div class="location"><p>경남 진주시</p></div>
-                    <div class="title"><a href="#">딸기 선별하실 알바님 구합니다. (<span>모집중</span>)</a></div>
-                    <div class="workDay">2022년 12월 10일</div>
-                    <div class="pay">
-                        <p class="miniText">시급</p>
-                        9,720
-                    </div>
-                    <div class="registerDay">1시간 전</div>
+                </th:block>
                 </div>
-                <div class="list_td">
-                    <div class="location"><p>대구 북구</p></div>
-                    <div class="title"><a href="#">농산 소포장하실 분 모집합니다. (<span>모집마감</span>)</a></div>
-                    <div class="workDay">2021년 12월 10일</div>
-                    <div class="pay">
-                        <p class="miniText">시급</p>
-                        9,160
-                    </div>
-                    <div class="registerDay">1일 전</div>
-                </div>
-                <div class="list_td">
-                    <div class="location"><p>서울 강서구</p></div>
-                    <div class="title"><a href="#">농산물(양파)가공 현장사원 및 납품사원 모집 (<span>모집마감</span>)</a></div>
-                    <div class="workDay">협의 후 진행</div>
-                    <div class="pay">
-                        <p class="miniText">시급</p>
-                        협의 후 진행
-                    </div>
-                    <div class="registerDay">1년 전</div>
-                </div>
-            </div>
             <div id="writeBtn">
                 <button type="button" onclick="location.href = `/alba/write`">글쓰기</button>
             </div>
