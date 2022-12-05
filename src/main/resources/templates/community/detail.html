@@ -14,11 +14,11 @@
 <div th:replace="/header/header.html :: header" class="header"/>
 <div id="main">
     <section class="detail-wrap max">
-        <div class="w-wrap">
+        <div class="w-wrap" th:object="${list}">
             <article>
                 <div class="top-wrap">
-                    <div class="commu-nickname">
-                        벅벅코딩
+                    <div class="commu-nickname" th:text="*{memberNickName}">
+
                         <hr>
                         <span class="q-nickname">농장주</span>
                     </div>
@@ -45,13 +45,8 @@
                     </div>
                     <!--------------->
                 </div>
-                <h2 id="q-title">비닐하우스 농사로 귀농하실분!(비닐하우스 10동 매매)</h2>
-                <p class="commu-content">
-                    2중 비닐하우스(100*7) 10개동 지상권 매매입니다.(토지는 임대)<br>
-                    2중 자동개폐기 설치 되어 있음.<br>
-                    비닐 상태 양호(2년은 더 사용가능)<br>
-                    소공 9대 설치되어 겨울에도 지하수 충분함<br>
-                    연락처 010-1234-1234
+                <h2 id="q-title" th:text="*{boardTitle}"></h2>
+                <p class="commu-content" th:text="*{boardContent}">
                 </p>
                 <div id="files">
                     <div class="file">
@@ -60,7 +55,7 @@
                         <span class="f-size">[1.63MB]</span>
                     </div>
                 </div>
-                <p class="commu-date">2022.11.20</p>
+                <p class="commu-date" th:text="*{boardCreateDate}"></p>
             </article>
         </div>
     </section>

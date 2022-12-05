@@ -3,9 +3,11 @@ package com.codefarm.codefarmer.entity.board;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
+import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -31,6 +33,9 @@ public class BoardTest {
 
     @Autowired
     private FarmerRepository farmerRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ReplyRepository replyRepository;
@@ -76,6 +81,19 @@ public class BoardTest {
 //            log.info("nickName : " + findBoardUser.get().getBoardFiles());
         findBoardUser.get().getMember().getMemberNickname();
     }
+
+//    현재 로그인 되어있는 사람 닉네임 갖고오기
+    @Test
+    public void findNickName(){
+//        Optional<Board> findNickName = boardRepository.findById(17L);
+//        log.info("닉네임 : " +  findNickName.get().getMember().getMemberNickname());
+        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
+        Optional<User> findUser = userRepository.findById(2L);
+        log.info("닉네임 : " + findFarmer.get().getMemberNickname());
+        log.info("닉네임 : " + findUser.get().getMemberNickname());
+    }
+
+
 
 
 
