@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.entity.chat;
 import com.codefarm.codefarmer.entity.period.ChatPeriod;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.type.ChatStatus;
+import com.codefarm.codefarmer.type.MessageType;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -31,6 +32,10 @@ public class Chat extends ChatPeriod {
     @Enumerated(EnumType.STRING)
     private ChatStatus chatStatus;
 
+//    @NotNull
+//    @Enumerated(EnumType.STRING)
+//    private MessageType type;
+
     @Builder
     public Chat(String chatMessage, ChatStatus chatStatus) {
         this.chatMessage = chatMessage;
@@ -41,6 +46,7 @@ public class Chat extends ChatPeriod {
         this.member = member;
     }
     public void changeChatRoom(ChatRoom chatRoom) {this.chatRoom = chatRoom;}
+    public void changeChatMessage(String chatMessage) {this.chatMessage = chatMessage;}
     public void changeChatStatus(ChatStatus chatStatus) {this.chatStatus = chatStatus;}
 }
 

@@ -33,7 +33,7 @@ public class ChatRoomTest {
     /*현재 로그인 세션 찾기*/
     @Test
     public void findByMember() {
-        log.info("결과 : " + chatRoomService.findByMemberId(1L));
+        log.info("결과 : " + chatRoomService.findByMemberId(1L).getMemberName());
     }
 
 
@@ -46,7 +46,7 @@ public class ChatRoomTest {
 
         for (Member member : memberIdList) {
             if(member.getMemberId() == 1L) { // 로그인한 회원의 아이디를 찾았을 경우
-                log.info("결과 : " + chatRoomService.chatRoomSelectAll(member));
+                log.info("결과 : " + chatRoomService.chatRoomSelectAll(1L));
                 return;
             }
         }
@@ -65,6 +65,13 @@ public class ChatRoomTest {
         chatRoomService.createChatRoom(1L, 16L);
     }
 
+
+
+    /*가장 마지막에 보낸 메세지*/
+    @Test
+    public void lastChatList() {
+        log.info("결과 : " + chatRoomService.lastChatSelectAll());
+    }
 }
 
 

@@ -91,7 +91,7 @@ public class ChatTest {
     @Test
     public void sendChatTest() {
         ChatDTO chatDTO = new ChatDTO();
-        ChatRoom chatRoom = chatRoomRepository.findById(17L).get(); // 접속한 방번호에 따라 해당 채팅방을 저장
+        ChatRoom chatRoom = chatRoomRepository.findById(12L).get(); // 접속한 방번호에 따라 해당 채팅방을 저장
         ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
 
         // 일반 유저, 멘티 정보를 저장
@@ -101,8 +101,8 @@ public class ChatTest {
 
 
         for (Member member : memberIdList) {
-            if(member.getMemberId() == 1L) { // 로그인한 회원의 아이디를 찾았을 경우
-                chatDTO.setChatMessage("태관이는 똑똑해~~");
+            if(member.getMemberId() == 2L) { // 로그인한 회원의 아이디를 찾았을 경우
+                chatDTO.setChatMessage("태관이도 알아~~");
                 chatDTO.setChatStatus(ChatStatus.UNREAD); // 초기 전송 시에는 읽지 않았기 때문에 UNREAD로 전송
                 chatDTO.setChatRoom(chatRoom);
                 chatDTO.setMemberId(member);
