@@ -27,7 +27,7 @@ public class AlbaServiceTest {
     //메인에서 알바리스트 뽑는 메소드 테스트
     @Test
     public void showAlbaListTest() {
-        albaService.showAlbaList().forEach(alba -> {
+        albaService.showAlbaList1().forEach(alba -> {
             log.info(alba.getAlbaId() + "");
             log.info(alba.getAlbaTitle() + "");
             log.info(alba.getAlbaApplyCount() + "");
