@@ -1,12 +1,16 @@
 package com.codefarm.codefarmer.domain.chat;
 
+import com.codefarm.codefarmer.entity.chat.Chat;
 import com.codefarm.codefarmer.entity.chat.ChatRoom;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.WebSocketSession;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Component
@@ -33,3 +37,21 @@ public class ChatRoomDTO {
                 .build();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

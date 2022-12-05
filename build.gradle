@@ -26,10 +26,13 @@ repositories {
 }
 
 dependencies {
-    /*웹소켓 영역*/
+    /*웹소켓 영역(강사님)*/
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'org.webjars:sockjs-client:1.1.2'
-    implementation 'org.webjars:stomp-websocket:2.3.3-1'
+
+    /*웹소켓 영역(코코로)*/
+//    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//    implementation 'org.webjars:sockjs-client:1.1.2'
+//    implementation 'org.webjars:stomp-websocket:2.3.3-1'
 
 
 //    implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'

@@ -21,19 +21,19 @@
             <div id="content_left">
                 <div>
                     <ul id="content_left_list";>
-                        <li class="left_lists">
-                            <a href="" class="left_lists_a">
-                                <!--<div class="list_thumbnail">
-                                    <img src="https://api.2awesomementor.com/files/user/2022/10/1668795064008.jpg" alt="" class="thumb_image">
-                                </div>-->
-                                <div>
-                                    <div class="list_name"><p class="list_name_p1">멘토쌤</p><p class="list_name_p2"></p></div>
+
+                        <th:block th:each="room:${rooms}">
+                            <li class="left_lists" th:object="${room}">
+                                <a href="" class="left_lists_a">
                                     <div>
-                                        <p class="list_text_p1"></p><p class="list_text_p2"> IT 및 아트앤디자인 분야의 취업, 진로, 커리큘럼 멘토링</p>
+                                        <div class="list_name"><p class="list_name_p1" th:text="*{mentor.memberNickname}"></p><p class="list_name_p2"></p></div>
+                                        <div>
+                                            <p class="list_text_p1"></p><p class="list_text_p2"> IT 및 아트앤디자인 분야의 취업, 진로, 커리큘럼 멘토링</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        </th:block>
                     </ul>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 <div class="chatting_write">
                     <div class="chatting_write_border">
                         <input type="text" placeholder="메세지를 입력하세요." class="chatting_write_input">
-                        <a href="" class="chatting_send">
+                        <a href="javascript:void(0)" class="chatting_send">
                             <img src="https://www.2awesomementor.com/img/ico-24-send.99437830.svg" alt="" class="thumb_image">
                         </a>
                     </div>
@@ -151,4 +151,33 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/mento/chatting.js"></script>
+<!--<script th:inline="javascript">
+    var webSocket;
+    var nickname;
+    var roomId = 12; // roomId는 일단 임시 보류
+
+
+    /*메세지 전송 함수*/
+    function send() {
+        msg = document.getElementsByClassName("chatting_write_input").value;
+        webSocket.send(JSON.stringify({chatRoomId : roomId, type: 'CHAT', writer: nickname, message: msg}));
+    }
+
+    /*전송버튼 클릭 시*/
+    document.getElementsByClassName("chatting_send").addEventListener("click", function() {
+        send();
+    });
+
+    /*채팅방에 접속했을 때 발생하는 함수*/
+    function connect(){
+        webSocket = new WebSocket("ws://localhost:5556/chat");
+        webSocket.onopen = onOpen;
+        webSocket.onclose = onClose;
+        webSocket.onmessage = onMessage;
+    }
+
+
+
+
+</script>-->
 </html>

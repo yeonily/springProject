@@ -34,23 +34,15 @@ public class ChatService {
     public void chatAdd(ChatDTO chatDTO, ChatRoomDTO chatRoomDTO) {
         ChatRoom chatRoom = chatRoomDTO.toEntity();
 
-        ArrayList<Member> memberIdList = new ArrayList<Member>();
+        ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
         jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add(v));
         jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add(v));
 
-
-        for (Member member : memberIdList) { // 멤버들 중에서 1번 회원 찾기
-            if(member.getMemberId() == 1L) { // 로그인한 회원의 아이디를 찾았을 경우
-                chatDTO.setChatMessage("태관이는 똑똑해~~");
-                chatDTO.setChatStatus(ChatStatus.UNREAD); // 초기 전송 시에는 읽지 않았기 때문에 UNREAD로 전송
-                chatDTO.setChatRoom(chatRoom);
-                chatDTO.setMemberId(member);
-
+        for(Member member : memberIdList) {
+            if(member.getMemberId().equals(1L)) { // 현재 로그인 세션이 1번일 때
                 Chat chat = chatDTO.toEntity();
-                chat.changeChatRoom(chatDTO.getChatRoom()); // 해당 방에 채팅을 저장
+                chat.changeChatMessage(chatDTO.getChatMessage());
                 chat.changeMember(chatDTO.getMemberId());
-                chat.changeChatRoom(chatRoom);
-                chat.changeMember(memberIdList.get(1));
                 chatRepository.save(chat);
 
                 return;

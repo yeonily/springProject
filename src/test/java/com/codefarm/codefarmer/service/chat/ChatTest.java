@@ -35,28 +35,7 @@ public class ChatTest {
     public void sendChat() {
         ChatDTO chatDTO = new ChatDTO();
 
-
-        chatDTO.setChatMessage("서비스 확인용...");
-
-
-//        ChatRoom chatRoom = chatRoomRepository.findById(17L).get();
-
-
     }
 
-    @Test
-    public void findAllChatRoom() {
-        ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
-        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add(v));
-        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add(v));
 
-
-        for (Member member : memberIdList) {
-            if(member.getMemberId() == 1L) { // 로그인한 회원의 아이디를 찾았을 경우
-                log.info("결과 : " + chatRoomService.chatRoomSelectAll(member));
-                return;
-            }
-        }
-
-    }
 }
