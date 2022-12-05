@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 @NoArgsConstructor
@@ -21,6 +22,8 @@ public class BoardDTO {
     private String memberNickName;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
+
+    private List<ReplyDTO> replies;
 
 
     @QueryProjection

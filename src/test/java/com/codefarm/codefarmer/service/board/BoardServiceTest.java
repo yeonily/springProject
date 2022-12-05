@@ -35,10 +35,10 @@ public class BoardServiceTest {
     @Test
     public void addTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(15L);
+        Optional<Farmer> findFarmer = farmerRepository.findById(14L);
         log.info(findFarmer.get().toString());
-        boardDTO.setBoardTitle("테스트용");
-        boardDTO.setBoardContent("테스트용");
+        boardDTO.setBoardTitle("날씨가 추워졌구로");
+        boardDTO.setBoardContent("아~~따 춥구마이 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만");
         boardDTO.setMember(findFarmer.get());
         boardService.boardAdd(boardDTO);
     }
@@ -80,7 +80,7 @@ public class BoardServiceTest {
 //    해당 보드의 댓글 총 수
     @Test
     public void showBoardReplyCountTest(){
-        log.info("보드 댓글 수 : " + boardService.showBoardReplyCount(42L));
+        log.info("보드 댓글 수 : " + boardService.showBoardReplyCount(17L));
     }
 
 //    보드 목록 가져오기
@@ -89,20 +89,31 @@ public class BoardServiceTest {
 //        boardService.showBoardList().forEach(t ->log.info("전체 보드 목록: " + t.toString()));
 //    }
 
+//    보드 목록 가져오기
     @Test
     public void getBoardList(){
         log.info("보드 목록 : " + boardService.getBoardList());
     }
+
+//    닉넴 test(농장주)
+    @Test
+    public void getFarmerNickNameTest(){
+       log.info("닉넴 : " +  boardService.showFarmerNickName(1L));
+    }
+
+//    닉넴 test(일반회원)
+    @Test
+    public void getUserNickNameTest(){
+       log.info("닉넴 : " +  boardService.showUserNickName(2L));
+    }
+
 
 
 
 //    보드 지우기
     @Test
     public void removeBoardTest(){
-        boardService.removeBoard(37L);
+        boardService.removeBoard(25L);
     }
-
-
-
 
 }
