@@ -47,9 +47,11 @@
                                     <div class="sidebox-difficulty">
                                         <img class="sidebox-image" src="https://cdn.comento.kr/images/emojis/emoji-seedling.svg">
                                         <div class="sidebox-difficulty-info">
-                                            <strong class="s" th:if="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="멘티전용"></strong>의
-                                            <strong class="s" th:unless="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="전체사용자용">의
-                                            <strong class="s">베이직</strong> 프로그램입니다.</div>
+                                            <strong class="s" th:if="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="멘티전용"></strong>
+                                            <strong class="s" th:unless="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="전체사용자용"></strong>
+                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'BASIC')}" th:text="베이직"></strong>
+                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'SKILL_UP')}" th:text="스킬업"></strong>
+                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'MASTER')}" th:text="마스터"></strong>프로그램입니다.</div>
                                     </div>
                                     <div class="sidebox-info">
                                         <div class="sidebox-item-content">

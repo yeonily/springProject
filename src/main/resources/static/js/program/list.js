@@ -48,7 +48,10 @@ $("#progress-btn").on("click", function () {
                 }
 
                 text += '<div class="list-container" th:object="${list}">'
-                text += '<a th:href="@{/program/detail}">'
+                var number = list.programId;
+                text += '<a href="/program/detail?programId='
+                text += number
+                text += '">'
                 text += '<article class="list-article">'
                 text += '<div class="list-image-container">'
                 text += '<div class="list-point">'
@@ -110,7 +113,10 @@ $("#recent-register-btn").on("click", function () {
                 }
 
                 text += '<div class="list-container" th:object="${list}">'
-                text += '<a th:href="@{/program/detail}">'
+                let number = list.programId;
+                text += '<a href="/program/detail?programId='
+                text += number
+                text += '">'
                 text += '<article class="list-article">'
                 text += '<div class="list-image-container">'
                 text += '<div class="list-point">'
@@ -171,7 +177,10 @@ $("#recent-end-btn").on("click", function () {
                 }
 
                 text += '<div class="list-container" th:object="${list}">'
-                text += '<a th:href="@{/program/detail}">'
+                var number = list.programId;
+                text += '<a href="/program/detail?programId='
+                text += number
+                text += '">'
                 text += '<article class="list-article">'
                 text += '<div class="list-image-container">'
                 text += '<div class="list-point">'
@@ -232,7 +241,10 @@ $("#mentee-btn").on("click", function () {
                 }
 
                 text += '<div class="list-container" th:object="${list}">'
-                text += '<a th:href="@{/program/detail}">'
+                var number = list.programId;
+                text += '<a href="/program/detail?programId='
+                text += number
+                text += '">'
                 text += '<article class="list-article">'
                 text += '<div class="list-image-container">'
                 text += '<div class="list-point">'
@@ -294,7 +306,10 @@ $("#user-btn").on("click", function () {
                 }
 
                 text += '<div class="list-container" th:object="${list}">'
-                text += '<a th:href="@{/program/detail}">'
+                var number = list.programId;
+                text += '<a href="/program/detail?programId='
+                text += number
+                text += '">'
                 text += '<article class="list-article">'
                 text += '<div class="list-image-container">'
                 text += '<div class="list-point">'
@@ -356,7 +371,10 @@ $("#pay-btn").on("click", function () {
                 }
 
                 text += '<div class="list-container" th:object="${list}">'
-                text += '<a th:href="@{/program/detail}">'
+                var number = list.programId;
+                text += '<a href="/program/detail?programId='
+                text += number
+                text += '">'
                 text += '<article class="list-article">'
                 text += '<div class="list-image-container">'
                 text += '<div class="list-point">'
@@ -418,7 +436,10 @@ $("#free-btn").on("click", function () {
                 }
 
                 text += '<div class="list-container" th:object="${list}">'
-                text += '<a th:href="@{/program/detail}">'
+                var number = list.programId;
+                text += '<a href="/program/detail?programId='
+                text += number
+                text += '">'
                 text += '<article class="list-article">'
                 text += '<div class="list-image-container">'
                 text += '<div class="list-point">'
