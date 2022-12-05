@@ -46,7 +46,10 @@
                                 <div class="sidebox-detail">
                                     <div class="sidebox-difficulty">
                                         <img class="sidebox-image" src="https://cdn.comento.kr/images/emojis/emoji-seedling.svg">
-                                        <div class="sidebox-difficulty-info"><strong class="s">멘티전용</strong>의 <strong class="s">베이직</strong> 프로그램입니다.</div>
+                                        <div class="sidebox-difficulty-info">
+                                            <strong class="s" th:if="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="멘티전용"></strong>의
+                                            <strong class="s" th:unless="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="전체사용자용">의
+                                            <strong class="s">베이직</strong> 프로그램입니다.</div>
                                     </div>
                                     <div class="sidebox-info">
                                         <div class="sidebox-item-content">
@@ -84,7 +87,7 @@
                                     <img class="content-img" src="/image/program/redmark.gif">
                                     <div class="timer-caption">
                                         <div class="timer-caption-line">
-                                            <span class="timer-caption-point" th:text="${#temporals.format(list.programApplyEndDate - times,'d일 HH시간 mm분 ss초')}">3일 3시간 46분 50초</span>후 프로그램이 마감돼요.
+                                            <span class="timer-caption-point" >3일 3시간 46분 50초</span>후 프로그램이 마감돼요.
                                         </div>
                                     </div>
                                 </div>
