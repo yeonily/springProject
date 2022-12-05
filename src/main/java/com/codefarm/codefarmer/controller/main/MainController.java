@@ -20,5 +20,7 @@ public class MainController {
     public void getAlbaList(Model model) {
         model.addAttribute("albas", albaService.showAlbaList());
     }
+
+
 }
 
