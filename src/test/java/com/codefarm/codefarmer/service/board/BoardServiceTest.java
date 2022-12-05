@@ -96,16 +96,16 @@ public class BoardServiceTest {
     }
 
 //    닉넴 test(농장주)
-    @Test
-    public void getFarmerNickNameTest(){
-       log.info("닉넴 : " +  boardService.showFarmerNickName(1L));
-    }
+//    @Test
+//    public void getFarmerNickNameTest(){
+//       log.info("닉넴 : " +  boardService.showFarmerNickName(1L));
+//    }
 
 //    닉넴 test(일반회원)
-    @Test
-    public void getUserNickNameTest(){
-       log.info("닉넴 : " +  boardService.showUserNickName(2L));
-    }
+//    @Test
+//    public void getUserNickNameTest(){
+//       log.info("닉넴 : " +  boardService.showUserNickName(2L));
+//    }
 
 
 

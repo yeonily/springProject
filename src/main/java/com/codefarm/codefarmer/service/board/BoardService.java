@@ -38,7 +38,6 @@ public class BoardService {
     public void boardAdd(BoardDTO boardDTO){
         Board board = boardDTO.toEntity();
         board.changeMember(boardDTO.getMember());
-        log.info(board.toString());
         boardRepository.save(board);
     }
 
