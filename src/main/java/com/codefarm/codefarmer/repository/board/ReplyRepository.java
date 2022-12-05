@@ -12,5 +12,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
     public Long countByBoard_BoardId(@Param("replyId") Long replyId);
 
 
+
 //    public Long countByReplyId(@Param("boardId") Long boardId);
 }

@@ -29,7 +29,7 @@ public class CommunityController {
     private final ReplyService replyService;
 
     @GetMapping("/community")
-    public void communityPage(Model model,String nickName, HttpServletRequest request){
+    public void communityPage(Model model, HttpServletRequest request){
            /* HttpSession session = (HttpSession)request.getSession();
             Long memberId = (Long)session.getAttribute("")*/
             Long memberId = 14l;
@@ -37,8 +37,8 @@ public class CommunityController {
         List<BoardDTO> lists =  boardService.getBoardList();
         lists.stream().map(t -> t.toString()).forEach(t -> log.info("아이디: " + t));
         List<Long> listsBoardId = new ArrayList<>();
-           lists.stream().map(t -> t.getBoardId()).forEach(listsBoardId::add);
-         List<Long> listsReplyTotal = new ArrayList<>();
+            lists.stream().map(t -> t.getBoardId()).forEach(listsBoardId::add);
+            List<Long> listsReplyTotal = new ArrayList<>();
         listsBoardId.stream().map(t -> boardService.showBoardReplyCount(t)).forEach(listsReplyTotal::add);
         Long boardCount = boardService.showBoardCountMine(memberId);
         Long replyCount = replyService.showReplyAllCount(memberId);
