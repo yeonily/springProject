@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.service.admin;
 
+import com.codefarm.codefarmer.domain.admin.Criteria;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.repository.admin.CropRepository;
@@ -59,7 +60,8 @@ public class InformationServiceTest {
 //    정책 목록 불러오기
     @Test
     public void policySelectAllTest(){
-        informationService.policyShowAll().stream().forEach(p -> log.info("" + p));
+        Criteria criteria = new Criteria();
+        informationService.policyShowAll(criteria).stream().forEach(p -> log.info("" + p));
     }
 
 //    농업정보 추가
