@@ -42,17 +42,17 @@ public class AlbaTest {
 
         AlbaDTO albaDTO = new AlbaDTO();
 
-        albaDTO.setAlbaAddress("서울시 서초구");
-        albaDTO.setAlbaApplyCount(1011);
+        albaDTO.setAlbaAddress("봉천동");
+        albaDTO.setAlbaApplyCount(1);
         albaDTO.setAlbaApplyEndDate(LocalDateTime.of(2023,1,25,0,0));
-        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2022,10,15,0,0));
-        albaDTO.setAlbaApplyTotalCount(1112);
+        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2022,12,20,0,0));
+        albaDTO.setAlbaApplyTotalCount(5);
         albaDTO.setAlbaBannerOne("배너");
         albaDTO.setAlbaBannerTitle("배너 제목");
         albaDTO.setAlbaImage("이미지");
         albaDTO.setAlbaMainContent("메인컨텐트");
         albaDTO.setAlbaMainTitle("메인제목123");
-        albaDTO.setAlbaPrice(20_200);
+        albaDTO.setAlbaPrice(1_200);
         albaDTO.setAlbaProfileContent1("알바프로필내용1");
         albaDTO.setAlbaProfileContent2("알바프로필내용2");
         albaDTO.setAlbaProfileTitle1("알바프로필제목1");
@@ -93,17 +93,17 @@ public class AlbaTest {
         log.info("findFarmer : " + findFarmer.toString());
         AlbaDTO albaDTO = new AlbaDTO();
 
-        albaDTO.setAlbaAddress("경주");
-        albaDTO.setAlbaApplyCount(123);
-        albaDTO.setAlbaApplyEndDate(LocalDateTime.of(2022,12,2,0,0));
-        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2022,11,18,0,0));
-        albaDTO.setAlbaApplyTotalCount(5678);
+        albaDTO.setAlbaAddress("봉천동");
+        albaDTO.setAlbaApplyCount(1);
+        albaDTO.setAlbaApplyEndDate(LocalDateTime.of(2023,12,31,0,0));
+        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2022,12,20,0,0));
+        albaDTO.setAlbaApplyTotalCount(5);
         albaDTO.setAlbaBannerOne("배너원");
         albaDTO.setAlbaBannerTitle("배너 수정 제목");
         albaDTO.setAlbaImage("수정 이미지");
         albaDTO.setAlbaMainContent("수정 메인컨텐트");
         albaDTO.setAlbaMainTitle("수정 메인제목");
-        albaDTO.setAlbaPrice(14_200);
+        albaDTO.setAlbaPrice(1_200);
         albaDTO.setAlbaProfileContent1("알바프로필내용 수정1");
         albaDTO.setAlbaProfileContent2("알바프로필내용 수정2");
         albaDTO.setAlbaProfileTitle1("알바프로필제목 수정1");
@@ -148,8 +148,10 @@ public class AlbaTest {
 //    알바 채용정보 최신순
     @Test
     public void findRecentListTest(){
+        LocalDateTime localDateTime = LocalDateTime.now();
         jpaQueryFactory.select(alba.albaAddress,alba.albaBannerTitle,alba.albaWorkDate,alba.albaPrice,alba.albaApplyStartDate)
                 .from(alba)
+                .where(alba.albaApplyStartDate.before(localDateTime))
                 .orderBy(alba.albaApplyStartDate.desc())
                 .fetch()
                 .stream().map(Alba -> Alba.toString()).forEach(log::info);
@@ -158,8 +160,10 @@ public class AlbaTest {
 //    알바 채용정보 시급순
     @Test
     public void findHighPayListTest(){
+        LocalDateTime localDateTime = LocalDateTime.now();
         jpaQueryFactory.select(alba.albaAddress,alba.albaBannerTitle,alba.albaWorkDate,alba.albaPrice,alba.albaApplyStartDate)
                 .from(alba)
+                .where(alba.albaApplyStartDate.before(localDateTime))
                 .orderBy(alba.albaPrice.desc())
                 .fetch()
                 .stream().map(Alba -> Alba.toString()).forEach(log::info);
@@ -182,6 +186,12 @@ public class AlbaTest {
     @Test
     public void findByLatestTest(){
         albaRepository.findByLatest().stream().map(Alba::getAlbaId).forEach(a -> log.info("알바 번호:"+ a));
+    }
+
+//    곧마감돼요 8개 뽑기
+    @Test
+    public void findTop8ByOOrderByAlbaApplyEndDateDescTest(){
+        albaRepository.findTop8ByOrderByAlbaApplyEndDateDesc().stream().map(Alba::getAlbaId).forEach(a -> log.info("알바 번호 : " + a));
     }
 
 

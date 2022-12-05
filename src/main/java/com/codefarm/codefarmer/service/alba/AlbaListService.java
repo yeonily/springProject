@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.service.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.QAlbaDTO;
+import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
 
@@ -60,6 +62,7 @@ public class AlbaListService {
 
 //    알바 채용정보 최신순
     public List<AlbaDTO> showListByRecent(){
+        LocalDateTime localDateTime = LocalDateTime.now();
        return jpaQueryFactory.select(new QAlbaDTO(
                alba.albaId,
                alba.albaTitle,
@@ -89,11 +92,13 @@ public class AlbaListService {
                alba.albaProfileTitle2,
                alba.albaProfileContent2
        )).from(alba)
+               .where(alba.albaApplyStartDate.before(localDateTime))
                .orderBy(alba.albaApplyStartDate.desc())
                 .fetch();
     }
 //    알바 채용정보 시급순
     public List<AlbaDTO> showListByHighPay(){
+        LocalDateTime localDateTime = LocalDateTime.now();
        return jpaQueryFactory.select(new QAlbaDTO(
                 alba.albaId,
                 alba.albaTitle,
@@ -123,6 +128,7 @@ public class AlbaListService {
                 alba.albaProfileTitle2,
                 alba.albaProfileContent2
         )).from(alba)
+               .where(alba.albaApplyStartDate.before(localDateTime))
                 .orderBy(alba.albaPrice.desc())
                 .fetch();
     }
@@ -161,5 +167,10 @@ public class AlbaListService {
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .orderBy(alba.albaApplyStartDate.desc())
                 .fetch();
+    }
+
+    public List<AlbaDTO> showTop8ByOOrderByAlbaApplyEndDateDesc(){
+        List<Alba> lists = albaRepository.findTop8ByOrderByAlbaApplyEndDateDesc();
+        return lists.stream().map(AlbaDTO::new).collect(Collectors.toList());
     }
 }
