@@ -27,11 +27,10 @@ spring:
           # 카카오 설정
           kakao:
             client-id: 자신의 REST API 키
-            redirect-uri: http://localhost:8080/login/oauth2/code/naver   # naver의 경우 redirect-uri를 설정해줘야함. (google, facebook의 경우 디폴트로 설정되어 있음)
+            redirect-uri: http://localhost:5555/login/kakao   # naver의 경우 redirect-uri를 설정해줘야함. (google, facebook의 경우 디폴트로 설정되어 있음)
             client-authenticaion-method: POST
             authorization-grant-type: authorization_code                  # oauth2의 동작 방식은 여러가지가 있는데, 코드를 응답받는 방식으로 진행한다는 의미
             scope:
-              - profile_nickname
               - account_email
             client-name: Kakao
 

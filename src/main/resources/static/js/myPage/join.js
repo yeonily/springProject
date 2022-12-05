@@ -62,8 +62,10 @@ function join() {
     } else {
         console.log("false")
         $(".joinBtn").prop("disabled", false);
-    }
 
+        //joinForm.submit();
+
+    }
     // if(!joinForm.year.value) {
     //     joinForm.year.focus();
     //     $(".joinBtn").prop("disabled", true);
