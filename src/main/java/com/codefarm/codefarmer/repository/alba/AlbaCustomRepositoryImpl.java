@@ -18,7 +18,7 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
 
     @Override
     public List<Alba> findByLatest() {
-        return queryFactory.selectFrom(alba).orderBy(alba.albaId.desc()).offset(0).limit(6).fetch();
+        return queryFactory.selectFrom(alba).orderBy(alba.albaId.desc()).offset(0).limit(8).fetch();
     }
 
 

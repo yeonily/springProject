@@ -1,4 +1,4 @@
-package com.codefarm.codefarmer.service.login;
+package com.codefarm.codefarmer.service.join;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -13,7 +13,7 @@ import java.net.URL;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class KakaoService {
+public class JoinKakaoService {
 
     public String getKakaoAccessToken(String code){
         String access_Token="";
@@ -33,7 +33,7 @@ public class KakaoService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=b6c8cc415d06296f3dad49e498e431cc"); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri={http://localhost:5555/login/kakao}"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=http://localhost:5555/register/kakao"); // TODO 인가코드 받은 redirect_uri 입력
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
@@ -70,10 +70,10 @@ public class KakaoService {
         return access_Token;
     }
 
-    public void getKakaoInfo(String token) throws Exception {
+    public String getKakaoInfo(String token) throws Exception {
 
         String reqURL = "https://kapi.kakao.com/v2/user/me";
-
+        String email = "";
         //access_token을 이용하여 사용자 정보 조회
         try {
             URL url = new URL(reqURL);
@@ -103,7 +103,7 @@ public class KakaoService {
 
             int id = element.getAsJsonObject().get("id").getAsInt();
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
-            String email = "";
+
             if(hasEmail){
                 email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
             }
@@ -113,68 +113,11 @@ public class KakaoService {
 
             br.close();
 
+            return email;
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-
-    public void logoutKakao(String token){
-        String reqURL ="https://kapi.kakao.com/v1/user/logout";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-
-            conn.setRequestProperty("Authorization", "Bearer " + token);
-            int responseCode = conn.getResponseCode();
-            log.info("responseCode : " + responseCode);
-
-            if(responseCode ==400)
-                throw new RuntimeException("카카오 로그아웃 도중 오류 발생");
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String br_line = "";
-            String result = "";
-            while ((br_line = br.readLine()) != null) {
-                result += br_line;
-            }
-            log.info("결과");
-            log.info(result);
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void quitKakao(String token){
-        String reqURL ="https://kapi.kakao.com/v1/user/unlink";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-
-            conn.setRequestProperty("Authorization", "Bearer " + token);
-            int responseCode = conn.getResponseCode();
-            log.info("responseCode : " + responseCode);
-
-            if(responseCode ==400)
-                throw new RuntimeException("카카오 로그아웃 도중 오류 발생");
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String br_line = "";
-            String result = "";
-            while ((br_line = br.readLine()) != null) {
-                result += br_line;
-            }
-            log.info("결과");
-            log.info(result);
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
+        return email;
     }
 
 

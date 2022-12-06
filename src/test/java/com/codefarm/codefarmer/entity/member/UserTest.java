@@ -2,11 +2,15 @@ package com.codefarm.codefarmer.entity.member;
 
 import com.codefarm.codefarmer.domain.member.UserDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.entity.alba.QMemberAlba;
 import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.inquire.Inquire;
+import com.codefarm.codefarmer.entity.inquire.QInquire;
 import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.QMemberProgram;
+import com.codefarm.codefarmer.entity.program.QProgram;
 import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.type.FarmerType;
 import com.codefarm.codefarmer.type.UserType;
@@ -25,6 +29,7 @@ import java.util.Optional;
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
 import static com.codefarm.codefarmer.entity.alba.QMemberAlba.*;
 import static com.codefarm.codefarmer.entity.board.QBoard.board;
+import static com.codefarm.codefarmer.entity.inquire.QInquire.*;
 import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
 import static com.codefarm.codefarmer.entity.member.QUser.*;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.*;
@@ -127,4 +132,24 @@ public class UserTest {
                 .where(board.member.memberId.eq(15l))
                 .fetchJoin().fetch().stream().map(Board::getBoardTitle).forEach(log::info);
     }
+
+    //닉네임 중복검사
+    @Test
+    public void checkUserNickTest(){
+        Assertions.assertThat(userRepository.checkUserNick("러너")).isEqualTo(1);
+    }
+
+    //내가 쓴 문의글 select
+    @Test
+    public void findMyInquireTest(){
+        jpaQueryFactory.select(inquire)
+                .from(inquire).join(inquire.member)
+                .where(inquire.member.memberId.eq(1l))
+                .fetchJoin().fetch().stream().map(Inquire::getInquireQTitle).forEach(log::info);
+    }
+
+    @Test
+    public void findMyProgramApplyTest(){
+    }
+
 }
