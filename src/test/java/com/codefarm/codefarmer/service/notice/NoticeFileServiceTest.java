@@ -64,9 +64,9 @@ public class NoticeFileServiceTest {
     public void countTest(){
         List<Integer> countFiles = new ArrayList<>();
 
-        for (int i=0; i < noticeService.countByNotice(); i++) {
-            countFiles.add(noticeFileService.count(noticeService.showAll().get(i).getNoticeId()));
-        }
+//        for (int i=0; i < noticeService.countByNotice(); i++) {
+//            countFiles.add(noticeFileService.count(noticeService.showAll().get(i).getNoticeId()));
+//        }
         countFiles.stream().forEach(c -> log.info("개수 : " + c));
         log.info("공지 글 개수 : " + noticeService.countByNotice());
     }
