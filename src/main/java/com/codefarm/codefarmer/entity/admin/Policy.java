@@ -28,4 +28,11 @@ public class Policy extends Period{
         this.policyTitle = policy.getPolicyTitle();
         this.policyContent = policy.getPolicyContent();
     }
+
+    @Builder
+    public Policy(String policyKeyword, String policyTitle, String policyContent) {
+        this.policyKeyword = policyKeyword;
+        this.policyTitle = policyTitle;
+        this.policyContent = policyContent;
+    }
 }
