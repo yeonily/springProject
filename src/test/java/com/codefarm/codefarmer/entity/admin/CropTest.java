@@ -32,7 +32,6 @@ public class CropTest {
         crop.setCropTitle("제목임~~");
         crop.setCropContent("테스트임~~~");
         crop.setCropKeyword("category");
-        crop.setCropImage("image");
 
         cropRepository.save(crop);
     }

@@ -50,39 +50,36 @@
                 <div class="c-application c-new-col" style="margin-bottom: -415px">
                     <div class="c-application c-new-col footerMargin">
                         <div class="faq faq-board">
-                            <ul class="clearfix">
-                                <li class="faq-board-list">
+                            <ul class="clearfix" th:each="crop:${crops}">
+                                <li class="faq-board-list" th:object="${crop}">
                                     <p class="faq-board-list-cont faq-board-list-question lh">
-                                        <span class="text-primary">[직무부트캠프(현직자수업)]</span>
-                                        직무부트캠프 환불은 어떻게 신청하나요?
+                                        <span class="text-primary">[<th:block th:text="*{cropKeyword}"/>]</span>
+                                        <span class="p-title" th:text="*{cropTitle}"></span>
                                         <img class="rotate" src="/image/information/arrow.png" style="position: absolute; right: 40px;">
                                     </p>
                                     <div class="active1" style="display: none;">
-                                        <img src="/image/information/nobatfox.jpg" style="width: 100px">
-                                        <pre class="faq-board-list-answer"/>
+                                        <th:block th:if="*{cropImage != null}">
+                                            <img src="/image/information/nobatfox.jpg" style="width: 150px">
+                                        </th:block>
+                                        <pre class="faq-board-list-answer" th:utext="*{cropContent}"></pre>
                                     </div>
                                 </li>
                             </ul>
-
-<!--                            <div class="flex justify-center w-full paging">-->
-<!--                                <div class="VuePagination">-->
-<!--                                    <ul></ul>-->
-<!--                                </div>-->
-<!--                            </div>-->
                         </div>
 
+                        <!--페이징-->
                         <div id="paging" style="margin-bottom: 100px;">
-                            <ul>
-                                <li class="sidePageNum prev">
-                                    <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                            <ul th:with="start=${(crops.number/maxPage)*maxPage + 1}, end=(${(crops.totalPages == 0) ? 1 : (start + (maxPage - 1) < crops.totalPages ? start + (maxPage - 1) : crops.totalPages)})">
+                                <li class="sidePageNum prev" th:if="${crops.pageable.pageNumber > 0}">
+                                    <a th:href="@{/information/crops(page=${((crops.pageable.pageNumber/5)*5) - 1})}" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
                                 </li>
-                                <li><a href="" class="page selectPage">1</a></li>
-                                <li><a href="" class="page">2</a></li>
-                                <li><a href="" class="page">3</a></li>
-                                <li><a href="" class="page">4</a></li>
-                                <li><a href="" class="page">5</a></li>
-                                <li class="sidePageNum next">
-                                    <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                                <th:block  th:each="i: ${#numbers.sequence(start, end)}">
+                                    <li>
+                                        <a class="page" th:href="@{/information/crops(page=${i - 1})}" th:classappend="${i == crops.pageable.pageNumber + 1} ? 'selectPage' : '' " th:text="${i}">1</a>
+                                    </li>
+                                </th:block >
+                                <li class="sidePageNum next" th:if="${end < crops.totalPages}">
+                                    <a th:href="@{/information/crops(page=${end})}" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
                                 </li>
                             </ul>
                         </div>

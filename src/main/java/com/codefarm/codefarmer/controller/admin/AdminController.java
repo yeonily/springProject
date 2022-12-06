@@ -1,7 +1,5 @@
 package com.codefarm.codefarmer.controller.admin;
 
-import com.codefarm.codefarmer.domain.admin.Criteria;
-import com.codefarm.codefarmer.domain.admin.PageDTO;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.service.admin.InformationService;
@@ -9,6 +7,10 @@ import com.codefarm.codefarmer.service.notice.NoticeFileService;
 import com.codefarm.codefarmer.service.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,11 +67,11 @@ public class AdminController {
     public String adminCropInformation() {return "/admin/cropInformation";
     }
 
-    @GetMapping("/cropInformation-write")
+    @GetMapping("/crop/write")
     public String adminCropInformationWrite() {return "/admin/cropInformation-write";
     }
 
-    @GetMapping("/cropInformation-update")
+    @GetMapping("/crop/update")
     public String adminCropInformationUpdate() {return "/admin/cropInformation-update";
     }
 
@@ -101,14 +103,16 @@ public class AdminController {
 
     // 공지 목록
     @GetMapping("/notice")
-    public String adminNotice(Model model) {
+    public String adminNotice(Model model, @PageableDefault(size = 10, sort = "NoticeId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Notice> noticeLists = noticeService.showAll(pageable);
         List<Integer> countFiles = new ArrayList<>();
-        for (int i=0; i < noticeService.countByNotice(); i++) {
-            countFiles.add(noticeFileService.count(noticeService.showAll().get(i).getNoticeId()));
-        }
+//        for (int i=0; i < noticeService.countByNotice(); i++) {
+//            countFiles.add(noticeFileService.count(noticeService.showAll(pageable).get(i).getNoticeId()));
+//        }
 
         model.addAttribute("countFiles", countFiles);
-        model.addAttribute("noticeLists", noticeService.showAll());
+        model.addAttribute("noticeLists", noticeLists);
+        model.addAttribute("maxPage", 10);
         model.addAttribute("noticeCount", noticeService.countByNotice());
         return "/admin/notice";
     }
@@ -145,16 +149,12 @@ public class AdminController {
 
     // 청년정책 관리
     @GetMapping("/policy")
-    public String policy(Criteria criteria, Model model) {
-        PageDTO pageDTO = new PageDTO();
-        if(criteria.getPage() == 0){
-            criteria.createCriteria();
-        }
-        pageDTO.createPageDTO(criteria, informationService.countByPolicy(criteria));
+    public String policy(Model model, @PageableDefault(size = 10, sort = "policyId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Policy> policies = informationService.policyShowAll(pageable);
 
-        model.addAttribute("policyLists", informationService.policyShowAll(criteria));
-        model.addAttribute("policyCounts", informationService.countByPolicy(criteria));
-        model.addAttribute("pagination", pageDTO);
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("policies", policies);
+        model.addAttribute("policyCounts", informationService.countByPolicy());
         return "/admin/policy";
     }
 

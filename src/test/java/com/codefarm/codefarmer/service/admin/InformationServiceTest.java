@@ -1,6 +1,5 @@
 package com.codefarm.codefarmer.service.admin;
 
-import com.codefarm.codefarmer.domain.admin.Criteria;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.repository.admin.CropRepository;
@@ -9,10 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -59,9 +57,8 @@ public class InformationServiceTest {
 
 //    정책 목록 불러오기
     @Test
-    public void policySelectAllTest(){
-        Criteria criteria = new Criteria();
-        informationService.policyShowAll(criteria).stream().forEach(p -> log.info("" + p));
+    public void policySelectAllTest(Pageable pageable){
+        informationService.policyShowAll(pageable).stream().forEach(p -> log.info("" + p));
     }
 
 //    농업정보 추가
@@ -96,8 +93,8 @@ public class InformationServiceTest {
 
 //    농업정보 목록
     @Test
-    public void cropSelectAllTest(){
-        informationService.cropShowAll().stream().forEach(c -> log.info("" + c));
+    public void cropSelectAllTest(Pageable pageable){
+        informationService.cropShowAll(pageable).stream().forEach(c -> log.info("" + c));
     }
 
 //    농업정보 디테일

@@ -1,13 +1,13 @@
 package com.codefarm.codefarmer.service.admin;
 
-import com.codefarm.codefarmer.domain.admin.Criteria;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.repository.admin.CropRepository;
 import com.codefarm.codefarmer.repository.admin.PolicyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +39,10 @@ public class InformationService {
     }
 
 //    정책 목록
-    public List<Policy> policyShowAll(Criteria criteria){
-        return policyRepository.OrderByPolicyId(criteria);
+    @Transactional(readOnly = true)
+    public Page<Policy> policyShowAll(Pageable pageable){
+        return policyRepository.findAll(pageable);
+//        return policyRepository.findAllByPolicyId(pageable);
     }
 
 //    정책 디테일
@@ -49,7 +51,7 @@ public class InformationService {
     }
 
 //    정책 글 개수
-    public int countByPolicy(Criteria criteria) { return policyRepository.countByPolicy(criteria); }
+    public int countByPolicy() { return policyRepository.countByPolicy(); }
 
 //    농업정보 추가
     public void cropAdd(Crop crop){
@@ -69,8 +71,10 @@ public class InformationService {
     }
 
 //    농업정보 목록
-    public List<Crop> cropShowAll(){
-        return cropRepository.OrderByCropId();
+    @Transactional(readOnly = true)
+    public Page<Crop> cropShowAll(Pageable pageable){
+        return cropRepository.findAll(pageable);
+//        return cropRepository.OrderByCropId(pageable);
     }
 
 //    농업정보 디테일

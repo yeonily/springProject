@@ -74,7 +74,7 @@
 
             <table>
                 <tr class="title">
-                    <th class="num">글번호</th>
+                    <th class="num">작물 번호</th>
                     <th class="title">제목</th>
                     <th class="content">내용</th>
                     <th class="id">작성자</th>
@@ -84,39 +84,29 @@
                     <th class="delete"></th>
                 </tr>
                 <!-- ↓ 데이터 출력 -->
-                <tr>
-                    <td>1</td>
-                    <td class="title" onclick="location.href='#'">첫 번째 농업정보</td>
-                    <td class="content">첫 번째 농업정보입니다.</td>
-                    <td>관리자</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-11-14 10:00</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/cropInformation-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="title" onclick="location.href='#'">두 번째 농업정보</td>
-                    <td class="content">두 번째 농업정보입니다.</td>
-                    <td>관리자</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-11-14 11:00</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/cropInformation-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="title" onclick="location.href='#'">세 번째 농업정보</td>
-                    <td class="content">세 번째 농업정보입니다.</td>
-                    <td>관리자</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-11-14 12:00</td>
-                    <td class="revise"><input type="button" value="수정" onclick="location.href='/admin/cropInformation-update'"></td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
+                <th:block th:each="crop:${cropLists}">
+                    <tr th:object="${crop}">
+                        <td th:text="*{cropId}"></td>
+                        <td class="title">
+                            [<span th:text="*{cropKeyword}"></span>]
+                            <span th:text="*{cropTitle}"></span>
+                        </td>
+                        <td class="content" th:utext="*{cropContent}"></td>
+                        <td>관리자</td>
+                        <td><img src="/image/admin/fileImage.png"></td>
+                        <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                        <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/crop/updateupdate(policyId=*{cropId})} + '\''"></td>
+                        <td class="delete">
+                            <form method="post" class="deleteForm" th:action="@{/admin/crop/delete}">
+                                <input type="text" hidden name="policyId" th:value="*{cropId}">
+                                <input type="button" value="삭제" class="deleteBtn">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
             </table>
             <div id="write" style="float: right;">
-                <input type="button" onclick="location.href='/admin/cropInformation-write'" value="작성">
+                <input type="button" th:onclick="'location.href=\''+ @{/admin/crop/write} + '\''" value="작성">
             </div>
 
             <!-- 페이징 -->
