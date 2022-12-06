@@ -21,13 +21,11 @@ td.revise, td.delete { padding: 0 0.3vw; }
 
 td.revise input[type="button"]:hover { background: #e1e2e4;}
 td.delete input[type="button"] { background: red; color: white;}
-td.askStatusWait{color:red;}
-td.askStatusOk{color: green;}
+td.askStatus{color:red;}
 td.statusOk{color: green;}
 td.statusNo{color: red;}
 td.payStatusCancel {color: red;}
 td.payStatusOk {color: green;}
-td.
 
 div#write {
     position: absolute;

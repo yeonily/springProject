@@ -23,12 +23,6 @@ public class Policy extends Period{
     @NotNull
     private String policyContent;
 
-    public void update(Policy policy){
-        this.policyKeyword = policy.getPolicyKeyword();
-        this.policyTitle = policy.getPolicyTitle();
-        this.policyContent = policy.getPolicyContent();
-    }
-
     @Builder
     public Policy(String policyKeyword, String policyTitle, String policyContent) {
         this.policyKeyword = policyKeyword;

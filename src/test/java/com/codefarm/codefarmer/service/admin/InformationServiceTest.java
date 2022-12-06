@@ -40,9 +40,10 @@ public class InformationServiceTest {
 //    정책 수정
     @Test
     public void policyUpdateTest(){
-        Policy policy = policyRepository.findById(77L).get();
-
-        policy.setPolicyKeyword("키워드2");
+        Policy policy = policyRepository.findById(184L).get();
+        log.info("정책 --> " + policy);
+        policy.setPolicyKeyword("키워드 임다");
+        log.info("정책 수정 --> " + policy);
 //        policy.setPolicyTitle("정책 수정");
 //        policy.setPolicyContent("서비스 수정22");
 

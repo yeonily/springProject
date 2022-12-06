@@ -21,9 +21,9 @@ public class InformationControllerTest {
 
     @Test
     public void policyUpdateTest(){
-        Policy policy = informationService.policyShowOne(69L);
+        Policy policy = informationService.policyShowOne(184L);
 
-        policy.setPolicyKeyword("키워드22");
-        adminController.policyUpdate(policy);
+        policy.setPolicyKeyword("ee");
+        log.info("result : " + adminController.policyUpdate(policy));
     }
 }

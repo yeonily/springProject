@@ -34,10 +34,11 @@ public class Inquire extends Period {
     }
 
     @Builder
-    public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus) {
+    public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
         this.inquireQTitle = inquireQTitle;
         this.inquireQContent = inquireQContent;
-        this.inquireStatus = inquireStatus;
+        this.inquireStatus = Status.WAITING;
+        this.member = member;
     }
 
     public void update(InquireDTO inquireDTO){
@@ -45,10 +46,10 @@ public class Inquire extends Period {
     }
 
     @QueryProjection
-    public Inquire(String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
+    public Inquire(Long inquireId, String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
+        this.inquireId = inquireId;
         this.inquireQTitle = inquireQTitle;
         this.inquireQContent = inquireQContent;
-        this.inquireStatus = inquireStatus;
         this.member = member;
     }
 }

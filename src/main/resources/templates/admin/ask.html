@@ -83,30 +83,17 @@
                     <th class="askStatus">상태</th>
                 </tr>
                 <!-- ↓ 데이터 출력 -->
-                <tr>
-                    <td>1</td>
-                    <td class="title" onclick="location.href='/admin/ask-detail'">첫 번째 문의하기</td>
-                    <td class="content">첫 번째 문의하기입니다.</td>
-                    <td>herd</td>
-                    <td>2022-11-14 10:00</td>
-                    <td class="askStatusOk">답변 완료</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="title" onclick="location.href='/admin/ask-detail'">두 번째 문의하기</td>
-                    <td class="content">두 번째 문의하기입니다.</td>
-                    <td>xogwan</td>
-                    <td>2022-11-14 11:00</td>
-                    <td class="askStatusWait">답변 대기</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="title" onclick="location.href='/admin/ask-detail'">세 번째 문의하기</td>
-                    <td class="content">세 번째 문의하기입니다.</td>
-                    <td>xorhks</td>
-                    <td>2022-11-14 12:00</td>
-                    <td class="askStatusOk">답변 완료</td>
-                </tr>
+                <th:block th:each="inquire:${inquires}">
+                    <tr th:object="${inquire}">
+                        <td th:text="*{inquireId}"></td>
+                        <td class="title" th:text="*{inquireQTitle}" th:onclick="'location.href=\''+ @{/admin/help/answer(inquireId=*{inquireId})} + '\''"></td>
+                        <td class="content" th:text="*{inquireQContent}"></td>
+                        <td>herd</td>
+                        <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                        <td class="askStatus" th:text="*{inquireStatus}"></td>
+<!--                        <td class="askStatusOk" th:text="*{inquireStatus}"></td>-->
+                    </tr>
+                </th:block>
             </table>
 
             <!-- 페이징 -->
@@ -132,5 +119,15 @@
     </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function(){
+        $(".askStatus").each(function(i, item) {
+            if($(this).html() == "CONFIRM"){
+                $(this).css("color", "green");
+            }
+        })
+    });
+</script>
 </body>
 <html>

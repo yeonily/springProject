@@ -24,6 +24,7 @@ public class InformationController {
 
     @GetMapping("/policy")
     public void policy(Model model, @PageableDefault(size = 10, sort = "PolicyId", direction = Sort.Direction.DESC) Pageable pageable){
+//        Page<Policy> policies = informationService.policyShowAll(pageable);
         Page<Policy> policies = informationService.policyShowAll(pageable);
 
         model.addAttribute("maxPage", 5);

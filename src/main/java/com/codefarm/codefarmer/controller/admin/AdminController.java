@@ -1,8 +1,10 @@
 package com.codefarm.codefarmer.controller.admin;
 
+import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.service.admin.InformationService;
+import com.codefarm.codefarmer.service.admin.InquireService;
 import com.codefarm.codefarmer.service.notice.NoticeFileService;
 import com.codefarm.codefarmer.service.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,13 +36,20 @@ public class AdminController {
     private final NoticeFileService noticeFileService;
 //    작물, 정책
     private final InformationService informationService;
+//    작물, 정책
+    private final InquireService inquireService;
 
     // 문의 관리
-    @GetMapping("/ask")
-    public String adminAsk() {return "/admin/ask";}
+    @GetMapping("/help")
+    public String adminAsk(Model model) {
+        model.addAttribute("inquires", inquireService.inquireShowAll());
+        return "/admin/ask";
+    }
 
-    @GetMapping("/ask-detail")
-    public String adminAskDetail() {return "/admin/ask-detail";}
+    @GetMapping("/help/answer")
+    public String adminAskDetail() {
+        return "/admin/ask-detail";
+    }
 
     // 배너 관리
     @GetMapping("/banner")
@@ -64,7 +74,13 @@ public class AdminController {
 
     // 농업정보 관리
     @GetMapping("/crop")
-    public String adminCropInformation() {return "/admin/cropInformation";
+    public String crop(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "cropId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Crop> crops = informationService.cropSearchShowAll(pageable, keyword, searchText, searchText);
+
+        model.addAttribute("crops", crops);
+        model.addAttribute("maxPage", 10); // 페이징
+        model.addAttribute("cropCounts", informationService.countByCrop()); // 정책 글 개수
+        return "/admin/cropInformation";
     }
 
     @GetMapping("/crop/write")
@@ -118,7 +134,7 @@ public class AdminController {
     }
 
 //    공지 작성
-    @GetMapping("/notice-write")
+    @GetMapping("/notice/register")
     public String adminNoticeWrite(Model model) {
         model.addAttribute("notice", new Notice());
         return "/admin/notice-write";
@@ -149,12 +165,12 @@ public class AdminController {
 
     // 청년정책 관리
     @GetMapping("/policy")
-    public String policy(Model model, @PageableDefault(size = 10, sort = "policyId", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Policy> policies = informationService.policyShowAll(pageable);
+    public String policy(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "policyId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Policy> policies = informationService.policySearchShowAll(pageable, keyword, searchText, searchText);
 
-        model.addAttribute("maxPage", 10);
         model.addAttribute("policies", policies);
-        model.addAttribute("policyCounts", informationService.countByPolicy());
+        model.addAttribute("maxPage", 10); // 페이징
+        model.addAttribute("policyCounts", informationService.countByPolicy()); // 정책 글 개수
         return "/admin/policy";
     }
 
@@ -178,9 +194,12 @@ public class AdminController {
         model.addAttribute("policy", informationService.policyShowOne(policyId));
         return "/admin/policy-update";
     }
+
     @PostMapping("/policy/update")
-    public RedirectView policyUpdate(Policy policy/*, RedirectAttributes redirectAttributes*/) {
+    public RedirectView policyUpdate(Policy policy) {
+        log.info("정책 --> " + policy);
         informationService.policyUpdate(policy);
+        log.info("정책 수정 --> " + policy);
 //        redirectAttributes.addFlashAttribute("policyId", policy.getPolicyId());
 
         return new RedirectView("/admin/policy");

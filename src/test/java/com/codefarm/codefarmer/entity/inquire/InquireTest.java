@@ -40,12 +40,12 @@ public class InquireTest {
         InquireDTO inquireDTO = new InquireDTO();
 
         Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        inquireDTO.setMemberId(findFarmer.get());
+        inquireDTO.setMember(findFarmer.get());
         inquireDTO.setInquireQTitle("문의 제목");
         inquireDTO.setInquireQContent("문의 TEST  내용22");
 
         Inquire inquire  = inquireDTO.toEntity();
-        inquire.changeMember(inquireDTO.getMemberId());
+        inquire.changeMember(inquireDTO.getMember());
         inquireRepository.save(inquire);
     }
 
