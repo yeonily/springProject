@@ -3,19 +3,27 @@ package com.codefarm.codefarmer.entity.board;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.codefarm.codefarmer.repository.member.UserRepository;
+import com.codefarm.codefarmer.type.FarmerType;
+import com.codefarm.codefarmer.type.UserType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Pageable;
 import java.util.Optional;
 
 
@@ -44,13 +52,13 @@ public class BoardTest {
     @Test
     public void boardSaveTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        boardDTO.setBoardTitle("과연 값이 들어갈까");
-        boardDTO.setBoardContent("값 들어옴! 대박");
+        Optional<Farmer> findFarmer = farmerRepository.findById(14L);
+        boardDTO.setBoardTitle("페이징처리 너란 녀석");
+        boardDTO.setBoardContent("호호호호");
         boardDTO.setMember(findFarmer.get());
 
         Board board = boardDTO.toEntity();
-        boardDTO.getMember();
+//        board.changeMember();
         boardRepository.save(board);
     }
 
@@ -75,7 +83,7 @@ public class BoardTest {
 //   Detail 게시글 작성한 사람 닉네임 갖고오기
     @Test
     public void findGetBoardUser(){
-        Optional<Board> findBoardUser = boardRepository.findById(38L);
+        Optional<Board> findBoardUser = boardRepository.findById(40L);
             log.info("board : " + findBoardUser.get().getBoardId());
             log.info("nickName : " + findBoardUser.get().getMember().getMemberNickname());
 //            log.info("nickName : " + findBoardUser.get().getBoardFiles());
@@ -92,6 +100,7 @@ public class BoardTest {
         log.info("닉네임 : " + findFarmer.get().getMemberNickname());
         log.info("닉네임 : " + findUser.get().getMemberNickname());
     }
+
 
 
 
@@ -142,12 +151,48 @@ public class BoardTest {
 //                .stream().map(Board -> Board.toString()).forEach(log::info);
 //    }
 
+//  보드 목록 페이징
+//    @Test
+////    public void findAllByBoardTitleAndBoardContentAndBoardViewCountAndCreatedDateAndMember_MemberNicknameTest(){
+////        boardRepository.findAll(PageRequest.of(0,5, Sort.by(Sort.Direction.DESC, "boardId")))
+////        .getContent().stream().map(Board::toString).forEach(log::info);
+////    }
+
+//    @Test
+//    public void paging() throws Exception{
+//        PageRequest pageRequest = PageRequest.of(0,5, Sort.by(Sort.Direction.DESC,"boardId"));
+//
+//        Page<Board> page = boardRepository.findPageBy((Pageable) pageRequest);
+//        Slice<Board> slice = boardRepository.findSliceBy((Pageable) pageRequest);
+//    }
+
+//  멤버 타입에 따라서 farmer면 농장주, user면 일반회원 이라는 문구 갖고와보기
+//    @Test
+//    public void getMemberType(){
+//        Optional<Farmer> findFarmerType = farmerRepository.findById(14L);
+//        Optional<User> findUserType = userRepository.findById(16L);
+//
+//        if(findFarmerType.get().getFarmerType() == FarmerType.MENTOR) {
+//            log.info("농장주");
+//        }else if (findFarmerType.get().getFarmerType() == FarmerType.FARMER){
+//            log.info("농장주");
+//        }else if(findUserType.get().getUserType() == UserType.USER){
+//            log.info("일반회원");
+//        }else if (findUserType.get().getUserType() == UserType.MENTEE){
+//            log.info("일반회원");
+//        }else if(findUserType.get().getUserType() == UserType.ADMIN){
+//            log.info("관리자");
+//        }else{
+//            log.info("회원가입 후 이용하시길 바랍니다.");
+//        }
+//    }
+
 
 
 
 //    게시판 지우기
     @Test
     public void boardDeleteTest(){
-        boardRepository.deleteById(3L);
+        boardRepository.deleteAll();
     }
 }

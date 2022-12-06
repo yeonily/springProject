@@ -4,6 +4,7 @@ package com.codefarm.codefarmer.service.board;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.codefarm.codefarmer.service.board.BoardService;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,14 +33,17 @@ public class BoardServiceTest {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private BoardCustomRepository boardCustomRepository;
+
 //    게시판 제목, 내용 작성
     @Test
     public void addTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(14L);
+        Optional<Farmer> findFarmer = farmerRepository.findById(37L);
         log.info(findFarmer.get().toString());
-        boardDTO.setBoardTitle("날씨가 추워졌구로");
-        boardDTO.setBoardContent("아~~따 춥구마이 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만 이번엔 내용 길게쓰면 어떤식으로 나오는지 체크를 해봐야겠구만");
+        boardDTO.setBoardTitle("who am I");
+        boardDTO.setBoardContent("jang bal jang");
         boardDTO.setMember(findFarmer.get());
         boardService.boardAdd(boardDTO);
     }
@@ -107,13 +112,22 @@ public class BoardServiceTest {
 //       log.info("닉넴 : " +  boardService.showUserNickName(2L));
 //    }
 
-
+//공지 목록
+    @Test
+    public void selectAllTest(Long boardId, Pageable pageable){
+        boardService.showAll(boardId, pageable).stream().forEach(b -> log.info("" + b));
+    }
 
 
 //    보드 지우기
     @Test
     public void removeBoardTest(){
-        boardService.removeBoard(25L);
+        boardService.removeBoard(73L);
+    }
+
+    @Test
+    public void findAll2Test(){
+        boardCustomRepository.findAllQDSL().stream().map(Board::toString).forEach(log::info);
     }
 
 }
