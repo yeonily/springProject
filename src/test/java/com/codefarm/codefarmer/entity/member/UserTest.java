@@ -148,8 +148,6 @@ public class UserTest {
                 .fetchJoin().fetch().stream().map(Inquire::getInquireQTitle).forEach(log::info);
     }
 
-    @Test
-    public void findMyProgramApplyTest(){
-    }
+
 
 }
