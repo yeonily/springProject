@@ -15,7 +15,10 @@ import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +133,11 @@ public class BoardService {
                  )).from(board)
                  .orderBy(board.createdDate.desc())
                  .fetch();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BoardDTO> showAll(Long boardId, Pageable pageable){
+        return boardRepository.findAllByBoardId(boardId ,pageable);
     }
 
     public String getNickNameNologin(){
