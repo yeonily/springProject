@@ -284,54 +284,14 @@
                 <!--슬라이드 배너-->
                 <div class="swiper mySwiper4">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <div class="swiper-slide" th:each="program:${programs}">
                             <div class="imgDiv" style="background-image: url('https://www.gyeongju.go.kr/upload//board/board_1334/bod_205588//3B50701C9E75472EA3A6563371CA15C7.jpg');">
                                 <div><p>멘티전용</p></div>
                             </div>
                             <div class="textDiv">
-                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
-                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
-                                <p class="dateInfo">11월 28일 시작</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://blog.kakaocdn.net/dn/cJt2qn/btq0DrQzC7B/puKsuoBx7d0yeI1hFrADG0/img.jpg');">
-                                <div><p>멘티전용</p></div>
-                            </div>
-                            <div class="textDiv">
-                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
-                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
-                                <p class="dateInfo">11월 28일 시작</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://www.syngenta.co.kr/sites/g/files/zhg371/f/media-wysiwyg/2021/11/08/sinjenta_ceongnyeonnongeobin_neteuweokeu_baeneo_imiji.jpg');">
-                                <div><p>멘티전용</p></div>
-                            </div>
-                            <div class="textDiv">
-                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
-                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
-                                <p class="dateInfo">11월 28일 시작</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('http://www.palnews.co.kr/news/photo/201803/97075_27759_1823.jpg');">
-                                <div><p>멘티전용</p></div>
-                            </div>
-                            <div class="textDiv">
-                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
-                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
-                                <p class="dateInfo">11월 28일 시작</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://mblogthumb-phinf.pstatic.net/MjAxOTA5MDJfMjEx/MDAxNTY3Mzg2Nzg1MDgy.e2D4Q32L974bRVxWyXCdzH0izb5Waex7-D3KKoLC22og.orecX1NOMhSPNhTLKC8JxBIptDC_M6Tyqydndj_cgBEg.PNG.2000happy_/%EC%9D%B4%EC%B2%9C%EB%86%8D%EC%B4%8C%EC%B2%B4%ED%97%98.png?type=w800');">
-                                <div><p>멘티전용</p></div>
-                            </div>
-                            <div class="textDiv">
-                                <p>경기도 ・ <span style="color: rgb(238, 126, 65)">무료</span></p>
-                                <h3>경주에서 함께하는 빵만들기 체험!</h3>
-                                <p class="dateInfo">11월 28일 시작</p>
+                                <p><span th:text="${program.programLocation}"/> ・ <span style="color: rgb(238, 126, 65)" th:text="${program.programPrice}"></span></p>
+                                <h3 th:text="${program.programTitle}"></h3>
+                                <p class="dateInfo"> 접수 시작</p>
                             </div>
                         </div>
                     </div>

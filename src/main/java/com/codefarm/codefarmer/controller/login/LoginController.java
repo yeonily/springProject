@@ -46,7 +46,7 @@ public class LoginController {
 
     @ResponseBody
     @GetMapping("/login/kakao")
-    public RedirectView kakaoLogin(@RequestParam String code, HttpSession session) throws Exception {
+    public RedirectView kakaoLogin(@RequestParam(value="code") String code, HttpSession session) throws Exception {
         log.info("코드"+code);
         String token = kakaoService.getKakaoAccessToken(code);
         session.setAttribute("token", token);
