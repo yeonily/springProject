@@ -16,7 +16,7 @@
     <div id="community-wrap">
         <div id="c-wrap">
             <section class="c-contents c-padding">
-                <aside>
+                <aside id="boardListWrap">
                     <!---->
                     <th:block th:each="list:${lists}">
                     <a th:href="@{/community/detail(boardId=${list.boardId})}" class="link" th:object="${list}">
@@ -28,7 +28,7 @@
                             <div class="commu-wrap">
                                 <div class="contents-wrap">
                                     <div class="nickname-wrap">
-                                        <div class="c-nickname" th:text="*{memberNickName}"></div>
+<!--                                        <div class="c-nickname" th:text="*{memberNickName}"></div>-->
                                     </div>
                                     <div class="text-option2 c-title" th:text="*{boardTitle}"></div>
                                     <div class="text-option2 c-content" th:text="*{boardContent}"></div>
@@ -43,10 +43,10 @@
                                         <div class="count-wrap" >
                                             <svg data-v-bd9f2bcc="" data-v-7d0ae9c8="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="mr-4 c-application c-icon" style="fill: rgb(148, 155, 160);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M3.69638 13.5299C4.05199 13.1404 4.04399 12.5417 3.67811 12.1619C2.63802 11.0821 2 9.6166 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8C14 11.3137 11.3137 14 8 14H3.26717L3.69638 13.5299ZM1 8C1 9.88557 1.74553 11.597 2.95789 12.8556L1.76434 14.1629C1.47131 14.4838 1.699 15 2.13358 15H8C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8Z"></path><path data-v-bd9f2bcc="" d="M6 8C6 8.41421 5.66421 8.75 5.25 8.75C4.83579 8.75 4.5 8.41421 4.5 8C4.5 7.58579 4.83579 7.25 5.25 7.25C5.66421 7.25 6 7.58579 6 8Z"></path><path data-v-bd9f2bcc="" d="M8.75 8C8.75 8.41421 8.41421 8.75 8 8.75C7.58579 8.75 7.25 8.41421 7.25 8C7.25 7.58579 7.58579 7.25 8 7.25C8.41421 7.25 8.75 7.58579 8.75 8Z"></path><path data-v-bd9f2bcc="" d="M11.5 8C11.5 8.41421 11.1642 8.75 10.75 8.75C10.3358 8.75 10 8.41421 10 8C10 7.58579 10.3358 7.25 10.75 7.25C11.1642 7.25 11.5 7.58579 11.5 8Z"></path></svg>
                                             <!-- 댓글 -->
-                                                <div class="count-txt" th:text="${listsReplyTotal}"></div>
+                                                <div class="count-txt"></div>
                                         </div>
                                     </div>
-                                    <div class="date-wrap">6분 전</div>
+                                    <div class="date-wrap" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></div>
                                 </div>
                             </div>
                         </article>
@@ -54,6 +54,10 @@
                     <!---->
                     </th:block>
                 </aside>
+                <div class="menu-a more-btn">
+                    더보기
+                    <svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130); transform: rotate(180deg);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>
+                </div>
             </section>
             <section class="c-side-profile c-padding">
                 <aside>
@@ -123,6 +127,146 @@
 
         // $(this).next().css("max-height", 0);
     });
+
+    globalThis.check= false;
+   globalThis.page = 1;
+   boardList()
+    function boardList() {
+        $.ajax({
+            url:"/board/list?page="+(globalThis.page-1),
+            type:"get",
+            success:show
+
+        })
+    }
+
+    function  show(result) {
+        let text="";
+        var count = result.totalElement;
+        var end = result.totalPages;
+
+        if(result.last){
+            globalThis.check= true;
+            $("div.more-btn").remove();
+        }
+        $(result.content).each((i,board) => {
+            text += `<a class="link" href="/community/detail?boardId=`+ board.boardId +`">`
+            text += `<article class="list">`
+            text += `<div class="last-reply"> 너와 농부싶어! 커뮤니티를 통해 서로 다앙한 이야기를 해보아요!</div>`
+            text += `<hr class="list-line">`
+            text += `<div class="commu-wrap">`
+            text += `<div class="contents-wrap">`
+            text += `<div class="nickname-wrap">`
+            text += `<div class="c-nickname">`+ board.memberNickName +`</div>`
+            text += `<div class="text-option2 c-title">`+ board.boardTitle +`</div>`
+            text += `<div class="text-option2 c-content">`+ board.boardContent +`</div> `
+            text += `</div>`
+            text += `<div class="total-wrap">`
+            text += `<div class="t-c-wrap">`
+            text += `<div class="count-wrap">`
+            text += `<svg data-v-bd9f2bcc="" data-v-7d0ae9c8="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="mr-4 c-application c-icon" style="fill: rgb(148, 155, 160);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M13.8766 8C11.3452 12.6334 4.65478 12.6334 2.12331 8C4.65478 3.36658 11.3452 3.36658 13.8766 8ZM14.8923 7.78461C12.0525 2.10504 3.94746 2.10504 1.10767 7.78461C1.03988 7.9202 1.03988 8.07979 1.10767 8.21538C3.94746 13.895 12.0525 13.895 14.8923 8.21538C14.9601 8.07979 14.9601 7.9202 14.8923 7.78461Z"></path><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M8 9.5C8.82843 9.5 9.5 8.82843 9.5 8C9.5 7.17157 8.82843 6.5 8 6.5C7.17157 6.5 6.5 7.17157 6.5 8C6.5 8.82843 7.17157 9.5 8 9.5ZM8 10.5C9.38071 10.5 10.5 9.38071 10.5 8C10.5 6.61929 9.38071 5.5 8 5.5C6.61929 5.5 5.5 6.61929 5.5 8C5.5 9.38071 6.61929 10.5 8 10.5Z"></path></svg>`
+            text += `<div class="count-txt">`+ board.boardViewCount +`</div>`
+            text += `</div>`
+            text += `<div class="count-wrap">`
+            text += `<svg data-v-bd9f2bcc="" data-v-7d0ae9c8="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="mr-4 c-application c-icon" style="fill: rgb(148, 155, 160);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M3.69638 13.5299C4.05199 13.1404 4.04399 12.5417 3.67811 12.1619C2.63802 11.0821 2 9.6166 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8C14 11.3137 11.3137 14 8 14H3.26717L3.69638 13.5299ZM1 8C1 9.88557 1.74553 11.597 2.95789 12.8556L1.76434 14.1629C1.47131 14.4838 1.699 15 2.13358 15H8C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8Z"></path><path data-v-bd9f2bcc="" d="M6 8C6 8.41421 5.66421 8.75 5.25 8.75C4.83579 8.75 4.5 8.41421 4.5 8C4.5 7.58579 4.83579 7.25 5.25 7.25C5.66421 7.25 6 7.58579 6 8Z"></path><path data-v-bd9f2bcc="" d="M8.75 8C8.75 8.41421 8.41421 8.75 8 8.75C7.58579 8.75 7.25 8.41421 7.25 8C7.25 7.58579 7.58579 7.25 8 7.25C8.41421 7.25 8.75 7.58579 8.75 8Z"></path><path data-v-bd9f2bcc="" d="M11.5 8C11.5 8.41421 11.1642 8.75 10.75 8.75C10.3358 8.75 10 8.41421 10 8C10 7.58579 10.3358 7.25 10.75 7.25C11.1642 7.25 11.5 7.58579 11.5 8Z"></path></svg>`
+            // text += `</div>`
+            text += `<div class="count-txt"></div>`
+            text += `</div>`
+            text += `</div>`
+            text += `<div class="date-wrap">` + (board.createdDate == board.updatedDate) ?  boardService.timeForToday(board.createdDate) :  boardService.timeForToday(board.updatedDate) + `</div>`
+            text += `</div>`
+            text += `</div>`
+            text += `</article>`
+            text += `</a>`
+        })
+
+        $("#boardListWrap").append(text);
+
+    }
+
+    $("div.more-btn").on("click", function(e){
+        e.preventDefault();
+        if(!globalThis.check){
+            globalThis.page = globalThis.page+1;
+            boardList();
+        }
+    });
+
+
+
+
+
+    function getReplyDate(createdDate){
+        let today = new Date();
+        let registerDate = new Date(createdDate);
+        let gap = today.getTime() - registerDate.getTime();
+
+        if(gap < 1000 * 60 * 60 * 24){
+            let h = registerDate.getHours();
+            let mm = registerDate.getMinutes();
+            let s = registerDate.getSeconds();
+
+            h = (h < 10 ? '0' : '') + h;
+            mm = (mm < 10 ? '0' : '') + mm;
+            s = (s < 10 ? '0' : '') + s;
+
+            return [h, mm, s].join(":");
+        }else{
+            let y = registerDate.getFullYear();
+            let m = registerDate.getMonth() + 1;
+            let d = registerDate.getDate();
+
+            m = (m < 10 ? '0' : '') + m;
+            d = (d < 10 ? '0' : '') + d;
+
+            return [y, m, d].join("-");
+        }
+
+    }
+
+    let boardService = (function () {
+        function timeForToday(value) {
+            const today = new Date();
+            const timeValue = new Date(value);
+
+            const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+            if (betweenTime < 1) return '방금전';
+            if (betweenTime < 60) {
+                return `${betweenTime}분전`;
+            }
+
+            const betweenTimeHour = Math.floor(betweenTime / 60);
+            if (betweenTimeHour < 24) {
+                return `${betweenTimeHour}시간전`;
+            }
+
+            const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+            if (betweenTimeDay < 365) {
+                return `${betweenTimeDay}일전`;
+            }
+
+            return `${Math.floor(betweenTimeDay / 365)}년전`;
+        }
+        return {timeForToday:timeForToday}
+    })();
+
+
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

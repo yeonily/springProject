@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+.more-btn{
+    text-align: center;
+    margin-top: 80px;
+    cursor: pointer;
+}
+.more-btn:hover{
+   color: #0dd27f;
+}
+
 body, button {
     margin: 0;
     vertical-align: baseline;
@@ -346,5 +355,6 @@ div#write-wrap {
         border-radius: 10px;
         margin-bottom: 20px;
     }
+
 
 }
