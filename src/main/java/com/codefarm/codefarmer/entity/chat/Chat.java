@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity.chat;
 
+import com.codefarm.codefarmer.domain.chat.ChatDTO;
 import com.codefarm.codefarmer.entity.period.ChatPeriod;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.type.ChatStatus;
@@ -37,9 +38,20 @@ public class Chat extends ChatPeriod {
 //    private MessageType type;
 
     @Builder
-    public Chat(String chatMessage, ChatStatus chatStatus) {
+    public Chat(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, Member member) {
+        this.chatId = chatId;
         this.chatMessage = chatMessage;
         this.chatStatus = chatStatus;
+        this.member = member;
+        this.chatRoom = chatRoom;
+    }
+
+    public void update(ChatDTO chatDTO) {
+        this.chatId = chatDTO.getChatId();
+        this.chatRoom = chatDTO.getChatRoom();
+        this.chatMessage = chatDTO.getChatMessage();
+        this.member = chatDTO.getMember();
+        this.chatStatus = chatDTO.getChatStatus();
     }
 
     public void changeMember(Member member){

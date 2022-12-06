@@ -1,10 +1,6 @@
 package com.codefarm.codefarmer.service.chat;
 
-import com.codefarm.codefarmer.entity.chat.Chat;
-import com.codefarm.codefarmer.entity.member.Farmer;
 import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.entity.mentor.Mentor;
-import com.codefarm.codefarmer.type.ChatStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -65,13 +61,31 @@ public class ChatRoomTest {
         chatRoomService.createChatRoom(1L, 16L);
     }
 
+    /*채팅방 대화내역 불러오기*/
+    @Test
+    public void findChatList() {
+        log.info("결과 : " + chatRoomService.chatList(88L).toString());
+    }
 
+
+    /*안 읽은 메세지 읽음으로 변경*/
+    @Test
+    public void changeChatStatus() {
+        chatRoomService.readChange(12L);
+    }
+
+
+    /*채팅 알림*/
+    @Test
+    public void chatAlarm() {
+        log.info("결과 : " + chatRoomService.chatAlarm(1L));
+    }
 
     /*가장 마지막에 보낸 메세지*/
-    @Test
-    public void lastChatList() {
-        log.info("결과 : " + chatRoomService.lastChatSelectAll());
-    }
+//    @Test
+//    public void lastChatList() {
+//        log.info("결과 : " + chatRoomService.lastChatSelectAll());
+//    }
 }
 
 

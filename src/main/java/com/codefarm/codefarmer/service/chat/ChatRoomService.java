@@ -6,28 +6,30 @@ import com.codefarm.codefarmer.domain.chat.QChatDTO;
 import com.codefarm.codefarmer.domain.chat.QChatRoomDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
 import com.codefarm.codefarmer.entity.chat.ChatRoom;
-import com.codefarm.codefarmer.entity.chat.QChat;
 import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
-import com.codefarm.codefarmer.entity.mentor.QMentor;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.chat.ChatRoomRepository;
 import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
+import com.codefarm.codefarmer.type.ChatStatus;
 import com.codefarm.codefarmer.type.MessageType;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.EnumPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.WebSocketSession;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static com.codefarm.codefarmer.entity.chat.QChat.chat;
 import static com.codefarm.codefarmer.entity.chat.QChatRoom.chatRoom;
 import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
-import static com.codefarm.codefarmer.entity.member.QMember.member;
 import static com.codefarm.codefarmer.entity.member.QUser.user;
+import static com.codefarm.codefarmer.type.ChatStatus.READ;
+import static com.codefarm.codefarmer.type.ChatStatus.UNREAD;
 
 @Service
 @RequiredArgsConstructor
@@ -72,17 +74,46 @@ public class ChatRoomService {
     }
 
     /*-----------------------------------------------*/
-                /*가장 최근에 보낸 채팅 보여주기(작업해야함)*/
+                /*선택된 채팅방 대화내역 불러오기*/
+    /*-----------------------------------------------*/
+    public List<ChatDTO> chatList(Long chatRoomId) {
+        return jpaQueryFactory.select(Projections.bean(ChatDTO.class, chat.chatId, chat.chatRoom, chat.chatMessage, chat.chatDate, chat.chatStatus, chat.member))
+                .from(chat)
+                .where(chat.chatRoom.chatRoomId.eq(chatRoomId))
+                .orderBy(chat.chatDate.asc())
+                .fetch();
+    }
+
+
+    /*-----------------------------------------------*/
+        /*채팅방에 접속했을 때 상대방이 보낸 메세지 읽음 처리*/
+    /*-----------------------------------------------*/
+    public void readChange(Long chatRoomId) {
+        Long memberId = 1L; // 이후에 세션 추가되면 변경해야함(현재 로그인 세션 아이디로)
+        List<ChatDTO> chatDTOList = chatList(chatRoomId); // 해당 채팅방의 모든 채팅을 가져옴
+        List<Chat> chatList = new ArrayList<>();
+
+        /*내가 입력한 메세지가 아닌 상대방이 입력한 메세지만 뽑기*/
+        for(ChatDTO chatDTO : chatDTOList) {
+            if(chatDTO.getMember().getMemberId() != memberId) {
+                chatList.add(chatDTO.toEntity());
+            }
+        }
+        /*상대가 보낸 모든 채팅은 읽음으로 변경*/
+        for(int i = 0; i < chatList.size(); i++) {
+            Chat chat = chatRepository.findById(chatList.get(i).getChatId()).get();
+            chat.changeChatStatus(READ);
+            chatRepository.save(chat);
+        }
+    }
+
+
+    /*-----------------------------------------------*/
+            /*가장 최근에 보낸 채팅 보여주기(작업해야함)*/
     /*-----------------------------------------------*/
     public List<Chat> lastChatSelectAll() {
         // 1번 회원이 참여 중인 채팅방들을 모두 List로 저장
         List<ChatRoomDTO> chatRoomDTOList = chatRoomSelectAll(1L);
-
-
-
-
-        /*로그인 세션에 따라 대화방들을 저장*/
-
 
 
         return null;
@@ -124,6 +155,29 @@ public class ChatRoomService {
             ChatRoom chatRoom = chatRoomDTO.toEntity();
             chatRoomRepository.save(chatRoom);
         }
+    }
+
+
+
+    /*-----------------------------------------------*/
+          /*로그인 세션 기준 읽지 않은 메세지 있는지 확인*/
+    /*-----------------------------------------------*/
+    public int chatAlarm(Long memberId) {
+        List<ChatRoomDTO> chatRooms = chatRoomSelectAll(memberId); // 현재 회원이 참여한 채팅방 모두 저장
+        List<ChatDTO> chats = new ArrayList<>();
+        int cnt = 0; // 메세지 읽지 않은 개수
+
+        for(ChatRoomDTO chatRoomDTO : chatRooms) {
+            chatList(chatRoomDTO.getChatRoomId()).stream().filter(v -> v.getMember().getMemberId() != memberId).forEach(v -> chats.add(v));
+        }
+
+        for(ChatDTO chatDTO : chats) {
+            if(chatDTO.getChatStatus() == UNREAD) {
+                cnt += 1;
+            }
+        }
+
+        return cnt;
     }
 }
 

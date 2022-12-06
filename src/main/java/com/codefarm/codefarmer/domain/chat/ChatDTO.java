@@ -5,6 +5,7 @@ import com.codefarm.codefarmer.entity.chat.ChatRoom;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.type.ChatStatus;
 import com.codefarm.codefarmer.type.MessageType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
@@ -23,28 +24,36 @@ import java.util.Set;
 @Data
 public class ChatDTO {
     private Long chatId;
+    @JsonIgnore
     private ChatRoom chatRoom;
     private String chatMessage;
     private ChatStatus chatStatus;
     private LocalDateTime chatDate;
-    private Member memberId;
+    @JsonIgnore
+    private Member member;
     private Set<WebSocketSession> sessions = new HashSet<>();
     private MessageType type;
 
     @QueryProjection
-    public ChatDTO(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, LocalDateTime chatDate, MessageType type) {
+    public ChatDTO(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, LocalDateTime chatDate, MessageType type, Member member) {
         this.chatId = chatId;
         this.chatRoom = chatRoom;
         this.chatMessage = chatMessage;
         this.chatStatus = chatStatus;
         this.chatDate = chatDate;
         this.type = type;
+        this.member = member;
     }
+
+
 
     public Chat toEntity(){
         return Chat.builder()
+                .chatId(chatId)
                 .chatMessage(chatMessage)
                 .chatStatus(chatStatus)
+                .chatRoom(chatRoom)
+                .member(member)
                 .build();
     }
 
