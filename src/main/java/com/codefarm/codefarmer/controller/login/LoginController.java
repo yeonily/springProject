@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.controller.login;
 
+import com.codefarm.codefarmer.domain.member.UserDTO;
 import com.codefarm.codefarmer.service.login.KakaoService;
 import com.codefarm.codefarmer.service.login.LoginService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class LoginController {
 
     @ResponseBody
     @GetMapping("/login/kakao")
-    public RedirectView kakaoCallback(@RequestParam("code") String code, HttpSession session) throws Exception {
+    public RedirectView kakaoLogin(@RequestParam(value="code") String code, HttpSession session) throws Exception {
         log.info("코드"+code);
         String token = kakaoService.getKakaoAccessToken(code);
         session.setAttribute("token", token);
@@ -63,7 +64,7 @@ public class LoginController {
 
     @GetMapping("")
     public String loginPage(){
-            return "/login/login";
+        return "/login/login";
         }
 
     @GetMapping("/agreement")

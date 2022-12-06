@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity.program;
 
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.member.Farmer;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.member.FarmerRepository;
@@ -233,7 +234,7 @@ public class ProgramTest {
                 .stream().map(Program -> Program.toString()).forEach(log::info);
     }
 
-//    유료 프로그램 창렬
+//    유료 프로그램 정렬
     @Test
     public void findProgramListByUsePayProgramTest(){
         jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
@@ -243,7 +244,7 @@ public class ProgramTest {
                 .stream().map(Program -> Program.toString()).forEach(log::info);
     }
 
-//    무료 프로그램 창렬
+//    무료 프로그램 정렬
     @Test
     public void findProgramListByFreePayProgramTest(){
         jpaQueryFactory.select(program.programLocation,program.programType,program.programTitle,program.programWorkStartTime,program.programPrice,program.programId)
@@ -253,6 +254,12 @@ public class ProgramTest {
                 .stream().map(Program -> Program.toString()).forEach(log::info);
     }
 
+
+    //    곧마감돼요 8개 뽑기
+    @Test
+    public void findTop8ByOOrderByAlbaApplyEndDateDescTest(){
+        programRepository.findTop8ByOrderByProgramApplyEndDateDesc().stream().map(Program::getProgramId).forEach(a -> log.info("pg 번호 : " + a));
+    }
 
 
 

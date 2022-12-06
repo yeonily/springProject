@@ -105,6 +105,7 @@ public class AlbaDTO {
     }
 
     public AlbaDTO(Alba entity) {
+        this.albaId = entity.getAlbaId();
         this.albaTitle = entity.getAlbaTitle();
         this.albaImage = entity.getAlbaImage();
         this.albaTitleOne = entity.getAlbaTitleOne();
