@@ -289,9 +289,9 @@
                                 <div><p>멘티전용</p></div>
                             </div>
                             <div class="textDiv">
-                                <p><span th:text="${program.programLocation}"/> ・ <span style="color: rgb(238, 126, 65)" th:text="${program.programPrice}"></span></p>
+                                <p><span th:text="${program.programLocation}"/> ・ <span style="color: rgb(238, 126, 65)" th:text="|${program.programPrice}원|"></span></p>
                                 <h3 th:text="${program.programTitle}"></h3>
-                                <p class="dateInfo"> 접수 시작</p>
+                                <p class="dateInfo" th:text="|${#temporals.format(program.programApplyStartDate, 'MM월 dd일')} 접수 시작|"></p>
                             </div>
                         </div>
                     </div>
