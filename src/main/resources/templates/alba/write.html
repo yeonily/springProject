@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="wrap">
+        <form method="post" th:action="@{/alba/write}" id="writeForm" th:object="${alba}">
         <!--헤더 영역-->
         <div id="header">
             <div class="header-inner">
@@ -33,7 +34,6 @@
                     <li>프로필 등록</li>
                 </ul>
             </div>
-
             <!--본격적인 등록 컨텐츠-->
             <div id="content">
                 <!--첫 번재 메뉴 : 아르바이트 메인소개-->
@@ -49,18 +49,18 @@
                         <label class="input-file-button" for="input-image">
                             업로드
                         </label>
-                        <input type="file" class="input-div-input" id="input-image" style="display: none">
+                        <input type="file" class="input-div-input" id="input-image" style="display: none" th:field="*{albaImage}">
                     </div>
 
                     <div class="input-div">
                         <span>글 제목</span>
                         <p>모집하고 싶은 아르바이트의 제목을 입력해주세요.</p>
-                        <input type="text" class="input-div-input" placeholder="예시) 딸기재배 아르바이트 모집">
+                        <input th:field="*{albaTitle}" type="text" class="input-div-input" placeholder="예시) 딸기재배 아르바이트 모집">
                     </div>
                     <div class="input-div">
                         <span>한줄 소개</span>
                         <p>아르바이트를 간단하게 한 줄로 소개해주세요.</p>
-                        <input type="text" class="input-div-input" placeholder="예시) 몸이 힘들지 않은 간단 아르바이트">
+                        <input th:field="*{albaTitleOne}" type="text" class="input-div-input" placeholder="예시) 몸이 힘들지 않은 간단 아르바이트">
                     </div>
                 </div>
 
@@ -73,30 +73,30 @@
                     <div class="input-div">
                         <span>모집기간</span>
                         <p>모집하는 기간을 입력해주세요.</p>
-                        <input type="date" class="input-div-input" id="startDate"> ~ <input type="date" class="input-div-input" id="endDate">
+                        <input th:field="*{albaApplyStartDate}" type="datetime-local" class="input-div-input" id="startDate"> ~ <input th:field="*{albaApplyEndDate}"type="datetime-local" class="input-div-input" id="endDate">
                     </div>
                     <div class="input-div">
                         <span>작업날짜</span>
                         <p>실제로 작업이 진행되는 날짜를 입력해주세요.</p>
-                        <input type="date" id="workDay" class="input-div-input">
+                        <input th:field="*{albaWorkDate}" type="datetime-local" id="workDay" class="input-div-input">
                     </div>
                     <div class="input-div">
                         <span>모집인원</span>
                         <p>모집하고 싶은 인원을 입력해주세요.</p>
-                        <input type="number" class="input-div-input" placeholder="예시) 5">
+                        <input th:field="*{albaApplyCount}" type="number" class="input-div-input" placeholder="예시) 5">
                     </div>
                     <div class="input-div">
                         <span>장소</span>
                         <p>아르바이트 장소를 입력해주세요.</p>
                         <!--이후에 백엔드에서 주소 검색 api 연동 필요-->
                         <div id="map" style="width:490px; height:200px; margin-bottom: 20px"></div>
-                        <input type="text" id="locationInput" class="input-div-input" placeholder="지번, 도로명 주소를 입력해주세요.">
+                        <input th:field="*{albaAddress}" type="text" id="locationInput" class="input-div-input" placeholder="지번, 도로명 주소를 입력해주세요.">
                         <input type="button" value="장소 검색" class="locationBtn" onclick="mapSearch();">
                     </div>
                     <div class="input-div">
                         <span>시급</span>
                         <p>해당 아르바이트의 시급을 입력해주세요.</p>
-                        <input type="text" class="input-div-input" placeholder="예시) 9,120원">
+                        <input th:field="*{albaPrice}" type="text" class="input-div-input" placeholder="예시) 9,120원">
                     </div>
                 </div>
 
@@ -109,30 +109,30 @@
                     <div class="input-div">
                         <span>대표소개</span>
                         <p>상세내용 가장 상단에 눈에 띄는 소개를 남겨주세요.</p>
-                        <input type="text" class="input-div-input" placeholder="예시) 논산에서 제일가는 딸기농장!">
+                        <input th:field="*{albaMainTitle}" type="text" class="input-div-input" placeholder="예시) 논산에서 제일가는 딸기농장!">
                     </div>
                     <div class="input-div">
                         <span>대표내용</span>
                         <p>대표소개를 뒷받침할 수 있는 간단소개를 해주세요.</p>
-                        <textarea placeholder="예시)3명의 현직자와 함께 진짜 직무가 하는 일을 경험하고, 내가 잘하고 좋아할 수 있는 일인지 확인해보세요."></textarea>
+                        <textarea th:field="*{albaMainContent}" placeholder="예시)3명의 현직자와 함께 진짜 직무가 하는 일을 경험하고, 내가 잘하고 좋아할 수 있는 일인지 확인해보세요."></textarea>
                     </div>
 
                     <!--장점 3가지 적는 곳-->
                     <div class="second-content">
                         <h1>농장의 <span>장점 3가지는</span> 무엇일까요?</h1>
                         <div class="step">
-                            <p class="title"><input type="text" placeholder="온라인을 통해 진행되는 안전교육"></p>
-                            <textarea placeholder="현장에서 지루한 안전교육은 그만! 온라인으로 빠르게 미리 교육을 받을 수 있습니다."></textarea>
+                            <p class="title"><input th:field="*{albaStrongTitle1}" type="text" placeholder="온라인을 통해 진행되는 안전교육"></p>
+                            <textarea th:field="*{albaStrongContent1}" placeholder="현장에서 지루한 안전교육은 그만! 온라인으로 빠르게 미리 교육을 받을 수 있습니다."></textarea>
                             <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-2.svg">
                         </div>
                         <div class="step">
-                            <p class="title"><input type="text" placeholder="셔틀차량을 통해 모두가 한 번에 출퇴근!"></p>
-                            <textarea placeholder="셔틀차량을 통해 농장까지 편하게 이동할 수 있습니다."></textarea>
+                            <p class="title"><input th:field="*{albaStrongTitle2}" type="text" placeholder="셔틀차량을 통해 모두가 한 번에 출퇴근!"></p>
+                            <textarea th:field="*{albaStrongContent2}" placeholder="셔틀차량을 통해 농장까지 편하게 이동할 수 있습니다."></textarea>
                             <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-1.svg">
                         </div>
                         <div class="step">
-                            <p class="title"><input type="text" placeholder="협업을 통해 조기퇴근을 해보세요!"></p>
-                            <textarea placeholder="하루 할당량을 모두 채웠을 경우 일급은 그대로! 퇴근은 빨리!"></textarea>
+                            <p class="title"><input th:field="*{albaStrongTitle3}" type="text" placeholder="협업을 통해 조기퇴근을 해보세요!"></p>
+                            <textarea th:field="*{albaStrongContent3}" placeholder="하루 할당량을 모두 채웠을 경우 일급은 그대로! 퇴근은 빨리!"></textarea>
                             <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-3.svg">
                         </div>
                     </div>
@@ -147,22 +147,22 @@
                     <div class="input-div">
                         <span>중간 배너에 들어갈 자신의 이름과 경력</span>
                         <p>자신의 경력과 이름을 입력해주세요.</p>
-                        <input type="text" class="input-div-input" placeholder="예시) 딸기농사 10년차 농장주 김민혁 입니다.">
+                        <input th:field="*{albaBannerTitle}" type="text" class="input-div-input" placeholder="예시) 딸기농사 10년차 농장주 김민혁 입니다.">
                     </div>
                     <div class="input-div">
                         <span>배너에 들어갈 간단 한줄</span>
                         <p>경력 아래에 적을 내용을 입력해주세요.</p>
-                        <input type="text" class="input-div-input" placeholder="예시) 편하게 아르바이트 해보시겠어요??">
+                        <input th:field="*{albaBannerOne}" type="text" class="input-div-input" placeholder="예시) 편하게 아르바이트 해보시겠어요??">
                     </div>
                     <div class="input-div">
                         <span>본문에서 강조하고 싶은 한줄</span>
                         <p>본문에서 강조하고 싶은 한 문장을 입력해주세요.</p>
-                        <input type="text" class="input-div-input" placeholder="예시) 가족같은 분위기를 가진 ...">
+                        <input th:field="*{albaTextTitle}" type="text" class="input-div-input" placeholder="예시) 가족같은 분위기를 가진 ...">
                     </div>
                     <div class="input-div">
                         <span>본문내용</span>
                         <p>본문내용을 자유롭게 입력해주세요.</p>
-                        <textarea placeholder="저는 항상 재밌게 일하는 방법을 연구하고 있습니다. 지금까지 저희 농장을 다녀간 아르바이트 지원자들은 모두 하나같이 ...."></textarea>
+                        <textarea th:field="*{albaText}" placeholder="저는 항상 재밌게 일하는 방법을 연구하고 있습니다. 지금까지 저희 농장을 다녀간 아르바이트 지원자들은 모두 하나같이 ...."></textarea>
                     </div>
                 </div>
 
@@ -184,12 +184,12 @@
                             <!--프로필 상세설명-->
                             <div class="profile-content">
                                 <p>
-                                    <input type="text" placeholder="예시) 현 논산시 딸기농장, 딸기농장체험프로그램 운영중">
-                                    <textarea placeholder="- 연매출 10억 기록한 딸기농장&#13;&#10;- 논산에서 인정한 대표 딸기&#13;&#10;- 알바생 및 체험프로그램 높은 만족도 보유"></textarea>
+                                    <input th:field="*{albaProfileTitle1}" type="text" placeholder="예시) 현 논산시 딸기농장, 딸기농장체험프로그램 운영중">
+                                    <textarea th:field="*{albaProfileContent1}" placeholder="- 연매출 10억 기록한 딸기농장&#13;&#10;- 논산에서 인정한 대표 딸기&#13;&#10;- 알바생 및 체험프로그램 높은 만족도 보유"></textarea>
                                 </p>
                                 <p>
-                                    <input type="text" placeholder="예시) 농장주의 간단 자기소개">
-                                    <textarea placeholder="- 다양한 경험과 노하우가 있는 베테랑 농부&#13;&#10;- 고리타분하지 않은 성격, 개방적인 마인드 보유&#13;&#10;- 유쾌함과 즐거움이 함께 공존을 희망하며 노력중"></textarea>
+                                    <input th:field="*{albaProfileTitle2}" type="text" placeholder="예시) 농장주의 간단 자기소개">
+                                    <textarea th:field="*{albaProfileContent1}" placeholder="- 다양한 경험과 노하우가 있는 베테랑 농부&#13;&#10;- 고리타분하지 않은 성격, 개방적인 마인드 보유&#13;&#10;- 유쾌함과 즐거움이 함께 공존을 희망하며 노력중"></textarea>
                                 </p>
                             </div>
                         </div>
@@ -313,15 +313,17 @@
                 </div>
             </div>
         </div>
-    </div>
     <div id="btn-group">
         <div class="btn-group-inner">
             <button type="button" class="prev"><img class="footer-img-prev" src="/image/alba/prev_register.gif">이전</button>
             <button type="button" class="next">다음<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
             <!--작성 완료 시 작성된 게시글로 이동되어야 함, alba/detail.js 300번째 줄쯤에 있음-->
-            <button type="button" class="submitBtn" style="display: none; width: 82px">제출하기<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
+            <button type="submit" class="submitBtn" style="display: none; width: 82px">제출하기<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
         </div>
+    </div>>
+    </form>
     </div>
+
 
     <!--모달-->
     <div class="alertModal">
