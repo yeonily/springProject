@@ -7,7 +7,6 @@ import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.member.QMember;
-import com.codefarm.codefarmer.entity.member.QUser;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.QMemberProgram;
@@ -31,9 +30,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
-import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
 import static com.codefarm.codefarmer.entity.member.QMember.member;
-import static com.codefarm.codefarmer.entity.member.QUser.user;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
 

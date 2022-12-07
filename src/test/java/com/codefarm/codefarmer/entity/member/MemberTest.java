@@ -33,7 +33,6 @@ import static com.codefarm.codefarmer.entity.member.QMember.*;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
 import static com.codefarm.codefarmer.entity.program.QProgram.*;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
-import static com.codefarm.codefarmer.type.Oauth.KAKAO;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -57,7 +56,7 @@ public class MemberTest {
             MemberDTO.setMemberName("김지연");
             MemberDTO.setMemberNickname("r21112");
             MemberDTO.setMemberPhone("010-1112-1611");
-            MemberDTO.setMemberOauth(KAKAO);
+//            MemberDTO.setMemberOauth(KAKAO);
 
             Member Member = MemberDTO.toEntity();
 
@@ -93,7 +92,7 @@ public class MemberTest {
         MemberDTO.setMemberName("김지연");
         MemberDTO.setMemberNickname("r2211");
         MemberDTO.setMemberPhone("010-1112-1111");
-        MemberDTO.setMemberOauth(KAKAO);
+//        MemberDTO.setMemberOauth(KAKAO);
 
         Member.update(MemberDTO);
     }

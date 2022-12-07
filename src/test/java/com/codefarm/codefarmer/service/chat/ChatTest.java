@@ -15,8 +15,6 @@ import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 
-import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
-import static com.codefarm.codefarmer.entity.member.QUser.user;
 
 @SpringBootTest
 @Slf4j

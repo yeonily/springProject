@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
-import static com.codefarm.codefarmer.entity.member.QUser.user;
 
 @Service
 @RequiredArgsConstructor
@@ -32,8 +30,8 @@ public class ChatService {
         ChatRoom chatRoom = chatRoomDTO.toEntity();
 
         ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
-        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
-        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
+//        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
+//        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
 
         for(Member member : memberIdList) {
             if(member.getMemberId().equals(1L)) { // 현재 로그인 세션이 1번일 때

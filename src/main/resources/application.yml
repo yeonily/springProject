@@ -58,14 +58,6 @@ spring:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 ###    url: jdbc:p6spy:oracle:thin:@spring_medium?TNS_ADMIN=C:/wallet/Wallet_spring/
 
-#    url: jdbc:p6spy:oracle:thin:@spring2_medium?TNS_ADMIN=C:/wallet/Wallet_spring2/
-#    url: jdbc:p6spy:oracle:thin:@spring2_medium?TNS_ADMIN=/Users/Wallet_spring2/
-#    username: admin
-#    password: OracleCloud1234
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:oracle:thin:@localhost:1521:XE
-    username: hr
-    password: hr
 
     url: jdbc:p6spy:oracle:thin:@spring2_medium?TNS_ADMIN=C:/wallet/Wallet_spring2/
 ###    url: jdbc:p6spy:oracle:thin:@spring2_medium?TNS_ADMIN=/Users/Wallet_spring2/
@@ -79,10 +71,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     hibernate:
-      ddl-auto: create
+#      ddl-auto: create
 #      ddl-auto: create-drop
 #      ddl-auto: update
-#      ddl-auto: validate
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
