@@ -85,18 +85,13 @@ public class ChatTest {
     @Test
     public void sendChatTest() {
         ChatDTO chatDTO = new ChatDTO();
-        ChatRoom chatRoom = chatRoomRepository.findById(146L).get(); // 접속한 방번호에 따라 해당 채팅방을 저장
-        ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
-
-        // 일반 유저, 멘티 정보를 저장
-//        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
-        // 농장주, 멘토 정보를 저장
-//        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
+        ChatRoom chatRoom = chatRoomRepository.findById(48L).get(); // 접속한 방번호에 따라 해당 채팅방을 저장
+        ArrayList<Member> memberIdList = (ArrayList<Member>) memberRepository.findAll(); // 전체 회원의 멤버ID를 담은 배열
 
 
         for (Member member : memberIdList) {
-            if(member.getMemberId() == 16L) { // 로그인한 회원의 아이디를 찾았을 경우
-                chatDTO.setChatMessage("저는 일반인인데요. 제가 채팅을 치면 오른쪽에 나옵니까?");
+            if(member.getMemberId() == 33L) { // 로그인한 회원의 아이디를 찾았을 경우
+                chatDTO.setChatMessage("저는 일반 회원입니다ㅎㅎㅎㅎㅎㅎ");
                 chatDTO.setChatStatus(ChatStatus.UNREAD); // 초기 전송 시에는 읽지 않았기 때문에 UNREAD로 전송
                 chatDTO.setChatRoom(chatRoom);
                 chatDTO.setMember(member);

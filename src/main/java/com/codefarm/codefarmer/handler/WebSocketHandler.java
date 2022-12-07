@@ -23,9 +23,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // 채팅방에서 어떠한 변화가 있을 때마다 전송되는 메세지를 출력..?
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        log.info("메세지 전송 = {} : {}", session, message.getPayload()); // 앞 중괄호에는 웹소켓 세션, 뒤 중괄호에는 채팅에 대한 정보가 담김
-        String msg = message.getPayload();
-        Chat chat = objectMapper.readValue(msg, Chat.class);
-        Optional<ChatRoom> chatRoom = chatRoomRepository.findById(chat.getChatRoom().getChatRoomId());
+        System.out.println("세션 : " + session.toString());
+        System.out.println("메세지 : " + message.toString());
+//        log.info("메세지 전송 = {} : {}", session, message.getPayload()); // 앞 중괄호에는 웹소켓 세션, 뒤 중괄호에는 채팅에 대한 정보가 담김
+//        String msg = message.getPayload();
+//        Chat chat = objectMapper.readValue(msg, Chat.class);
+//        Optional<ChatRoom> chatRoom = chatRoomRepository.findById(chat.getChatRoom().getChatRoomId());
     }
 }
