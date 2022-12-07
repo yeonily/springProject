@@ -40,8 +40,7 @@ public class BoardServiceTest {
     @Test
     public void addTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Member> findFarmer = memberRepository.findById(37L);
-        log.info(findFarmer.get().toString());
+        Optional<Member> findFarmer = memberRepository.findById(3L);
         boardDTO.setBoardTitle("who am I");
         boardDTO.setBoardContent("jang bal jang");
         boardDTO.setMember(findFarmer.get());
@@ -66,14 +65,14 @@ public class BoardServiceTest {
 //    게시판 제목, 내용 상세페이지에서 확인하기
     @Test
     public void showDetailTest(){
-        boardService.boardShowDetail(29L);
-        log.info(""+boardService.boardShowDetail(29L));
+        boardService.boardShowDetail(6L);
+        log.info(""+boardService.boardShowDetail(6L));
     }
 
 //  내가 게시한 게시글 총 개수 갖고오기
     @Test
     public void showBoardCountMineTest(){
-        log.info("해당 회원이 게시한 총 게시글 수 : " +   boardService.showBoardCountMine(1L));
+        log.info("해당 회원이 게시한 총 게시글 수 : " +   boardService.showBoardCountMine(3L));
     }
 
 //   해당 보드의 조회 수

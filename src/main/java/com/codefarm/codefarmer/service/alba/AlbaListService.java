@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.service.alba;
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.QAlbaDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
+
 
 @Service
 @RequiredArgsConstructor
