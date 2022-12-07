@@ -1,17 +1,15 @@
 package com.codefarm.codefarmer.controller.join;
 
+import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.service.join.JoinKakaoService;
 import com.codefarm.codefarmer.service.join.JoinService;
-import com.codefarm.codefarmer.service.login.KakaoService;
+import com.codefarm.codefarmer.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
@@ -21,6 +19,7 @@ public class JoinController {
 
     private final JoinKakaoService joinKakaoService;
     private final JoinService joinService;
+    private final MemberService memberService;
 
     @GetMapping("")
     public String joinPage(){
@@ -35,7 +34,7 @@ public class JoinController {
 
         try {
             String email = joinKakaoService.getKakaoInfo(token);
-            redirectAttributes.addFlashAttribute("email",email);
+            redirectAttributes.addFlashAttribute("memberEmail",email);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,9 +44,7 @@ public class JoinController {
     }
 
     @GetMapping("/form")
-    public String joinFormPage(){
-
-
+    public String joinFormPage(MemberDTO memberDTO){
         return "/join/joinForm";
     }
 
@@ -58,7 +55,7 @@ public class JoinController {
 
     @ResponseBody
     @PostMapping("/form")
-    public Integer checkUserNick(@RequestParam("nickname") String nickname){
+    public Integer checkUserNick(@RequestParam("memberNickname") String nickname){
         if(joinService.checkUserNick(nickname) == 1){
             log.info("???");
             return 1;
@@ -70,8 +67,8 @@ public class JoinController {
 
 
     @PostMapping("/joinOk")
-    public String joinOk(){
-
+    public String joinOk(MemberDTO memberDTO){
+        memberService.join(memberDTO);
         return "/main/main";
     }
 
