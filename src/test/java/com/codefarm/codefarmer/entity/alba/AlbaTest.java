@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,31 +43,31 @@ public class AlbaTest {
 
         AlbaDTO albaDTO1 = new AlbaDTO();
 
-        albaDTO1.setAlbaAddress("학원");
+        albaDTO1.setAlbaAddress("연태관");
         albaDTO1.setAlbaApplyCount(1);
-        albaDTO1.setAlbaApplyEndDate(LocalDateTime.of(2022,12,31,0,0));
-        albaDTO1.setAlbaApplyStartDate(LocalDateTime.of(2021,11,20,0,0));
+        albaDTO1.setAlbaApplyEndDate(LocalDateTime.of(2022,12,18,0,0));
+        albaDTO1.setAlbaApplyStartDate(LocalDateTime.of(2022,12,6,0,0));
         albaDTO1.setAlbaApplyTotalCount(5);
-        albaDTO1.setAlbaBannerOne("학원");
-        albaDTO1.setAlbaBannerTitle("학원 제목");
-        albaDTO1.setAlbaImage("학원");
-        albaDTO1.setAlbaMainContent("학원");
-        albaDTO1.setAlbaMainTitle("학원");
-        albaDTO1.setAlbaPrice(13_200);
-        albaDTO1.setAlbaProfileContent1("학원");
-        albaDTO1.setAlbaProfileContent2("학원");
-        albaDTO1.setAlbaProfileTitle1("학원");
-        albaDTO1.setAlbaProfileTitle2("학원");
-        albaDTO1.setAlbaStrongContent1("학원");
-        albaDTO1.setAlbaStrongContent2("학원");
-        albaDTO1.setAlbaStrongContent3("학원");
-        albaDTO1.setAlbaStrongTitle1("학원");
-        albaDTO1.setAlbaStrongTitle2("학원");
-        albaDTO1.setAlbaStrongTitle3("학원");
-        albaDTO1.setAlbaText("학원");
-        albaDTO1.setAlbaTextTitle("학원");
-        albaDTO1.setAlbaTitle("학원");
-        albaDTO1.setAlbaTitleOne("학원");
+        albaDTO1.setAlbaBannerOne("연태관");
+        albaDTO1.setAlbaBannerTitle("연태관");
+        albaDTO1.setAlbaImage("연태관");
+        albaDTO1.setAlbaMainContent("연태관");
+        albaDTO1.setAlbaMainTitle("연태관");
+        albaDTO1.setAlbaPrice(20_200);
+        albaDTO1.setAlbaProfileContent1("연태관");
+        albaDTO1.setAlbaProfileContent2("연태관");
+        albaDTO1.setAlbaProfileTitle1("연태관");
+        albaDTO1.setAlbaProfileTitle2("연태관");
+        albaDTO1.setAlbaStrongContent1("연태관");
+        albaDTO1.setAlbaStrongContent2("연태관");
+        albaDTO1.setAlbaStrongContent3("연태관");
+        albaDTO1.setAlbaStrongTitle1("연태관");
+        albaDTO1.setAlbaStrongTitle2("연태관");
+        albaDTO1.setAlbaStrongTitle3("연태관");
+        albaDTO1.setAlbaText("연태관");
+        albaDTO1.setAlbaTextTitle("연태관");
+        albaDTO1.setAlbaTitle("연태관");
+        albaDTO1.setAlbaTitleOne("연태관");
         albaDTO1.setAlbaWorkDate(localDateTime);
         albaDTO1.setMember(findMember.get());
 
@@ -74,7 +75,7 @@ public class AlbaTest {
 
         albaDTO2.setAlbaAddress("학원");
         albaDTO2.setAlbaApplyCount(1);
-        albaDTO2.setAlbaApplyEndDate(LocalDateTime.of(2022,12,31,0,0));
+        albaDTO2.setAlbaApplyEndDate(LocalDateTime.of(2023,12,31,0,0));
         albaDTO2.setAlbaApplyStartDate(LocalDateTime.of(2021,11,20,0,0));
         albaDTO2.setAlbaApplyTotalCount(5);
         albaDTO2.setAlbaBannerOne("학원");
@@ -203,6 +204,16 @@ public class AlbaTest {
                 .from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime))
                 .orderBy(alba.albaPrice.desc())
+                .fetch()
+                .stream().map(Alba -> Alba.toString()).forEach(log::info);
+    }
+
+    @Test
+    public void findCountTest(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        jpaQueryFactory.select(alba.albaId.count())
+                .from(alba)
+                .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .fetch()
                 .stream().map(Alba -> Alba.toString()).forEach(log::info);
     }

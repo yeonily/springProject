@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.service.alba;
 
+import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,9 @@ public class AlbaListServiceTest {
     @Autowired
     private AlbaListService albaListService;
 
+    @Autowired
+    private AlbaRepository albaRepository;
+
 
     //    곧 마감인 아르바이트
     @Test
@@ -34,6 +38,10 @@ public class AlbaListServiceTest {
         log.info("아르바이트 게시글 총 개수 : " + albaListService.showAlbaTotalCount());
     }
 
+    @Test
+    public void showCountTest() {
+        log.info("count : " + albaListService.showCount());
+    }
     //    최신순
     @Test
     public void showListByRecentTest() {

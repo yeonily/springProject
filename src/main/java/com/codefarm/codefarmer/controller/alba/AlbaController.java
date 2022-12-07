@@ -43,9 +43,7 @@ public class AlbaController {
         log.info("들어옴1");
 
         model.addAttribute("lists", albaListService.showListByRecentEndDate());
-        model.addAttribute("counts",albaListService.showAlbaTotalCount());
-//        model.addAttribute("recents",albaListService.showListByRecent());
-//        model.addAttribute("recents",albaListService.showAllByAlbaApplyStartDateOrderByAlbaApplyStartDateDesc(pageable));
+        model.addAttribute("counts", albaListService.showCount());
         model.addAttribute("recents", albaListService.showByRecent(pageable));
 
         Page<Alba> albas = albaRepository.findAll(pageable);
