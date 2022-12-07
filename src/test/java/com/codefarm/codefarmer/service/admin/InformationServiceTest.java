@@ -59,7 +59,6 @@ public class InformationServiceTest {
 //    정책 목록 불러오기
     @Test
     public void policySelectAllTest(Pageable pageable){
-        informationService.policyShowAll(pageable).stream().forEach(p -> log.info("" + p));
     }
 
 //    농업정보 추가
@@ -95,7 +94,6 @@ public class InformationServiceTest {
 //    농업정보 목록
     @Test
     public void cropSelectAllTest(Pageable pageable){
-        informationService.cropShowAll(pageable).stream().forEach(c -> log.info("" + c));
     }
 
 //    농업정보 디테일
