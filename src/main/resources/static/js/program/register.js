@@ -60,6 +60,7 @@ function page4(){
     });
     $(".before").attr("disabled", false);
     $(".next").html("제출하기");
+
 }
 
 
@@ -296,19 +297,21 @@ $(".opening-footer").on("click", "button.submitButton", function () {
             }
         }
     }
-    if(!check) {
-        modal2.style.display = "flex"
-
-        okModal.addEventListener("click", evt => {
-            modal2.style.display = "none"
-        })
-        return;
-    }
+    // if(!check) {
+    //     modal2.style.display = "flex"
+    //
+    //     okModal.addEventListener("click", evt => {
+    //         modal2.style.display = "none"
+    //     })
+    //     return;
+    // }
 
     modal3.style.display = "flex"
 
     $("button.okay").on("click", function(){
-        location.href='/program/list';
+        console.log("버튼 클릭 들어옴");
+        $("form#writeForm").submit();
+        // location.href='/program/list';
     });
 
 });
@@ -391,3 +394,23 @@ function cancelFile(){
     $("#deleteBtn").hide();
     $(".c-callout-information-2").hide();
 }
+
+$("#first_select span").on("click" , function () {
+    console.log("들어옴1");
+    var first_text = $("#first_selected").find('.selected-c-chip').text();
+    console.log(first_text);
+})
+$("#second_select span").on("click" , function () {
+    console.log("들어옴2");
+    var second_text = $("#first_selected").find('.selected-c-chip').text();
+    console.log(second_text);
+})
+console.log($("#first_select span"));
+
+//일반인용,멘티전용 클릭
+// var first_text = $("#first_selected").find('.selected-c-chip').text();
+// console.log(first_text);
+//
+// //초급,중급,고급 클릭
+// var second_text = $("#second_selected").find('.selected-c-chip').text();
+// console.log(second_text);

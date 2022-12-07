@@ -22,6 +22,7 @@
         <section class="filter">
             <div class="filter-name">
                 <div class="filter-list">
+                    <span class="filter-button" id="showall-btn">전체보기</span>
                     <span class="filter-button" id="progress-btn">진행중</span>
                     <span class="filter-button" id="recent-register-btn">최근등록일순</span>
                     <span class="filter-button" id="recent-end-btn">최근마감일순</span>
@@ -38,7 +39,7 @@
         </section>
         <div class="program-container">
             <div class="program-list-container" id="list-foreach">
-                <th:block th:each="list:${lists}">
+                <!--<th:block th:each="list:${lists}">
                      <div class="list-container" th:object="${list}">
                         <a th:href="@{/program/detail(programId=${list.programId})} ">
                             <article class="list-article">
@@ -71,7 +72,7 @@
                         </a>
                     </div>
                 </th:block>
-                <!--<div class="list-container">
+                &lt;!&ndash;<div class="list-container">
                     <a th:href="@{/program/detail}">
                         <article class="list-article">
                             <div class="list-image-container">
@@ -245,13 +246,13 @@
                             </div>
                         </article>
                     </a>
-                </div>-->
+                </div>&ndash;&gt;
                 <div class="list-container">
                     <a th:href="@{/program/detail}">
                         <article class="list-article">
                             <div class="list-image-container">
                                 <div class="list-point">
-                                    <!--<div><span class="list-point-m">멘티전용</span></div>-->
+                                    &lt;!&ndash;<div><span class="list-point-m">멘티전용</span></div>&ndash;&gt;
                                 </div>
                                 <img class="pg-image" src="https://cdn.comento.kr/images/edu/after-class/thumbnail-coming-soon.jpg?s=518x272&q=75">
                             </div>
@@ -270,7 +271,7 @@
                             </div>
                         </article>
                     </a>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

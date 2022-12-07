@@ -111,7 +111,7 @@ public class ProgramListService {
                 program.member.memberId
 
         )).from(program)
-         .where(program.programWorkStartTime.before(localDateTime).and(program.programWorkEndTime.after(localDateTime)))
+         .where(program.programApplyStartDate.before(localDateTime).and(program.programApplyEndDate.after(localDateTime)))
          .orderBy(program.programApplyStartDate.desc())
          .fetch();
     }

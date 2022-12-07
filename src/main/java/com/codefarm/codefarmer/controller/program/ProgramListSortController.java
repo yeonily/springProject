@@ -26,13 +26,19 @@ public class ProgramListSortController {
     @Autowired
     private ProgramListService programListService;
 
+    /*전체보기 버튼*/
+    @PostMapping("/showall")
+    public List<ProgramDTO> showAllList() throws Exception{
+        return programListService.showAll();
+    }
+
     /*진행중 버튼*/
     @PostMapping("/continue")
     public List<ProgramDTO> showListByContinue() throws Exception{
         log.info("들어옴");
 //        programListService.showListByContinue().stream().map(t -> t.getMemberId()).forEach(t-> log.info("======" + t));
 //        log.info("============================" + programListService.showListByContinue());
-        programListService.showListByContinue().forEach(t -> log.info(t.toString()));
+//        programListService.showListByContinue().forEach(t -> log.info(t.toString()));
         return programListService.showListByContinue();
 //        return programListService.showListByContinue();
     }

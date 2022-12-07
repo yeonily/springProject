@@ -3,15 +3,23 @@ package com.codefarm.codefarmer.controller.program;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.service.program.ProgramDetailService;
 import com.codefarm.codefarmer.service.program.ProgramListService;
+import com.codefarm.codefarmer.service.program.ProgramRegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.List;
+import java.util.zip.DataFormatException;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,8 +28,8 @@ import java.util.List;
 public class ProgramController {
 
     private final ProgramListService programListService;
-
     private final ProgramDetailService programDetailService;
+    private final ProgramRegisterService programRegisterService;
 
     @GetMapping("/list")
     public void list(Model model){
@@ -56,8 +64,51 @@ public class ProgramController {
     }
 
     @GetMapping("/register")
-    public void register(){
+    public void register(Model model){
+        model.addAttribute("programRegister" , new ProgramDTO());
+    }
 
+    @PostMapping("/register")
+    public RedirectView registerFin(ProgramDTO programDTO,String programWorkDateString,String programWorkStartTimeString,String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString) throws DateTimeParseException {
+        log.info("리스폰스바디 컨트롤러 들어옴");
+        log.info("programWorkDate:"+ programWorkDateString);
+        log.info("programWorkStartTime:"+ programWorkStartTimeString);
+        log.info("programWorkEndTime:"+ programWorkEndTimeString);
+        log.info("programApplyStartDate:"+ programApplyStartDateString);
+        log.info("programApplyEndDate:"+ programApplyEndDateString);
+        log.info("programDTO: " + programDTO.toString());
+
+//      태관 참고
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        DateTimeFormatter formatter1 = new DateTimeFormatterBuilder()
+                .append(DateTimeFormatter.ISO_LOCAL_TIME)
+                .parseDefaulting(ChronoField.EPOCH_DAY, 0)
+                .toFormatter();
+
+//        태관 참고
+        LocalDateTime programWorkDateTest = LocalDate.parse(programWorkDateString, formatter).atStartOfDay();
+
+        log.info("1" + programWorkDateTest);
+        LocalDateTime programWorkStartTimeTest = LocalDateTime.parse(programWorkStartTimeString, formatter1);
+        log.info("2" + programWorkStartTimeTest);
+        LocalDateTime programWorkEndTimeTest = LocalDateTime.parse(programWorkEndTimeString, formatter1);
+        log.info("3" + programWorkEndTimeTest);
+        LocalDateTime programApplyStartDateTest = LocalDate.parse(programApplyStartDateString, formatter).atStartOfDay();
+        LocalDateTime programApplyEndDateTest = LocalDate.parse(programApplyEndDateString, formatter).atStartOfDay();
+
+//        태관 참고
+        programDTO.setProgramWorkDate(programWorkDateTest);
+        programDTO.setProgramWorkStartTime(programWorkStartTimeTest);
+        programDTO.setProgramWorkEndTime(programWorkEndTimeTest);
+        programDTO.setProgramApplyStartDate(programApplyStartDateTest);
+        programDTO.setProgramApplyEndDate(programApplyEndDateTest);
+
+//        태관 참고
+        programRegisterService.saveAll(programDTO);
+
+//        redirectAttributes.addFlashAttribute("boardNumber", boardVO.getBoardNumber());
+        return new RedirectView("list");
     }
 
 }
