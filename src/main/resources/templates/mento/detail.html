@@ -14,6 +14,12 @@
 <body>
 <!--헤더 삽입-->
 <div th:replace="/header/header.html :: header" class="header"/>
+
+<form action="/mento/chatting" id="mentoIdForm">
+    <input type="hidden" name="mentorId" th:value="${mentorId}">
+</form>
+
+
 <div id="main_grid">
     <div id="main_grid_inner1">
         <div id="main_grid_inner2">
@@ -80,7 +86,7 @@
                                                         멘토 신청
                                                         <div style="display: flex!important;"></div>
                                                     </button>
-                                                    <button class="main_fixed_button" id="chatting_submit" onclick="location.href='/mento/chatting'">
+                                                    <button class="main_fixed_button" id="chatting_submit" onclick="mentorIdSend()">
                                                         <div style="display: flex!important;"></div>
                                                         1:1 채팅하기
                                                         <div style="display: flex!important;"></div>
@@ -595,6 +601,7 @@
                         <div class="m-c-title">1:1 채팅하기 버튼으로 멘토와 채팅해주세요.</div>
                     </div>
                     <div class="applyBtnWrap">
+                        <!--<button type="button" class="listBtn" onclick="location.href='/mento/chatting'">완료</button>-->
                         <button type="button" class="listBtn" onclick="location.href='/mento/chatting'">완료</button>
                     </div>
                 </form>
@@ -609,4 +616,12 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/mento/detail.js"></script>
+<script>
+    function mentorIdSend() {
+        $("#chatting_submit").on("click", function() {
+            $("#mentoIdForm").submit();
+            location.href("/mento/chatting");
+        });
+    }
+</script>
 </html>

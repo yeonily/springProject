@@ -24,6 +24,7 @@ public class MentorBoardDTO {
     private String mentorTextTitle;
     private String mentorTextContent;
     private Member memberId;
+    private Long mentorId;
 
 
 

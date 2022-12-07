@@ -38,7 +38,7 @@ public class Chat extends ChatPeriod {
 //    private MessageType type;
 
     @Builder
-    public Chat(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, Member member) {
+    public Chat(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, Member member, Long memberId) {
         this.chatId = chatId;
         this.chatMessage = chatMessage;
         this.chatStatus = chatStatus;

@@ -36,29 +36,21 @@ public class ChatRoomTest {
     /*로그인 세션에 따른 참여 중인 채팅방 조회*/
     @Test
     public void findAllChatRoom() {
-        ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
-        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add(v));
-        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add(v));
-
-        for (Member member : memberIdList) {
-            if(member.getMemberId() == 1L) { // 로그인한 회원의 아이디를 찾았을 경우
-                log.info("결과 : " + chatRoomService.chatRoomSelectAll(1L));
-                return;
-            }
-        }
+        log.info("결과 : " + chatRoomService.chatRoomSelectAll(13L).get(0).getMentor().getMemberId());
     }
 
     /*로그인 한 세션이 멘토에게 대화신청 할 때 해당 대화방이 있었는지 유무 확인*/
     @Test
     public void checkChatRoom() {
-        log.info("결과 : " + chatRoomService.checkChatRoom(1L, 2L)); // 멘토 아이디는 멤버 아이디x
+        // 14번 멘티(일반회원이) 13번 멘토에게 채팅 요청
+        log.info("결과 : " + chatRoomService.checkChatRoom(14L, 13L));
     }
 
 
     /*채팅방 유무에 따라 채팅방 만들기*/
     @Test
     public void createChatRoom() {
-        chatRoomService.createChatRoom(1L, 16L);
+        chatRoomService.createChatRoom(1L, 13L);
     }
 
     /*채팅방 대화내역 불러오기*/
