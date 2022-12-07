@@ -42,25 +42,14 @@ public class AlbaListServiceTest {
 
     //    시급순
     @Test
-    public void showListByHighPayTest() {
-        albaListService.showListByHighPay().forEach(a -> log.info("시급순 : " + a.getAlbaPrice()));
+    public void showListByHighPayTest(Pageable pageable) {
+        albaListService.showListByHighPay(pageable).forEach(a -> log.info("시급순 : " + a.getAlbaPrice()));
     }
 
     //    모집중
     @Test
-    public void showListByGatheringListTest() {
-        albaListService.showListByGatheringList().forEach(a -> log.info("모집중 : " + a.toString()));
-    }
-
-    @Test
-    public void showTop8ByOOrderByAlbaApplyEndDateDescTest() {
-        albaListService.showTop8ByOOrderByAlbaApplyEndDateDesc().forEach(alba -> {
-//            log.info(alba.getAlbaId() + "");
-//            log.info(alba.getAlbaTitle() + "");
-//            log.info(alba.getAlbaApplyCount() + "");
-//            log.info(alba.getAlbaApplyTotalCount() + "");
-            log.info(alba.getAlbaPrice() + "");
-        });
+    public void showListByGatheringListTest(Pageable pageable) {
+        albaListService.showListByEndDate(pageable).forEach(a -> log.info("모집중 : " + a.toString()));
     }
 
     @Test

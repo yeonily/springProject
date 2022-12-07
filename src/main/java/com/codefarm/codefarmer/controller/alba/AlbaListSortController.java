@@ -5,6 +5,9 @@ import com.codefarm.codefarmer.service.alba.AlbaListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,26 +25,26 @@ public class AlbaListSortController {
 
 //    시급순 버튼
     @PostMapping("/payList")
-    public List<AlbaDTO> showListByHighPay() throws Exception{
+    public List<AlbaDTO> showListByHighPay(@PageableDefault( size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) throws Exception{
         log.info("시급 들어옴");
-        albaListService.showListByHighPay().forEach(a -> log.info(a.toString()));
-        return albaListService.showListByHighPay();
+        albaListService.showListByHighPay(pageable).forEach(a -> log.info(a.toString()));
+        return albaListService.showListByHighPay(pageable);
     }
 
 //    최신순 버튼
     @PostMapping("/newList")
-    public List<AlbaDTO> showListByRecent() throws Exception{
+    public List<AlbaDTO> showByRecent(@PageableDefault( size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) throws Exception{
         log.info("최신 들어옴");
-        albaListService.showListByRecent().forEach(a->log.info(a.toString()));
-        return albaListService.showListByRecent();
+        albaListService.showByRecent(pageable).forEach(a->log.info(a.toString()));
+        return albaListService.showByRecent(pageable);
     }
 
 //    모집순 버튼
     @PostMapping("/collectList")
-    public List<AlbaDTO> showListByGatheringList() throws Exception{
+    public List<AlbaDTO> showListByEndDate(@PageableDefault( size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) throws Exception{
         log.info("모집 들어옴");
-        albaListService.showListByGatheringList().forEach(a->log.info(a.toString()));
-        return albaListService.showListByGatheringList();
+        albaListService.showListByEndDate(pageable).forEach(a->log.info(a.toString()));
+        return albaListService.showListByEndDate(pageable);
     }
 
 }

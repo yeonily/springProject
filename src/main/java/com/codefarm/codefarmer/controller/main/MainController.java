@@ -21,7 +21,7 @@ public class MainController {
 
     @GetMapping("main")
     public void getAlbaList(Model model) {
-        model.addAttribute("albas", albaListService.showTop8ByOOrderByAlbaApplyEndDateDesc());
+        model.addAttribute("albas", albaListService.showListByRecentEndDate());
         model.addAttribute("programs", programListService.findTop8ByOrderByProgramApplyEndDateDesc());
     }
 

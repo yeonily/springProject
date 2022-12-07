@@ -40,39 +40,72 @@ public class AlbaTest {
         Optional<Farmer> findFarmer = farmerRepository.findById(1L);
         log.info("findFarmer : " + findFarmer.toString());
 
-        AlbaDTO albaDTO = new AlbaDTO();
+        AlbaDTO albaDTO1 = new AlbaDTO();
 
-        albaDTO.setAlbaAddress("사당");
-        albaDTO.setAlbaApplyCount(1);
-        albaDTO.setAlbaApplyEndDate(LocalDateTime.of(2020,1,25,0,0));
-        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2018,12,20,0,0));
-        albaDTO.setAlbaApplyTotalCount(5);
-        albaDTO.setAlbaBannerOne("배너");
-        albaDTO.setAlbaBannerTitle("배너 제목");
-        albaDTO.setAlbaImage("이미지");
-        albaDTO.setAlbaMainContent("메인컨텐트");
-        albaDTO.setAlbaMainTitle("메인제목123");
-        albaDTO.setAlbaPrice(15_200);
-        albaDTO.setAlbaProfileContent1("알바프로필내용1");
-        albaDTO.setAlbaProfileContent2("알바프로필내용2");
-        albaDTO.setAlbaProfileTitle1("알바프로필제목1");
-        albaDTO.setAlbaProfileTitle2("알바프로필제목2");
-        albaDTO.setAlbaStrongContent1("알바소개내용1");
-        albaDTO.setAlbaStrongContent2("알바소개내용2");
-        albaDTO.setAlbaStrongContent3("알바소개내용3");
-        albaDTO.setAlbaStrongTitle1("알바소개제목1");
-        albaDTO.setAlbaStrongTitle2("알바소개제목1");
-        albaDTO.setAlbaStrongTitle3("알바소개제목1");
-        albaDTO.setAlbaText("알바문자");
-        albaDTO.setAlbaTextTitle("알바문자제목");
-        albaDTO.setAlbaTitle("반복 연태관");
-        albaDTO.setAlbaTitleOne("알바제목원");
-        albaDTO.setAlbaWorkDate(localDateTime);
-        albaDTO.setMember(findFarmer.get());
+        albaDTO1.setAlbaAddress("학원");
+        albaDTO1.setAlbaApplyCount(1);
+        albaDTO1.setAlbaApplyEndDate(LocalDateTime.of(2022,12,31,0,0));
+        albaDTO1.setAlbaApplyStartDate(LocalDateTime.of(2021,11,20,0,0));
+        albaDTO1.setAlbaApplyTotalCount(5);
+        albaDTO1.setAlbaBannerOne("학원");
+        albaDTO1.setAlbaBannerTitle("학원 제목");
+        albaDTO1.setAlbaImage("학원");
+        albaDTO1.setAlbaMainContent("학원");
+        albaDTO1.setAlbaMainTitle("학원");
+        albaDTO1.setAlbaPrice(13_200);
+        albaDTO1.setAlbaProfileContent1("학원");
+        albaDTO1.setAlbaProfileContent2("학원");
+        albaDTO1.setAlbaProfileTitle1("학원");
+        albaDTO1.setAlbaProfileTitle2("학원");
+        albaDTO1.setAlbaStrongContent1("학원");
+        albaDTO1.setAlbaStrongContent2("학원");
+        albaDTO1.setAlbaStrongContent3("학원");
+        albaDTO1.setAlbaStrongTitle1("학원");
+        albaDTO1.setAlbaStrongTitle2("학원");
+        albaDTO1.setAlbaStrongTitle3("학원");
+        albaDTO1.setAlbaText("학원");
+        albaDTO1.setAlbaTextTitle("학원");
+        albaDTO1.setAlbaTitle("학원");
+        albaDTO1.setAlbaTitleOne("학원");
+        albaDTO1.setAlbaWorkDate(localDateTime);
+        albaDTO1.setMember(findFarmer.get());
 
-        Alba alba = albaDTO.toEntity();
-        alba.changeMember(albaDTO.getMember());
-        albaRepository.save(alba);
+        AlbaDTO albaDTO2 = new AlbaDTO();
+
+        albaDTO2.setAlbaAddress("학원");
+        albaDTO2.setAlbaApplyCount(1);
+        albaDTO2.setAlbaApplyEndDate(LocalDateTime.of(2022,12,31,0,0));
+        albaDTO2.setAlbaApplyStartDate(LocalDateTime.of(2021,11,20,0,0));
+        albaDTO2.setAlbaApplyTotalCount(5);
+        albaDTO2.setAlbaBannerOne("학원");
+        albaDTO2.setAlbaBannerTitle("학원 제목");
+        albaDTO2.setAlbaImage("학원");
+        albaDTO2.setAlbaMainContent("학원");
+        albaDTO2.setAlbaMainTitle("학원");
+        albaDTO2.setAlbaPrice(13_200);
+        albaDTO2.setAlbaProfileContent1("학원");
+        albaDTO2.setAlbaProfileContent2("학원");
+        albaDTO2.setAlbaProfileTitle1("학원");
+        albaDTO2.setAlbaProfileTitle2("학원");
+        albaDTO2.setAlbaStrongContent1("학원");
+        albaDTO2.setAlbaStrongContent2("학원");
+        albaDTO2.setAlbaStrongContent3("학원");
+        albaDTO2.setAlbaStrongTitle1("학원");
+        albaDTO2.setAlbaStrongTitle2("학원");
+        albaDTO2.setAlbaStrongTitle3("학원");
+        albaDTO2.setAlbaText("학원");
+        albaDTO2.setAlbaTextTitle("학원");
+        albaDTO2.setAlbaTitle("학원");
+        albaDTO2.setAlbaTitleOne("학원");
+        albaDTO2.setAlbaWorkDate(localDateTime);
+        albaDTO2.setMember(findFarmer.get());
+
+        Alba alba1 = albaDTO1.toEntity();
+        Alba alba2 = albaDTO2.toEntity();
+        alba1.changeMember(albaDTO1.getMember());
+        albaRepository.save(alba1);
+        alba2.changeMember(albaDTO2.getMember());
+        albaRepository.save(alba2);
     }
 
     @Test
@@ -176,7 +209,7 @@ public class AlbaTest {
 
 //    알바 채용정보 모집중
     @Test
-    public void findGatheringListTest(){
+    public void findListByEndDate(){
         LocalDateTime localDateTime = LocalDateTime.now();
         jpaQueryFactory.select(alba.albaAddress,alba.albaBannerTitle,alba.albaWorkDate,alba.albaPrice,alba.albaApplyStartDate)
                 .from(alba)
@@ -186,20 +219,10 @@ public class AlbaTest {
                 .stream().map(Alba -> Alba.toString()).forEach(log::info);
     }
 
-
 //    메인에서 알바리스트 뽑기
     @Test
     public void findByLatestTest(){
         albaRepository.findByLatest().stream().map(Alba::getAlbaId).forEach(a -> log.info("알바 번호:"+ a));
     }
-
-//    곧마감돼요 8개 뽑기
-    @Test
-    public void findTop8ByOOrderByAlbaApplyEndDateDescTest(){
-        albaRepository.findTop8ByOrderByAlbaApplyEndDateDesc().stream().map(Alba::getAlbaId).forEach(a -> log.info("알바 번호 : " + a));
-    }
-
-
-
 }
 

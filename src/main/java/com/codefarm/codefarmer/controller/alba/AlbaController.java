@@ -1,7 +1,6 @@
 package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
-import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +26,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,17 +38,23 @@ public class AlbaController {
     private final AlbaRepository albaRepository;
 
     @GetMapping("/list")
-    public void albaList(Model model, @PageableDefault(size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String albaList(Model model, @PageableDefault( size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) {
+
         log.info("들어옴1");
-        model.addAttribute("lists", albaListService.showTop8ByOOrderByAlbaApplyEndDateDesc());
+
+        model.addAttribute("lists", albaListService.showListByRecentEndDate());
         model.addAttribute("counts",albaListService.showAlbaTotalCount());
-        model.addAttribute("recents",albaListService.showListByRecent());
+//        model.addAttribute("recents",albaListService.showListByRecent());
+//        model.addAttribute("recents",albaListService.showAllByAlbaApplyStartDateOrderByAlbaApplyStartDateDesc(pageable));
+        model.addAttribute("recents", albaListService.showByRecent(pageable));
 
-        Page<Alba> albas = albaListService.albaShowAll(pageable);
+        Page<Alba> albas = albaRepository.findAll(pageable);
 
-        model.addAttribute("maxPage", 5);
         model.addAttribute("albas", albas);
+        model.addAttribute("maxPage", 5);
         log.info("진짜?");
+
+        return "/alba/list";
 
     }
 
@@ -63,7 +66,6 @@ public class AlbaController {
     @PostMapping("/write")
     public RedirectView albaWrite(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString) throws DateTimeParseException {
         log.info("들어왔니?");
-        log.info("리스폰스바디 컨트롤러 들어옴");
         log.info("albaApplyStartDateString:"+ albaApplyStartDateString);
         log.info("albaApplyEndDateString:"+ albaApplyEndDateString);
         log.info("albaWorkDateString:"+ albaWorkDateString);
