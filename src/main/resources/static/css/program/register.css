@@ -1921,6 +1921,14 @@ input {
     font-family: Pretendard;
 }
 
+.uploadResult ul li{
+    position: relative;
+    display: inline-block;
+}
+.uploadResult ul li span{
+    position: absolute;
+    cursor: pointer;
+}
 @media only screen and (min-width: 768px) {
     .c-new-row {
         margin-right: -12px;

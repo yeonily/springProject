@@ -412,24 +412,26 @@
                     </div>
                     <div>
                         <div class="align-items-center">
-                            <input type="file" id="file-input" style="display: none;" required accept="image/*"
-                                   onchange="fileUpload()">
+                            <input type="file" id="file-input" name="upload" style="display: none;" required accept="image/*" multiple>
                             <label for="file-input"><img class="upload" src="/image/program/upload.gif"></label>
                             <!--<img class="upload upload-margin" src="/image/program/link_upload.gif">-->
                         </div>
                         <div class="c-callout-information">
                             <div class="c-callout-wrapper">
                                 <div class="align-center">
-                                <img class="upload" src="/image/program/mark.gif">
-                                <div class="c-callout-message">첫번째 업로드 이미지가 대표 이미지로 설정됩니다.
-                                </div>
+                                    <img class="upload" src="/image/program/mark.gif">
+                                    <div class="c-callout-message">첫번째 업로드 이미지가 대표 이미지로 설정됩니다.</div>
                                 </div>
                             </div>
                         </div>
+                        <div class="field">
+                            <div class="uploadResult">
+                                <ul></ul>
+                            </div>
+                        </div>
                         <div class="c-callout-information-2" style="display: none">
-                        <div id="file-content"></div><img id="deleteBtn" alt="첨부 삭제" src="/image/myPage/close.png"
-                                                          onclick="cancelFile()">
-                    </div>
+                            <div id="file-content"></div><img id="deleteBtn" alt="첨부 삭제" src="/image/myPage/close.png" onclick="cancelFile()">
+                        </div>
                     </div>
                 </section>
             </div>
@@ -633,4 +635,78 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/program/register.js"></script>
+<script th:inline="javascript">
+    let arrayFile = [];
+    /*$("a.list").on("click", function(e){
+        e.preventDefault();
+        location.href = "/board/list" + queryString;
+    });*/
+
+    /*파일이 넣어졌을 때*/
+    $("input[type='file']").on("change", function(){
+        let formData = new FormData();
+        let $inputFile = $("input[name='upload']");
+        let files = $inputFile[0].files;
+
+        console.log(Array.from(files));
+
+        Array.from(files).forEach(file => arrayFile.push(file));
+        const dataTransfer = new DataTransfer();
+        arrayFile.forEach(file => dataTransfer.items.add(file));
+        $(this)[0].files = dataTransfer.files;
+
+        console.log($(this)[0].files);
+
+        $(files).each(function(i, file){
+            formData.append("upload", file);
+        });
+
+        $.ajax({
+            url: "/file/upload",
+            type: "post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: showUploadResult
+        });
+    });
+
+    /*파일 선택 시 미리보기*/
+    function showUploadResult(files){
+        let text = "";
+        $(files).each(function(i, file){
+            text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+            text += `<span>X</span>`;
+            if(!file.fileImageCheck){
+                text += `<img src="/image/program/count.gif" width="100">`;
+            }else{
+                text += `<img src="/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+            }
+            text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+            text += `</li>`;
+        });
+        $(".uploadResult ul").append(text);
+    }
+
+    /*미리보기 삭제*/
+    $(".uploadResult ul").on("click", "span", function(){
+        const $li = $(this).closest("li");
+        let i = $(".uploadResult ul span").index($(this));
+        let uploadPath = $li.data("file-upload-path");
+        let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
+        $.ajax({
+            url: "/file/delete",
+            type: "post",
+            data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
+            success: function(){
+                $li.remove();
+                arrayFile.splice(i, 1);
+                const dataTransfer = new DataTransfer();
+                arrayFile.forEach(file => dataTransfer.items.add(file));
+                $("input[name='upload']")[0].files = dataTransfer.files;
+            }
+        });
+    });
+
+</script>
 </html>
