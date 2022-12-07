@@ -44,21 +44,21 @@
             <div class="p-contents chart-no">
 
                 <!-- 검색어 입력 폼 -->
-                <form action="" name="searchForm" method="post">
+                <form th:action="@{/admin/policy}" name="searchForm">
                     <div class="search-form">
-                            <span class="s-form">
-                                <select name="searchSelect">
-                                    <option value="title">제목</option>
-                                    <option value="content">내용</option>
-                                    <option value="all">제목 + 내용</option>
-                                </select>
-                            </span>
+                        <span class="s-form">
+                            <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                <option value="t">제목</option>
+                                <option value="c">내용</option>
+                                <option value="tc">제목 + 내용</option>
+                            </select>
+                        </span>
                         <span class="s-f-input">
-                                <span class="search-input">
-                                    <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
-                                </span>
+                            <span class="search-input">
+                                <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
                             </span>
-                        <button type="button" class="">
+                        </span>
+                        <button type="submit" class="searchBtn">
                             <img src="/image/admin/search.png">
                         </button>
                     </div>
@@ -112,17 +112,17 @@
                     <div class="page_nation">
                         <th:block th:with="start=${(policies.number/maxPage)*maxPage + 1}, end=(${(policies.totalPages == 0) ? 1 : (start + (maxPage - 1) < policies.totalPages ? start + (maxPage - 1) : policies.totalPages)})">
                             <th:block th:if="${policies.pageable.pageNumber > 0}">
-                                <a class="arrow pprev" th:href="@{/admin/policy(page=0)}"></a>
-                                <a class="arrow prev" th:href="@{/admin/policy(page=${((policies.pageable.pageNumber/10)*10) - 1})}"></a>
+                                <a class="arrow pprev" th:href="@{/admin/policy(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow prev" th:href="@{/admin/policy(page=${((policies.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
                             </th:block >
 
                             <th:block  th:each="i: ${#numbers.sequence(start, end)}">
-                                <a th:href="@{/admin/policy(page=${i - 1})}" th:classappend="${i == policies.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                                <a th:href="@{/admin/policy(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == policies.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
                             </th:block >
 
                             <th:block th:if="${end < policies.totalPages}">
-                                <a class="arrow next" th:href="@{/admin/policy(page=${end})}"></a>
-                                <a class="arrow nnext" th:href="@{/admin/policy(page=${policies.totalPages - 1})}"></a>
+                                <a class="arrow next" th:href="@{/admin/policy(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/policy(page=${policies.totalPages - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
                             </th:block>
                         </th:block>
                     </div>
@@ -134,12 +134,27 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script th:inline="javascript">
-    let text = "";
+    let content = "";
+
+    const urlParams = new URL(location.href).searchParams;
+    const keyword = urlParams.get('keyword');
+
+    const searchParams = new URLSearchParams(location.search);
+    for (const param of searchParams) {
+        console.log(param);
+    }
+
+    // 검색 옵션
+    if(keyword == null) {
+        $(".keywords").val('t').prop("selected", true);
+    } else {
+        $(".keywords").val(keyword).prop("selected", true);
+    }
 
     $("td.content").each(function (i, e) {
-        text = $(this).html().replace(/<br>/ig, "&nbsp;");
-        text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-        $(this).html(text);
+        content = $(this).html().replace(/<br>/ig, "&nbsp;");
+        content = content.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+        $(this).html(content);
     });
 
     var msg = "삭제 하시겠습니까?";
@@ -153,9 +168,7 @@
         if(flag){
             $(this).parent("form.deleteForm").submit();
         }
-        // history.replaceState({}, null, null);
     });
-    // });
 </script>
 </body>
 <html>

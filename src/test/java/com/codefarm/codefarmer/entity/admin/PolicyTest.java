@@ -40,7 +40,7 @@ public class PolicyTest {
         Policy policy = policyRepository.findById(69L).get();
         policy.setPolicyKeyword("키워드 수정2222222");
 
-        policy.update(policy);
+        policyRepository.save(policy);
     }
 
 //    정책 삭제

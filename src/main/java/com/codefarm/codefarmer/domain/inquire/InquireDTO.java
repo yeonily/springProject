@@ -16,10 +16,10 @@ public class InquireDTO {
     private String inquireQTitle;
     private String inquireQContent;
     private Status inquireStatus;
-    private Member memberId;
+    private Member member;
 
     @QueryProjection
-    public InquireDTO(Long inquireId, String inquireQTitle, String inquireQContent, Status inquireStatus, Member memberId) {
+    public InquireDTO(Long inquireId, String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
         this.inquireId = inquireId;
         this.inquireQTitle = inquireQTitle;
         this.inquireQContent = inquireQContent;
@@ -30,7 +30,7 @@ public class InquireDTO {
         return Inquire.builder()
                 .inquireQContent(inquireQContent)
                 .inquireQTitle(inquireQTitle)
-                .inquireStatus(Status.WAITING)
+                .member(member)
                 .build();
     }
 }

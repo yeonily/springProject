@@ -11,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,10 +28,9 @@ public class InformationService {
     }
 
 //    정책 수정
-    @Transactional
     public void policyUpdate(Policy policy){
-        log.info("정책 -> " + policy);
-        policy.update(policy);
+        Optional<Policy> findPolicyId = policyRepository.findById(policy.getPolicyId());
+        policyRepository.save(policy);
     }
 
 //    정책 삭제
@@ -42,7 +43,18 @@ public class InformationService {
     @Transactional(readOnly = true)
     public Page<Policy> policyShowAll(Pageable pageable){
         return policyRepository.findAll(pageable);
-//        return policyRepository.findAllByPolicyId(pageable);
+    }
+
+//    정책 검색
+    @Transactional(readOnly = true)
+    public Page<Policy> policySearchShowAll(Pageable pageable, String keyword, String policyTitle, String policyContent){
+        if (keyword == "t"){
+            return policyRepository.findByPolicyTitleContaining(policyTitle, pageable);
+        } else if (keyword == "c"){
+            return policyRepository.findByPolicyContentContaining(policyContent, pageable);
+        } else {
+            return policyRepository.findByPolicyTitleContainingOrPolicyContentContaining(policyTitle, policyContent, pageable);
+        }
     }
 
 //    정책 디테일
@@ -74,7 +86,18 @@ public class InformationService {
     @Transactional(readOnly = true)
     public Page<Crop> cropShowAll(Pageable pageable){
         return cropRepository.findAll(pageable);
-//        return cropRepository.OrderByCropId(pageable);
+    }
+
+//    농업정보 검색
+    @Transactional(readOnly = true)
+    public Page<Crop> cropSearchShowAll(Pageable pageable, String keyword, String cropTitle, String cropContent){
+        if (keyword == "t"){
+            return cropRepository.findByCropTitleContaining(cropTitle, pageable);
+        } else if (keyword == "c"){
+            return cropRepository.findByCropContentContaining(cropContent, pageable);
+        } else {
+            return cropRepository.findByCropTitleContainingOrCropContentContaining(cropTitle, cropContent, pageable);
+        }
     }
 
 //    농업정보 디테일

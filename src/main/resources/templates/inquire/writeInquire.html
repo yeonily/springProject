@@ -65,15 +65,16 @@
                                             </p>
                                         </div>
                                         <section class="clearfix">
-                                            <input type="text" placeholder="제목" id="title" class="inputbox inputbox-title" style="margin-bottom: 10px; width: 100%; margin-top: 16px; border-radius: 3px;">
-                                            <textarea type="textarea" id="content" class="textbox mb-20" cols="30"
-                                                      rows="5" placeholder="해결이 필요한 문제에 대해 자세히 설명해주세요."
-                                                      style="padding: 15px; border-radius: 3px;"></textarea>
+                                            <form th:action="@{/help}" th:object="${inquireDTO}" method="post">
+                                                <input th:field="*{inquireQTitle}" placeholder="제목" id="title" class="inputbox inputbox-title" style="margin-bottom: 10px; width: 100%; margin-top: 16px; border-radius: 3px;">
+                                                <textarea th:field="*{inquireQContent}" id="content" class="textbox mb-20" cols="30"
+                                                          rows="5" placeholder="해결이 필요한 문제에 대해 자세히 설명해주세요."
+                                                          style="padding: 15px; border-radius: 3px;"></textarea>
 
-                                            <div class="btn-wrapper" style="height: 40px;">
-                                                <button class="btn disabled"> 문의하기
-                                                </button>
-                                            </div>
+                                                <div class="btn-wrapper" style="height: 40px;">
+                                                    <button class="btn disabled"> 문의하기</button>
+                                                </div>
+                                            </form>
                                         </section>
                                     </div>
                                 </section>
