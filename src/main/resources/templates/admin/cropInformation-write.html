@@ -40,7 +40,7 @@
 
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form action="" name="noticeForm" method="">
+            <form th:action="@{/admin/crop/write}" th:object="${crop}" name="cropForm" method="post" enctype="multipart/form-data">
                 <table>
                     <colgroup>
                         <col width="20%;">
@@ -51,7 +51,7 @@
                         <th>카테고리</th>
                         <td>
                             <div class="categori">
-                                <input type="text" name="categori" class="categori" placeholder="카테고리를 입력하세요" autocomplete="off">
+                                <input th:field="*{cropKeyword}" class="categori" placeholder="카테고리를 입력하세요." autocomplete="off">
                             </div>
                         </td>
                     </tr>
@@ -59,7 +59,7 @@
                         <th>제목</th>
                         <td>
                             <div class="title">
-                                <input type="text" name="notice" class="notice_title" placeholder="제목을 입력하세요" autocomplete="off">
+                                <input th:field="*{cropTitle}" class="notice_title" placeholder="제목을 입력하세요." autocomplete="off">
                             </div>
                         </td>
                     </tr>
@@ -67,7 +67,7 @@
                         <th>내용</th>
                         <td>
                             <div id="editor">
-                                <textarea class="summernote" name="editorForm"></textarea>
+                                <textarea th:field="*{cropContent}" class="summernote"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -78,7 +78,7 @@
                             <div class="file">
                                 <label class="input-file-button" for="input-image">
                                 </label>
-                                <input type="file" name="file" id="input-image">
+                                <input type="file" th:name="*{cropImage}" id="input-image">
                             </div>
                             <div id="file-content"></div>
                         </td>
@@ -86,8 +86,8 @@
                     </tbody>
                 </table>
                 <div class="btns-group">
-                    <input type="button" onclick="location.href='/admin/cropInformation'" class="g-btn list" value="농업정보 목록">
-                    <input type="submit" onclick="saveCropInformationCheck()" class="g-btn submit" value="등록">
+                    <input type="button" onclick="cBackList()" class="g-btn list" value="농업정보 목록">
+                    <input type="button" class="g-btn submit c-submit" value="등록">
                 </div>
             </form>
         </div>
@@ -102,4 +102,10 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="/js/admin/summerNote.js"></script>
 <script src="/js/admin/uploadFile.js"></script>
+<script src="/js/admin/write.js"></script>
+<script>
+    $("input[type='file']").change(function () {
+        console.log("파일 : " + $(this).val());
+    });
+</script>
 <html>

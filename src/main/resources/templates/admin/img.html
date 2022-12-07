@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/admin/img}" name="cropForm" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" class="notice_title" placeholder="제목을 입력하세요" autocomplete="off">
+        <input type="file" name="file" id="input-image">
+        <input type="submit" value="수정 완료">
+    </form>
+</body>
+</html>

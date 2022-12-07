@@ -312,9 +312,9 @@ $("input").on("change", function() {
 $("textarea").on("change", function() {
     $(this).css("border", "1px solid #e1e4e6");
 })
-$("#input-image").on("change", function() {
-    $("#preview-image").css("border", "1px solid #e1e4e6");
-});
+// $("#input-image").on("change", function() {
+//     $("#preview-image").css("border", "1px solid #e1e4e6");
+// });
 
 
 
