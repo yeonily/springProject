@@ -44,13 +44,13 @@ public class BoardTest {
     @Test
     public void boardSaveTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Member> findMember = memberRepository.findById(14L);
+        Optional<Member> findMember = memberRepository.findById(3L);
         boardDTO.setBoardTitle("페이징처리 너란 녀석");
         boardDTO.setBoardContent("호호호호");
         boardDTO.setMember(findMember.get());
 
         Board board = boardDTO.toEntity();
-//        board.changeMember();
+        board.changeMember(boardDTO.getMember());
         boardRepository.save(board);
     }
 
@@ -58,16 +58,15 @@ public class BoardTest {
     @Test
     public void boardUpdateTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Member> findFarmer = memberRepository.findById(1L);
-        Board board = boardRepository.findById(5L).get();
+        Optional<Member> findFarmer = memberRepository.findById(3L);
+        Board board = boardRepository.findById(6L).get();
 
         boardDTO.setBoardTitle("수정된 제목");
         boardDTO.setBoardContent("수정된 내용");
         boardDTO.setMember(findFarmer.get());
         boardDTO.setBoardId(board.getBoardId());
-//        boardDTO.setMemberId(findFarmer.get());
-//
-//        board.changeMember(boardDTO.getMemberId());
+
+        board.changeMember(boardDTO.getMember());
 
         board.update(boardDTO);
     }
@@ -75,7 +74,7 @@ public class BoardTest {
 //   Detail 게시글 작성한 사람 닉네임 갖고오기
     @Test
     public void findGetBoardUser(){
-        Optional<Board> findBoardUser = boardRepository.findById(40L);
+        Optional<Board> findBoardUser = boardRepository.findById(6L);
             log.info("board : " + findBoardUser.get().getBoardId());
             log.info("nickName : " + findBoardUser.get().getMember().getMemberNickname());
 //            log.info("nickName : " + findBoardUser.get().getBoardFiles());
@@ -87,7 +86,7 @@ public class BoardTest {
     public void findNickName(){
 //        Optional<Board> findNickName = boardRepository.findById(17L);
 //        log.info("닉네임 : " +  findNickName.get().getMember().getMemberNickname());
-        Optional<Member> findMember = memberRepository.findById(2L);
+        Optional<Member> findMember = memberRepository.findById(3L);
         log.info("닉네임 : " + findMember.get().getMemberNickname());
     }
 
@@ -99,7 +98,7 @@ public class BoardTest {
 //    게시글 제목, 내용 select
     @Test
     public void findDetailTest(){
-        Optional<Board> findTitleContent = boardRepository.findById(5L);
+        Optional<Board> findTitleContent = boardRepository.findById(6L);
 
         if(findTitleContent.isPresent()){
             log.info("boardTitle : " + findTitleContent.get().getBoardTitle());
@@ -114,13 +113,13 @@ public class BoardTest {
 //    내가 게시한 게시글 총 개수
     @Test
     public void findBoardCountMine(){
-        log.info("내가 등록한 게시글 총 수 : " + boardRepository.countByMemberMemberId(1L));
+        log.info("내가 등록한 게시글 총 수 : " + boardRepository.countByMemberMemberId(3L));
     }
 
 //    viewCount 갖고오기(count++하는건 컨트롤러에서 작업)
     @Test
     public void findBoardViewCount(){
-        Optional<Board> findBoardViewCount = boardRepository.findById(7L);
+        Optional<Board> findBoardViewCount = boardRepository.findById(6L);
         log.info("viewCount : " + findBoardViewCount.get().getBoardViewCount());
     }
 
