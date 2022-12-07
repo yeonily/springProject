@@ -5,7 +5,9 @@ import com.codefarm.codefarmer.entity.chat.ChatRoom;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.type.ChatStatus;
 import com.codefarm.codefarmer.type.MessageType;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
@@ -33,9 +35,10 @@ public class ChatDTO {
     private Member member;
     private Set<WebSocketSession> sessions = new HashSet<>();
     private MessageType type;
+    private Long memberId;
 
     @QueryProjection
-    public ChatDTO(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, LocalDateTime chatDate, MessageType type, Member member) {
+    public ChatDTO(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, LocalDateTime chatDate, MessageType type, Member member, Long memberId) {
         this.chatId = chatId;
         this.chatRoom = chatRoom;
         this.chatMessage = chatMessage;
@@ -43,6 +46,7 @@ public class ChatDTO {
         this.chatDate = chatDate;
         this.type = type;
         this.member = member;
+        this.memberId = memberId;
     }
 
 

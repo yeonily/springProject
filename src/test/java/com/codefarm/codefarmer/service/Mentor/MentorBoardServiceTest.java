@@ -49,8 +49,8 @@ public class MentorBoardServiceTest {
 //    멘토 글 상세페이지에서 확인하기
     @Test
     public void showDetailMentorBoardTest(){
-        mentorService.showDetailMentorBoard(47L);
-        log.info("멘토 상세 글 : " + mentorService.showDetailMentorBoard(47L));
+        mentorService.showDetailMentorBoard(65L);
+        log.info("멘토상세 글 : " + mentorService.showDetailMentorBoard(65L));
     }
 
 //    멘토 보드 지우기

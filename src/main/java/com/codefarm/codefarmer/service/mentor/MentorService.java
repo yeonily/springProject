@@ -43,6 +43,7 @@ public class MentorService {
         mentorBoardDTO.setMentorTextTitle(mentorBoard.getMentorTextTitle());
         mentorBoardDTO.setMentorTextContent(mentorBoard.getMentorTextContent());
         mentorBoardDTO.setMentorBoardId(mentorBoard.getMentorBoardId());
+        mentorBoardDTO.setMentorId(mentorBoard.getMember().getMemberId());
 
         return mentorBoardDTO;
     }

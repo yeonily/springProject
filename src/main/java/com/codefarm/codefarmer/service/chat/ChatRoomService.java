@@ -65,8 +65,8 @@ public class ChatRoomService {
     public List<ChatRoomDTO> chatRoomSelectAll(Long memberId) {
         return jpaQueryFactory.select(new QChatRoomDTO(
                 chatRoom.chatRoomId,
-                chatRoom.mentee,
                 chatRoom.mentor,
+                chatRoom.mentee,
                 chatRoom.chatDate
         )).from(chatRoom)
                 .where(chatRoom.mentor.memberId.eq(memberId)
@@ -77,7 +77,7 @@ public class ChatRoomService {
                 /*선택된 채팅방 대화내역 불러오기*/
     /*-----------------------------------------------*/
     public List<ChatDTO> chatList(Long chatRoomId) {
-        return jpaQueryFactory.select(Projections.bean(ChatDTO.class, chat.chatId, chat.chatRoom, chat.chatMessage, chat.chatDate, chat.chatStatus, chat.member))
+        return jpaQueryFactory.select(Projections.bean(ChatDTO.class, chat.chatId, chat.chatRoom, chat.chatMessage, chat.chatDate, chat.chatStatus, chat.member, chat.member.memberId))
                 .from(chat)
                 .where(chat.chatRoom.chatRoomId.eq(chatRoomId))
                 .orderBy(chat.chatDate.asc())
@@ -89,7 +89,7 @@ public class ChatRoomService {
         /*채팅방에 접속했을 때 상대방이 보낸 메세지 읽음 처리*/
     /*-----------------------------------------------*/
     public void readChange(Long chatRoomId) {
-        Long memberId = 1L; // 이후에 세션 추가되면 변경해야함(현재 로그인 세션 아이디로)
+        Long memberId = 16L; // 이후에 세션 추가되면 변경해야함(현재 로그인 세션 아이디로)
         List<ChatDTO> chatDTOList = chatList(chatRoomId); // 해당 채팅방의 모든 채팅을 가져옴
         List<Chat> chatList = new ArrayList<>();
 
@@ -125,11 +125,11 @@ public class ChatRoomService {
     /*-----------------------------------------------*/
     public boolean checkChatRoom(Long mentorId, Long menteeId) {
         Member user = userRepository.findById(menteeId).get(); // 현재 로그인 한 아이디(대화 신청자)
-        List<ChatRoomDTO> chatRoomDTOList = chatRoomSelectAll(1L);
+        List<ChatRoomDTO> chatRoomDTOList = chatRoomSelectAll(menteeId);
 
         // 채팅방들 중 해당 멘티와 이미 대화 중인 방이 존재할 경우
         for(ChatRoomDTO chatRoomDTO : chatRoomDTOList) {
-            if(chatRoomDTO.getMentor().getMemberId().equals(menteeId) && chatRoomDTO.getMentee().getMemberId().equals(mentorId)) {
+            if(chatRoomDTO.getMentor().getMemberId().equals(mentorId) && chatRoomDTO.getMentee().getMemberId().equals(menteeId)) {
                 return true; // 대화방이 존재할 경우 true
             }
         }
@@ -141,20 +141,28 @@ public class ChatRoomService {
     /*-----------------------------------------------*/
     public void createChatRoom(Long mentorId, Long menteeId) {
         List<Mentor> mentorList = mentorRepository.findAll();
+        ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
 
-        if(!checkChatRoom(mentorId, menteeId)) { // 대화방이 존재하지 않는 경우에만 방 생성
-            ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
-            chatRoomDTO.setMentee(userRepository.findById(menteeId).get()); // 멘티(로그인 세션)
-
-            for(Mentor mentor : mentorList) {
-                if(mentor.getMember().getMemberId().equals(mentorId)) {
-                    chatRoomDTO.setMentor(mentor.getMember()); // 멘토
-                    break;
+        for(Mentor mentor : mentorList) {
+            if(mentor.getMember().getMemberId() == mentorId) {
+                if(!checkChatRoom(mentorId, menteeId)) {
+                    chatRoomDTO.setMentor(mentor.getMember());
+                    chatRoomDTO.setMentee(findByMemberId(menteeId));
+                    ChatRoom chatRoom = chatRoomDTO.toEntity();
+                    chatRoomRepository.save(chatRoom);
+                    System.out.println("멘토 : " + mentorId + "\n멘티 : " + menteeId + "\n방 만들어짐");
                 }
+                break;
             }
-            ChatRoom chatRoom = chatRoomDTO.toEntity();
-            chatRoomRepository.save(chatRoom);
         }
+    }
+
+
+    /*-----------------------------------------------*/
+        /*로그인 세션 기준 읽지 않은 메세지 있는지 확인(작업해야함)*/
+    /*-----------------------------------------------*/
+    public void sendMessage() {
+
     }
 
 
@@ -176,7 +184,6 @@ public class ChatRoomService {
                 cnt += 1;
             }
         }
-
         return cnt;
     }
 }

@@ -13,8 +13,9 @@
 <body>
 <!--헤더 삽입-->
 <div th:replace="/header/header.html :: header" class="header"/>
-<span id="alarmCheck" style="display: none" th:text="${alarmCnt}"></span> <!--채팅 알림 부분인데 이후 헤더로 이동 후에 세션으로 알림값 고정으로 받기-->
-
+<!--채팅 알림 부분인데 이후 헤더로 이동 후에 세션으로 알림값 고정으로 받기-->
+<span id="alarmCheck" style="display: none" th:text="${alarmCnt}"></span>
+<span id="sessionId" style="display: none" th:text="${sessionId}"></span>
 <!--바디-->
 <section id="section_main" style="height: 760px;">
     <div id="section_wrap">
@@ -30,7 +31,7 @@
                             <li class="left_lists" th:object="${room}">
                                 <a href="javascript:void(0);" class="left_lists_a">
                                     <div>
-                                        <div class="list_name"><p class="list_name_p1" th:text="*{mentor.memberNickname}"></p><p class="list_name_p2"></p></div>
+                                        <div class="list_name"><p class="list_name_p1" th:text="*{mentor.memberNickname}" id="nickName"></p><p class="list_name_p2"></p></div>
                                         <div>
                                             <p class="list_text_p1"></p><p class="list_text_p2"> IT 및 아트앤디자인 분야의 취업, 진로, 커리큘럼 멘토링</p>
                                         </div>
@@ -55,8 +56,8 @@
                             <img src="https://api.2awesomementor.com/files/user/2022/10/1668795064008.jpg" alt="" class="thumb_image">
                         </p>-->
                         <div class="right_text">
-                            <p class="list_text_p1">멘토쌤</p>
-                            <p class="list_text_p2"> IT 및 아트앤디자인 분야의 취업, 진로, 커리큘럼 멘토링</p>
+                            <p class="list_text_p1">대화 상대를 선택해주세요.</p>
+                            <p class="list_text_p2">*욕설 및 비방, 비하의 채팅을 하지말아주세요!</p>
                         </div>
                         <div style="margin-top: 10px; float: right">
                             <input type="button" id="apply_button" value="멘토 신청하기">
@@ -159,7 +160,7 @@
     // var nickname;
     // var roomId = 12; // roomId는 일단 임시 보류
     //
-    //
+    // connect();
     //
     // /*전송버튼 클릭 시*/
     // document.getElementById("send").addEventListener("click", function() {
@@ -170,23 +171,23 @@
     // function connect(){
     //     webSocket = new WebSocket("ws://localhost:5555/chat");
     //     webSocket.onopen = onOpen;
-    //     webSocket.onclose = onClose;
+    //     // webSocket.onclose = onClose;
     //     webSocket.onmessage = onMessage;
     //
     // }
     //
     // /*나갔을 때 발생하는 함수*/
     // // 채팅방에서 나갔을 때는 type이 LEAVE로 변환되어 퇴장 메세지를 출력한다.
-    // function disconnect(){
-    //     webSocket.send(JSON.stringify({type:'LEAVE',text: "나가!"}));
-    //     webSocket.close();
-    // }
+    // // function disconnect(){
+    // //     webSocket.send(JSON.stringify({type:'LEAVE',text: "나가!"}));
+    // //     webSocket.close();
+    // // }
     //
     //
     // /*메세지 전송 함수*/
     // function send() {
     //     msg = document.getElementById("message").value;
-    //     webSocket.send(JSON.stringify({type: 'CHAT', text: "전송"}));
+    //     webSocket.send(JSON.stringify({type: 'CHAT', text: 'msg'})); // JSON으로 데이터를 보냄
     //     alert("전송됨");
     // }
     //
@@ -200,13 +201,12 @@
     //     data = e.data;
     //     chatroom = document.getElementById("chatroom");
     //     chatroom.innerHTML = chatroom.innerHTML + "<br>" + data;
+    //     console.log(e);
     // }
-    //
-    // /*채팅을 나가게 되면 disconnect 함수 호출*/
+
+    /*채팅을 나가게 되면 disconnect 함수 호출*/
     // function onClose(){
     //     disconnect();
     // }
-    //
-    // connect();
 </script>
 </html>
