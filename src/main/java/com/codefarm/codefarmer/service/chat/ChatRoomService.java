@@ -2,7 +2,6 @@ package com.codefarm.codefarmer.service.chat;
 
 import com.codefarm.codefarmer.domain.chat.ChatDTO;
 import com.codefarm.codefarmer.domain.chat.ChatRoomDTO;
-import com.codefarm.codefarmer.domain.chat.QChatDTO;
 import com.codefarm.codefarmer.domain.chat.QChatRoomDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
 import com.codefarm.codefarmer.entity.chat.ChatRoom;
@@ -10,16 +9,12 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.chat.ChatRoomRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
-import com.codefarm.codefarmer.type.ChatStatus;
-import com.codefarm.codefarmer.type.MessageType;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.EnumPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -36,7 +31,7 @@ import static com.codefarm.codefarmer.type.ChatStatus.UNREAD;
 public class ChatRoomService {
     private final JPAQueryFactory jpaQueryFactory;
     private final MentorRepository mentorRepository;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRepository chatRepository;
 
@@ -46,9 +41,9 @@ public class ChatRoomService {
     public Member findByMemberId(Long memberId) {
         ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
         // 일반 유저, 멘티 정보를 저장
-        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add(v));
+        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
         // 농장주, 멘토 정보를 저장
-        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add(v));
+        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
 
 
         for (Member member : memberIdList) {
@@ -124,7 +119,7 @@ public class ChatRoomService {
                 /*이미 대화중이었던 채팅방인지 체크*/
     /*-----------------------------------------------*/
     public boolean checkChatRoom(Long mentorId, Long menteeId) {
-        Member user = userRepository.findById(menteeId).get(); // 현재 로그인 한 아이디(대화 신청자)
+        Member member = memberRepository.findById(menteeId).get(); // 현재 로그인 한 아이디(대화 신청자)
         List<ChatRoomDTO> chatRoomDTOList = chatRoomSelectAll(menteeId);
 
         // 채팅방들 중 해당 멘티와 이미 대화 중인 방이 존재할 경우

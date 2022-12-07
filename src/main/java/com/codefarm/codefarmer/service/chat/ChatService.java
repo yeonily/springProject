@@ -7,15 +7,12 @@ import com.codefarm.codefarmer.entity.chat.ChatRoom;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.chat.ChatRoomRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
-import com.codefarm.codefarmer.type.ChatStatus;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
 import static com.codefarm.codefarmer.entity.member.QUser.user;
@@ -27,8 +24,7 @@ public class ChatService {
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRepository chatRepository;
     private final ChatRoomService chatRoomService;
-    private final UserRepository userRepository;
-    private final FarmerRepository farmerRepository;
+    private final MemberRepository memberRepository;
 
 
     /*채팅 전송*/
@@ -36,8 +32,8 @@ public class ChatService {
         ChatRoom chatRoom = chatRoomDTO.toEntity();
 
         ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
-        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add(v));
-        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add(v));
+        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
+        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
 
         for(Member member : memberIdList) {
             if(member.getMemberId().equals(1L)) { // 현재 로그인 세션이 1번일 때
