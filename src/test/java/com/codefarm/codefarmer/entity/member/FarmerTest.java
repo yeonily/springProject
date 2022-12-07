@@ -150,7 +150,7 @@ public class FarmerTest {
                 .fetchJoin().fetch().stream().map(Board::getBoardTitle).forEach(log::info);
     }
 
-    //멘토신청하기 SAVE
+
 
 
 }

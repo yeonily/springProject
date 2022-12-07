@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FarmerRepository extends JpaRepository<Farmer, Long> {
+public interface FarmerRepository extends JpaRepository<Farmer, Long>, FarmerCustomRepository {
 
 }

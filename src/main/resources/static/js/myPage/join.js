@@ -2,7 +2,7 @@
 * myPage/joinForm.js
 * */
 
-let nickCheckCount = 0;
+let nickCheck = false;
 let nickname = "";
 
 // input에 이름 입력 시 실시간으로 출력
@@ -39,13 +39,37 @@ function alam() {
 $(".joinBtn").prop("disabled", true);
 
 function joinNickCheck (){ /* 중복 체크 */
-    nickCheckCount = 1;
+
+    nickCheck = false;
     if(!joinForm.nickname.value) {
         joinForm.nickname.focus();
         return;
     }
     nickname = joinForm.nickname.value;
+    console.log(nickname);
+
+    $.ajax({
+        url: "/register/form",
+        type : "post",
+        data : {nickname: nickname},
+        success : function(data){
+            if(data == 0){
+                console.log("성공");
+                $("#n-message1").css("display", "block");
+                $("#n-message2").css("display", "none");
+                nickCheck = true;
+            }else{
+                console.log("씰패");
+                $("#n-message1").css("display", "none");
+                $("#n-message2").css("display", "block");
+                nickCheck = false;
+            }
+        }
+
+    });
 }
+
+
 
 // input 값 모두 입력했을 때 회원 가입하기 버튼 활성화
 joinForm.name.addEventListener("keyup", join)
@@ -58,14 +82,15 @@ joinForm.address.addEventListener("keyup", join)
 function join() {
     if(!(joinForm.name.value && joinForm.phone.value && joinForm.address.value && joinForm.year.value && joinForm.month.value && joinForm.day.value)) {
         console.log("true")
-        $(".joinBtn").prop("disabled", true);
+            if(!nickCheck){
+                 $(".joinBtn").prop("disabled", true);
+            }
     } else {
         console.log("false")
-        $(".joinBtn").prop("disabled", false);
-
-        //joinForm.submit();
-
+            $(".joinBtn").prop("disabled", false);
     }
+
+
     // if(!joinForm.year.value) {
     //     joinForm.year.focus();
     //     $(".joinBtn").prop("disabled", true);
@@ -98,3 +123,15 @@ function join() {
     // }
 
 }
+
+
+
+if($("#n-message2").css("display") == "block"){
+    $(".joinBtn").prop("disabled", true);
+}
+
+
+
+$(".joinBtn").on("click", function () {
+    joinForm.submit();
+})
