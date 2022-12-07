@@ -14,6 +14,7 @@
 <div th:replace="/header/header.html :: header" class="header"/>
 <div id="main">
     <section class="detail-wrap max">
+
         <div class="w-wrap" th:object="${list}">
             <article>
                 <div class="top-wrap">
@@ -25,22 +26,24 @@
                     <!-- 작성자일때 -->
                     <div class="drop-option-wrap">
                         <div class="drop-option">
-                            <button>
+                            <button type="button">
                                 <svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>
                             </button>
                         </div>
                         <div class="drop-option-menu q-modify" style="display: none;">
-                            <a th:href="@{/community/modify}">
+                            <a th:href="@{/community/update(boardId=${param.boardId})}">
                                 <div class="o-m-wrap">
                                     <img src="/image/community/modify.png">
                                     수정하기
                                 </div>
                             </a>
                             <hr>
+                            <a th:href="@{/community/delete(boardId=${param.boardId})}">
                             <div class="o-m-wrap q-delete">
                                 <img src="/image/community/delete.png">
                                 삭제하기
                             </div>
+                            </a>
                         </div>
                     </div>
                     <!--------------->
@@ -55,7 +58,7 @@
                         <span class="f-size">[1.63MB]</span>
                     </div>
                 </div>
-                <p class="commu-date" th:text="*{boardCreateDate}"></p>
+                <p class="commu-date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></p>
             </article>
         </div>
     </section>

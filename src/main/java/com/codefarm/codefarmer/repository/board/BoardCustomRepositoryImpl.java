@@ -33,7 +33,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
     @Override
     public Slice<Board> findAllSlice(Pageable pageable) {
         List<Board> boardList = jpaQueryFactory.selectFrom(board)
-                .orderBy(board.boardId.desc())
+                .orderBy(board.updatedDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1)
                 .fetch();
@@ -61,7 +61,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
                 new QBoardDTO(board.boardId,board.boardTitle,board.boardContent,
                 board.boardViewCount,board.member.memberNickname,
                         board.createdDate,board.updatedDate)).from(board)
-                .orderBy(board.boardId.desc())
+                .orderBy(board.updatedDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1)
                 .fetch();

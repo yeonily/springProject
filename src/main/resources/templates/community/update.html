@@ -16,18 +16,20 @@
     <div id="c-wrap">
         <div id="community-wrap">
             <h1 class="c-top-title">
-                커뮤니티 게시글 작성
+                커뮤니티 게시글 수정
                 <p>다양한 사람들과 <strong>자유롭게</strong> 이야기를 나눠보세요.</p>
             </h1>
             <div>
-                <form th:action="@{/community/register}" name="boardForm" th:object="${board}" enctype="multipart/form-data" method="post">
+                <form th:action="@{/community/updated}" name="boardForm" enctype="multipart/form-data" method="post" th:object="${list}">
+                    <input type="hidden" name="boardId" th:value="*{boardId}">
+<!--                    <input type="hidden" name="memberId" th:value="${list.}">-->
                     <div class="r-title">
-                        <input th:field="*{boardTitle}" type="text" name="title" id="r-title" class="r-input" placeholder="제목을 입력하세요.">
+                        <input th:field="*{boardTitle}" id="r-title" class="r-input" placeholder="제목을 입력하세요.">
                         <label for="r-title" class="r-label">글 제목</label>
                     </div>
                     <div>
                         <div class="r-content">
-                            <textarea th:field="*{boardContent}" type="text" name="content" id="r-content" class="r-input" placeholder="내용을 입력하세요."></textarea>
+                            <textarea th:field="*{boardContent}" id="r-content" class="r-input" placeholder="내용을 입력하세요."></textarea>
                             <label for="r-content" class="r-label">글 내용</label>
                         </div>
                         <div id="count-wrap">
@@ -53,7 +55,7 @@
                         </div>
                     </div>
                     <div style="margin-top: 27px;">
-                        <button type="submit" class="writeBtn">등록하기</button>
+                        <button type="submit" class="writeBtn">수정하기</button>
                     </div>
                 </form>
             </div>
@@ -65,4 +67,7 @@
 <script src="/js/header/header.js"></script>
 <script src="/js/community/register.js"></script>
 <script src="/js/community/link.js"></script>
+<script th:inline="javascript">
+
+</script>
 </html>

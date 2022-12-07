@@ -46,10 +46,9 @@ public class Board extends Period {
 
 
     @Builder
-    public Board(String boardTitle, String boardContent, int boardViewCount) {
+    public Board(String boardTitle, String boardContent) {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
-        this.boardViewCount = boardViewCount;
     }
 }
 

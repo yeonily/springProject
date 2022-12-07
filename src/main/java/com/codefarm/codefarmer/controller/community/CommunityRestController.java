@@ -21,7 +21,7 @@ public class CommunityRestController {
     private final BoardCustomRepository boardCustomRepository;
 
     @GetMapping("list")
-    public Slice<BoardDTO> getList(@PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable){
+    public Slice<BoardDTO> getList(@PageableDefault(size = 10, sort = "UpdatedDate", direction = Sort.Direction.DESC) Pageable pageable){
         return boardCustomRepository.findAllSliceDTO(pageable);
     }
 }
