@@ -1,18 +1,15 @@
 package com.codefarm.codefarmer.entity.mentor;
 
-import com.codefarm.codefarmer.domain.member.FarmerDTO;
+import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
-import com.codefarm.codefarmer.domain.member.UserDTO;
-import com.codefarm.codefarmer.entity.member.Farmer;
-import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
-import com.codefarm.codefarmer.type.FarmerType;
-import com.codefarm.codefarmer.type.UserType;
+import com.codefarm.codefarmer.type.MemberType;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.usertype.UserType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.codefarm.codefarmer.type.Oauth.KAKAO;
 
 @SpringBootTest
 @Slf4j
@@ -32,11 +28,9 @@ public class MentorTest {
     @Autowired
     private MentorRepository mentorRepository;
     @Autowired
-    private FarmerRepository farmerRepository;
-    @Autowired
     private MentorBoardRepository mentorBoardRepository;
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
 
 //    마이페이지에서 농작물과 경력을 입력하면 멘토신청됨(INSERT)
@@ -47,19 +41,19 @@ public class MentorTest {
 //  일반 유저 추가
 @Test
 public void saveUserTest(){
-    UserDTO UserDTO = new UserDTO();
-    UserDTO.setUserType(UserType.USER);
-    UserDTO.setMemberBirth("1997-03-21");
-    UserDTO.setMemberEmail("runner123@naver.com");
-    UserDTO.setMemberLocation("인천");
-    UserDTO.setMemberName("연태관");
-    UserDTO.setMemberNickname("러너");
-    UserDTO.setMemberPhone("010-1564-2315");
-    UserDTO.setMemberOauth(KAKAO);
+    MemberDTO memberDTO = new MemberDTO();
+    memberDTO.setMemberType(MemberType.USER);
+    memberDTO.setMemberBirth("1997-03-21");
+    memberDTO.setMemberEmail("runner123@naver.com");
+    memberDTO.setMemberLocation("인천");
+    memberDTO.setMemberName("연태관");
+    memberDTO.setMemberNickname("러너");
+    memberDTO.setMemberPhone("010-1564-2315");
+    memberDTO.setMemberOauthId("asdf");
 
-    User user = UserDTO.toEntity();
+    Member member = memberDTO.toEntity();
 
-    userRepository.save(user);
+    memberRepository.save(member);
 
 }
 
@@ -67,19 +61,19 @@ public void saveUserTest(){
     @Test
     public void saveFarmerTest(){
 
-        FarmerDTO farmerDTO = new FarmerDTO();
-        farmerDTO.setFarmerType(FarmerType.FARMER);
+        MemberDTO farmerDTO = new MemberDTO();
+        farmerDTO.setMemberType(MemberType.FARMER);
         farmerDTO.setMemberBirth("1997-04-16");
         farmerDTO.setMemberEmail("gimchi2336@naver.com");
         farmerDTO.setMemberLocation("인천");
         farmerDTO.setMemberName("김민혁");
         farmerDTO.setMemberNickname("김장킬러");
         farmerDTO.setMemberPhone("010-4343-4321");
-        farmerDTO.setMemberOauth(KAKAO);
+        farmerDTO.setMemberOauthId("KAKAO");
 
-        Farmer farmer = farmerDTO.toEntity();
+        Member farmer = farmerDTO.toEntity();
 
-        farmerRepository.save(farmer);
+        memberRepository.save(farmer);
 
     }
 
@@ -87,10 +81,10 @@ public void saveUserTest(){
     //    유저타입만 바꾸기(멘티로)
     @Test
     public void typeUserUpdateTest(){
-        User user = userRepository.findById(16L).get();
+        Member user = memberRepository.findById(16L).get();
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserType(UserType.MENTEE);
+        MemberDTO userDTO = new MemberDTO();
+        userDTO.setMemberType(MemberType.MENTEE);
         userDTO.setMemberEmail(user.getMemberEmail());
         userDTO.setMemberLocation(user.getMemberLocation());
         userDTO.setMemberNickname(user.getMemberNickname());
@@ -102,10 +96,10 @@ public void saveUserTest(){
     //    농장주타입만 바꾸기
     @Test
     public void typeFarmerUpdateTest(){
-        Farmer farmer = farmerRepository.findById(14L).get();
+        Member farmer = memberRepository.findById(14L).get();
 
-        FarmerDTO farmerDTO = new FarmerDTO();
-        farmerDTO.setFarmerType(FarmerType.MENTOR);
+        MemberDTO farmerDTO = new MemberDTO();
+        farmerDTO.setMemberType(MemberType.MENTOR);
         farmerDTO.setMemberEmail(farmer.getMemberEmail());
         farmerDTO.setMemberLocation(farmer.getMemberLocation());
         farmerDTO.setMemberNickname(farmer.getMemberNickname());
@@ -120,7 +114,7 @@ public void saveUserTest(){
     @Test
     public void MentorSaveTest(){
         MentorDTO mentorDTO = new MentorDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(14l);
+        Optional<Member> findFarmer = memberRepository.findById(14l);
 
         mentorDTO.setMentorCrop("오렌지");
         mentorDTO.setMentorYear("3~5년차");
@@ -165,7 +159,7 @@ public void saveUserTest(){
 //        멘토 상세보기에서 오른쪽 fix박스 내용 갖고오기(멘토이름, 주요작물, 경력, 지역)
     @Test
     public void findCropTest(){
-        Optional<Farmer> findLocation = farmerRepository.findById(1L);
+        Optional<Member> findLocation = memberRepository.findById(1L);
         Optional<Mentor> findMentor = mentorRepository.findById(10L);
          log.info("멘토이름 : " + findMentor.get().getMember().getMemberName());
          log.info("주요작물 : " + findMentor.get().getMentorCrop());
@@ -174,7 +168,7 @@ public void saveUserTest(){
     }
 
     public void findLocationTest(){
-        Optional<Farmer> findLocation = farmerRepository.findById(1L);
+        Optional<Member> findLocation = memberRepository.findById(1L);
         log.info("지역 정보 : " + findLocation.get().getMemberLocation());
     }
 

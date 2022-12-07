@@ -1,9 +1,9 @@
 package com.codefarm.codefarmer.service.Mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
-import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.service.mentor.MentorService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -23,12 +23,12 @@ public class MentorBoardServiceTest {
     @Autowired
     private MentorService mentorService;
     @Autowired
-    private FarmerRepository farmerRepository;
+    private MemberRepository memberRepository;
 
     @Test
     public void mentorBoardAddTest(){
         MentorBoardDTO mentorBoardDTO = new MentorBoardDTO();
-        Optional<Farmer> findMentor = farmerRepository.findById(14L);
+        Optional<Member> findMentor = memberRepository.findById(14L);
 
         mentorBoardDTO.setMentorCareer("고구마 농사 멘토 활동중");
         mentorBoardDTO.setMentorExCareer("20회 이상 멘티 컨설팅 25년 다양한 작물 재배");

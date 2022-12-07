@@ -1,14 +1,13 @@
 package com.codefarm.codefarmer.entity.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.ReviewDTO;
-import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.entity.mentor.Review;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
 import com.codefarm.codefarmer.repository.mentor.ReviewRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
-import com.codefarm.codefarmer.type.UserType;
+import com.codefarm.codefarmer.type.MemberType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,7 @@ public class ReviewTest {
     @Autowired
     private ReviewRepository reviewRepository;
     @Autowired
-    private FarmerRepository farmerRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
     @Autowired
     private MentorBoardRepository mentorBoardRepository;
 
@@ -37,10 +34,10 @@ public class ReviewTest {
     @Test
     public void saveReviewTest(){
         ReviewDTO reviewDTO = new ReviewDTO();
-        Optional<User> findUser = userRepository.findById(15L);
+        Optional<Member> findUser = memberRepository.findById(15L);
         Optional<MentorBoard> findMentorBoard = mentorBoardRepository.findById(6L);
 
-        if(findUser.get().getUserType().equals(UserType.MENTEE)){
+        if(findUser.get().getMemberType().equals(MemberType.MENTEE)){
             reviewDTO.setReviewContent("멘토님 짱!");
             reviewDTO.setMentorBoardId(findMentorBoard.get());
             reviewDTO.setMemberId(findUser.get());

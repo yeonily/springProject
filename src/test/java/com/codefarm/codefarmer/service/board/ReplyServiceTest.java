@@ -3,10 +3,10 @@ package com.codefarm.codefarmer.service.board;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.Reply;
-import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ReplyServiceTest {
     private ReplyService replyService;
 
     @Autowired
-    private FarmerRepository farmerRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -41,7 +41,7 @@ public class ReplyServiceTest {
     @Test
     public void replyAddTest(){
         ReplyDTO replyDTO = new ReplyDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(14L);
+        Optional<Member> findFarmer = memberRepository.findById(14L);
         Optional<Board> findBoard = boardRepository.findById(18L);
 
         replyDTO.setReplyContent("김장 하라고해도 안하고싶다!!");
@@ -55,7 +55,7 @@ public class ReplyServiceTest {
     @Test
     public void replyUpdateTest(){
         ReplyDTO replyDTO = new ReplyDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(14L);
+        Optional<Member> findFarmer = memberRepository.findById(14L);
         Optional<Reply> findReply = replyRepository.findById(19L);
 
         replyDTO.setReplyContent("수정된 댓글");

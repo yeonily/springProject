@@ -1,12 +1,10 @@
 package com.codefarm.codefarmer.entity.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
-import com.codefarm.codefarmer.entity.member.Farmer;
-import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.MentorMentee;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorMenteeRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +23,15 @@ public class MentorMenteeTest {
     @Autowired
     private MentorMenteeRepository mentorMenteeRepository;
     @Autowired
-    private FarmerRepository farmerRepository;
-    @Autowired
-    private UserRepository userRepository;
-
+    private MemberRepository memberRepository;
 //    한줄 소개 작성하기
     @Test
     public void applyMenteeTest(){
         MentorMenteeDTO mentorMenteeDTO = new MentorMenteeDTO();
-        Optional<Farmer> findMentor = farmerRepository.findById(1L);
-        Optional<User> findMentee = userRepository.findById(15L);
+        Optional<Member> findMentor = memberRepository.findById(1L);
 
         mentorMenteeDTO.setMenteeComment("당신한테 배우고 싶습니다. 멘티 신청합니다!");
         mentorMenteeDTO.setMentorId(findMentor.get());
-        mentorMenteeDTO.setMenteeId(findMentee.get());
 
         MentorMentee mentorMentee = mentorMenteeDTO.toEntity();
         mentorMentee.changeMentor(mentorMenteeDTO.getMentorId());
