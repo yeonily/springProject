@@ -5,8 +5,8 @@
     <title>program register</title>
     <link rel="stylesheet" href="/css/program/register.css"/>
     <link rel="stylesheet" href="/css/common/font.css"/>
-    <link rel="icon" href="/image/header/favicon.png" />
-    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="icon" href="/image/header/favicon.png"/>
+    <link rel="shortcut icon" href="/image/header/favicon.png"/>
 </head>
 <body>
 <div class="__nuxt">
@@ -14,54 +14,57 @@
         <div id="main-grid">
             <div class="c-new-row">
                 <div class="c-new-col">
-            <span>
-            <!--헤더-->
-            <div>
-                <div class="pg-opening-header-container">
-                <div class="c-new-row">
-                <div class="c-new-col new-col-log-12">
-                    <div class="opening-header">
-                        <div class="opening-header-left">
-                            <div class="left-title">새 프로그램</div>
-                        </div>
-                        <div class="opening-header-right flex">
-                            <!--<button class="header-button1"><div class="flex"/>저장하기<div class="flex"/></button>-->
-                            <button class="header-button2" id="btn-modal"><div class="flex"/>나가기<div class="flex"/></button>
-                        </div>
-                    </div>
-                    <!--모달-->
-                    <div>
-                        <aside id="c-overlay">
-                            <div class="register-modal">
-                                <div class="modal-wrapper">
-                                    <div class="modal-title-wrapper">
-                                        <div class="modal-title">정말 그만둘까요?</div>
-                                    </div>
-                                    <div class="modal-content-wrapper">
-                                        <div class="modal-content1">
-                                            오늘, 마음 먹은 김에 프로그램을 만들고<br><div class="modal-content2">농장주님을 기다리고 있는 사람들을 만나보세요!</div>
-                                            <div class="exit-modal-action-container">
-                                                <button class="button-1"><div class="flex"/>나가기<div class="flex"/></button>
-                                                <button class="button-2"><div class="flex"/>계속 작성하기<div class="flex"/></button>
-                                            </div>
+                    <form method="post" action="/program/register" id="writeForm" th:object="${programRegister}">
+                        <span>
+                            <!--헤더-->
+                            <div>
+                                <div class="pg-opening-header-container">
+                                <div class="c-new-row">
+                                <div class="c-new-col new-col-log-12">
+                                    <div class="opening-header">
+                                        <div class="opening-header-left">
+                                            <div class="left-title">새 프로그램</div>
+                                        </div>
+                                        <div class="opening-header-right flex">
+                                            <!--<button class="header-button1"><div class="flex"/>저장하기<div class="flex"/></button>-->
+                                            <button class="header-button2" id="btn-modal"><div class="flex"/>나가기<div
+                                                    class="flex"/></button>
                                         </div>
                                     </div>
+                                    <!--모달-->
+                                    <div>
+                                        <aside id="c-overlay">
+                                            <div class="register-modal">
+                                                <div class="modal-wrapper">
+                                                    <div class="modal-title-wrapper">
+                                                        <div class="modal-title">정말 그만둘까요?</div>
+                                                    </div>
+                                                    <div class="modal-content-wrapper">
+                                                        <div class="modal-content1">
+                                                            오늘, 마음 먹은 김에 프로그램을 만들고<br><div class="modal-content2">농장주님을 기다리고 있는 사람들을 만나보세요!</div>
+                                                            <div class="exit-modal-action-container">
+                                                                <button class="button-1"><div class="flex"/>나가기<div
+                                                                        class="flex"/></button>
+                                                                <button class="button-2"><div class="flex"/>계속 작성하기<div
+                                                                        class="flex"/></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </aside>
+                                    </div>
+                                    <div class="opening-progress-bar-background">
+                                        <div class="opening-progress-bar"></div>
+                                    </div>
+                                </div>
+                                </div>
                                 </div>
                             </div>
-                        </aside>
-                    </div>
-                    <div class="opening-progress-bar-background">
-                        <div class="opening-progress-bar">
-                        </div>
-                    </div>
-                </div>
-                </div>
-                </div>
-            </div>
-                <!--글 본문-->
-            <div class="opening-body-container">
+                             <!--글 본문-->
+                            <div class="opening-body-container">
             <!--프로그램 대상-->
-            <span id="pg1">
+                <span id="pg1">
                 <div class="c-new-row target-row">
                 <div class="c-new-col target-col">
                 <section class="profile-title-section">
@@ -79,7 +82,8 @@
                         <div class="opening-short-input">
                             <div class="c-text-field">
                                 <div class="field-input-wrapper">
-                                    <input type="text" placeholder="예시 ) 감자, 고구마" name="text-field" autocomplete="off" class="c-text-field-input">
+                                    <input type="text" th:field="*{programCrop}" placeholder="예시 ) 감자, 고구마"
+                                           name="text-field" autocomplete="off" class="c-text-field-input">
                                 </div>
                             </div>
                         </div>
@@ -91,9 +95,9 @@
                         <div class="body-caption">선수 지식이 필요한 경우 '경험자'를 선택해주세요.</div>
                     </div>
                     <div>
-                        <div class="opening-chip-group">
-                        <span class="select-chip c-chip">일반인용</span>
-                        <span class="select-chip c-chip">멘티전용</span>
+                        <div class="opening-chip-group" id="first_selected">
+                        <span class="select-chip c-chip" th:field="*{programType}">일반인용</span>
+                        <span class="select-chip c-chip" th:field="*{programType}">멘티전용</span>
                         </div>
                     </div>
                 </section>
@@ -108,29 +112,33 @@
                     <div class="opining-input-group">
                     <div class="quill-editor">
                         <div class="ql-container">
-                            <input type="text" placeholder="도움받을 수 있는 상황을 함께 적으면 좋아요!" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programTarget1}" placeholder="도움받을 수 있는 상황을 함께 적으면 좋아요!"
+                                   name="target-1" autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container">
-                            <input type="text" placeholder="대상 2" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programTarget2}" placeholder="대상 2" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container">
-                            <input type="text" placeholder="대상 3" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programTarget3}" placeholder="대상 3" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container">
-                            <input type="text" placeholder="대상 4" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programTarget4}" placeholder="대상 4" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     </div>
                 </section>
                 </div>
                 </div>
-            </span>
+                </span>
                 <!--오른쪽 사이드바-->
             <div id="guide1" class="opening-guide-container">
             <div class="guide-list-container">
@@ -163,7 +171,8 @@
                 <div class="c-new-col target-col">
                 <section class="profile-title-section">
                     <div>
-                        <div class="profile-title">프로그램이 끝나면,<br></gr><span class="point-title">어떤 작업을 할 수 있게 될까요?</span></div>
+                        <div class="profile-title">프로그램이 끝나면,<br></gr><span
+                                class="point-title">어떤 작업을 할 수 있게 될까요?</span></div>
                         <div class="profile-subtitle"></div>
                     </div>
                 </section>
@@ -176,7 +185,9 @@
                         <div class="opening-long-input">
                             <div class="c-text-field">
                                 <div class="field-input-wrapper">
-                                    <input type="text" id="r-content" placeholder="제목을 작성하세요!" name="text-field" autocomplete="off" class="c-text-field-input2">
+                                    <input type="text" id="r-content" th:field="*{programTitle}"
+                                           placeholder="제목을 작성하세요!" name="text-field" autocomplete="off"
+                                           class="c-text-field-input2">
                                 </div>
                             </div>
                             <div class="input-length">
@@ -198,7 +209,8 @@
                         <div class="opening-long-input">
                             <div class="c-text-field">
                                 <div class="field-input-wrapper">
-                                    <input type="text" placeholder="소제목을 작성하세요!" name="text-field" autocomplete="off" class="c-text-field-input2">
+                                    <input type="text" th:field="*{programTitleSub}" placeholder="소제목을 작성하세요!"
+                                           name="text-field" autocomplete="off" class="c-text-field-input2">
                                 </div>
                             </div>
                         </div>
@@ -210,10 +222,10 @@
                         <div class="body-caption">초급은 '베이직', 중급은 '스킬업', 고급은 '마스터'로 표시돼요.</div>
                     </div>
                     <div>
-                        <div class="opening-chip-group">
-                        <span class="select-chip c-chip">초급</span>
-                        <span class="select-chip c-chip">중급</span>
-                        <span class="select-chip c-chip">고급</span>
+                        <div class="opening-chip-group" id="second_selected">
+                        <span class="select-chip c-chip" th:field="*{programLevel}">초급</span>
+                        <span class="select-chip c-chip" th:field="*{programLevel}">중급</span>
+                        <span class="select-chip c-chip" th:field="*{programLevel}">고급</span>
                         </div>
                     </div>
                 </section>
@@ -228,22 +240,27 @@
                     <div class="opining-input-group">
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="공감할 수 있는 구체적인 상황을 작성하면 인기 프로그램이 될 확률이 높아요!" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programResult1}"
+                                   placeholder="공감할 수 있는 구체적인 상황을 작성하면 인기 프로그램이 될 확률이 높아요!" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="결과 2" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programResult2}" placeholder="결과 2" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="결과 3" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programResult3}" placeholder="결과 3" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="결과 4" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programResult4}" placeholder="결과 4" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     </div>
@@ -258,7 +275,10 @@
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container-textarea">
-                            <textarea placeholder="농장주님이 프로그램을 통해 전달하고 싶은 것, 그것을 잘 전달할 수 있는 농장주님만의 배경 및 전략, 프로그램을 만든 이유 등을 녹여보세요!" autocomplete="off" class="textarea-editor" oninput='this.style.height = "21px"; this.style.height = this.scrollHeight + "px"'></textarea>
+                            <textarea th:field="*{programFarmerInfo}"
+                                      placeholder="농장주님이 프로그램을 통해 전달하고 싶은 것, 그것을 잘 전달할 수 있는 농장주님만의 배경 및 전략, 프로그램을 만든 이유 등을 녹여보세요!"
+                                      autocomplete="off" class="textarea-editor"
+                                      oninput='this.style.height = "21px"; this.style.height = this.scrollHeight + "px"'></textarea>
                         </div>
                     </div>
                 </section>
@@ -316,7 +336,8 @@
                 <div class="c-new-col target-col">
                 <section class="profile-title-section">
                     <div>
-                        <div class="profile-title">프로그램 목표를 달성하려면<br><span class="point-title">어떤 내용이 담겨야 할까요?</span></div>
+                        <div class="profile-title">프로그램 목표를 달성하려면<br><span
+                                class="point-title">어떤 내용이 담겨야 할까요?</span></div>
                         <div class="profile-subtitle">프로그램 목표를 달성하기 위해 진행되는 과정에 대해 상세히 작성해주세요.</div>
 
                     </div>
@@ -332,42 +353,54 @@
                     <div class="opining-input-group">
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="1.타이틀" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programInfoTitle1}" placeholder="1.타이틀" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <textarea type="text" placeholder="본문" name="target-1" autocomplete="off" class="ql-editor-text" oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
+                            <textarea type="text" th:field="*{programInfoContent1}" placeholder="본문" name="target-1"
+                                      autocomplete="off" class="ql-editor-text"
+                                      oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="2.타이틀" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programInfoTitle2}" placeholder="2.타이틀" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <textarea type="text" placeholder="본문" name="target-1" autocomplete="off" class="ql-editor-text" oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
+                            <textarea type="text" th:field="*{programInfoContent2}" placeholder="본문" name="target-1"
+                                      autocomplete="off" class="ql-editor-text"
+                                      oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="3.타이틀" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programInfoTitle3}" placeholder="3.타이틀" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <textarea type="text" placeholder="본문" name="target-1" autocomplete="off" class="ql-editor-text" oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
+                            <textarea type="text" th:field="*{programInfoContent3}" placeholder="본문" name="target-1"
+                                      autocomplete="off" class="ql-editor-text"
+                                      oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <input type="text" placeholder="4.타이틀" name="target-1" autocomplete="off" class="ql-editor">
+                            <input type="text" th:field="*{programInfoTitle4}" placeholder="4.타이틀" name="target-1"
+                                   autocomplete="off" class="ql-editor">
                         </div>
                     </div>
                     <div class="quill-editor">
                         <div class="ql-container2">
-                            <textarea type="text" placeholder="본문" name="target-1" autocomplete="off" class="ql-editor-text" oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
+                            <textarea type="text" th:field="*{programInfoContent4}" placeholder="본문" name="target-1"
+                                      autocomplete="off" class="ql-editor-text"
+                                      oninput='this.style.height = "50px"; this.style.height = this.scrollHeight + "px"'></textarea>
                         </div>
                     </div>
                     </div>
@@ -379,7 +412,8 @@
                     </div>
                     <div>
                         <div class="align-items-center">
-                            <input type="file" id="file-input" style="display: none;" required accept="image/*" onchange="fileUpload()">
+                            <input type="file" id="file-input" style="display: none;" required accept="image/*"
+                                   onchange="fileUpload()">
                             <label for="file-input"><img class="upload" src="/image/program/upload.gif"></label>
                             <!--<img class="upload upload-margin" src="/image/program/link_upload.gif">-->
                         </div>
@@ -393,7 +427,8 @@
                             </div>
                         </div>
                         <div class="c-callout-information-2" style="display: none">
-                        <div id="file-content"></div><img id="deleteBtn" alt="첨부 삭제" src="/image/myPage/close.png" onclick="cancelFile()">
+                        <div id="file-content"></div><img id="deleteBtn" alt="첨부 삭제" src="/image/myPage/close.png"
+                                                          onclick="cancelFile()">
                     </div>
                     </div>
                 </section>
@@ -436,12 +471,15 @@
                         <div class="profile-subtitle">프로그램을 수강할 사람들을 위해, 프로그램에 대해 조금 더 자세히 알려주세요.</div>
                     </div>
                 </section>
+
+                <!--태관 참고-->
                 <section>
                     <div class="mb-12">
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">진행 일정</div>
                         <div class="curriculum-write-input-body">
-                            <input type="date" name="text-field" autocomplete="off" class="c-text-field-input2">
+                            <input type="date" name="programWorkDateString" autocomplete="off"
+                                   class="c-text-field-input2">
                         </div>
                         </div>
                     </div>
@@ -449,8 +487,10 @@
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">진행 시간</div>
                         <div class="curriculum-write-input-body">
-                            <input type="time"  name="text-field" autocomplete="off" class="c-text-field-input2 half">
-                            ~<input type="time"  name="text-field" autocomplete="off" class="c-text-field-input2 half">
+                            <input type="time" name="programWorkStartTimeString" autocomplete="off"
+                                   class="c-text-field-input2 half">
+                            ~<input type="time" name="programWorkEndTimeString" autocomplete="off"
+                                    class="c-text-field-input2 half">
                         </div>
                         </div>
                     </div>
@@ -458,8 +498,10 @@
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">신청 기간</div>
                         <div class="curriculum-write-input-body">
-                            <input type="date" name="text-field" autocomplete="off" class="c-text-field-input2 half">
-                            ~<input type="date" name="text-field" autocomplete="off" class="c-text-field-input2 half">
+                            <input type="date" name="programApplyStartDateString" autocomplete="off"
+                                   class="c-text-field-input2 half">
+                            ~<input type="date" name="programApplyEndDateString" autocomplete="off"
+                                    class="c-text-field-input2 half">
                         </div>
                         </div>
                     </div>
@@ -467,7 +509,7 @@
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">신청 인원</div>
                         <div class="curriculum-write-input-body">
-                            <input type="text" placeholder="프로그램 신청 인원을 작성하세요! ex) 10명" name="text-field" autocomplete="off" class="c-text-field-input2">
+                            <input type="text" th:field="*{programApplyCount}" name="programApplyCount" placeholder="프로그램 신청 인원을 작성하세요! ex) 10명" autocomplete="off" class="c-text-field-input2">
                         </div>
                         </div>
                     </div>
@@ -475,7 +517,9 @@
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">비용</div>
                         <div class="curriculum-write-input-body">
-                            <input type="text" placeholder="프로그램 참가 비용을 작성하세요! ex) 무료 또는 10,000원" name="text-field" autocomplete="off" class="c-text-field-input2">
+                            <input type="text" th:field="*{programPrice}"
+                                   placeholder="프로그램 참가 비용을 작성하세요! ex) 무료 또는 10,000원" name="text-field"
+                                   autocomplete="off" class="c-text-field-input2">
                         </div>
                         </div>
                     </div>
@@ -483,7 +527,9 @@
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">장소</div>
                         <div class="curriculum-write-input-body">
-                            <input type="text" placeholder="프로그램 진행 장소를 작성하세요! ex) 서울 노원구 중계로 8길 56 천수텃밭농원 " name="text-field" autocomplete="off" class="c-text-field-input2">
+                            <input type="text" th:field="*{programLocation}"
+                                   placeholder="프로그램 진행 장소를 작성하세요! ex) 서울 노원구 중계로 8길 56 천수텃밭농원 " name="text-field"
+                                   autocomplete="off" class="c-text-field-input2">
                         </div>
                         </div>
                     </div>
@@ -491,7 +537,8 @@
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">문의</div>
                         <div class="curriculum-write-input-body">
-                            <input type="text" placeholder="문의할 수 있는 연락처나 이메일을 작성하세요!" name="text-field" autocomplete="off" class="c-text-field-input2">
+                            <input type="text" th:field="*{programInquire}" placeholder="문의할 수 있는 연락처나 이메일을 작성하세요!"
+                                   name="text-field" autocomplete="off" class="c-text-field-input2">
                         </div>
                         </div>
                     </div>
@@ -499,7 +546,7 @@
                 </div>
                 </div>
             </span>
-            </div>
+                            </div>
                 <!--왼쪽 사이드바 -->
             <div class="opening-side-box">
             <div class="side-box-step-container">
@@ -523,14 +570,19 @@
             <div class="c-new-row">
             <div class="c-new-col new-col-log-12">
             <div class="opening-footer">
-                <button class="footer-prev before" type="button"><div class="flex before"><img class="footer-img-prev before" src="/image/program/prev_register.gif"></div>이전<div class="flex before"/></button>
-                <button class="footer-next next" type="button"><div class="flex next"/>다음<div class="flex next"><img class="footer-img-next next" src="/image/program/next_register.gif"></div></button>
+                <button class="footer-prev before" type="button"><div class="flex before"><img
+                        class="footer-img-prev before" src="/image/program/prev_register.gif"></div>이전<div
+                        class="flex before"/></button>
+                <button class="footer-next next" type="button" id="submitRegister"><div class="flex next"/>다음<div
+                        class="flex next"><img class="footer-img-next next"
+                                               src="/image/program/next_register.gif"></div></button>
             </div>
             </div>
             </div>
             </div>
-            </span>
-                    <!--모달-->
+                            </span>
+
+                <!--모달-->
                     <div>
                         <aside id="c-overlay-2" style="display: none">
                             <div class="register-modal">
@@ -542,7 +594,8 @@
                                         <div class="modal-content1">
                                             빨간 박스에 내용을 모두 입력한 후<br><div class="modal-content2"> 다시 시도해주세요!</div>
                                             <div class="exit-modal-action-container">
-                                                <button class="button-ok"><div class="flex"/>확인<div class="flex"/></button>
+                                                <button class="button-ok"><div class="flex"/>확인<div
+                                                        class="flex"/></button>
                                             </div>
                                         </div>
                                     </div>
@@ -550,7 +603,7 @@
                             </div>
                         </aside>
                     </div>
-                    <!--모달-->
+                <!--모달-->
                     <div>
                         <aside id="c-overlay-3" style="display: none">
                             <div class="register-modal">
@@ -570,7 +623,9 @@
                             </div>
                         </aside>
                     </div>
+                    </form>
                 </div>
+            </div>
             </div>
         </div>
     </div>

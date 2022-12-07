@@ -4,9 +4,11 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -38,6 +40,8 @@ public class ProgramDTO {
     private String programInfoContent3;
     private String programInfoTitle4;
     private String programInfoContent4;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd'T'hh:mm:ss.", timezone = "Asia/Seoul")
     private LocalDateTime programWorkDate;
     private LocalDateTime programWorkStartTime;
     private LocalDateTime programWorkEndTime;
