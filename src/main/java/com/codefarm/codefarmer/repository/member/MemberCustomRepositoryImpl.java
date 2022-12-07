@@ -1,37 +1,37 @@
 package com.codefarm.codefarmer.repository.member;
 
-import com.codefarm.codefarmer.entity.member.QUser;
-import com.codefarm.codefarmer.entity.member.User;
-import com.codefarm.codefarmer.entity.program.QMemberProgram;
-import com.codefarm.codefarmer.entity.program.QProgram;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPAExpressions;
+import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.member.QMember;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.codefarm.codefarmer.entity.member.QUser.user;
+import static com.codefarm.codefarmer.entity.member.QMember.*;
 
 @Repository
 @RequiredArgsConstructor
-public class FarmerCustomRepositoryImpl implements FarmerCustomRepository {
-
-    private final JPAQueryFactory queryFactory;
-
+public class MemberCustomRepositoryImpl implements MemberCustomRepository {
+    private final JPAQueryFactory jpaQueryFactory;
     @Override
-    public List<User> findMyProgramApplyers(Long memberId) {
-        return null;
+    public Integer checkNick(String nickname) {
+        return Math.toIntExact(jpaQueryFactory.select(member.memberNickname.count())
+                .from(member)
+                .where(member.memberNickname.eq(nickname))
+                .fetchOne());
     }
 
-//    SELECT * FROM TBL_MEMBER_PROGRAM tmp
-//    JOIN (
-//                    SELECT PROGRAM_ID FROM TBL_PROGRAM P WHERE MEMBER_ID = 1) JOINT
-//    ON JOINT.PROGRAM_ID = TMP.PROGRAM_ID;
+    @Override
+    public List<Member> findMyProgramApplyers(Long memberId) {
 
+
+        /*
+         * SELECT * FROM TBL_MEMBER_PROGRAM MP JOIN TBL_PROGRAM P
+         * ON P.MEMBER_ID = 1 AND MP.PROGRAM_ID = P.PROGRAM_ID
+         *
+         *
+         * */
 
 //    @Override
 //    public List<User> findMyProgramApplyers(Long memberId) {
@@ -67,4 +67,8 @@ public class FarmerCustomRepositoryImpl implements FarmerCustomRepository {
 //                )
 //                .fetchFirst();
 //    }
+        return null;
+    }
 }
+
+

@@ -1,7 +1,8 @@
 package com.codefarm.codefarmer.entity.member;
 
+import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.period.Period;
-import com.codefarm.codefarmer.type.Oauth;
+import com.codefarm.codefarmer.type.MemberType;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -12,8 +13,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "MEMBER_TYPE")
-public abstract class Member extends Period {
+public class Member extends Period {
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long memberId;
@@ -30,24 +30,29 @@ public abstract class Member extends Period {
     private String memberBirth;
     @NotNull
     private String memberEmail;
-    @Enumerated(EnumType.STRING)
     @NotNull
-    private Oauth memberOauth;
+    private String memberOauthId;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
 
-    public void update(String memberNickname, String memberPhone, String memberLocation, String memberEmail){
-        this.memberNickname = memberNickname;
-        this.memberPhone = memberPhone;
-        this.memberLocation = memberLocation;
-        this.memberEmail = memberEmail;
+    public void update(MemberDTO memberDTO){
+        this.memberNickname = memberDTO.getMemberNickname();
+        this.memberPhone = memberDTO.getMemberPhone();
+        this.memberLocation = memberDTO.getMemberLocation();
+        this.memberEmail = memberDTO.getMemberEmail();
+        this.memberType = memberDTO.getMemberType();
     }
 
-    public Member(String memberName, String memberNickname, String memberPhone, String memberLocation, String memberBirth, String memberEmail, Oauth memberOauth) {
+    @Builder
+    public Member(String memberName, String memberNickname, String memberPhone, String memberLocation, String memberBirth, String memberEmail, String memberOauthId, MemberType memberType) {
         this.memberName = memberName;
         this.memberNickname = memberNickname;
         this.memberPhone = memberPhone;
         this.memberLocation = memberLocation;
         this.memberBirth = memberBirth;
         this.memberEmail = memberEmail;
-        this.memberOauth = memberOauth;
+        this.memberOauthId = memberOauthId;
+        this.memberType = memberType;
     }
 }

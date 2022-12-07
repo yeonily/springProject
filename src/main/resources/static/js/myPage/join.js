@@ -6,15 +6,15 @@ let nickCheck = false;
 let nickname = "";
 
 // input에 이름 입력 시 실시간으로 출력
-$("input[name='name']").keyup(function(){
+$("input.inputName").keyup(function(){
     $("span#name").html($(this).val());
 });
 
 
 // 유저 구분에 따라 텍스트 출력
 $("input#user").prop("checked", true)
-$("input[name='grade']").on("change", function(){
-    if($(this).val() == 'user') {
+$("input.grade").on("change", function(){
+    if($(this).val() == 'USER') {
         $("#farmer-check").hide();
     } else {
         $("#farmer-check").show();
@@ -41,17 +41,17 @@ $(".joinBtn").prop("disabled", true);
 function joinNickCheck (){ /* 중복 체크 */
 
     nickCheck = false;
-    if(!joinForm.nickname.value) {
-        joinForm.nickname.focus();
+    if(!joinForm.memberNickname.value) {
+        joinForm.memberNickname.focus();
         return;
     }
-    nickname = joinForm.nickname.value;
-    console.log(nickname);
+    memberNickname = joinForm.memberNickname.value;
+    console.log(memberNickname);
 
     $.ajax({
         url: "/register/form",
         type : "post",
-        data : {nickname: nickname},
+        data : {memberNickname: memberNickname},
         success : function(data){
             if(data == 0){
                 console.log("성공");
@@ -71,16 +71,18 @@ function joinNickCheck (){ /* 중복 체크 */
 
 
 
+
+
 // input 값 모두 입력했을 때 회원 가입하기 버튼 활성화
-joinForm.name.addEventListener("keyup", join)
+joinForm.memberName.addEventListener("keyup", join)
 joinForm.year.addEventListener("change", join)
 joinForm.month.addEventListener("change", join)
 joinForm.day.addEventListener("change", join)
-joinForm.phone.addEventListener("keyup", join)
-joinForm.address.addEventListener("keyup", join)
+joinForm.memberPhone.addEventListener("keyup", join)
+joinForm.memberLocation.addEventListener("keyup", join)
 
 function join() {
-    if(!(joinForm.name.value && joinForm.phone.value && joinForm.address.value && joinForm.year.value && joinForm.month.value && joinForm.day.value)) {
+    if(!(joinForm.memberName.value && joinForm.memberPhone.value && joinForm.memberLocation.value && joinForm.year.value && joinForm.month.value && joinForm.day.value)) {
         console.log("true")
             if(!nickCheck){
                  $(".joinBtn").prop("disabled", true);
@@ -131,7 +133,20 @@ if($("#n-message2").css("display") == "block"){
 }
 
 
-
-$(".joinBtn").on("click", function () {
-    joinForm.submit();
-})
+//
+// $(".joinBtn").on("click", function () {
+//     // 생년월일
+//     let year = $("input[name=year]").val();
+//     let month = $("input[name=month]").val();
+//     let day = $("input[name=day]").val();
+//
+//     let birth = year+month+day;
+//
+//     $("input#memberBirth").text(birth);
+//     console.log($("input#memberBirth").val());
+//     console.log($("input#memberBirth").value);
+//     console.log(birth);
+//
+//
+//     joinForm.submit();
+// })

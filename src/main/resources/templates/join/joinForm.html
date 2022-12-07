@@ -15,7 +15,7 @@
 <!--<div th:replace="/header/header.html :: header" class="header"/>-->
 
 <div id="joinForm-wrap">
-    <form th:action="@{/register/joinOk}" name="joinForm" method="post" th:object="${userDTO}">
+    <form th:action="@{/register/joinOk}" name="joinForm" method="post" th:object="${memberDTO}">
         <section class="j-t-group">
             <div id="join-title">
                 <div>
@@ -27,12 +27,13 @@
         </section>
         <section class="join-form">
             <div class="j-title">이름</div>
-            <input type="text" class="join-input" name="name" placeholder="이름을 입력하세요">
+            <input type="text" th:field="*{memberName}" class="join-input inputName"  placeholder="이름을 입력하세요">
+            <input type="hidden" th:field="*{memberEmail}">
         </section>
         <section class="join-form">
             <div class="j-title">닉네임</div>
             <div class="nick-group">
-                <input type="text" class="join-input" name="nickname" placeholder=" 닉네임을 입력하세요">
+                <input type="text" th:field="*{memberNickname}" class="join-input" placeholder=" 닉네임을 입력하세요">
                 <button type="button" class="nick nick-check" onclick="joinNickCheck()">중복확인</button>
             </div>
         </section>
@@ -52,9 +53,9 @@
             <div class="j-title">구분</div>
             <div class="nick-group">
                 <div class="flex f-section flex user-type">
-                    <input type="radio" name="grade" id="user" value="user"/>
+                    <input type="radio" class="grade" th:field="*{memberType}" id="user" value="USER"/>
                     <label class="grade" for="user" style="margin-right:13px;">일반인</label>
-                    <input type="radio" name="grade" id="farmer" value="farmer"/>
+                    <input type="radio" class="grade" th:field="*{memberType}" id="farmer" value="FARMER"/>
                     <label class="grade" for="farmer">농장주</label>
                 </div>
             </div>
@@ -67,14 +68,15 @@
                 <select name="month" id="month" title="월" class="join-input date-s"></select>월
                 <select name="day" id="day" title="일" class="join-input date-s"></select>일
             </div>
+            <input type="hidden" th:field="*{memberBirth}">
         </section>
         <section class="join-form">
             <div class="j-title">휴대폰 번호</div>
-            <input type="text" class="join-input" name="phone" oninput="autoHyphen(this)" maxlength="13" placeholder="휴대폰 번호를 입력하세요">
+            <input type="text" class="join-input" th:field="*{memberPhone}" oninput="autoHyphen(this)" maxlength="13" placeholder="휴대폰 번호를 입력하세요">
         </section>
         <section class="join-form">
             <div class="j-title">지역</div>
-            <input type="text" class="join-input" name="address" placeholder="지역을 입력하세요">
+            <input type="text" class="join-input" th:field="*{memberLocation}" placeholder="지역을 입력하세요">
         </section>
 <!--        <button class="joinBtn">회원 가입하기</button>-->
         <button type="button" class="joinBtn" onclick="join()">회원 가입하기</button>
