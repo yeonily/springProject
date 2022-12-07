@@ -6,7 +6,10 @@ import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +23,12 @@ public class AlbaListService {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final AlbaRepository albaRepository;
+
+    //알바 목록
+    @Transactional(readOnly = true)
+    public Page<Alba> albaShowAll(Pageable pageable){
+        return albaRepository.findAll(pageable);
+    }
 
     // 곧 마감 아르바이트 정렬
     public List<AlbaDTO> showListByRecentEndDate() {
@@ -180,7 +189,6 @@ public class AlbaListService {
     }
 
     //    알바게시글 작성
-    public Alba add(AlbaDTO albaDTO) {
-       return albaRepository.save(albaDTO.toEntity());
-    }
+    public void saveAll(AlbaDTO albaDTO) {
+       albaRepository.save(albaDTO.toEntity());}
 }
