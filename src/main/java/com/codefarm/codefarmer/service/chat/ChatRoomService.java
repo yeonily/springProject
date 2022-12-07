@@ -21,8 +21,6 @@ import java.util.*;
 
 import static com.codefarm.codefarmer.entity.chat.QChat.chat;
 import static com.codefarm.codefarmer.entity.chat.QChatRoom.chatRoom;
-import static com.codefarm.codefarmer.entity.member.QFarmer.farmer;
-import static com.codefarm.codefarmer.entity.member.QUser.user;
 import static com.codefarm.codefarmer.type.ChatStatus.READ;
 import static com.codefarm.codefarmer.type.ChatStatus.UNREAD;
 
@@ -41,9 +39,9 @@ public class ChatRoomService {
     public Member findByMemberId(Long memberId) {
         ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
         // 일반 유저, 멘티 정보를 저장
-        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
+//        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
         // 농장주, 멘토 정보를 저장
-        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
+//        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
 
 
         for (Member member : memberIdList) {

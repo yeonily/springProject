@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.codefarm.codefarmer.type.Oauth.KAKAO;
 
 @SpringBootTest
 @Slf4j
@@ -26,7 +25,7 @@ public class MemberServiceTest {
         memberDTO.setMemberName("김지연11");
         memberDTO.setMemberNickname("oiii");
         memberDTO.setMemberPhone("010-2222-1111");
-        memberDTO.setMemberOauth(KAKAO);
+//        memberDTO.setMemberOauth(KAKAO);
 
         memberService.join(memberDTO);
     }
