@@ -21,20 +21,20 @@ public class BoardDTO {
     private Member member;
     private String memberNickName;
     private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+    private LocalDateTime updatedDate;
 
     private List<ReplyDTO> replies;
 
 
     @QueryProjection
-    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, String memberNickName, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, String memberNickName, LocalDateTime createdDate, LocalDateTime updatedDate) {
         this.boardId = boardId;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;
         this.memberNickName = memberNickName;
         this.createdDate = createdDate;
-        this.updateDate = updateDate;
+        this.updatedDate = updatedDate;
     }
 
 
@@ -44,7 +44,6 @@ public class BoardDTO {
         return Board.builder()
                 .boardContent(boardContent)
                 .boardTitle(boardTitle)
-                .boardViewCount(boardViewCount)
                 .build();
     }
 }

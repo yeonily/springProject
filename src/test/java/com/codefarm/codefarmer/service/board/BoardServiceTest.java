@@ -49,19 +49,19 @@ public class BoardServiceTest {
     }
 
 //    게시판 제목, 내용 수정
-    @Test
-    public void updateTest(){
-        BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        Board board = boardRepository.findById(29L).get();
-
-        boardDTO.setBoardTitle("수정된 제목2");
-        boardDTO.setBoardContent("수정된 내용2");
-        boardDTO.setMember(findFarmer.get());
-        boardDTO.setBoardId(board.getBoardId());
-
-        boardService.boardUpdate(boardDTO);
-    }
+//    @Test
+//    public void updateTest(){
+//        BoardDTO boardDTO = new BoardDTO();
+//        Optional<Farmer> findFarmer = farmerRepository.findById(14L);
+//        Board board = boardRepository.findById(86L).get();
+//
+//        boardDTO.setBoardTitle("수정된 제목2");
+//        boardDTO.setBoardContent("수정된 내용2");
+//        boardDTO.setMember(findFarmer.get());
+//        boardDTO.setBoardId(board.getBoardId());
+//
+//        boardService.boardUpdate(boardDTO);
+//    }
 
 //    게시판 제목, 내용 상세페이지에서 확인하기
     @Test

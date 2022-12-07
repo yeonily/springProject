@@ -5,6 +5,7 @@ import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
+import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.codefarm.codefarmer.service.board.BoardService;
 import com.codefarm.codefarmer.service.board.ReplyService;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -36,6 +35,7 @@ public class CommunityController {
     private final ReplyService replyService;
     private final BoardRepository boardRepository;
     private final BoardCustomRepository boardCustomRepository;
+    private final FarmerRepository farmerRepository;
 
 //    @GetMapping("/community")
 //    public void communityPage(Model model, HttpServletRequest request,@PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable){
@@ -100,20 +100,55 @@ public class CommunityController {
 
 
     @GetMapping("/detail")
-    public void detailPage(Model model, @RequestParam Long boardId){
+    public void detailPage(Model model, Long boardId){
         BoardDTO list = boardService.boardShowDetail(boardId);
+        boardService.updateViewCount(boardId);
         model.addAttribute("list", list);
     }
+
+    @GetMapping("/delete")
+    public RedirectView detailDelete(Long boardId){
+        boardService.removeBoard(boardId);
+        return new RedirectView("/community/community");
+    }
+
+
+//    @PostMapping("/delete")
+//    public RedirectView detailDelete(Long boardId){
+//        boardService.removeBoard(boardId);
+//        return new RedirectView("/community/community");
+//    }
+//
+//    @GetMapping("/detail")
+//    public void detailPage(Long boardId, Model model){
+//        boardService.updateViewCount(boardId);
+//        model.addAttribute("board", boardService.showOne(boardId));
+//    }
 
     @GetMapping("/register")
     public void writePage(Model model){
         model.addAttribute("board", new BoardDTO());
     }
 
-//    @PostMapping("/register")
-//    public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
-//        boardService.boardAdd(boardDTO);
-//        redirectAttributes.addFlashAttribute("boardId", boardDTO.getBoardId());
-//        return  new RedirectView("list");
-//    }
+    @GetMapping("/update")
+    public void updatePage(Model model, @RequestParam Long boardId){
+        BoardDTO list = boardService.boardShowDetail(boardId);
+        model.addAttribute("list", list);
+    }
+
+    @PostMapping("updated")
+    public RedirectView updateBoard(BoardDTO boardDTO){
+        boardService.boardUpdate(boardDTO, boardDTO.getBoardId());
+        return new RedirectView("/community/community");
+    }
+
+    @PostMapping("/register")
+    public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
+        boardDTO.setMember(farmerRepository.findById(14L).get());
+        boardService.boardAdd(boardDTO);
+        redirectAttributes.addFlashAttribute("boardId", boardDTO.getBoardId());
+        return  new RedirectView("/community/community");
+    }
+
+
 }

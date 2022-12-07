@@ -45,10 +45,10 @@ public class BoardService {
     }
 
 //    게시글 제목, 내용 수정
-    public void boardUpdate(BoardDTO boardDTO){
-
-        Board board = boardRepository.findById(boardDTO.getBoardId()).get();
+    public void boardUpdate(BoardDTO boardDTO, Long boardId){
+        Board board = boardRepository.findById(boardId).get();
         board.update(boardDTO);
+        boardRepository.save(board);
     }
 
 //    게시글 제목, 내용 상세페이지에서 보기
@@ -57,11 +57,12 @@ public class BoardService {
 
         BoardDTO boardDTO = new BoardDTO();
 
+        boardDTO.setBoardId(board.getBoardId());
         boardDTO.setBoardTitle(board.getBoardTitle());
         boardDTO.setBoardContent(board.getBoardContent());
         boardDTO.setMemberNickName(board.getMember().getMemberNickname());
         boardDTO.setCreatedDate(board.getCreatedDate());
-        boardDTO.setUpdateDate(board.getUpdatedDate());
+        boardDTO.setUpdatedDate(board.getUpdatedDate());
 
         return boardDTO;
     }
@@ -116,7 +117,15 @@ public class BoardService {
 //
 //    }
 
+//      보드 viewCount 증가
+    public void updateViewCount(Long boardId){
+        boardRepository.updateViewCount(boardId);
+    }
 
+//    보드 디테일 보기
+    public Board showOne(Long boardId){
+        return boardRepository.findById(boardId).get();
+    }
 
 
 
@@ -131,7 +140,7 @@ public class BoardService {
                  board.createdDate,
                  board.updatedDate
                  )).from(board)
-                 .orderBy(board.createdDate.desc())
+                 .orderBy(board.updatedDate.desc())
                  .fetch();
     }
 
