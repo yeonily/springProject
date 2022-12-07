@@ -19,7 +19,7 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
     public int countByNotice();
 
 
-//    해당 공지글 번호로 첨부파일 삭제
+//    조회수 1씩 증가
     @Transactional
     @Modifying
     @Query("update Notice n set n.noticeViewCount=n.noticeViewCount+1 where n.noticeId in :noticeId")

@@ -1,7 +1,6 @@
 package com.codefarm.codefarmer.controller.inquire;
 
 import com.codefarm.codefarmer.domain.inquire.InquireDTO;
-import com.codefarm.codefarmer.entity.member.Farmer;
 import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.service.admin.InquireService;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,8 +31,7 @@ public class InquireController {
 
     @PostMapping
     public RedirectView inquireWrite(InquireDTO inquireDTO, RedirectAttributes redirectAttributes){
-//        log.info("누구냐 ㅡㅡ -> " + userRepository.findById(11L).get());
-//        inquireDTO.setMember(farmerRepository.findById(10L).get());
+        inquireDTO.setMember(farmerRepository.findById(10L).get());
 
         inquireService.inquireAdd(inquireDTO);
         redirectAttributes.addFlashAttribute("inquireId", inquireDTO.getInquireId());
