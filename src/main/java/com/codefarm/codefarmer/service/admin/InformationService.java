@@ -29,7 +29,6 @@ public class InformationService {
 
 //    정책 수정
     public void policyUpdate(Policy policy){
-        Optional<Policy> findPolicyId = policyRepository.findById(policy.getPolicyId());
         policyRepository.save(policy);
     }
 
@@ -41,8 +40,8 @@ public class InformationService {
 
 //    정책 목록
     @Transactional(readOnly = true)
-    public Page<Policy> policyShowAll(Pageable pageable){
-        return policyRepository.findAll(pageable);
+    public Page<Policy> policyShowAll(Pageable pageable, String policyKeyword, String policyTitle, String policyContent){
+        return policyRepository.findByPolicyKeywordContainingOrPolicyTitleContainingOrPolicyContentContaining(policyKeyword, policyTitle, policyContent, pageable);
     }
 
 //    정책 검색
@@ -84,8 +83,8 @@ public class InformationService {
 
 //    농업정보 목록
     @Transactional(readOnly = true)
-    public Page<Crop> cropShowAll(Pageable pageable){
-        return cropRepository.findAll(pageable);
+    public Page<Crop> cropShowAll(Pageable pageable, String cropKeyword, String cropTitle, String cropContent){
+        return cropRepository.findByCropKeywordContainingOrCropTitleContainingOrCropContentContaining(cropKeyword, cropTitle, cropContent, pageable);
     }
 
 //    농업정보 검색

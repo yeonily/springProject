@@ -325,12 +325,15 @@ div.footerMargin {
 }
 
 #faq .faq-board {
-    background: #fff;
     margin-bottom: 50px;
     overflow: hidden;
     width: 100%;
     margin: 0 auto;
     margin-top: 27px;
+}
+
+ul.clearfix {
+    background: #fff;
 }
 
 .text-primary {

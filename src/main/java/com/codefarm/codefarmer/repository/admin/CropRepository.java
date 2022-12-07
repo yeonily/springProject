@@ -1,7 +1,6 @@
 package com.codefarm.codefarmer.repository.admin;
 
 import com.codefarm.codefarmer.entity.admin.Crop;
-import com.codefarm.codefarmer.entity.admin.Policy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +15,10 @@ public interface CropRepository extends JpaRepository<Crop, Long> {
     public Page<Crop> findByCropTitleContaining(String cropTitle, Pageable pageable);
 //    검색(내용) + 페이징
     public Page<Crop> findByCropContentContaining(String cropContent, Pageable pageable);
+
+//    사용자
+//    검색(키워드, 제목, 내용, 키워드) + 페이징
+    public Page<Crop> findByCropKeywordContainingOrCropTitleContainingOrCropContentContaining(String cropKeyword, String cropTitle, String cropContent, Pageable pageable);
 
 //    작물정보 번호 순으로 정렬
     @Query("select c from Crop c order by c.cropId desc")
