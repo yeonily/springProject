@@ -69,6 +69,16 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 //    }
         return null;
     }
+
+    @Override
+    public Integer checkOauth(String oauthId) {
+        return Math.toIntExact(jpaQueryFactory.select(member.memberOauthId.count())
+                .from(member)
+                .where(member.memberOauthId.eq(oauthId))
+                .fetchOne());
+    }
+
+
 }
 
 

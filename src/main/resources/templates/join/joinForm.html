@@ -28,7 +28,8 @@
         <section class="join-form">
             <div class="j-title">이름</div>
             <input type="text" th:field="*{memberName}" class="join-input inputName"  placeholder="이름을 입력하세요">
-            <input type="hidden" th:field="*{memberEmail}">
+            <input type="hidden" name="memberEmail" th:value="${memberEmail}">
+            <input type="hidden" name="memberOauthId" th:value="${memberOauthId}">
         </section>
         <section class="join-form">
             <div class="j-title">닉네임</div>

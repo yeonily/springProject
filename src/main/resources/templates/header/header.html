@@ -31,7 +31,7 @@
                     <!--오른쪽 메뉴-->
                     <aside>
                         <!--오른쪽 메뉴(로그인 전)-->
-                        <ul class="nav_right" th:if="${session.token == null}">
+                        <ul class="nav_right" th:if="${session.memberType == null}">
                             <li><a th:href="@{/register/}">가입/로그인</a></li>
                             <!--검색 부분-->
                             <form action="" th:action class="searchForm">
@@ -43,7 +43,7 @@
                         </ul>
 
                         <!--오른쪽 메뉴(로그인 후)-->
-                        <ul class="nav_right_after" th:if="${session.token != null}">
+                        <ul class="nav_right_after" th:if="${session.memberType != null}">
                             <li>
                                 <div class="noti-button-container">
                                     <div class="c-application c-badge--container absolute">

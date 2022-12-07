@@ -133,20 +133,22 @@ if($("#n-message2").css("display") == "block"){
 }
 
 
-//
-// $(".joinBtn").on("click", function () {
-//     // 생년월일
-//     let year = $("input[name=year]").val();
-//     let month = $("input[name=month]").val();
-//     let day = $("input[name=day]").val();
-//
-//     let birth = year+month+day;
-//
-//     $("input#memberBirth").text(birth);
-//     console.log($("input#memberBirth").val());
-//     console.log($("input#memberBirth").value);
-//     console.log(birth);
-//
-//
-//     joinForm.submit();
-// })
+
+$(".joinBtn").on("click", function () {
+
+    // 생년월일
+    let year = $("select#year").val();
+    let month = $("select#month").val() < 10 ? 0+$("select#month").val() : $("select#month").val();
+    let day = $("select#day").val();
+
+    let birth = year+"-"+month+"-"+day;
+
+    $("input#memberBirth").val(birth);
+    console.log($("input#memberBirth").val());
+    console.log($("input#memberEmail").val());
+    console.log($("input#memberOauthId").val());
+    console.log(birth);
+
+
+    joinForm.submit();
+})

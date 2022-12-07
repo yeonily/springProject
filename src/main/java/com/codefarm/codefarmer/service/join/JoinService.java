@@ -12,4 +12,7 @@ public class JoinService {
 
     public Integer checkUserNick(String nickname) {return memberRepository.checkNick(nickname);}
 
+    public Long selectId(String oauthId){return memberRepository.findMemberId(oauthId);}
+
+    public Integer checkOauth(String oauthId){return memberRepository.checkOauth(oauthId);}
 }
