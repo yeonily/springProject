@@ -2,9 +2,9 @@ package com.codefarm.codefarmer.entity.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
-import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -31,14 +31,14 @@ public class AlbaTest {
     private AlbaRepository albaRepository;
 
     @Autowired
-    private FarmerRepository farmerRepository;
+    private MemberRepository memberRepository;
 
     @Test
     public void saveTest(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        log.info("findFarmer : " + findFarmer.toString());
+        Optional<Member> findMember = memberRepository.findById(1L);
+        log.info("findMember : " + findMember.toString());
 
         AlbaDTO albaDTO1 = new AlbaDTO();
 
@@ -68,7 +68,7 @@ public class AlbaTest {
         albaDTO1.setAlbaTitle("학원");
         albaDTO1.setAlbaTitleOne("학원");
         albaDTO1.setAlbaWorkDate(localDateTime);
-        albaDTO1.setMember(findFarmer.get());
+        albaDTO1.setMember(findMember.get());
 
         AlbaDTO albaDTO2 = new AlbaDTO();
 
@@ -98,7 +98,7 @@ public class AlbaTest {
         albaDTO2.setAlbaTitle("학원");
         albaDTO2.setAlbaTitleOne("학원");
         albaDTO2.setAlbaWorkDate(localDateTime);
-        albaDTO2.setMember(findFarmer.get());
+        albaDTO2.setMember(findMember.get());
 
         Alba alba1 = albaDTO1.toEntity();
         Alba alba2 = albaDTO2.toEntity();
@@ -122,7 +122,7 @@ public class AlbaTest {
     public void updateTest(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        Optional<Farmer> findFarmer = farmerRepository.findById(20L);
+        Optional<Member> findFarmer = memberRepository.findById(20L);
         log.info("findFarmer : " + findFarmer.toString());
         AlbaDTO albaDTO = new AlbaDTO();
 
