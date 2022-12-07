@@ -2,10 +2,8 @@ package com.codefarm.codefarmer.controller.program;
 
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.service.program.ProgramListService;
-import com.codefarm.codefarmer.type.Oauth;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
