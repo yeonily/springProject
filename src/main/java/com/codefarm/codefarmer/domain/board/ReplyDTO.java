@@ -18,6 +18,7 @@ public class ReplyDTO {
     private Board board;
     private Member member;
     private String replyContent;
+    private String replyWriter;
     private Member memberId;
     private Board boardId;
     private LocalDateTime createdDate;

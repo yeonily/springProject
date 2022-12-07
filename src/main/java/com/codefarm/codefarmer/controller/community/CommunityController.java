@@ -83,7 +83,7 @@ public class CommunityController {
 //         HttpSession session = (HttpSession)request.getSession();
 //            Long memberId = (Long)session.getAttribute("")
 
-            Long memberId = 14l;
+             Long memberId = 3l;
         Long boardCount = boardService.showBoardCountMine(memberId);
         Long replyCount = replyService.showReplyAllCount(memberId);
 //        String farmerNickName = boardService.showFarmerNickName(memberId);
@@ -144,7 +144,7 @@ public class CommunityController {
 
     @PostMapping("/register")
     public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
-        boardDTO.setMember(memberRepository.findById(14L).get());
+        boardDTO.setMember(memberRepository.findById(3L).get());
         boardService.boardAdd(boardDTO);
         redirectAttributes.addFlashAttribute("boardId", boardDTO.getBoardId());
         return  new RedirectView("/community/community");
