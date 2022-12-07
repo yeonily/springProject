@@ -13,18 +13,22 @@
 <body>
 <!--헤더 삽입-->
 <div th:replace="/header/header.html :: header" class="header"/>
+<span id="alarmCheck" style="display: none" th:text="${alarmCnt}"></span> <!--채팅 알림 부분인데 이후 헤더로 이동 후에 세션으로 알림값 고정으로 받기-->
 
 <!--바디-->
 <section id="section_main" style="height: 760px;">
     <div id="section_wrap">
         <div id="section_contents">
+
+            <!-- -------------------------------- -->
+                        <!--왼쪽 채팅 영역-->
+            <!-- -------------------------------- -->
             <div id="content_left">
                 <div>
                     <ul id="content_left_list";>
-
                         <th:block th:each="room:${rooms}">
                             <li class="left_lists" th:object="${room}">
-                                <a href="" class="left_lists_a">
+                                <a href="javascript:void(0);" class="left_lists_a">
                                     <div>
                                         <div class="list_name"><p class="list_name_p1" th:text="*{mentor.memberNickname}"></p><p class="list_name_p2"></p></div>
                                         <div>
@@ -32,12 +36,19 @@
                                         </div>
                                     </div>
                                 </a>
+                                <!--채팅방 번호 저장하기용...-->
+                                <span th:text="*{chatRoomId}" id="chatId" style="visibility: hidden"></span>
                             </li>
                         </th:block>
                     </ul>
                 </div>
             </div>
+
+            <!-- -------------------------------- -->
+                    <!--여기가 오른쪽 채팅 영역-->
+            <!-- -------------------------------- -->
             <div id="content_right">
+                <!--채팅 상대방의 정보-->
                 <div class="content_right_name">
                     <div class="right_profile">
                         <!--<p class="right_thumb">
@@ -52,29 +63,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="content_right_chatting">
-                    <div class="chatting_inner">
-                        <div class="chatting_inner_right">
-                            <p class="chatting_date_right">11월 20일</p>
-                            <ul class="chatting_ul">
-                                <li class="chatting_text">안녕하세요~</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="chatting_inner">
-                        <div class="chatting_inner_left">
-                            <ul class="chatting_ul">
-                                <li class="chatting_text">안녕하세요~!!</li>
-                                <li class="chatting_text">어떤 부분이 궁금하신가요?</li>
-                            </ul>
-                            <p class="chatting_date_left">11월 20일 <span class="no_read_chat">1</span></p>
-                        </div>
-                    </div>
+
+                <!--채팅 내역-->
+                <div class="content_right_chatting" id="chat-foreach">
+                    <th:block th:each="chat:${chats}">
+                        <!--여기는 채팅방 내역이 들어갈 자리!-->
+                    </th:block>
                 </div>
+
+                <!--채팅 작성 부분-->
                 <div class="chatting_write">
                     <div class="chatting_write_border">
-                        <input type="text" placeholder="메세지를 입력하세요." class="chatting_write_input">
-                        <a href="javascript:void(0)" class="chatting_send">
+                        <input type="text" placeholder="메세지를 입력하세요." class="chatting_write_input" id="message">
+                        <a href="javascript:void(0)" class="chatting_send" id="send">
                             <img src="https://www.2awesomementor.com/img/ico-24-send.99437830.svg" alt="" class="thumb_image">
                         </a>
                     </div>
@@ -151,33 +152,61 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/mento/chatting.js"></script>
-<!--<script th:inline="javascript">
-    var webSocket;
-    var nickname;
-    var roomId = 12; // roomId는 일단 임시 보류
+<script src="/js/chat/chatting.js"></script>
+<script th:inline="javascript">
 
-
-    /*메세지 전송 함수*/
-    function send() {
-        msg = document.getElementsByClassName("chatting_write_input").value;
-        webSocket.send(JSON.stringify({chatRoomId : roomId, type: 'CHAT', writer: nickname, message: msg}));
-    }
-
-    /*전송버튼 클릭 시*/
-    document.getElementsByClassName("chatting_send").addEventListener("click", function() {
-        send();
-    });
-
-    /*채팅방에 접속했을 때 발생하는 함수*/
-    function connect(){
-        webSocket = new WebSocket("ws://localhost:5556/chat");
-        webSocket.onopen = onOpen;
-        webSocket.onclose = onClose;
-        webSocket.onmessage = onMessage;
-    }
-
-
-
-
-</script>-->
+    // var webSocket;
+    // var nickname;
+    // var roomId = 12; // roomId는 일단 임시 보류
+    //
+    //
+    //
+    // /*전송버튼 클릭 시*/
+    // document.getElementById("send").addEventListener("click", function() {
+    //     send();
+    // });
+    //
+    // /*채팅방에 접속했을 때 발생하는 함수*/
+    // function connect(){
+    //     webSocket = new WebSocket("ws://localhost:5555/chat");
+    //     webSocket.onopen = onOpen;
+    //     webSocket.onclose = onClose;
+    //     webSocket.onmessage = onMessage;
+    //
+    // }
+    //
+    // /*나갔을 때 발생하는 함수*/
+    // // 채팅방에서 나갔을 때는 type이 LEAVE로 변환되어 퇴장 메세지를 출력한다.
+    // function disconnect(){
+    //     webSocket.send(JSON.stringify({type:'LEAVE',text: "나가!"}));
+    //     webSocket.close();
+    // }
+    //
+    //
+    // /*메세지 전송 함수*/
+    // function send() {
+    //     msg = document.getElementById("message").value;
+    //     webSocket.send(JSON.stringify({type: 'CHAT', text: "전송"}));
+    //     alert("전송됨");
+    // }
+    //
+    // /*채팅방 입장*/
+    // function onOpen(){
+    //     webSocket.send(JSON.stringify({type: 'ENTER', text: "뭐야!"}));
+    // }
+    //
+    // /*새로운 채팅이 올라올 때마다 해당 함수 실행*/
+    // function onMessage(e){
+    //     data = e.data;
+    //     chatroom = document.getElementById("chatroom");
+    //     chatroom.innerHTML = chatroom.innerHTML + "<br>" + data;
+    // }
+    //
+    // /*채팅을 나가게 되면 disconnect 함수 호출*/
+    // function onClose(){
+    //     disconnect();
+    // }
+    //
+    // connect();
+</script>
 </html>

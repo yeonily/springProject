@@ -26,6 +26,7 @@ public class ChatService {
     private final JPAQueryFactory jpaQueryFactory;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRepository chatRepository;
+    private final ChatRoomService chatRoomService;
     private final UserRepository userRepository;
     private final FarmerRepository farmerRepository;
 
@@ -42,7 +43,7 @@ public class ChatService {
             if(member.getMemberId().equals(1L)) { // 현재 로그인 세션이 1번일 때
                 Chat chat = chatDTO.toEntity();
                 chat.changeChatMessage(chatDTO.getChatMessage());
-                chat.changeMember(chatDTO.getMemberId());
+                chat.changeMember(chatDTO.getMember());
                 chatRepository.save(chat);
 
                 return;
@@ -50,38 +51,4 @@ public class ChatService {
         }
     }
 
-
-    /*채팅방 알림(읽지 않은 메세지 유무 확인)*/
-    public void chatAlarm() {
-        List<ChatRoom> chatRooms = chatRoomRepository.findAll();
-        List<Chat> chats = chatRepository.findAll();
-
-        // 전체 채팅방을 불러오고
-        for(ChatRoom chatRoom : chatRooms) {
-            // 그 중 현재 로그인 한 세션(6번 회원)이 참여한 방 중에서
-            if(chatRoom.getMentor().getMemberId() == 1L || chatRoom.getMentee().getMemberId() == 1L) {
-                // 대화 기록들을 불러오고
-                for(Chat chat : chats) {
-                    // 대화 기록 중에 읽지 않은 상태의 메세지가 있는 경우
-                    if(chat.getChatStatus().equals(ChatStatus.UNREAD)) {
-                        chat.changeChatStatus(ChatStatus.READ);
-                    }
-                }
-                return;
-            }
-        }
-    }
-
-    /*채팅 읽음(로그인한 회원의 상대방 메세지를 읽음처리 해야 함)*/
-    public void chatStatusChangeRead() {
-        List<Chat> chats = chatRepository.findAll();
-
-        for (Chat chat : chats) {
-            if(chat.getChatRoom().getChatRoomId() == 17L) { // 17번방으로 테스트
-                if(chat.getMember().getMemberId() != 1L) { // 로그인한 1번 회원이 입력한 값 외에는 모두 읽음처리
-                    chat.changeChatStatus(ChatStatus.READ);
-                }
-            }
-        }
-    }
 }
