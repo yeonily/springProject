@@ -14,7 +14,7 @@
         <div id="main-grid">
             <div class="c-new-row">
                 <div class="c-new-col">
-                    <form method="post" action="/program/register" id="writeForm" th:object="${programRegister}">
+                    <form id="writeForm" method="post" action="/program/register" th:object="${programRegister}">
                         <span>
                             <!--헤더-->
                             <div>
@@ -596,7 +596,7 @@
                                         <div class="modal-content1">
                                             빨간 박스에 내용을 모두 입력한 후<br><div class="modal-content2"> 다시 시도해주세요!</div>
                                             <div class="exit-modal-action-container">
-                                                <button class="button-ok"><div class="flex"/>확인<div
+                                                <button class="button-ok" type="button"><div class="flex"/>확인<div
                                                         class="flex"/></button>
                                             </div>
                                         </div>
@@ -617,7 +617,7 @@
                                         <div class="modal-content1">
                                             목록 페이지로 이동합니다.
                                             <div class="exit-modal-action-container">
-                                                <button class="button-ok okay"><div class="flex"/>확인<div class="flex"/></button>
+                                                <button class="button-ok okay" type="button"><div class="flex"/>확인<div class="flex"/></button>
                                             </div>
                                         </div>
                                     </div>

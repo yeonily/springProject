@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.domain.program;
 
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -12,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 @NoArgsConstructor
@@ -54,9 +56,11 @@ public class ProgramDTO {
     private String programInquire;
 //    private Member member;
     private Long memberId;
+    private List<ProgramFileDTO> files;
 
     public Program toEntity(){
         return Program.builder()
+                .programId(programId)
                 .programApplyCount(programApplyCount)
                 .programApplyEndDate(programApplyEndDate)
                 .programApplyStartDate(programApplyStartDate)

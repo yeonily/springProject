@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity.program;
 
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -27,6 +28,10 @@ public class ProgramFile extends Period {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROGRAM_ID")
     private Program program;
+
+    public void changeMember(Program program){
+        this.program = program;
+    }
 
     @Builder
     public ProgramFile(String fileName, String fileUploadPath, String fileUuid, Long fileSize, boolean fileImageCheck) {
