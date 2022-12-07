@@ -1,11 +1,10 @@
 package com.codefarm.codefarmer.entity.inquire;
 
 import com.codefarm.codefarmer.domain.inquire.InquireDTO;
-import com.codefarm.codefarmer.entity.inquire.Inquire;
-import com.codefarm.codefarmer.entity.member.Farmer;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.inquire.InquireAnswerRepository;
 import com.codefarm.codefarmer.repository.inquire.InquireRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.type.Status;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -28,19 +27,19 @@ public class InquireTest {
     @Autowired
     private InquireRepository inquireRepository;
     @Autowired
-    private FarmerRepository farmerRepository;
-    @Autowired
     private InquireAnswerRepository inquireAnswerRepository;
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
+    @Autowired
+    private MemberRepository memberRepository;
 
 //    문의 글 등록
     @Test
     public void inquireSaveTest(){
         InquireDTO inquireDTO = new InquireDTO();
 
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        inquireDTO.setMember(findFarmer.get());
+        Optional<Member> findMember = memberRepository.findById(1L);
+        inquireDTO.setMember(findMember.get());
         inquireDTO.setInquireQTitle("문의 제목");
         inquireDTO.setInquireQContent("문의 TEST  내용22");
 

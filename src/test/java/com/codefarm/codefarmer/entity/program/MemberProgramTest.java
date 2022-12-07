@@ -1,12 +1,12 @@
 package com.codefarm.codefarmer.entity.program;
 
 import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
-import com.codefarm.codefarmer.entity.member.User;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.program.MemberProgramRepository;
 import com.codefarm.codefarmer.repository.program.ProgramRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
 import com.codefarm.codefarmer.type.ProgramStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -38,13 +38,13 @@ public class MemberProgramTest {
     ProgramRepository programRepository;
 
     @Autowired
-    UserRepository userRepository;
+    MemberRepository memberRepository;
 
     @Test
     public void saveTest(){
         MemberProgramDTO memberProgramDTO = new MemberProgramDTO();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Optional<User> findUser = userRepository.findById(2L);
+        Optional<Member> findUser = memberRepository.findById(2L);
         Optional<Program> findProgram = programRepository.findById(35L);
         memberProgramDTO.setProgramApplyCount(10);
         memberProgramDTO.setProgramPayment(10000);

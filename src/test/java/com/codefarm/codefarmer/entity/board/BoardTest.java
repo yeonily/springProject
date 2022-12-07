@@ -2,15 +2,10 @@ package com.codefarm.codefarmer.entity.board;
 
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.entity.board.Board;
-import com.codefarm.codefarmer.entity.member.Farmer;
 import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
-import com.codefarm.codefarmer.type.FarmerType;
-import com.codefarm.codefarmer.type.UserType;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -40,22 +35,19 @@ public class BoardTest {
     private BoardRepository boardRepository;
 
     @Autowired
-    private FarmerRepository farmerRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private ReplyRepository replyRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
 //    게시판 제목, 내용 작성
     @Test
     public void boardSaveTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(14L);
+        Optional<Member> findMember = memberRepository.findById(14L);
         boardDTO.setBoardTitle("페이징처리 너란 녀석");
         boardDTO.setBoardContent("호호호호");
-        boardDTO.setMember(findFarmer.get());
+        boardDTO.setMember(findMember.get());
 
         Board board = boardDTO.toEntity();
 //        board.changeMember();
@@ -66,7 +58,7 @@ public class BoardTest {
     @Test
     public void boardUpdateTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
+        Optional<Member> findFarmer = memberRepository.findById(1L);
         Board board = boardRepository.findById(5L).get();
 
         boardDTO.setBoardTitle("수정된 제목");
@@ -95,10 +87,8 @@ public class BoardTest {
     public void findNickName(){
 //        Optional<Board> findNickName = boardRepository.findById(17L);
 //        log.info("닉네임 : " +  findNickName.get().getMember().getMemberNickname());
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        Optional<User> findUser = userRepository.findById(2L);
-        log.info("닉네임 : " + findFarmer.get().getMemberNickname());
-        log.info("닉네임 : " + findUser.get().getMemberNickname());
+        Optional<Member> findMember = memberRepository.findById(2L);
+        log.info("닉네임 : " + findMember.get().getMemberNickname());
     }
 
 

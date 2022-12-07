@@ -2,14 +2,10 @@ package com.codefarm.codefarmer.entity.chat;
 
 import com.codefarm.codefarmer.domain.chat.ChatDTO;
 import com.codefarm.codefarmer.domain.chat.ChatRoomDTO;
-import com.codefarm.codefarmer.entity.chat.Chat;
-import com.codefarm.codefarmer.entity.chat.ChatRoom;
 import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.entity.member.QUser;
-import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.chat.ChatRoomRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.type.ChatStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -43,7 +39,7 @@ public class ChatTest {
     @Autowired
     ChatRoomRepository chatRoomRepository;
     @Autowired
-    UserRepository userRepository;
+    MemberRepository memberRepository;
     @Autowired
     MentorRepository mentorRepository;
 
@@ -52,11 +48,11 @@ public class ChatTest {
     @Test
     public void chatRoomSaveTest() {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
-        User user = userRepository.findById(43L).get(); // 일반 회원(유저ID)
+        Member member = memberRepository.findById(43L).get(); // 일반 회원(유저ID)
         Member mentor = mentorRepository.findById(11L).get().getMember(); // 멘토 회원(멘토ID)
 
         chatRoomDTO.setMentor(mentor);
-        chatRoomDTO.setMentee(user);
+        chatRoomDTO.setMentee(member);
 
         ChatRoom chatRoom = chatRoomDTO.toEntity();
         chatRoomRepository.save(chatRoom);
@@ -95,9 +91,9 @@ public class ChatTest {
         ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
 
         // 일반 유저, 멘티 정보를 저장
-        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add(v));
+        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
         // 농장주, 멘토 정보를 저장
-        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add(v));
+        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
 
 
         for (Member member : memberIdList) {

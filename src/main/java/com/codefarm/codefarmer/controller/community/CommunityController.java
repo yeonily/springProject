@@ -5,7 +5,7 @@ import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.service.board.BoardService;
 import com.codefarm.codefarmer.service.board.ReplyService;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class CommunityController {
     private final ReplyService replyService;
     private final BoardRepository boardRepository;
     private final BoardCustomRepository boardCustomRepository;
-    private final FarmerRepository farmerRepository;
+    private final MemberRepository memberRepository;
 
 //    @GetMapping("/community")
 //    public void communityPage(Model model, HttpServletRequest request,@PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable){
@@ -144,7 +144,7 @@ public class CommunityController {
 
     @PostMapping("/register")
     public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
-        boardDTO.setMember(farmerRepository.findById(14L).get());
+        boardDTO.setMember(memberRepository.findById(14L).get());
         boardService.boardAdd(boardDTO);
         redirectAttributes.addFlashAttribute("boardId", boardDTO.getBoardId());
         return  new RedirectView("/community/community");

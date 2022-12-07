@@ -3,10 +3,10 @@ package com.codefarm.codefarmer.entity.board;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.Reply;
-import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class ReplyTest {
     private ReplyRepository replyRepository;
 
     @Autowired
-    private FarmerRepository farmerRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -42,7 +42,7 @@ public class ReplyTest {
     @Test
     public void replySaveTest(){
         ReplyDTO replyDTO =  new ReplyDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
+        Optional<Member> findFarmer = memberRepository.findById(1L);
         Optional<Board> findBoard = boardRepository.findById(42L);
 
 
@@ -61,7 +61,7 @@ public class ReplyTest {
     @Test
     public void replyUpdateTest(){
         ReplyDTO replyDTO = new ReplyDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
+        Optional<Member> findFarmer = memberRepository.findById(1L);
         Reply reply = replyRepository.findById(16L).get();
 
         if(findFarmer.isPresent()){

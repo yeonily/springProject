@@ -5,13 +5,10 @@ import com.codefarm.codefarmer.domain.board.QBoardDTO;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.QBoard;
-import com.codefarm.codefarmer.entity.member.Farmer;
 import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.entity.member.User;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
-import com.codefarm.codefarmer.repository.member.UserRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +31,7 @@ public class BoardService {
     private final JPAQueryFactory jpaQueryFactory;
     private final BoardRepository boardRepository;
     private final ReplyRepository replyRepository;
-    private final FarmerRepository farmerRepository;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
 //    게시글 제목, 내용 작성
     public void boardAdd(BoardDTO boardDTO){
@@ -86,12 +82,12 @@ public class BoardService {
 
 //  현재 로그인 되어있는 사람 닉넴 갖고오기(농장주)
     public String showNickName(Long memberId){
-        Optional<Farmer> farmer = farmerRepository.findById(memberId);
-        if(!farmer.isPresent()){
-            Optional<User> user = userRepository.findById(memberId);
+        Optional<Member> member = memberRepository.findById(memberId);
+        if(!member.isPresent()){
+            Optional<Member> user = memberRepository.findById(memberId);
            return user.get().getMemberNickname();
         }else {
-            return farmer.get().getMemberNickname();
+            return member.get().getMemberNickname();
         }
     }
 //  현재 로그인 되어있는 사람 닉넴 갖고오기(일반회원)

@@ -2,9 +2,9 @@ package com.codefarm.codefarmer.entity.program;
 
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
-import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.Program;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
@@ -37,15 +37,14 @@ public class ProgramTest {
     ProgramRepository programRepository;
 
     @Autowired
-    FarmerRepository farmerRepository;
-
+    MemberRepository memberRepository;
 
     @Test
     public void saveTest(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        log.info("findFarmer : " + findFarmer.toString());
+        Optional<Program> findMember = programRepository.findById(1L);
+        log.info("findFarmer : " + findMember.toString());
         ProgramDTO programDTO = new ProgramDTO();
 
         programDTO.setProgramCrop("감자");
@@ -79,8 +78,7 @@ public class ProgramTest {
         programDTO.setProgramPrice(0);
         programDTO.setProgramLocation("충남 영동");
         programDTO.setProgramInquire("wjdghtjr5345@gmail.com");
-        programDTO.setMemberId(findFarmer.get().getMemberId());
-
+//        programDTO.setMemberId();
         Program program = programDTO.toEntity();
         programRepository.save(program);
     }
@@ -114,8 +112,8 @@ public class ProgramTest {
     public void updateTest(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        Optional<Farmer> findFarmer = farmerRepository.findById(1L);
-        log.info("findFarmer : " + findFarmer.toString());
+        Optional<Program> findMember = programRepository.findById(1L);
+        log.info("findFarmer : " + findMember.toString());
         ProgramDTO programDTO = new ProgramDTO();
 
         programDTO.setProgramCrop("고구마");
@@ -149,7 +147,7 @@ public class ProgramTest {
         programDTO.setProgramPrice(0);
         programDTO.setProgramLocation("경기 동탄");
         programDTO.setProgramInquire("wjdghtjr5345@gmail.com2");
-        programDTO.setMemberId(findFarmer.get().getMemberId());
+//        programDTO.setMemberId(findMember.get().getMemberId());
 
 //        Program program = programDTO.toEntity();
 //        program.changeMember(programDTO.getMember());
