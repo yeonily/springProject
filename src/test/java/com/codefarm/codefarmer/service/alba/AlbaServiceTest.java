@@ -38,14 +38,14 @@ public class AlbaServiceTest {
         });
     }
 
-    @Test
-    public void showTop8ByOOrderByAlbaApplyEndDateDescTest() {
-        albaListService.showTop8ByOOrderByAlbaApplyEndDateDesc().forEach(alba -> {
-//            log.info(alba.getAlbaId() + "");
-//            log.info(alba.getAlbaTitle() + "");
-//            log.info(alba.getAlbaApplyCount() + "");
-//            log.info(alba.getAlbaApplyTotalCount() + "");
-            log.info(alba.getAlbaPrice() + "");
-        });
-    }
+//    @Test
+//    public void showTop8ByOOrderByAlbaApplyEndDateDescTest() {
+//        albaListService.showTop8ByOOrderByAlbaApplyEndDateDesc().forEach(alba -> {
+////            log.info(alba.getAlbaId() + "");
+////            log.info(alba.getAlbaTitle() + "");
+////            log.info(alba.getAlbaApplyCount() + "");
+////            log.info(alba.getAlbaApplyTotalCount() + "");
+//            log.info(alba.getAlbaPrice() + "");
+//        });
+//    }
 }
