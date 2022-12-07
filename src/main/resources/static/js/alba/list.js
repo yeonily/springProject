@@ -71,6 +71,35 @@ $("#recent-btn").on("click", function () {
                 text += '<div class="registerDay">' + albaStartYear + '년' + albaStartMonth + '월' + albaStartDay + '일' + '</div>'
                 text += '</div>'
                 $("#list-foreach").html(text);
+
+
+                // 페이징 처리
+
+                // text += '<div id="paging">'
+                // text += '<ul th:with="start=${(albas.number/maxPage)*maxPage + 1}, end=(${(albas.totalPages == 0) ? 1 : (start + (maxPage - 1) < albas.totalPages ? start + (maxPage - 1) : albas.totalPages)})">'
+                // text += '<li className="sidePageNum prev" th:if="${albas.pageable.pageNumber > 0}">'
+                // text += '<a th:href="@{/alba/list(page=${((albas.pageable.pageNumber/5)*5) - 1})}" className="page">'
+                // text += '<svg width="16" height="16" className="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689="">'
+                // text += '<path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z "data-v-bd9f2bcc=""></path>
+                // text += '</svg>'
+                // text += '</a>'
+                // text += '</li>'
+                // text += '<th:block th:each="i: ${#numbers.sequence(start, end)}">'
+                // text += '<li>'
+                // text += '<a class="page selectPage" th:href="@{/alba/list(page=${i - 1})}" th:classappend="${i == albas.pageable.pageNumber + 1} ? 'selectPage' : '' "th:text="${i}">'
+                // text += '</a>'
+                // text += '</li>'
+                // text += '</th:block>'
+                // text += '<li className="sidePageNum next" th:if="${end < albas.totalPages}">'
+                // text += '<a th:href="@{/alba/list(page=${end})}" className="page">'
+                // text += '<svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689="">'
+                // text += '<path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc="">'
+                // text += '</path>'
+                // text += '</svg>'
+                // text += '</a>'
+                // text += '</li>'
+                // text += '</ul>'
+                // text += '</div>'
             })
         }
     });

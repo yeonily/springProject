@@ -73,12 +73,12 @@
                     <div class="input-div">
                         <span>모집기간</span>
                         <p>모집하는 기간을 입력해주세요.</p>
-                        <input th:field="*{albaApplyStartDate}" type="datetime-local" class="input-div-input" id="startDate"> ~ <input th:field="*{albaApplyEndDate}"type="datetime-local" class="input-div-input" id="endDate">
+                        <input type="date" name="albaApplyStartDateString" class="input-div-input" id="startDate"> ~ <input type="date" name="albaApplyEndDateString" class="input-div-input" id="endDate">
                     </div>
                     <div class="input-div">
                         <span>작업날짜</span>
                         <p>실제로 작업이 진행되는 날짜를 입력해주세요.</p>
-                        <input th:field="*{albaWorkDate}" type="datetime-local" id="workDay" class="input-div-input">
+                        <input type="date" name="albaWorkDateString" id="workDay" class="input-div-input">
                     </div>
                     <div class="input-div">
                         <span>모집인원</span>
@@ -189,7 +189,7 @@
                                 </p>
                                 <p>
                                     <input th:field="*{albaProfileTitle2}" type="text" placeholder="예시) 농장주의 간단 자기소개">
-                                    <textarea th:field="*{albaProfileContent1}" placeholder="- 다양한 경험과 노하우가 있는 베테랑 농부&#13;&#10;- 고리타분하지 않은 성격, 개방적인 마인드 보유&#13;&#10;- 유쾌함과 즐거움이 함께 공존을 희망하며 노력중"></textarea>
+                                    <textarea th:field="*{albaProfileContent2}" placeholder="- 다양한 경험과 노하우가 있는 베테랑 농부&#13;&#10;- 고리타분하지 않은 성격, 개방적인 마인드 보유&#13;&#10;- 유쾌함과 즐거움이 함께 공존을 희망하며 노력중"></textarea>
                                 </p>
                             </div>
                         </div>
@@ -320,7 +320,7 @@
             <!--작성 완료 시 작성된 게시글로 이동되어야 함, alba/detail.js 300번째 줄쯤에 있음-->
             <button type="submit" class="submitBtn" style="display: none; width: 82px">제출하기<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
         </div>
-    </div>>
+    </div>
     </form>
     </div>
 

@@ -42,17 +42,17 @@ public class AlbaTest {
 
         AlbaDTO albaDTO = new AlbaDTO();
 
-        albaDTO.setAlbaAddress("봉천동");
+        albaDTO.setAlbaAddress("사당");
         albaDTO.setAlbaApplyCount(1);
-        albaDTO.setAlbaApplyEndDate(LocalDateTime.of(2023,1,25,0,0));
-        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2022,12,20,0,0));
+        albaDTO.setAlbaApplyEndDate(LocalDateTime.of(2020,1,25,0,0));
+        albaDTO.setAlbaApplyStartDate(LocalDateTime.of(2018,12,20,0,0));
         albaDTO.setAlbaApplyTotalCount(5);
         albaDTO.setAlbaBannerOne("배너");
         albaDTO.setAlbaBannerTitle("배너 제목");
         albaDTO.setAlbaImage("이미지");
         albaDTO.setAlbaMainContent("메인컨텐트");
         albaDTO.setAlbaMainTitle("메인제목123");
-        albaDTO.setAlbaPrice(1_200);
+        albaDTO.setAlbaPrice(15_200);
         albaDTO.setAlbaProfileContent1("알바프로필내용1");
         albaDTO.setAlbaProfileContent2("알바프로필내용2");
         albaDTO.setAlbaProfileTitle1("알바프로필제목1");
@@ -65,7 +65,7 @@ public class AlbaTest {
         albaDTO.setAlbaStrongTitle3("알바소개제목1");
         albaDTO.setAlbaText("알바문자");
         albaDTO.setAlbaTextTitle("알바문자제목");
-        albaDTO.setAlbaTitle("알바제목");
+        albaDTO.setAlbaTitle("반복 연태관");
         albaDTO.setAlbaTitleOne("알바제목원");
         albaDTO.setAlbaWorkDate(localDateTime);
         albaDTO.setMember(findFarmer.get());
@@ -127,6 +127,11 @@ public class AlbaTest {
     @Test
     public void delete(){
         albaRepository.deleteAll();
+    }
+
+    @Test
+    public void delete(Long albaId){
+        albaRepository.deleteById(49L);
     }
 
 //    알바 마감순
