@@ -1,12 +1,12 @@
 package com.codefarm.codefarmer.entity.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
-import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
-import com.codefarm.codefarmer.type.FarmerType;
+import com.codefarm.codefarmer.type.MemberType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ public class MentorBoardTest {
     @Autowired
     private MentorRepository mentorRepository;
     @Autowired
-    private FarmerRepository farmerRepository;
+    private MemberRepository memberRepository;
     @Autowired
     private MentorBoardRepository mentorBoardRepository;
 
@@ -39,9 +39,9 @@ public class MentorBoardTest {
     @Test
     public void mentorWriteTest(){
         MentorBoardDTO mentorBoardDTO = new MentorBoardDTO();
-        Optional<Farmer> findMentor = farmerRepository.findById(4L);
+        Optional<Member> findMentor = memberRepository.findById(4L);
 
-        if(findMentor.get().getFarmerType() == FarmerType.MENTOR) {
+        if(findMentor.get().getMemberType() == MemberType.MENTOR) {
             mentorBoardDTO.setMentorCareer("고구마 농사 멘토 활동중");
             mentorBoardDTO.setMentorExCareer("20회 이상 멘티 컨설팅 25년 다양한 작물 재배");
             mentorBoardDTO.setMentorStrongTitle1("20회 이상 멘티 가르침으로 생긴 노하우 전수");

@@ -3,10 +3,10 @@ package com.codefarm.codefarmer.service.board;
 
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.entity.board.Board;
-import com.codefarm.codefarmer.entity.member.Farmer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
-import com.codefarm.codefarmer.repository.member.FarmerRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.service.board.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class BoardServiceTest {
     private BoardService boardService;
 
     @Autowired
-    private FarmerRepository farmerRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -40,7 +40,7 @@ public class BoardServiceTest {
     @Test
     public void addTest(){
         BoardDTO boardDTO = new BoardDTO();
-        Optional<Farmer> findFarmer = farmerRepository.findById(37L);
+        Optional<Member> findFarmer = memberRepository.findById(37L);
         log.info(findFarmer.get().toString());
         boardDTO.setBoardTitle("who am I");
         boardDTO.setBoardContent("jang bal jang");
