@@ -34,6 +34,8 @@ dependencies {
 //    implementation 'org.webjars:sockjs-client:1.1.2'
 //    implementation 'org.webjars:stomp-websocket:2.3.3-1'
 
+    /*프로그램 첨부파일 영역(강사님)*/
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.11'
 
 //    implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
