@@ -38,8 +38,10 @@
                 <th:block th:each="list:${lists}">
                 <div class="alba_div" onclick="location.href='/alba/detail'" th:object="${list}">
                     <img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">
-                    <div>0/4명 ・ <span th:text="*{albaPrice} + '원'"></span></div>
+<!--                    <div th:text="*{albaApplyTotalCount} + '/' + *{albaApplyCount}"> ・ <span th:text="${list.albaPrice} + '원'"></span></div>-->
+                    <div><span style="color: black" th:text="${list.albaApplyCount}"/>/<span style="color: black" th:text="${list.albaApplyTotalCount}"/>명 <span style="color: rgb(238, 126, 65)" >・ <span th:text="${list.albaPrice}"/>원</span></div>
                     <p class="alba_title" th:text="*{albaTitle}"></p>
+
                 </div>
                 </th:block>
             </div>
@@ -55,7 +57,7 @@
             <div class="top-div-filter">
                 <span id="recent-btn" style="color: #000000">최신순</span>
                 <span id="pay-btn">시급순</span>
-                <span id="progress-btn">모집중</span>
+                <span id="deadline-btn">마감순</span>
             </div>
 
             <!--알바 찐 목록 list-->
@@ -73,7 +75,7 @@
                 <th:block th:each="recent:${recents}">
                 <div class="list_td"th:object="${recent}" >
                     <div class="location"><p th:text="*{albaAddress}"></p></div>
-                    <div class="title"><a href="/alba/detail" th:text="*{albaTitle}">(<span>모집중</span>)</a></div>
+                    <div class="title"><a href="/alba/detail" th:text="*{albaTitle}"></a></div>
                     <div class="workDay" th:text="${#temporals.format(recent.albaWorkDate,'yyyy년 MM월 dd일')}"></div>
                     <div class="pay" >
                         <p class="miniText">시급</p>
@@ -89,14 +91,14 @@
 
             <!--페이징 처리(PC : 10페이지까지, Mobile : 5페이지까지)-->
 
-                <div id="paging">
+                <div id="paging" style="margin-bottom: 100px;">
                     <ul th:with="start=${(albas.number/maxPage)*maxPage + 1}, end=(${(albas.totalPages == 0) ? 1 : (start + (maxPage - 1) < albas.totalPages ? start + (maxPage - 1) : albas.totalPages)})">
                         <li class="sidePageNum prev" th:if="${albas.pageable.pageNumber > 0}">
                             <a th:href="@{/alba/list(page=${((albas.pageable.pageNumber/5)*5) - 1})}" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
                         </li>
                         <th:block  th:each="i: ${#numbers.sequence(start, end)}">
                             <li>
-                                <a class="page selectPage" th:href="@{/alba/list(page=${i - 1})}" th:classappend="${i == albas.pageable.pageNumber + 1} ? 'selectPage' : '' " th:text="${i}">1</a>
+                                <a class="page" th:href="@{/alba/list(page=${i - 1})}" th:classappend="${i == albas.pageable.pageNumber + 1} ? 'selectPage' : '' " th:text="${i}">1</a>
                             </li>
                         </th:block >
                         <li class="sidePageNum next" th:if="${end < albas.totalPages}">
