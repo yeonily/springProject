@@ -10,6 +10,27 @@
         <input type="text" name="name" class="notice_title" placeholder="제목을 입력하세요" autocomplete="off">
         <input type="file" name="file" id="input-image">
         <input type="submit" value="수정 완료">
+        <div id="thumbnail"></div>
     </form>
 </body>
+<script>
+    // const elImage = document.querySelector("#input-image");
+    // elImage.addEventListener("change", (evt) => {
+    //     const image = evt.target.files[0];
+    //     if(!valideImageType(image)) {
+    //         console.warn("invalide image file type");
+    //         return;
+    //     }
+    //     //이렇게 넣으면 이미지 정보가 화면에 노출됩니다.
+    //     const elImage = document.querySelector("#thumbnail");
+    //     elImage.src = window.URL.createObjectURL(image);
+    // });
+    //
+    // function valideImageType(image) {
+    //     const result = ([ 'image/jpeg',
+    //         'image/png',
+    //         'image/jpg' ].indexOf(image.type) > -1);
+    //     return result;
+    // }
+</script>
 </html>

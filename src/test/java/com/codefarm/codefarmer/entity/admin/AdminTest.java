@@ -4,13 +4,9 @@ import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
-import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.entity.member.QMember;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
-import com.codefarm.codefarmer.entity.program.QMemberProgram;
-import com.codefarm.codefarmer.entity.program.QProgram;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
@@ -19,7 +15,6 @@ import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.codefarm.codefarmer.type.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.usertype.UserType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,12 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-
-import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
-import static com.codefarm.codefarmer.entity.member.QMember.member;
-import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
-import static com.codefarm.codefarmer.entity.program.QProgram.program;
-
 
 @SpringBootTest
 @Slf4j
@@ -81,9 +70,9 @@ public class AdminTest {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         ProgramDTO programDTO = new ProgramDTO();
-        Optional<Member> findFarmer = memberRepository.findById(10L);
+        Optional<Member> findMember = memberRepository.findById(10L);
 
-//        programDTO.setMember(findFarmer.get());
+        programDTO.setMemberId(findMember.get().getMemberId());
         programDTO.setProgramCrop("블루베리");
         programDTO.setProgramType(ProgramType.ALL_USER);
         programDTO.setProgramTarget1("대상1");
@@ -114,7 +103,7 @@ public class AdminTest {
         programDTO.setProgramApplyTotalCount(10);
         programDTO.setProgramPrice(0);
         programDTO.setProgramLocation("경기도 성남시");
-        programDTO.setProgramInquire(findFarmer.get().getMemberEmail());
+        programDTO.setProgramInquire(findMember.get().getMemberEmail());
 
         Program program = programDTO.toEntity();
 //        program.changeMember(programDTO.getMemberId().);
