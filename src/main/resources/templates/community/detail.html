@@ -148,11 +148,15 @@
 <script src="/js/community/reply.js"></script>
 <script th:inline="javascript">
 
-    replyService.test(function (text) {
-        console.log(text);
+    let boardId = [[${list.boardId}]];
 
-
-    });
-
+    replyService.replyAdd({
+        replyContent: 'module test',
+        boardId: boardId
+    }, replyAdd)
+    
+    function replyAdd(result) {
+        alert(result);
+    }
 </script>
 </html>
