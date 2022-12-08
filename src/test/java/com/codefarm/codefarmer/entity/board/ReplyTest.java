@@ -43,17 +43,13 @@ public class ReplyTest {
     public void replySaveTest(){
         ReplyDTO replyDTO =  new ReplyDTO();
         Optional<Member> findFarmer = memberRepository.findById(3L);
-        Optional<Board> findBoard = boardRepository.findById(18L);
-
+        Optional<Board> findBoard = boardRepository.findById(26L);
 
             replyDTO.setReplyContent("곧 크리스마스.. 취업하고프다");
-            replyDTO.setBoardId(findBoard.get());
-            replyDTO.setMemberId(findFarmer.get());
-
 
         Reply reply = replyDTO.toEntity();
-        reply.changeMember(replyDTO.getMemberId());
-        reply.changeBoard(replyDTO.getBoardId());
+        reply.changeMember(findFarmer.get());
+        reply.changeBoard(findBoard.get());
         replyRepository.save(reply);
     }
 
@@ -62,13 +58,11 @@ public class ReplyTest {
     public void replyUpdateTest(){
         ReplyDTO replyDTO = new ReplyDTO();
         Optional<Member> findFarmer = memberRepository.findById(3L);
-        Reply reply = replyRepository.findById(20L).get();
+        Reply reply = replyRepository.findById(37L).get();
 
-        if(findFarmer.isPresent()){
+            replyDTO.setReplyId(reply.getReplyId());
             replyDTO.setReplyContent("수정된 댓글");
-            replyDTO.setMemberId(findFarmer.get());
-        }
-
+            reply.changeMember(findFarmer.get());
         reply.update(replyDTO);
     }
 
@@ -78,7 +72,7 @@ public class ReplyTest {
         Optional<Reply> findReplyUser = replyRepository.findById(7L);
             log.info("nickName : " + findReplyUser.get().getMember().getMemberNickname());
             log.info("createDate : " + findReplyUser.get().getCreatedDate());
-//            findReplyUser.get().getMember().getMemberNickname();
+            findReplyUser.get().getMember().getMemberNickname();
     }
 
 //    댓글 총 수
