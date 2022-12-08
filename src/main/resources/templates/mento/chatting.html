@@ -155,35 +155,27 @@
 <script src="/js/mento/chatting.js"></script>
 <script src="/js/chat/chatting.js"></script>
 <script th:inline="javascript">
-    var nickname = "김덕춘";
     var roomId = $("#chatId").text(); // 방 번호(임사 48번)
+    var sessionId = $("#sessionId").text();
     var webSocket;
 
+
+    /*채팅 목록에서 채팅을 선택했을 때, 웹소켓 연결*/
+    $(".left_lists_a").on("click", function(){
+
+    });
+
     connect();
+
 
     /*웹소켓을 연결*/
     function connect() {
         webSocket = new WebSocket("ws://localhost:5555/chat"); // 웹소켓이 연결될 주소
         webSocket.onopen = onOpen;
         webSocket.onclose = onClose;
-        webSocket.onmessage = onMessage;
-    }
-
-
-
-    /*웹소켓이 연결된 상태일 경우 웹소켓 연결 성공임을 알림*/
-    function onOpen() {
-        webSocket.onopen = function (e) {
-            console.log("웹소켓 연결 성공!");
-        };
-    };
-
-
-    /*메세지 전송 함수*/
-    function send() {
-        msg = document.getElementById("message").value;
-        webSocket.send(JSON.stringify({nickname : nickname, message : msg, type : "message"})); // JSON으로 데이터를 보냄
-        console.log("채팅 전송됨 : " + JSON.stringify({nickname : nickname, message : msg, type : "message"}));
+        webSocket.onmessage = function(msg) {
+            onMessage(msg);
+        }
     }
 
 
@@ -191,6 +183,30 @@
     document.getElementById("send").addEventListener("click", function() {
         send();
     });
+
+
+    /*메세지 전송 함수*/
+    function send() {
+        msg = document.getElementById("message").value;
+        webSocket.send(JSON.stringify({chatRoomId : roomId, chatMessage: msg, chatStatus: 'UNREAD', type:'CHAT', memberId: sessionId})); // JSON으로 데이터를 보냄
+        document.getElementById("message").value = "";
+    }
+
+
+
+    function onOpen() {
+        webSocket.send(JSON.stringify({chatRoomId : roomId, type:'ENTER'}));
+    }
+
+    function onMessage(e){
+        data = e.data;
+        data = JSON.parse(data);
+
+        console.log(data);
+
+        chatroom = document.getElementById("chat-foreach"); // 채팅방의 대화내용을 출력하는 부분
+        chatroom.innerHTML = chatroom.innerHTML + "<br>" + data; // br태그를 줌으로써 한 줄씩 들여쓰기
+    }
 
 
     function disconnect(){
@@ -201,10 +217,9 @@
         disconnect();
     }
 
-    function onMessage(e) {
-        data = e.data;
-        console.log("채팅결과 : " + data);
-    }
+
+    /*웹소켓에 메세지가 도착할 때마다 발생*/
+
 
 
 

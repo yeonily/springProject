@@ -65,6 +65,13 @@ public class ChatRoomTest {
     }
 
 
+    /*채팅방 확인*/
+    @Test
+    public void findChatRoom() {
+        log.info("결과 : " + chatRoomService.findByChatRoomId(48L));
+    }
+
+
     /*채팅 알림*/
     @Test
     public void chatAlarm() {

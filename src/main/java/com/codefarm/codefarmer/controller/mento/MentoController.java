@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
@@ -50,8 +50,8 @@ public class MentoController {
     /*채팅방 이동 시*/
     @GetMapping("/chatting")
     @RequestMapping(value = "/mento/chatting", method = RequestMethod.GET)
-    public void chatting(Model model, Long mentorId) {
-        Long sessionId = 33L; // 로그인은 현재 13번 일반 회원으로 되어 있다고 가정
+    public void chatting(Model model, Long mentorId, HttpSession session) {
+        Long sessionId = (Long) session.getAttribute("memberId"); // 로그인은 현재 13번 일반 회원으로 되어 있다고 가정
 
         /*로그인 세션 변수로 보내기*/
         model.addAttribute("sessionId", sessionId);
@@ -61,9 +61,6 @@ public class MentoController {
         cs.createChatRoom(mentorId, sessionId); // 게시글을 작성한 멘토 멤버아이디와 로그인 세션
         /*로그인 멤버 세션이 참여 중인 대화방 목록 저장*/
         model.addAttribute("rooms", cs.chatRoomSelectAll(sessionId));
-
-        System.out.println("멘토이름 : " + cs.chatRoomSelectAll(sessionId).get(0).getMentor().getMemberId());
-        System.out.println("멘티이름 : " + cs.chatRoomSelectAll(sessionId).get(0).getMentee().getMemberId());
 
         /*대화방 클릭 시 해당 방의 대화기록 불러오기*/
         model.addAttribute("chats", cs.chatList(12L));

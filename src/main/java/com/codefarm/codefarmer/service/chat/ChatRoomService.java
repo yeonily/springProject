@@ -39,6 +39,22 @@ public class ChatRoomService {
         return memberRepository.findById(memberId);
     }
 
+
+    /*-----------------------------------------------*/
+                /*채팅방 번호로 DTO로 반환*/
+    /*-----------------------------------------------*/
+    public ChatRoomDTO findByChatRoomId(Long chatRoomId) {
+        Optional<ChatRoom> chatRoom = chatRoomRepository.findById(chatRoomId);
+        ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
+
+        chatRoomDTO.setChatRoomId(chatRoomId);
+        chatRoomDTO.setMentee(chatRoom.get().getMentee());
+        chatRoomDTO.setMentor(chatRoom.get().getMentor());
+
+        return chatRoomDTO;
+    }
+
+
     /*-----------------------------------------------*/
             /*로그인 한 세션이 대화 중인 채팅방 목록 조회*/
     /*-----------------------------------------------*/
