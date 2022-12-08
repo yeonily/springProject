@@ -26,30 +26,32 @@
     <!------------------->
 
     <!-- 농장주 - 내가 만든 프로그램 -->
-    <div class="list-wrap" th:fragment="farmerPrograms">
-        <div class="myProgram f-column select-l" th:onclick="'location.href=\''+ @{/program/detail} + '\''">
-            <div class="list-img">
-                <div class="only-mentor">
-                    <span class="only-mentor">멘티전용</span>
+    <div class="list-wrap" th:fragment="farmerPrograms" >
+        <div th:each="program : ${programs}">
+            <div class="myProgram f-column select-l" th:onclick="'location.href=\''+ ${program.programId} + '\''">
+                <div class="list-img">
+                    <div class="only-mentor">
+                        <span class="only-mentor">멘티전용</span>
+                    </div>
+                    <img src="https://cdn.comento.kr/images/pt/tmp/prefix_4gTSmjheRr.png" class="program-img">
+                    <div class="applied-cancel">
+                        <a href=""><div class="a-c-btn" style="margin-bottom: 1px;">수정하기</div></a>
+                        <a href="javascript:void(0);" onclick="javascript:removeCheck();"><div class="a-c-btn">삭제하기</div></a>
+                        <a th:href="@{/mypage/program/apply}"><div class="a-c-btn">신청자 목록</div></a>
+                    </div>
+                    <img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">
                 </div>
-                <img src="https://cdn.comento.kr/images/pt/tmp/prefix_4gTSmjheRr.png" class="program-img">
-                <div class="applied-cancel">
-                    <a href=""><div class="a-c-btn" style="margin-bottom: 1px;">수정하기</div></a>
-                    <a href="javascript:void(0);" onclick="javascript:removeCheck();"><div class="a-c-btn">삭제하기</div></a>
-                    <a th:href="@{/mypage/program/apply}"><div class="a-c-btn">신청자 목록</div></a>
+                <div class="list-text">
+                    <div class="l-text l-ing">진행 중</div>
+                    <div class="l-m-c">∙</div>
+                    <div class="l-text" th:text="${program.programLocation}"></div>
+                    <div class="l-m-c">∙</div>
+                    <div class="l-text l-price" th:text="${program.programPrice}"></div>
                 </div>
-                <img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">
+                <div class="list-title" th:text="${program.programTitle}"></div>
             </div>
-            <div class="list-text">
-                <div class="l-text l-ing">진행 중</div>
-                <div class="l-m-c">∙</div>
-                <div class="l-text">충청남도</div>
-                <div class="l-m-c">∙</div>
-                <div class="l-text l-price">200,000</div>
-            </div>
-            <div class="list-title">백엔드 개발자도 서버 · 인프라 관리를 할 수 있는 DevOps 실무 특강</div>
+            <div class="start-day" th:text="|${#temporals.format(program.programApplyStartDate, 'yyyy.MM.dd')} 접수 시작|"></div>
         </div>
-        <div class="start-day">2022.11.17 시작</div>
     </div>
     <!------------------->
 </body>

@@ -35,7 +35,7 @@
                                         <button class="myInfo">정보 수정</button>
                                     </div>
                                     <!--멘토인 경우-->
-                                    <div class="menu-tab tabMove">
+                                    <div class="menu-tab tabMove" th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                         <button class="mentorInfo">멘토 정보</button>
                                     </div>
                                     <!------>
@@ -73,7 +73,7 @@
             </div>
             <div class="m-wrap">
                 <div class="m-title">탈퇴 사유</div>
-                <form action="">
+                <form th:action="@{/login/quitkakao}" name="myInfoForm" >
                     <div class="m-c-wrap">
                         <div class="m-c-title">더 나은 서비스를 위해 탈퇴 사유를 알려주시겠어요?</div>
                         <div class="m-text">

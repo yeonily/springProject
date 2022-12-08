@@ -165,5 +165,7 @@ function mentorSave (){ /* 중복 체크 */
 
 /*------------- 회원 탈퇴 -------------*/
 function quitBtn (){ /* 중복 체크 */
+
     myInfoForm.submit();
+
 }
