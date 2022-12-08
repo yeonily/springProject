@@ -111,9 +111,8 @@ function mapSearch() {
 
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
-
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch("충청남도 논산시 부적면 신교리 677-2 아침애딸기", function(result, status) {
+    geocoder.addressSearch($("#locations").text(), function(result, status) {
         // 정상적으로 검색이 완료됐으면
         if (status === kakao.maps.services.Status.OK) {
             $("div#map").show();
