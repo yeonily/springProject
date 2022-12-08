@@ -115,7 +115,7 @@
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
 <script src="/js/myPage/list.js"></script>
-<script>
+<script th:inline="javascript">
     $("div.menu-a").removeClass('menu-select');
     $("#program").addClass('menu-select');
 
@@ -129,5 +129,9 @@
         $(".alam-wrap").hide();
     });
 
+    function viewDetail(programId) {
+        console.log("??");
+        location.href = "/program/detail?programId=" + programId;
+    }
 </script>
 </html>

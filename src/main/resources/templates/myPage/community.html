@@ -40,7 +40,7 @@
                             <div id="c-w-wrap" class="f-column" th:each="board : ${boards}">
 
                                 <!---->
-                                <div class="commu c-link" th:onclick="'location.href=\''+ @{/community/detail} + '\''">
+                                <div class="commu c-link" th:onclick="|javascript:viewDetail(${board.boardId})|">
                                     <div class="c-top-wrap">
                                         <div class="c-date" th:text="${#temporals.format(board.createdDate, 'yyyy.MM.dd HH:mm')}">
                                             2022.11.13 15:00
@@ -106,7 +106,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
-<script>
+<script th:inline="javascript">
     $("div.menu-a").removeClass('menu-select');
     $("#community").addClass('menu-select');
 
@@ -119,5 +119,11 @@
     $(".a-no").on("click", function(){
         $(".overlay-l").hide();
     });
+
+
+    function viewDetail(boardId) {
+        console.log("??");
+        location.href = "/community/detail?boardId=" + boardId;
+    }
 </script>
 </html>
