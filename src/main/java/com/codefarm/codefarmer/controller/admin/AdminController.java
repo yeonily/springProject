@@ -19,10 +19,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -37,6 +34,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -103,9 +101,41 @@ public class AdminController {
     }
 
     @PostMapping("/crop/write")
-    public RedirectView cropWrite(Crop crop) {
+    public RedirectView cropWrite(Crop crop, @RequestParam MultipartFile image) throws IOException {
+//        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/information/crop");
+        String path = "C:/upload/image";
+        String uploadFileName = null;
+
+        File uploadPath = new File(path);
+        if(!uploadPath.exists()){
+            uploadPath.mkdirs();
+        }
+
+        if (!image.isEmpty()){
+            UUID uuid = UUID.randomUUID();
+            String fileName = image.getOriginalFilename();
+            uploadFileName = uuid.toString() + "_" + fileName;
+
+//            String fullPath = path +"/"+ image.getOriginalFilename();
+
+            File saveFile = new File(path, uploadFileName);
+            image.transferTo(saveFile);
+            crop.setCropImage(uploadFileName);
+        }
+
         informationService.cropAdd(crop);
+
         return new RedirectView("/admin/crop");
+    }
+
+    @GetMapping("/display")
+    @ResponseBody
+    public byte[] display(String fileName) throws IOException{
+        File file = new File("C:/upload/image", fileName);
+        log.info("이거 맞냐구~~  -> " + file);
+        log.info("모냐구 -> " + FileCopyUtils.copyToByteArray(file));
+
+        return FileCopyUtils.copyToByteArray(file);
     }
 
     /*=============================================*/
@@ -117,12 +147,13 @@ public class AdminController {
     @PostMapping("/img")
     public String imgPage(@RequestParam String name, @RequestParam MultipartFile file) throws IOException {
         log.info("name -> " + name);
-//        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/information/crop");
-        String path = new ClassPathResource("/static/image/information/crop").getFile().getAbsolutePath();
+        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/information/crop");
+//        String path = new ClassPathResource("/static/image/information/crop").getFile().getAbsolutePath();
 
         if (!file.isEmpty()){
 //           String fullPath = "C://upload/" + file.getOriginalFilename();
            String fullPath = path +"/"+ file.getOriginalFilename();
+           log.info("파일 이름 저장 -> " + file.getOriginalFilename());
            log.info("파일 저장 -> " + fullPath);
            file.transferTo(new File(fullPath));
         }
