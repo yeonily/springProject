@@ -18,20 +18,13 @@ import java.util.ArrayList;
 @Service
 @RequiredArgsConstructor
 public class ChatService {
-    private final JPAQueryFactory jpaQueryFactory;
-    private final ChatRoomRepository chatRoomRepository;
     private final ChatRepository chatRepository;
-    private final ChatRoomService chatRoomService;
     private final MemberRepository memberRepository;
 
 
     /*채팅 전송*/
     public void chatAdd(ChatDTO chatDTO, ChatRoomDTO chatRoomDTO) {
-        ChatRoom chatRoom = chatRoomDTO.toEntity();
-
-        ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
-//        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
-//        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
+        ArrayList<Member> memberIdList = (ArrayList<Member>) memberRepository.findAll(); // 전체 회원의 멤버ID를 담은 배열
 
         for(Member member : memberIdList) {
             if(member.getMemberId().equals(1L)) { // 현재 로그인 세션이 1번일 때

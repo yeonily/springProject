@@ -38,7 +38,7 @@ public class MentoController {
     @GetMapping("/detail")
     public void detail(Model model){
         /*선택한 게시글의 번호로 글의 정보를 program JSON 형식으로 전송*/
-        model.addAttribute("mentorId", ms.showDetailMentorBoard(65L).getMentorId());
+        model.addAttribute("mentorId", ms.showDetailMentorBoard(53L).getMentorId());
     }
 
 
@@ -51,7 +51,7 @@ public class MentoController {
     @GetMapping("/chatting")
     @RequestMapping(value = "/mento/chatting", method = RequestMethod.GET)
     public void chatting(Model model, Long mentorId) {
-        Long sessionId = 13L; // 로그인은 현재 13번 일반 회원으로 되어 있다고 가정
+        Long sessionId = 33L; // 로그인은 현재 13번 일반 회원으로 되어 있다고 가정
 
         /*로그인 세션 변수로 보내기*/
         model.addAttribute("sessionId", sessionId);

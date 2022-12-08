@@ -28,7 +28,7 @@ public class MentorBoardServiceTest {
     @Test
     public void mentorBoardAddTest(){
         MentorBoardDTO mentorBoardDTO = new MentorBoardDTO();
-        Optional<Member> findMentor = memberRepository.findById(14L);
+        Optional<Member> findMentor = memberRepository.findById(1L);
 
         mentorBoardDTO.setMentorCareer("고구마 농사 멘토 활동중");
         mentorBoardDTO.setMentorExCareer("20회 이상 멘티 컨설팅 25년 다양한 작물 재배");
@@ -56,7 +56,7 @@ public class MentorBoardServiceTest {
 //    멘토 보드 지우기
     @Test
     public void removeMentorBoardTest(){
-        mentorService.removeMentorBoard(47L);
+        mentorService.removeMentorBoard(52L);
     }
 
 }
