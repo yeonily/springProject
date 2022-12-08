@@ -9,4 +9,9 @@ public interface MemberCustomRepository {
     public Integer checkNick(String nickname);
     //내가 등록한 프로그램 신청자 select
     public List<Member> findMyProgramApplyers(Long memberId);
+    //oauthid 검사
+    public Integer checkOauth(String oauthId);
+
+
+
 }
