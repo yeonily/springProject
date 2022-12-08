@@ -23,13 +23,6 @@ public class Crop extends Period {
     @NotNull
     private String cropContent;
 
-    public void update(Crop crop){
-        this.cropKeyword = crop.getCropKeyword();
-        this.cropTitle = crop.getCropTitle();
-        this.cropImage = crop.getCropImage();
-        this.cropContent = crop.getCropContent();
-    }
-
     @Builder
     public Crop(String cropKeyword, String cropTitle, String cropImage, String cropContent) {
         this.cropKeyword = cropKeyword;

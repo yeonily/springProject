@@ -40,7 +40,7 @@
 
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form action="" name="noticeForm" method="">
+            <form th:action="@{/admin/crop/update}" th:object="${crop}" name="cropForm" method="post">
                 <table>
                     <colgroup>
                         <col width="20%;">
@@ -51,7 +51,7 @@
                         <th>글번호</th>
                         <td>
                             <div class="noticeNumber">
-                                <input type="text" name="notice" class="notice_title" autocomplete="off" readonly>
+                                <input type="text" th:field="*{cropId}" class="notice_title" autocomplete="off" readonly>
                             </div>
                         </td>
                     </tr>
@@ -59,7 +59,7 @@
                         <th>카테고리</th>
                         <td>
                             <div class="categori">
-                                <input type="text" name="categori" class="categori" placeholder="카테고리를 입력하세요" autocomplete="off">
+                                <input th:field="*{cropKeyword}" class="categori" placeholder="카테고리를 입력하세요" autocomplete="off">
                             </div>
                         </td>
                     </tr>
@@ -67,7 +67,7 @@
                         <th>제목</th>
                         <td>
                             <div class="title">
-                                <input type="text" name="notice" class="notice_title" placeholder="제목을 입력하세요" autocomplete="off">
+                                <input th:field="*{cropTitle}" class="notice_title" placeholder="제목을 입력하세요" autocomplete="off">
                             </div>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@
                         <th>내용</th>
                         <td>
                             <div id="editor">
-                                <textarea class="summernote" name="editorForm"></textarea>
+                                <textarea th:field="*{cropContent}" class="summernote"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -94,8 +94,8 @@
                     </tbody>
                 </table>
                 <div class="btns-group">
-                    <input type="button" onclick="location.href='/admin/cropInformation'" class="g-btn list" value="농업정보 목록">
-                    <input type="submit" onclick="reviseCropInformationCheck()" class="g-btn submit" value="수정 완료">
+                    <input type="button" onclick="cBackList()" class="g-btn list" value="농업정보 목록">
+                    <input type="submit" class="g-btn submit c-submit" value="수정 완료">
                 </div>
             </form>
         </div>
@@ -110,4 +110,5 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="/js/admin/summerNote.js"></script>
 <script src="/js/admin/uploadFile.js"></script>
+<script src="/js/admin/write.js"></script>
 <html>
