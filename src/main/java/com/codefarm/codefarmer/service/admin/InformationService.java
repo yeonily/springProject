@@ -71,8 +71,7 @@ public class InformationService {
 
 //    농업정보 수정
     public void cropUpdate(Crop crop){
-        Crop cropModify = cropRepository.findById(crop.getCropId()).get();
-        cropModify.update(crop);
+        cropRepository.save(crop);
     }
 
 //    농업정보 삭제

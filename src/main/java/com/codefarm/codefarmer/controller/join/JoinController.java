@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @Slf4j
 @RequestMapping("/register/*")
@@ -28,17 +30,24 @@ public class JoinController {
 
     @ResponseBody
     @GetMapping("/kakao")
-    public RedirectView kakaoLogin(String code, RedirectAttributes redirectAttributes){
+    public RedirectView kakaoLogin(String code, RedirectAttributes redirectAttributes,HttpSession session){
         log.info("코드 : "+code);
         String token = joinKakaoService.getKakaoAccessToken(code);
-
+        session.setAttribute("token", token);
         try {
-            String email = joinKakaoService.getKakaoInfo(token);
-            redirectAttributes.addFlashAttribute("memberEmail",email);
+            String memberEmail = joinKakaoService.getKakaoEmailByToken(token);
+            Long id = joinKakaoService.getKakaoIdByToken(token);
+            String memberOauthId = id+"k";
+            log.info("아이디: " + memberOauthId);
+            log.info("이메일: " + memberEmail);
+            redirectAttributes.addFlashAttribute("memberOauthId", memberOauthId);
+            redirectAttributes.addFlashAttribute("memberEmail", memberEmail);
+            if(joinService.checkOauth(memberOauthId) == 1){
+                return new RedirectView("/login/");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return new RedirectView("/register/form");
     }
@@ -67,8 +76,15 @@ public class JoinController {
 
 
     @PostMapping("/joinOk")
-    public String joinOk(MemberDTO memberDTO){
+    public String joinOk(MemberDTO memberDTO, HttpSession session){
         memberService.join(memberDTO);
+        Long id = joinService.selectId(memberDTO.getMemberOauthId());
+        log.info("멤버11:"+memberDTO);
+
+        session.setAttribute("memberId", id);
+        session.setAttribute("memberType", memberDTO.getMemberType());
+        Long value = (Long)session.getAttribute("memberId");
+        log.info("세션 "+ value);
         return "/main/main";
     }
 

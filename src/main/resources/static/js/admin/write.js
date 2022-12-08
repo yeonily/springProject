@@ -2,7 +2,9 @@
 * admin/policy - write, update
 * */
 
-// 정책정보
+var msg = "글을 저장하지 않고 나가시겠습니까?";
+
+// 정책
 $(".p-submit").on("click", function (){
     if(!(policyForm.policyKeyword.value)){
         policyForm.policyKeyword.focus();
@@ -20,11 +22,36 @@ $(".p-submit").on("click", function (){
     policyForm.submit();
 });
 
-function backList() {
-    var msg = "글을 저장하지 않고 나가시겠습니까?";
+function pBackList() {
     var flag = confirm(msg);
 
     if (flag) {
         location.href="/admin/policy";
+    }
+}
+
+// 농업정보
+$(".c-submit").on("click", function (){
+    if(!(cropForm.cropKeyword.value)){
+        cropForm.cropKeyword.focus();
+        return;
+    }
+    if(!(cropForm.cropTitle.value)){
+        cropForm.cropTitle.focus();
+        return;
+    }
+    if(!(cropForm.cropContent.value)){
+        cropForm.cropContent.focus();
+        return;
+    }
+
+    cropForm.submit();
+});
+
+function cBackList() {
+    var flag = confirm(msg);
+
+    if (flag) {
+        location.href="/admin/crop";
     }
 }

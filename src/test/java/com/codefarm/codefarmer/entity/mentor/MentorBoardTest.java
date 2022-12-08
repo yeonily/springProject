@@ -39,7 +39,7 @@ public class MentorBoardTest {
     @Test
     public void mentorWriteTest(){
         MentorBoardDTO mentorBoardDTO = new MentorBoardDTO();
-        Optional<Member> findMentor = memberRepository.findById(4L);
+        Optional<Member> findMentor = memberRepository.findById(1L);
 
         if(findMentor.get().getMemberType() == MemberType.MENTOR) {
             mentorBoardDTO.setMentorCareer("고구마 농사 멘토 활동중");

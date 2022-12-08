@@ -46,9 +46,9 @@ public void saveUserTest(){
     memberDTO.setMemberBirth("1997-03-21");
     memberDTO.setMemberEmail("runner123@naver.com");
     memberDTO.setMemberLocation("인천");
-    memberDTO.setMemberName("연태관");
-    memberDTO.setMemberNickname("러너");
-    memberDTO.setMemberPhone("010-1564-2315");
+    memberDTO.setMemberName("정호떡");
+    memberDTO.setMemberNickname("호떡");
+    memberDTO.setMemberPhone("010-5454-2315");
     memberDTO.setMemberOauthId("asdf");
 
     Member member = memberDTO.toEntity();
@@ -66,9 +66,9 @@ public void saveUserTest(){
         farmerDTO.setMemberBirth("1997-04-16");
         farmerDTO.setMemberEmail("gimchi2336@naver.com");
         farmerDTO.setMemberLocation("인천");
-        farmerDTO.setMemberName("김민혁");
-        farmerDTO.setMemberNickname("김장킬러");
-        farmerDTO.setMemberPhone("010-4343-4321");
+        farmerDTO.setMemberName("서승우");
+        farmerDTO.setMemberNickname("5팀장");
+        farmerDTO.setMemberPhone("010-1239-4321");
         farmerDTO.setMemberOauthId("KAKAO");
 
         Member farmer = farmerDTO.toEntity();
@@ -81,7 +81,7 @@ public void saveUserTest(){
     //    유저타입만 바꾸기(멘티로)
     @Test
     public void typeUserUpdateTest(){
-        Member user = memberRepository.findById(16L).get();
+        Member user = memberRepository.findById(1L).get();
 
         MemberDTO userDTO = new MemberDTO();
         userDTO.setMemberType(MemberType.MENTEE);
@@ -96,7 +96,7 @@ public void saveUserTest(){
     //    농장주타입만 바꾸기
     @Test
     public void typeFarmerUpdateTest(){
-        Member farmer = memberRepository.findById(14L).get();
+        Member farmer = memberRepository.findById(2L).get();
 
         MemberDTO farmerDTO = new MemberDTO();
         farmerDTO.setMemberType(MemberType.MENTOR);

@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.controller.admin;
 
+import com.codefarm.codefarmer.entity.admin.Criteria;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.entity.notice.Notice;
@@ -7,21 +8,32 @@ import com.codefarm.codefarmer.service.admin.InformationService;
 import com.codefarm.codefarmer.service.admin.InquireService;
 import com.codefarm.codefarmer.service.notice.NoticeFileService;
 import com.codefarm.codefarmer.service.notice.NoticeService;
+import io.github.classgraph.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,12 +95,54 @@ public class AdminController {
         return "/admin/cropInformation";
     }
 
+//    농업정보 등록
     @GetMapping("/crop/write")
-    public String adminCropInformationWrite() {return "/admin/cropInformation-write";
+    public String cropWrite(Model model) {
+        model.addAttribute("crop", new Crop());
+        return "/admin/cropInformation-write";
     }
 
+    @PostMapping("/crop/write")
+    public RedirectView cropWrite(Crop crop) {
+        informationService.cropAdd(crop);
+        return new RedirectView("/admin/crop");
+    }
+
+    /*=============================================*/
+    @GetMapping("/img")
+    public String imgPage() {
+        return "/admin/img";
+    }
+
+    @PostMapping("/img")
+    public String imgPage(@RequestParam String name, @RequestParam MultipartFile file) throws IOException {
+        log.info("name -> " + name);
+//        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/information/crop");
+        String path = new ClassPathResource("/static/image/information/crop").getFile().getAbsolutePath();
+
+        if (!file.isEmpty()){
+//           String fullPath = "C://upload/" + file.getOriginalFilename();
+           String fullPath = path +"/"+ file.getOriginalFilename();
+           log.info("파일 저장 -> " + fullPath);
+           file.transferTo(new File(fullPath));
+        }
+
+        return "/admin/img";
+    }
+    /*=============================================*/
+
+//    농업정보 수정
     @GetMapping("/crop/update")
-    public String adminCropInformationUpdate() {return "/admin/cropInformation-update";
+    public String cropUpdate(Long cropId, Model model) {
+        model.addAttribute("crop", informationService.cropShowOne(cropId));
+        return "/admin/cropInformation-update";
+    }
+
+    @PostMapping("/crop/update")
+    public RedirectView cropUpdate(Crop crop) {
+        informationService.cropUpdate(crop);
+
+        return new RedirectView("/admin/crop");
     }
 
 //    농업정보 삭제
@@ -155,7 +209,7 @@ public class AdminController {
 
 //    공지 삭제
     @PostMapping("/notice/delete")
-    public RedirectView noticeDelete(Long noticeId){
+    public RedirectView noticeDelete(Criteria criteria, Long noticeId){
         if(noticeFileService.count(noticeId) > 0) {
             noticeFileService.remove(noticeId);
         }
@@ -182,9 +236,9 @@ public class AdminController {
     }
 
     @PostMapping("/policy/write")
-    public RedirectView policyWrite(Policy policy, RedirectAttributes redirectAttributes) {
+    public RedirectView policyWrite(Policy policy) {
         informationService.policyAdd(policy);
-        redirectAttributes.addFlashAttribute("policyId", policy.getPolicyId());
+//        redirectAttributes.addFlashAttribute("policyId", policy.getPolicyId());
         return new RedirectView("/admin/policy");
     }
 
@@ -197,9 +251,7 @@ public class AdminController {
 
     @PostMapping("/policy/update")
     public RedirectView policyUpdate(Policy policy) {
-        log.info("정책 --> " + policy);
         informationService.policyUpdate(policy);
-        log.info("정책 수정 --> " + policy);
 //        redirectAttributes.addFlashAttribute("policyId", policy.getPolicyId());
 
         return new RedirectView("/admin/policy");

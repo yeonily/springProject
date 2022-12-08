@@ -16,7 +16,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.codefarm.codefarmer.entity.chat.QChat.chat;
@@ -36,20 +35,8 @@ public class ChatRoomService {
     /*-----------------------------------------------*/
                 /*회원번호에 따른 Member 객체 반환*/
     /*-----------------------------------------------*/
-    public Member findByMemberId(Long memberId) {
-        ArrayList<Member> memberIdList = new ArrayList<Member>(); // 전체 회원의 멤버ID를 담은 배열
-        // 일반 유저, 멘티 정보를 저장
-//        jpaQueryFactory.select(user).from(user).fetch().forEach(v -> memberIdList.add((Member) v));
-        // 농장주, 멘토 정보를 저장
-//        jpaQueryFactory.select(farmer).from(farmer).fetch().forEach(v -> memberIdList.add((Member) v));
-
-
-        for (Member member : memberIdList) {
-            if(member.getMemberId() == memberId) { // 로그인한 회원의 아이디를 찾았을 경우
-                return member;
-            }
-        }
-        return null; // 해당 회원이 존재하지 않는 경우는 null을 리턴
+    public Optional<Member> findByMemberId(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
     /*-----------------------------------------------*/
@@ -82,7 +69,7 @@ public class ChatRoomService {
         /*채팅방에 접속했을 때 상대방이 보낸 메세지 읽음 처리*/
     /*-----------------------------------------------*/
     public void readChange(Long chatRoomId) {
-        Long memberId = 16L; // 이후에 세션 추가되면 변경해야함(현재 로그인 세션 아이디로)
+        Long memberId = 33L; // 이후에 세션 추가되면 변경해야함(현재 로그인 세션 아이디로)
         List<ChatDTO> chatDTOList = chatList(chatRoomId); // 해당 채팅방의 모든 채팅을 가져옴
         List<Chat> chatList = new ArrayList<>();
 
@@ -117,7 +104,6 @@ public class ChatRoomService {
                 /*이미 대화중이었던 채팅방인지 체크*/
     /*-----------------------------------------------*/
     public boolean checkChatRoom(Long mentorId, Long menteeId) {
-        Member member = memberRepository.findById(menteeId).get(); // 현재 로그인 한 아이디(대화 신청자)
         List<ChatRoomDTO> chatRoomDTOList = chatRoomSelectAll(menteeId);
 
         // 채팅방들 중 해당 멘티와 이미 대화 중인 방이 존재할 경우
@@ -140,7 +126,7 @@ public class ChatRoomService {
             if(mentor.getMember().getMemberId() == mentorId) {
                 if(!checkChatRoom(mentorId, menteeId)) {
                     chatRoomDTO.setMentor(mentor.getMember());
-                    chatRoomDTO.setMentee(findByMemberId(menteeId));
+                    chatRoomDTO.setMentee(findByMemberId(menteeId).get());
                     ChatRoom chatRoom = chatRoomDTO.toEntity();
                     chatRoomRepository.save(chatRoom);
                     System.out.println("멘토 : " + mentorId + "\n멘티 : " + menteeId + "\n방 만들어짐");

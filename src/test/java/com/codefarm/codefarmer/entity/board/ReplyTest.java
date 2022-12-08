@@ -42,8 +42,8 @@ public class ReplyTest {
     @Test
     public void replySaveTest(){
         ReplyDTO replyDTO =  new ReplyDTO();
-        Optional<Member> findFarmer = memberRepository.findById(1L);
-        Optional<Board> findBoard = boardRepository.findById(42L);
+        Optional<Member> findFarmer = memberRepository.findById(3L);
+        Optional<Board> findBoard = boardRepository.findById(18L);
 
 
             replyDTO.setReplyContent("곧 크리스마스.. 취업하고프다");
@@ -61,8 +61,8 @@ public class ReplyTest {
     @Test
     public void replyUpdateTest(){
         ReplyDTO replyDTO = new ReplyDTO();
-        Optional<Member> findFarmer = memberRepository.findById(1L);
-        Reply reply = replyRepository.findById(16L).get();
+        Optional<Member> findFarmer = memberRepository.findById(3L);
+        Reply reply = replyRepository.findById(20L).get();
 
         if(findFarmer.isPresent()){
             replyDTO.setReplyContent("수정된 댓글");
@@ -75,7 +75,7 @@ public class ReplyTest {
 //    댓글 단 사람의 닉네임 갖고오기
     @Test
     public void findReplyUserTest(){
-        Optional<Reply> findReplyUser = replyRepository.findById(8L);
+        Optional<Reply> findReplyUser = replyRepository.findById(7L);
             log.info("nickName : " + findReplyUser.get().getMember().getMemberNickname());
             log.info("createDate : " + findReplyUser.get().getCreatedDate());
 //            findReplyUser.get().getMember().getMemberNickname();
@@ -90,13 +90,13 @@ public class ReplyTest {
 //    내가 등록한 댓글 총 수
     @Test
     public void findReplyCountMineTest(){
-        log.info("내가 쓴 댓글 총 수 : " + replyRepository.countByMemberMemberId(5L));
+        log.info("내가 쓴 댓글 총 수 : " + replyRepository.countByMemberMemberId(4L));
     }
 
 //    해당 보드 댓글 총 수
     @Test
     public void findReplyCountBoardTest(){
-        log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(7L));
+        log.info("게시판 댓글 총 수 : " + replyRepository.countByBoard_BoardId(3L));
     }
 
 //    보드 누가 댓글 최신에 달았는지 보여주는 테스트

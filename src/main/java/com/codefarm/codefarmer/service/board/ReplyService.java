@@ -41,6 +41,17 @@ public class ReplyService {
        return replyRepository.countByMemberMemberId(memberId);
     }
 
+//    public ReplyDTO show(Long replyId){
+//       return replyRepository.findAllByReplyIdAndReplyContent(replyId);
+//    }
+
+
+//    보드에 있는 댓글 특정개수
+    public Long getTotal(Long boardId){
+        return replyRepository.countAllByBoardBoardId(boardId);
+    }
+
+
 //    내가 작성한 댓글 지우기
     public void removeReply(Long replyId){
         replyRepository.deleteById(replyId);

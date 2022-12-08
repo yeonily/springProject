@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.service.alba;
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.QAlbaDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
+
 
 @Service
 @RequiredArgsConstructor
@@ -73,6 +74,15 @@ public class AlbaListService {
         return albaRepository.count();
     }
 
+
+    // 알바 게시글 정렬에 맞게 개수
+    public Long showCount(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+       return jpaQueryFactory.select(alba.albaId.count())
+                .from(alba)
+                .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
+                .fetchOne();
+    }
 
     //    알바 채용정보 최신순
     public List<AlbaDTO> showListByRecent() {
