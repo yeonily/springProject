@@ -44,7 +44,6 @@ public class AlbaDTO {
 
     public Alba toEntity() {
         return Alba.builder()
-                .albaId(albaId)
                 .albaAddress(albaAddress)
                 .albaApplyCount(albaApplyCount)
                 .albaApplyEndDate(albaApplyEndDate)
