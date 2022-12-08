@@ -34,22 +34,22 @@
                             <!------------------------>
 
                             <!-- 문의 내역이 있을 경우 -->
-                            <div id="c-w-wrap" class="f-column">
+                            <div id="c-w-wrap" class="f-column" th:each="inquire : ${inquires}">
 
                                 <!---->
-                                <div class="commu c-link" th:onclick="'location.href=\''+ @{/mypage/inquire/qustion} + '\''">
+                                <div class="commu c-link" th:onclick="|javascript:viewAnswer(${inquire.inquireId})|">
                                     <div class="c-top-wrap">
-                                        <div class="c-date">
+                                        <div class="c-date" th:text="${#temporals.format(inquire.createdDate, 'yyyy.MM.dd HH:mm')}">
                                             2022.11.13 15:00
                                         </div>
                                     </div>
                                     <div class="c-group">
-                                        <div class="c-g-title">환불받고 싶은데 어떻게 해야 되나요?</div>
+                                        <div class="c-g-title" th:text="${inquire.inquireQTitle}">환불받고 싶은데 어떻게 해야 되나요?</div>
                                     </div>
                                     <div class="commu-group">
                                         <div class="c-status">
 <!--                                            <span class="i-ing">대기 중</span>-->
-                                            <span class="i-finish">답변완료</span>
+                                            <span class="i-finish" th:text="${inquire.inquireStatus}">답변완료</span>
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +86,17 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
-<script>
+<script th:inline="javascript">
     $("div.menu-a").removeClass('menu-select');
     $("#inquire").addClass('menu-select');
+
+
+    // const $detail = $("div.commu");
+    // $detail.on(click, viewAnswer);
+
+    function viewAnswer(inquireId) {
+        console.log("??");
+        location.href = "/mypage/inquire/question?inquireId=" + inquireId;
+    }
 </script>
 </html>

@@ -31,7 +31,7 @@
                     <!--오른쪽 메뉴-->
                     <aside>
                         <!--오른쪽 메뉴(로그인 전)-->
-                        <ul class="nav_right" th:if="${session.memberType == null}">
+                        <ul class="nav_right" th:if="${session.memberId == null}">
                             <li><a th:href="@{/register/}">가입/로그인</a></li>
                             <!--검색 부분-->
                             <form action="" th:action class="searchForm">
@@ -43,7 +43,7 @@
                         </ul>
 
                         <!--오른쪽 메뉴(로그인 후)-->
-                        <ul class="nav_right_after" th:if="${session.memberType != null}">
+                        <ul class="nav_right_after" th:if="${session.memberId != null}">
                             <li>
                                 <div class="noti-button-container">
                                     <div class="c-application c-badge--container absolute">
@@ -102,7 +102,7 @@
                                         <li style="display: block; margin-left: 5px;"><div><span class="mypageLink"/><a th:href="@{/mypage/setting}">마이페이지</a></div></li><hr>
                                         <li style="display: block; margin-left: 5px;"><div><span class="commuLink"/><a th:href="@{/mypage/community}">커뮤니티 활동</a></div></li><hr>
                                         <li style="display: block; margin-left: 5px;"><div><span class="chatLink"/><a th:href="@{/mento/chatting}">채팅방</a></div></li><hr>
-                                        <li style="display: block; margin-left: 5px;"><div><span class="logout"/><a th:href="@{/login/logoutkakao}">로그아웃</a></div></li>
+                                        <li style="display: block; margin-left: 5px;"><div><span class="logout"/><a th:href="@{https://kauth.kakao.com/oauth/logout?client_id=b6c8cc415d06296f3dad49e498e431cc&logout_redirect_uri=http://localhost:5555/login/logoutkakao}">로그아웃</a></div></li>
                                     </ul>
                                 </div>
                             </li>

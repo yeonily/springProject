@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.controller.login;
 import com.codefarm.codefarmer.service.join.JoinKakaoService;
 import com.codefarm.codefarmer.service.join.JoinService;
 import com.codefarm.codefarmer.service.login.KakaoService;
+import com.codefarm.codefarmer.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     private final KakaoService kakaoService;
+    private final MemberService memberService;
 
     @ResponseBody
     @GetMapping("/kakao")
@@ -43,6 +45,16 @@ public class LoginController {
     @GetMapping("/logoutkakao")
     public RedirectView kakaoLogout(HttpSession session){
         log.info("logout");
+        kakaoService.logoutKakao((String)session.getAttribute("token"));
+        session.invalidate();
+
+        return new RedirectView("/main/main");
+    }
+
+    @GetMapping("/quitkakao")
+    public RedirectView kakaoQuit(HttpSession session){
+        log.info("quit");
+        memberService.delete((Long)session.getAttribute("memberId"));
         kakaoService.quitKakao((String)session.getAttribute("token"));
         session.invalidate();
 

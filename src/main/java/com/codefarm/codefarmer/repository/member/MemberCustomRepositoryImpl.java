@@ -1,19 +1,31 @@
 package com.codefarm.codefarmer.repository.member;
 
+import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.alba.QAlba;
+import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.inquire.Inquire;
+import com.codefarm.codefarmer.entity.inquire.QInquire;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.member.QMember;
+import com.codefarm.codefarmer.entity.program.Program;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
+import static com.codefarm.codefarmer.entity.board.QBoard.board;
+import static com.codefarm.codefarmer.entity.inquire.QInquire.*;
 import static com.codefarm.codefarmer.entity.member.QMember.*;
+import static com.codefarm.codefarmer.entity.program.QProgram.program;
 
 @Repository
 @RequiredArgsConstructor
 public class MemberCustomRepositoryImpl implements MemberCustomRepository {
+
     private final JPAQueryFactory jpaQueryFactory;
+
     @Override
     public Integer checkNick(String nickname) {
         return Math.toIntExact(jpaQueryFactory.select(member.memberNickname.count())
@@ -76,6 +88,38 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .from(member)
                 .where(member.memberOauthId.eq(oauthId))
                 .fetchOne());
+    }
+
+    @Override
+    public List<Alba> findMyAlba(Long memberId) {
+        return jpaQueryFactory.select(alba)
+                .from(alba).join(alba.member)
+                .where(alba.member.memberId.eq(memberId))
+                .fetchJoin().fetch();
+    }
+
+    @Override
+    public List<Program> findMyProgram(Long memberId) {
+        return  jpaQueryFactory.select(program)
+                .from(program).join(program.member)
+                .where(program.member.memberId.eq(memberId))
+                .fetchJoin().fetch();
+    }
+
+    @Override
+    public List<Board> findMyBoard(Long memberId) {
+        return jpaQueryFactory.select(board)
+                .from(board).join(board.member)
+                .where(board.member.memberId.eq(memberId))
+                .fetchJoin().fetch();
+    }
+
+    @Override
+    public List<Inquire> findMyInquire(Long memberId) {
+        return jpaQueryFactory.select(inquire)
+                .from(inquire).join(inquire.member)
+                .where(inquire.member.memberId.eq(memberId))
+                .fetchJoin().fetch();
     }
 
 

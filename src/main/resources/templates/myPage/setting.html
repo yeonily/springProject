@@ -17,7 +17,7 @@
     <div id="main-tab" class="wrap-w" style="padding-bottom: 0">
         <div class="container">
             <div class="contentsWrap">
-                <!--메뉴 카텍고리 시작-->
+                <!--메뉴 카테고리 시작-->
                 <div th:replace="/myPage/sidemenu.html :: myPageMenu"></div>
                 <!--컨텐츠 시작-->
                 <div class="contents">
@@ -35,7 +35,7 @@
                                         <button class="myInfo" onclick="tabMove('myInfo')">정보 수정</button>
                                     </div>
                                     <!--멘토인 경우-->
-                                    <div class="menu-tab">
+                                    <div class="menu-tab" th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                         <button class="mentorInfo" onclick="tabMove('mentorInfo')">멘토 정보</button>
                                     </div>
                                     <!------>
@@ -46,27 +46,35 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="content">
+                        <div class="content" th:object="${member}">
                             <div class="wrapper-s">
                                 <div class="section-profile">
                                     <div class="flex">
-                                        <div class="member-division-img">
+                                        <div class="member-division-img" th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                             <!-- 유저 구분에 따라 이미지 변경
                                              일반 유저 : user.png / 농장주 : farmer.png -->
+
 <!--                                            <img src="/image/myPage/user.png" style="margin-bottom: 10px;">-->
                                             <img src="/image/myPage/farmer.png">
                                             <!------>
                                         </div>
+                                        <div class="member-division-img" th:if="${session.memberType == 'USER' or session.memberType == 'MENTEE'}">
+                                            <!-- 유저 구분에 따라 이미지 변경
+                                             일반 유저 : user.png / 농장주 : farmer.png -->
+
+                                            <img src="/image/myPage/user.png" style="margin-bottom: 10px;">
+                                            <!------>
+                                        </div>
                                         <div class="member-division">
-                                            <div>
+                                            <div class="infoType">
                                                 <!-- 멤버 구분 -->
                                                 일반인
                                                 <!------>
                                             </div>
                                             <div class="flex">
-                                                <div class="nickname">닉네임</div>
+                                                <div class="nickname" th:text="*{memberNickname}"></div>
                                                 <!-- 멘토 구분 -->
-                                                <div class="flex mentoring">멘토</div>
+                                               <!-- <div class="flex mentoring">멘토</div>-->
                                                 <!------>
                                             </div>
                                         </div>
@@ -91,14 +99,14 @@
                                     <div class="nickname-c">
                                         <form action="" name="nickForm" class="nick-c-group">
                                             <div class="nickname-input">
-                                                <input type="text" name="nickname" value="닉네임">
+                                                <input type="text" name="nickname" value="닉네임" th:value="*{memberNickname}">
                                             </div>
                                             <button type="button" class="nick nick-check" onclick="nickCheck()">중복확인</button>
                                             <button type="button" class="nick nick-save saveHover" onclick="nickSave()">저장</button>
                                         </form>
                                         <div class="nickname-check">
                                             <!-- 중복 체크 문구 -->
-                                            <div class="nick-c-save" style="display: /*none*/;">
+                                            <div class="nick-c-save" style="display: none;">
                                                 <div class="nick-warning" style="background: #47c880;">!</div>
                                                 <div style="color: #47c880;">사용 가능한 닉네임입니다.</div>
                                             </div>
@@ -117,36 +125,36 @@
                                     <section>
                                         <form action="" name="myInfoForm">
                                             <div class="s-form-input">
+                                                <p class="form-title">구분</p>
+                                                <div class="flex f-section flex user-type">
+                                                    <input type="radio" name="grade" id="user" value="USER" disabled="true"/>
+                                                    <label class="grade" for="user" style="margin-right:13px;">일반인</label>
+                                                    <input type="radio" name="grade" id="farmer" value="FARMER" disabled="true"/>
+                                                    <label class="grade" for="farmer">농장주</label>
+                                                </div>
+                                            </div>
+                                            <div class="s-form-input f-m-top">
                                                 <p class="form-title">이름</p>
                                                 <div class="f-column f-section">
-                                                    <input type="text" name="name" value="○○○" class="form-input" disabled>
+                                                    <input type="text" name="name" class="form-input" th:value="*{memberName}" disabled>
                                                 </div>
                                             </div>
                                             <div class="s-form-input f-m-top">
                                                 <p class="form-title">생년월일</p>
                                                 <div class="f-column f-section">
-                                                    <input type="text" name="birth" class="form-input" value="2000-00-00" disabled>
+                                                    <input type="text" name="birth" class="form-input" th:value="*{memberBirth}" disabled>
                                                 </div>
                                             </div>
                                             <div class="s-form-input f-m-top">
                                                 <p class="form-title">휴대폰번호</p>
                                                 <div class="f-column f-section">
-                                                    <input type="text" name="phone" value="010-0000-0000" class="form-input" oninput="autoHyphen(this)" maxlength="13">
-                                                </div>
-                                            </div>
-                                            <div class="s-form-input f-m-top">
-                                                <p class="form-title">구분</p>
-                                                <div class="flex f-section flex user-type">
-                                                    <input type="radio" name="grade" id="user" value="user"/>
-                                                    <label class="grade" for="user" style="margin-right:13px;">일반인</label>
-                                                    <input type="radio" name="grade" id="farmer" value="farmer"/>
-                                                    <label class="grade" for="farmer">농장주</label>
+                                                    <input type="text" name="phone" th:value="*{memberPhone}" class="form-input" oninput="autoHyphen(this)" maxlength="13">
                                                 </div>
                                             </div>
                                             <div class="s-form-input f-m-top">
                                                 <p class="form-title">지역</p>
                                                 <div class="flex f-column f-section">
-                                                    <input type="text" name="address" value="서울시 강남구" class="form-input">
+                                                    <input type="text" name="address" th:value="*{memberLocation}" class="form-input">
                                                 </div>
                                             </div>
                                             <div class="form-save">
@@ -156,6 +164,7 @@
                                     </section>
                                 </div>
                                 <!-- 농장주 일 경우 -->
+                                <div th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                 <hr class="section-line marginT">
                                 <div id="mentorInfo" class="section-title marginT">멘토 정보</div>
                                 <div class="section-wrap">
@@ -164,7 +173,7 @@
                                         <div id="mentor-none">
                                             <div class="mentor-no">
                                                 <div class="mentor-txt">
-                                                    멘토 소개 글을 작성하면 멘토링 홍보 글을 작성하실 수 있습니다.
+                                                    멘토 소개를 작성하면 멘토로 활동할 수 있습니다.
                                                 </div>
                                                 <button class="mentorBtn" onclick="mentorFormShow()">소개 글 작성하기</button>
                                             </div>
@@ -172,7 +181,7 @@
                                         <!---->
 
                                         <!-- 멘토가 아닐 경우 → 소개글 입력 폼 -->
-                                        <form action="" name="newMentorForm" class="newMentorForm" style="display: none;">
+                                        <form action="" name="newMentorForm" class="newMentorForm" style="display: none;" >
                                             <div class="s-form-input">
                                                 <p class="form-title">주요 작물</p>
                                                 <div class="flex f-column f-section">
@@ -229,6 +238,7 @@
                                     </section>
                                 </div>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -244,7 +254,6 @@
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
 <script th:inline="javascript">
-
 
     /* 탈퇴 탭에서 넘어올 때 이벤트 */
     jQuery(function ($) {
@@ -293,5 +302,20 @@
 
     $("div.menu-a").removeClass('menu-select');
     $("#myInfoPage").addClass('menu-select');
+
+    var memberType = [[${member.memberType}]];
+    if(memberType == 'FARMER' || memberType == 'MENTOR'){
+        $("input#farmer").prop("checked", true);
+        $("div.infoType").text("농장주");
+    }else{
+        $("input#user").prop("checked", true);
+        if(memberType == 'ADMIN') {
+            $("div.infoType").text("관리자");
+        }else{
+            $("div.infoType").text("일반인");
+        }
+    }
+
+
 </script>
 </html>
