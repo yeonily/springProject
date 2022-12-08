@@ -20,6 +20,7 @@ import static com.codefarm.codefarmer.entity.program.QProgram.program;
 public class AlbaDetailService {
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final AlbaRepository albaRepository;
 
     public List<AlbaDTO> showAll(){
         return jpaQueryFactory.select(new QAlbaDTO(
@@ -87,5 +88,9 @@ public class AlbaDetailService {
         )).from(alba)
                 .where(alba.albaId.eq(albaId))
                 .fetchOne();
+    }
+
+    public void removeAlbaId(Long albaId){
+        albaRepository.deleteById(albaId);
     }
 }

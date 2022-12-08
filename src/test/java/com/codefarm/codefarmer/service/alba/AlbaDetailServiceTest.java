@@ -26,6 +26,12 @@ public class AlbaDetailServiceTest {
         albaDetailService.showAll().stream().map(AlbaDTO::getAlbaAddress).forEach(log::info);
     }
 
+    // 게시글 삭제
+    @Test
+    public void removeAlbaIdTest(){
+        albaDetailService.removeAlbaId(96L);
+    }
+
 //    @Test
 //    public void showByAlbaIdTest(){
 //        albaDetailService.showByAlbaId();
