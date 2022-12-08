@@ -1,8 +1,22 @@
+
 let replyService = (function () {
-    function test(callback) {
-        if(callback){
-            callback("ABC");
-        }
+    function replyAdd(reply, callback, error) {
+        $.ajax({
+            url :"/reply/new",
+            type : "post",
+            data: JSON.stringify(reply),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+                if(callback){
+                    callback(result);
+                }
+            },
+            error: function (xhr, status, err) {
+                if(error){
+                    error(err);
+                }
+            }
+        });
     }
-    return {test: test}
+    return {replyAdd: replyAdd}
 })();
