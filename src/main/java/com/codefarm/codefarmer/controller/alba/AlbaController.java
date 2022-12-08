@@ -1,30 +1,29 @@
 package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.alba.AlbaListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-=======
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
->>>>>>> parent of cfcef4a (20221208 연태관 / 중간 커밋)
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,7 +66,19 @@ public class AlbaController {
         }
 
     @PostMapping("/write")
-    public RedirectView albaWrite(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString) throws DateTimeParseException {
+    public RedirectView albaWrite(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile file) throws Exception {
+
+        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/alba");
+//        String path = new ClassPathResource("/static/image/information/crop").getFile().getAbsolutePath();
+
+        if (!file.isEmpty()) {
+//           String fullPath = "C://upload/" + file.getOriginalFilename();
+            String fullPath = path + "/" + file.getOriginalFilename();
+            log.info("파일 저장 -> " + fullPath);
+            file.transferTo(new File(fullPath));
+            albaDTO.setAlbaImage(fullPath);
+        }
+
         log.info("들어왔니?");
         log.info("albaApplyStartDateString:"+ albaApplyStartDateString);
         log.info("albaApplyEndDateString:"+ albaApplyEndDateString);
@@ -108,6 +119,11 @@ public class AlbaController {
         AlbaDTO list = albaDetailService.showByAlbaId(albaId);
         model.addAttribute("list",list);
     }
+
+//    @GetMapping("/display")
+//    public byte[] display(String fileName) throws IOException{
+//        File file = new File("")
+//    }
 
 
 }

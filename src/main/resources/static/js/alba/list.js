@@ -34,18 +34,12 @@ $(document).ready(function () {
             let text = "";
 
             lists.forEach(function (list) {
-<<<<<<< HEAD
                 var number = list.albaId;
                 text += '<div class="alba_div" onclick="location.href='
                 text += '/alba/detail?albaId='
                 text += number
                 text += '">'
                 text += '<img src=@{albaImage}>'
-=======
-
-                text += '<div class="alba_div" onclick="location.href=" th:object="${list}">'
-                text += '<img src="https://cdn.comento.kr/edu/title_mmVkR6Q0Mz.jpeg?s=518x272&q=75">'
->>>>>>> parent of cfcef4a (20221208 연태관 / 중간 커밋)
                 text += '<div>' + list.albaApplyCount + '/' + list.albaApplyTotalCount + '명' + '・' + '<span>' + list.albaPrice + '원' +'</span></div>'
                 text += '<p class="alba_title">' + list.albaTitle + '</p>'
                 text += '</div>'
@@ -77,56 +71,56 @@ $(document).ready(function () {
                         //알바 리스트 REST
 /*-----------------------------------------------------------*/
 
-$(document).ready(function () {
-
-    $.ajax({
-        url: "/kind/newList",
-        type: "post",
-        // data: formData,
-        // contentType: false,
-        // processData: false,
-        success: function (recents) {
-            console.log("들어옴?");
-            let text = "";
-
-            recents.forEach(function (recent) {
-                text += '<div class="list_td" th:object="${recent}">'
-                text += '<div class="location"><p>' + recent.albaAddress + '</p></div>'
-                text += '<div class="title"><a th:href="@{/alba/detail}">' + recent.albaTitle + '</a></div>'
-
-                let albaWorkDate = new Date(recent.albaWorkDate);
-                let albaWorkYear = albaWorkDate.getFullYear();
-                let albaWorkMonth = albaWorkDate.getMonth() + 1;
-                let albaWorkDay = albaWorkDate.getDate();
-
-                text += '<div class="workDay">' + albaWorkYear + '년' + albaWorkMonth + '월' + albaWorkDay + '일' + '</div>'
-                text += '<div class="pay">'
-                text += '<p class="miniText">시급</p>'
-                text += '<div>' + recent.albaPrice + '</div>'
-                text += '</div>'
-
-                let albaStartDate = new Date(recent.albaApplyStartDate);
-                let albaStartYear = albaStartDate.getFullYear();
-                let albaStartMonth = albaStartDate.getMonth() + 1;
-                let albaStartDay = albaStartDate.getDate();
-
-                text += '<div class="registerDay">' + albaStartYear + '년' + albaStartMonth + '월' + albaStartDay + '일' + '</div>'
-                text += '</div>'
-                $("#list-foreach").html(text);
-            });
-        }
-    });
-});
+// $(document).ready(function () {
+//
+//     $.ajax({
+//         url: "/kind/newList",
+//         type: "post",
+//         // data: formData,
+//         // contentType: false,
+//         // processData: false,
+//         success: function (recents) {
+//             console.log("들어옴?");
+//             let text = "";
+//
+//             recents.forEach(function (recent) {
+//                 text += '<div class="list_td" th:object="${recent}">'
+//                 text += '<div class="location"><p>' + recent.albaAddress + '</p></div>'
+//                 text += '<div class="title"><a th:href="@{/alba/detail}">' + recent.albaTitle + '</a></div>'
+//
+//                 let albaWorkDate = new Date(recent.albaWorkDate);
+//                 let albaWorkYear = albaWorkDate.getFullYear();
+//                 let albaWorkMonth = albaWorkDate.getMonth() + 1;
+//                 let albaWorkDay = albaWorkDate.getDate();
+//
+//                 text += '<div class="workDay">' + albaWorkYear + '년' + albaWorkMonth + '월' + albaWorkDay + '일' + '</div>'
+//                 text += '<div class="pay">'
+//                 text += '<p class="miniText">시급</p>'
+//                 text += '<div>' + recent.albaPrice + '</div>'
+//                 text += '</div>'
+//
+//                 let albaStartDate = new Date(recent.albaApplyStartDate);
+//                 let albaStartYear = albaStartDate.getFullYear();
+//                 let albaStartMonth = albaStartDate.getMonth() + 1;
+//                 let albaStartDay = albaStartDate.getDate();
+//
+//                 text += '<div class="registerDay">' + albaStartYear + '년' + albaStartMonth + '월' + albaStartDay + '일' + '</div>'
+//                 text += '</div>'
+//                 $("#list-foreach").html(text);
+//             });
+//         }
+//     });
+// });
 
             /*-----------------------------------------------------------*/
             //클릭 시 체크 확인 플레그
-            /-----------------------------------------------------------*/
+            /*-----------------------------------------------------------*/
 
             let check = false;
 
             /*-----------------------------------------------------------*/
             //최신순 정렬 클릭 시
-            /-----------------------------------------------------------*/
+            /*-----------------------------------------------------------*/
 
             $("#recent-btn").on("click", function () {
                 // if(check == true){
@@ -261,7 +255,7 @@ check = true;
 
             /*-----------------------------------------------------------*/
             //모집중 정렬 클릭 시
-
+            /*-----------------------------------------------------------*/
 
             $("#deadline-btn").on("click", function () {
                 // if(check == true){
