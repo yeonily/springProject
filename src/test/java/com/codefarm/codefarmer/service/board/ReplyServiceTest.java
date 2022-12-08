@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 @Slf4j
@@ -38,18 +39,21 @@ public class ReplyServiceTest {
 
 
 //    해당 보드에 댓글 작성하기
-    @Test
-    public void replyAddTest(){
-        ReplyDTO replyDTO = new ReplyDTO();
-        Optional<Member> findFarmer = memberRepository.findById(14L);
-        Optional<Board> findBoard = boardRepository.findById(18L);
-
-        replyDTO.setReplyContent("김장 하라고해도 안하고싶다!!");
-        replyDTO.setMemberId(findFarmer.get());
-        replyDTO.setBoardId(findBoard.get());
-
-        replyService.replyAdd(replyDTO);
-    }
+//    @Test
+//    public void replyAddTest(){
+//        ReplyDTO replyDTO = new ReplyDTO();
+//        Optional<Member> findFarmer = memberRepository.findById(3L);
+//        Optional<Board> findBoard = boardRepository.findById(14L);
+//
+//        Reply reply = replyDTO.toEntity();
+//        reply.changeMember(findFarmer.get());
+//        reply.changeBoard(findBoard.get());
+//
+//        replyDTO.setReplyContent("김장 하라고해도 안하고싶다!!");
+//
+//
+//        replyService.replyAdd(replyDTO);
+//    }
 
 //    댓글 수정하기
     @Test
@@ -59,7 +63,7 @@ public class ReplyServiceTest {
         Optional<Reply> findReply = replyRepository.findById(19L);
 
         replyDTO.setReplyContent("수정된 댓글");
-        replyDTO.setMemberId(findFarmer.get());
+//        replyDTO.setMemberId(findFarmer.get());
         replyDTO.setReplyId(findReply.get().getReplyId());
 
         replyService.replyUpdate(replyDTO);
@@ -78,8 +82,10 @@ public class ReplyServiceTest {
     }
 
 //    댓글 목록 가져오기
-
-
+    @Test
+    public void getReplyListTest(){
+        log.info("댓글 목록 : " + replyService.getReplyList());
+    }
 
 //  내가 등록한 댓글 삭제하기
     @Test

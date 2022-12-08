@@ -13,4 +13,5 @@ public interface BoardCustomRepository {
     public Slice<Board> findAllSlice(Pageable pageable);
 
     public Slice<BoardDTO> findAllSliceDTO(Pageable pageable);
+
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "TBL_BOARD")
 @Getter
+@ToString(exclude = {"replies","boardFiles"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends Period {
     @Id @GeneratedValue
