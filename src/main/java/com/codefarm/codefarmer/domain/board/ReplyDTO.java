@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.domain.board;
 
+import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.board.Reply;
@@ -15,24 +16,25 @@ import java.time.LocalDateTime;
 @Data
 public class ReplyDTO {
     private Long replyId;
-    private Board board;
-    private Member member;
+    private Long boardId;
+    private Long memberId;
+    private String memberNickName;
     private String replyContent;
-    private String replyWriter;
-    private Member memberId;
-    private Board boardId;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 
     @QueryProjection
-    public ReplyDTO(Long replyId, Board board, Member member, String replyContent, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public ReplyDTO(Long replyId, Long boardId, Long memberId, String memberNickName, String replyContent, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.replyId = replyId;
-        this.board = board;
-        this.member = member;
+        this.boardId = boardId;
+        this.memberId = memberId;
+        this.memberNickName = memberNickName;
         this.replyContent = replyContent;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
     }
+
+
 
     public Reply toEntity(){
         return Reply.builder()

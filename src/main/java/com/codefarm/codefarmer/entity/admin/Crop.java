@@ -24,10 +24,9 @@ public class Crop extends Period {
     private String cropContent;
 
     @Builder
-    public Crop(String cropKeyword, String cropTitle, String cropImage, String cropContent) {
+    public Crop(String cropKeyword, String cropTitle, String cropContent) {
         this.cropKeyword = cropKeyword;
         this.cropTitle = cropTitle;
-        this.cropImage = cropImage;
         this.cropContent = cropContent;
     }
 }
