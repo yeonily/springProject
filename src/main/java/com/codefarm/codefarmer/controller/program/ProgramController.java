@@ -1,6 +1,9 @@
 package com.codefarm.codefarmer.controller.program;
 
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
+import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
 import com.codefarm.codefarmer.service.program.ProgramDetailService;
 import com.codefarm.codefarmer.service.program.ProgramListService;
 import com.codefarm.codefarmer.service.program.ProgramRegisterService;
@@ -30,6 +33,7 @@ public class ProgramController {
     private final ProgramListService programListService;
     private final ProgramDetailService programDetailService;
     private final ProgramRegisterService programRegisterService;
+    private final ProgramFileRepository programFileRepository;
 
     @GetMapping("/list")
     public void list(Model model){
@@ -69,14 +73,14 @@ public class ProgramController {
     }
 
     @PostMapping("/register")
-    public RedirectView registerFin(ProgramDTO programDTO,String programWorkDateString,String programWorkStartTimeString,String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString) throws DateTimeParseException {
+    public RedirectView registerFin(ProgramDTO programDTO, ProgramFileDTO programFileDTO, String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString) throws DateTimeParseException {
         log.info("리스폰스바디 컨트롤러 들어옴");
-        log.info("programWorkDate:"+ programWorkDateString);
-        log.info("programWorkStartTime:"+ programWorkStartTimeString);
-        log.info("programWorkEndTime:"+ programWorkEndTimeString);
-        log.info("programApplyStartDate:"+ programApplyStartDateString);
-        log.info("programApplyEndDate:"+ programApplyEndDateString);
-        log.info("programDTO: " + programDTO.toString());
+        log.info("files: " + programDTO.getFiles());
+//        programDTO.getFiles().stream().map(t -> programFileDTO.setFileName(t.getFileName()));
+//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileName());
+//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileUploadPath());
+//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileUuid());
+//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileSize());
 
 //      태관 참고
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -104,8 +108,16 @@ public class ProgramController {
         programDTO.setProgramApplyStartDate(programApplyStartDateTest);
         programDTO.setProgramApplyEndDate(programApplyEndDateTest);
 
+        /*Program program = null;
+        program.changeFiles(programDTO.getFiles());*/
+
 //        태관 참고
         programRegisterService.saveAll(programDTO);
+
+//        programDTO.getFiles().stream().map(t -> programFileRepository.saveAll(t));
+
+
+//        programFileRepository.save(programDTO.getFiles())
 
 //        redirectAttributes.addFlashAttribute("boardNumber", boardVO.getBoardNumber());
         return new RedirectView("list");

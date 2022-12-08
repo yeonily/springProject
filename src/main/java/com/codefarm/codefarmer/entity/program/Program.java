@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity.program;
 
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.type.ProgramLevel;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TBL_PROGRAM")
@@ -95,6 +97,15 @@ public class Program extends Period {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
     private List<ProgramFile> programFiles;
 
+    public void changeFiles(List<ProgramFileDTO> files){
+//        files.stream().forEach(file -> file.setProgram(this));
+        this.programFiles = files.stream().map(file -> file.toEntity()).collect(Collectors.toList());
+    }
+
+    public void changeMember(Member member){
+        this.member = member;
+    }
+
     public void update(ProgramDTO programDTO){
         this.programCrop = programDTO.getProgramCrop();
         this.programType = programDTO.getProgramType();
@@ -129,12 +140,11 @@ public class Program extends Period {
         this.programInquire = programDTO.getProgramInquire();
     }
 
-    public void changeMember(Member member){
-        this.member = member;
-    }
+
 
     @Builder
-    public Program(String programCrop, ProgramType programType, String programTarget1, String programTarget2, String programTarget3, String programTarget4, String programTitle, String programTitleSub, ProgramLevel programLevel, String programResult1, String programResult2, String programResult3, String programResult4, String programFarmerInfo, String programInfoTitle1, String programInfoContent1, String programInfoTitle2, String programInfoContent2, String programInfoTitle3, String programInfoContent3, String programInfoTitle4, String programInfoContent4, LocalDateTime programWorkDate, LocalDateTime programWorkStartTime, LocalDateTime programApplyStartDate, LocalDateTime programApplyEndDate, LocalDateTime programWorkEndTime, int programApplyCount, int programApplyTotalCount, int programPrice, String programLocation, String programInquire) {
+    public Program(Long programId, String programCrop, ProgramType programType, String programTarget1, String programTarget2, String programTarget3, String programTarget4, String programTitle, String programTitleSub, ProgramLevel programLevel, String programResult1, String programResult2, String programResult3, String programResult4, String programFarmerInfo, String programInfoTitle1, String programInfoContent1, String programInfoTitle2, String programInfoContent2, String programInfoTitle3, String programInfoContent3, String programInfoTitle4, String programInfoContent4, LocalDateTime programWorkDate, LocalDateTime programWorkStartTime, LocalDateTime programApplyStartDate, LocalDateTime programApplyEndDate, LocalDateTime programWorkEndTime, int programApplyCount, int programApplyTotalCount, int programPrice, String programLocation, String programInquire) {
+        this.programId = programId;
         this.programCrop = programCrop;
         this.programType = programType;
         this.programTarget1 = programTarget1;
