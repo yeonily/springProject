@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
 
@@ -75,6 +74,15 @@ public class AlbaListService {
         return albaRepository.count();
     }
 
+
+    // 알바 게시글 정렬에 맞게 개수
+    public Long showCount(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+       return jpaQueryFactory.select(alba.albaId.count())
+                .from(alba)
+                .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
+                .fetchOne();
+    }
 
     //    알바 채용정보 최신순
     public List<AlbaDTO> showListByRecent() {
