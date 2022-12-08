@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="wrap">
-        <form method="post" th:action="@{/alba/write}" id="writeForm" th:object="${alba}">
+        <form method="post" th:action="@{/alba/write}" id="writeForm" th:object="${alba}" enctype="multipart/form-data">
         <!--헤더 영역-->
         <div id="header">
             <div class="header-inner">
@@ -49,7 +49,7 @@
                         <label class="input-file-button" for="input-image">
                             업로드
                         </label>
-                        <input type="file" class="input-div-input" id="input-image" style="display: none" th:field="*{albaImage}">
+                        <input type="file" class="input-div-input" id="input-image" style="display: none" name="file">
                     </div>
 
                     <div class="input-div">
@@ -83,7 +83,7 @@
                     <div class="input-div">
                         <span>모집인원</span>
                         <p>모집하고 싶은 인원을 입력해주세요.</p>
-                        <input th:field="*{albaApplyCount}" type="number" class="input-div-input" placeholder="예시) 5">
+                        <input th:field="*{albaApplyTotalCount}" type="number" class="input-div-input" placeholder="예시) 5">
                     </div>
                     <div class="input-div">
                         <span>장소</span>

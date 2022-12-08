@@ -163,9 +163,8 @@ public class AlbaTest {
         albaRepository.deleteAll();
     }
 
-    @Test
-    public void delete(Long albaId){
-        albaRepository.deleteById(49L);
+    @Test void deleteById(){
+        albaRepository.deleteById(91L);
     }
 
 //    알바 마감순
