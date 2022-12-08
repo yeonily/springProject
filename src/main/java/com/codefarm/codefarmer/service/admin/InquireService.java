@@ -32,4 +32,7 @@ public class InquireService {
     public List<Inquire> inquireShowAll(){
         return inquireRepository.findAll();
     }
+
+//    문의글 찾기
+    public Inquire showInquireOne(Long inquireId){return inquireRepository.findById(inquireId).get();}
 }

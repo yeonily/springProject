@@ -128,29 +128,20 @@ public class MemberTest {
     //내가 등록한 알바 select
     @Test
     public void findMyAlbaTest(){
-        jpaQueryFactory.select(alba)
-                .from(alba).join(alba.member)
-                .where(alba.member.memberId.eq(1l))
-                .fetchJoin().fetch().stream().map(Alba::toString).forEach(log::info);
+            memberRepository.findMyAlba(1l).stream().map(Alba::getAlbaTitle).forEach(log::info);
     }
 
 
     //내가 등록한 프로그램 select
     @Test
     public void findMyProgramTest(){
-        jpaQueryFactory.select(program)
-                .from(program).join(program.member)
-                .where(program.member.memberId.eq(1l))
-                .fetchJoin().fetch().stream().map(Program::toString).forEach(log::info);
+            memberRepository.findMyProgram(1l).stream().map(Program::toString).forEach(log::info);
     }
 
     //내가 쓴 글 select
     @Test
     public void findMyBoardTest(){
-        jpaQueryFactory.select(board)
-                .from(board).join(board.member)
-                .where(board.member.memberId.eq(15l))
-                .fetchJoin().fetch().stream().map(Board::getBoardTitle).forEach(log::info);
+        memberRepository.findMyBoard(1l).stream().map(Board::getBoardTitle).forEach(log::info);
     }
 
 

@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.service.join.JoinKakaoService;
 import com.codefarm.codefarmer.service.join.JoinService;
 import com.codefarm.codefarmer.service.member.MemberService;
+import com.codefarm.codefarmer.type.MemberType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -66,10 +67,8 @@ public class JoinController {
     @PostMapping("/form")
     public Integer checkUserNick(@RequestParam("memberNickname") String nickname){
         if(joinService.checkUserNick(nickname) == 1){
-            log.info("???");
             return 1;
         }else {
-            log.info("!!!");
             return 0;
         }
     }
@@ -80,11 +79,14 @@ public class JoinController {
         memberService.join(memberDTO);
         Long id = joinService.selectId(memberDTO.getMemberOauthId());
         log.info("멤버11:"+memberDTO);
+        log.info("멤버95:"+memberDTO.getMemberType());
 
         session.setAttribute("memberId", id);
         session.setAttribute("memberType", memberDTO.getMemberType());
         Long value = (Long)session.getAttribute("memberId");
-        log.info("세션 "+ value);
+        MemberType stringv = (MemberType)session.getAttribute("memberType");
+        log.info("세션 value"+ value);
+        log.info("세션 stringv"+ stringv);
         return "/main/main";
     }
 

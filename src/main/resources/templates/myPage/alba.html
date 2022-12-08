@@ -49,13 +49,17 @@
 <!--                                </div>-->
 <!--                            </div>-->
                             <!------------------------>
-                            <div id="c-w-wrap" class="f-column">
+                            <div id="c-w-wrap" class="f-column" >
                                 <!-- 일반 유저 - 내가 신청한 프로그램 -->
+                                <th:block  th:if="${session.memberType == 'USER' or session.memberType == 'MENTEE'}">
                                 <div th:replace="/myPage/albaContent.html :: userAlbas"/>
+                                </th:block>
                                 <!------------------->
 
                                 <!-- 농장주 - 내가 만든 프로그렘 -->
+                                <th:block  th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                 <div th:replace="/myPage/albaContent.html :: farmerAlbas"/>
+                                </th:block>
                                 <!------------------->
                             </div>
                             <!------------------------>
