@@ -154,10 +154,14 @@ public class ChatRoomService {
 
 
     /*-----------------------------------------------*/
-        /*로그인 세션 기준 읽지 않은 메세지 있는지 확인(작업해야함)*/
+                        /*메세지 전송*/
     /*-----------------------------------------------*/
-    public void sendMessage() {
-
+    public void sendMessage(ChatDTO chatDTO) {
+        Chat chat = chatDTO.toEntity();
+        chat.changeChatStatus(chatDTO.getChatStatus());
+        chat.changeChatRoom(chatRoomRepository.findById(chatDTO.getRoomId()).get());
+        chat.changeMember(memberRepository.findById(chatDTO.getMemberId()).get());
+        chatRepository.save(chat);
     }
 
 

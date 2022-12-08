@@ -27,12 +27,12 @@ repositories {
 
 dependencies {
     /*웹소켓 영역(강사님)*/
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     /*웹소켓 영역(코코로)*/
-//    implementation 'org.springframework.boot:spring-boot-starter-websocket'
-//    implementation 'org.webjars:sockjs-client:1.1.2'
-//    implementation 'org.webjars:stomp-websocket:2.3.3-1'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.webjars:sockjs-client:1.1.2'
+    implementation 'org.webjars:stomp-websocket:2.3.3-1'
 
     /*프로그램 첨부파일 영역(강사님)*/
     implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.11'
