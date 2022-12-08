@@ -75,7 +75,7 @@
                 <th:block th:each="recent:${recents}">
                 <div class="list_td"th:object="${recent}" >
                     <div class="location"><p th:text="*{albaAddress}"></p></div>
-                    <div class="title"><a href="/alba/detail" th:text="*{albaTitle}"></a></div>
+                    <div class="title"><a th:href="@{/alba/detail(albaId=${recent.albaId})}" th:text="*{albaTitle}"></a></div>
                     <div class="workDay" th:text="${#temporals.format(recent.albaWorkDate,'yyyy년 MM월 dd일')}"></div>
                     <div class="pay" >
                         <p class="miniText">시급</p>

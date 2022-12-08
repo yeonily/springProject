@@ -18,8 +18,8 @@ import static com.codefarm.codefarmer.entity.program.QProgram.program;
 @Service
 @RequiredArgsConstructor
 public class AlbaDetailService {
+
     private final JPAQueryFactory jpaQueryFactory;
-    private final AlbaRepository albaRepository;
 
     public List<AlbaDTO> showAll(){
         return jpaQueryFactory.select(new QAlbaDTO(

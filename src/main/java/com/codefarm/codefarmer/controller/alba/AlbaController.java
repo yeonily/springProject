@@ -15,10 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -67,7 +64,7 @@ public class AlbaController {
     public void albaWrite(Model model) {
             model.addAttribute("alba", new AlbaDTO());
         }
-        
+
     @PostMapping("/write")
     public RedirectView albaWrite(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile file) throws Exception {
 
@@ -114,30 +111,8 @@ public class AlbaController {
         return new RedirectView("list");
     }
 
-    @GetMapping("/img")
-    public String imgPage() {
-        return "/alba/img";
-    }
-
-    @PostMapping("/img")
-    public String imgPage(@RequestParam String name, @RequestParam MultipartFile file) throws IOException {
-        log.info("name -> " + name);
-        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/alba");
-//        String path = new ClassPathResource("/static/image/information/crop").getFile().getAbsolutePath();
-
-        if (!file.isEmpty()) {
-//           String fullPath = "C://upload/" + file.getOriginalFilename();
-            String fullPath = path + "/" + file.getOriginalFilename();
-            log.info("파일 저장 -> " + fullPath);
-            file.transferTo(new File(fullPath));
-
-        }
-
-        return "/alba/img";
-    }
-
     @GetMapping("/detail")
-    public void albaDetail(Model model, @RequestParam Long albaId) {
+    public void albaDetail(Model model, @RequestParam Long albaId) throws Exception {
         log.info("디테일 들어옴");
         log.info("alba : "+ albaId);
 

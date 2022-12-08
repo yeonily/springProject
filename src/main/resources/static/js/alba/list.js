@@ -34,8 +34,11 @@ $(document).ready(function () {
             let text = "";
 
             lists.forEach(function (list) {
-
-                text += '<div class="alba_div" onclick="location.href=' + '/alba/detail' + '" th:object="${list}">'
+                var number = list.albaId;
+                text += '<div class="alba_div" onclick="location.href='
+                text += '/alba/detail?albaId='
+                text += number
+                text += '">'
                 text += '<img src=@{albaImage}>'
                 text += '<div>' + list.albaApplyCount + '/' + list.albaApplyTotalCount + '명' + '・' + '<span>' + list.albaPrice + '원' +'</span></div>'
                 text += '<p class="alba_title">' + list.albaTitle + '</p>'
@@ -132,11 +135,17 @@ $(document).ready(function () {
                     type: "post",
                     success: function (recents) {
                         let text = "";
-
                         recents.forEach(function (recent) {
                             text += '<div class="list_td" th:object="${recent}">'
                             text += '<div class="location"><p>' + recent.albaAddress + '</p></div>'
-                            text += '<div class="title"><a th:href="@{/alba/detail}">' + recent.albaTitle + '</a></div>'
+                            text += '<div class="title">'
+                            var number = list.albaId;
+                            text += '<a href= "/alba/detail?albaId='
+                            text +=  number
+                            text += '">'
+                            text += recent.albaTitle
+                            text += '</a></div>'
+
 
                             let albaWorkDate = new Date(recent.albaWorkDate);
                             let albaWorkYear = albaWorkDate.getFullYear();
@@ -211,7 +220,13 @@ check = true;
                         lists.forEach(function (list) {
                             text += '<div class="list_td" th:object="${list}">'
                             text += '<div class="location"><p>' + list.albaAddress + '</p></div>'
-                            text += '<div class="title"><a th:href="@{/alba/detail}">' + list.albaTitle + '</a></div>'
+                            text += '<div class="title">'
+                            var number = list.albaId;
+                            text += '<a href= "/alba/detail?albaId='
+                            text +=  number
+                            text += '">'
+                            text += list.albaTitle
+                            text += '</a></div>'
 
                             let albaWorkDate = new Date(list.albaWorkDate);
                             let albaWorkYear = albaWorkDate.getFullYear();
@@ -260,7 +275,13 @@ check = true;
                         lists.forEach(function (list) {
                             text += '<div class="list_td" th:object="${list}">'
                             text += '<div class="location"><p>' + list.albaAddress + '</p></div>'
-                            text += '<div class="title"><a th:href="@{/alba/detail}">' + list.albaTitle + '</a></div>'
+                            text += '<div class="title">'
+                            var number = list.albaId;
+                            text += '<a href= "/alba/detail?albaId='
+                            text +=  number
+                            text += '">'
+                            text += list.albaTitle
+                            text += '</a></div>'
 
                             let albaWorkDate = new Date(list.albaWorkDate);
                             let albaWorkYear = albaWorkDate.getFullYear();
