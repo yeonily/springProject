@@ -25,12 +25,11 @@ public class ReplyService {
     private final MemberRepository memberRepository;
 
 //    해당 보드에 게시글 추가하기
-    public void replyAdd(Long memberId, Long boardId, ReplyDTO replyDTO){
+    public void replyAdd(Long memberId, ReplyDTO replyDTO){
         Reply reply = replyDTO.toEntity();
         reply.changeMember(memberRepository.findById(memberId).get());
-        reply.changeBoard(boardRepository.findById(boardId).get());
 //        reply.changeMember(memberRepository.findById(replyDTO.getMemberId()).get());
-//        reply.changeBoard(boardRepository.findById(replyDTO.getBoardId()).get());
+        reply.changeBoard(boardRepository.findById(replyDTO.getBoardId()).get());
         replyRepository.save(reply);
     }
 

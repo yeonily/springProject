@@ -93,5 +93,10 @@ public class ReplyServiceTest {
         replyService.removeReply(19L);
     }
 
+    @Test
+    public void test(){
+        log.info("카운트" + replyService.getTotal(26L));
+    }
+
 
 }

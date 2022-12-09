@@ -47,11 +47,10 @@ public class ReplyRestController {
     @PostMapping("/new")
     public String create(@RequestBody ReplyDTO replyDTO){
         Long memberId =3L;
-        Long boardId = 19L;
-        replyService.replyAdd(memberId, boardId, replyDTO);
+        replyService.replyAdd(memberId, replyDTO);
         return "create success";
     }
-
+//화면에서 값 가져와서 서비스에 있는 add 쓴다. 파라미터를 정해서 넘겨주는건데 중괄호 열어서 내가 키랑 값을 정해서 넘겨준다 그게 뭉쳐져서 콜백이랑 에러 적힌 부분에 디티오에 담긴다.
 //    댓글 조회
     @GetMapping("/list/{bno}")
     public List<ReplyDTO> getList(@PathVariable("bno") Long boardId){
@@ -77,10 +76,10 @@ public class ReplyRestController {
     }
 
 //    특정 게시글에 작성된 댓글 개수
-//    @PostMapping("/{boardId}")
-//    public Long getTotal(@PathVariable Long boardId){
-//        return replyService.getTotal(boardId);
-//    }
+    @PostMapping("/{boardId}")
+    public Long getTotal(@PathVariable Long boardId){
+        return replyService.getTotal(boardId);
+    }
 
 
 
