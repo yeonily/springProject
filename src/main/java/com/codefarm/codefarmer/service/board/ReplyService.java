@@ -24,12 +24,11 @@ public class ReplyService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-//    해당 보드에 게시글 추가하기
-    public void replyAdd(Long memberId, ReplyDTO replyDTO){
+//    해당 보드에 댓글 추가하기
+    public void replyAdd(ReplyDTO replyDTO){
         Reply reply = replyDTO.toEntity();
-        reply.changeMember(memberRepository.findById(memberId).get());
-//        reply.changeMember(memberRepository.findById(replyDTO.getMemberId()).get());
         reply.changeBoard(boardRepository.findById(replyDTO.getBoardId()).get());
+        reply.changeMember(memberRepository.findById(replyDTO.getMemberId()).get());
         replyRepository.save(reply);
     }
 
@@ -50,10 +49,10 @@ public class ReplyService {
 
 
 //    댓글 수정하기
-    public void replyUpdate(ReplyDTO replyDTO){
-        Reply reply = replyRepository.findById(replyDTO.getReplyId()).get();
-        reply.update(replyDTO);
-    }
+//    public void replyUpdate(ReplyDTO replyDTO){
+//        Reply reply = replyRepository.findById(replyDTO.getReplyId()).get();
+//        reply.update(replyDTO);
+//    }
 
 //    댓글 단 사람 닉네임 갖고오기기
     public String showReplyNickName(Long replyId){
@@ -64,7 +63,10 @@ public class ReplyService {
 
 //     내가 남긴 댓글 총 개수(전체)
     public Long showReplyAllCount(Long memberId){
-       return replyRepository.countByMemberMemberId(memberId);
+       return jpaQueryFactory.select(reply.count())
+               .from(reply)
+               .where(reply.member.memberId.eq(memberId))
+               .fetchOne();
     }
 
 //    public ReplyDTO show(Long replyId){
@@ -82,7 +84,9 @@ public class ReplyService {
 
 
 //    내가 작성한 댓글 지우기
-    public void removeReply(Long replyId){
+    public void removeReply(Long replyId, ReplyDTO replyDTO){
+        Reply reply = replyDTO.toEntity();
+        reply.changeMember(memberRepository.findById(replyDTO.getMemberId()).get());
         replyRepository.deleteById(replyId);
     }
 

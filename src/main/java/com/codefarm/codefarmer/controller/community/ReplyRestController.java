@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
@@ -45,9 +46,10 @@ public class ReplyRestController {
 
 //  댓글 등록
     @PostMapping("/new")
-    public String create(@RequestBody ReplyDTO replyDTO){
-        Long memberId =3L;
-        replyService.replyAdd(memberId, replyDTO);
+    public String create(@RequestBody ReplyDTO replyDTO, HttpSession session){
+        Long memberId = (Long)session.getAttribute("memberId");
+        replyDTO.setMemberId(memberId);
+        replyService.replyAdd(replyDTO);
         return "create success";
     }
 //화면에서 값 가져와서 서비스에 있는 add 쓴다. 파라미터를 정해서 넘겨주는건데 중괄호 열어서 내가 키랑 값을 정해서 넘겨준다 그게 뭉쳐져서 콜백이랑 에러 적힌 부분에 디티오에 담긴다.
@@ -68,10 +70,11 @@ public class ReplyRestController {
 //        return "update success";
 //    }
 
+
 //    댓글 삭제
     @DeleteMapping("/{replyId}")
-    public String delete(@PathVariable Long replyId){
-        replyService.removeReply(replyId);
+    public String delete(@PathVariable Long replyId, ReplyDTO replyDTO){
+        replyService.removeReply(replyId, replyDTO);
         return "delete success";
     }
 

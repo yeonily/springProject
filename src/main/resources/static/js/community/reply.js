@@ -1,7 +1,6 @@
 
 let replyService = (function () {
     function replyAdd(replyDTO, callback, error) {
-        alert("들어옴2");
         $.ajax({
             url :"/reply/new",
             type : "post",
@@ -9,7 +8,6 @@ let replyService = (function () {
             contentType: "application/json; charset=utf-8",
             success: function (result, status, xhr) {
                 if(callback){
-                    console.log(result)
                     callback(result);
                 }
             },
@@ -43,7 +41,7 @@ let replyService = (function () {
         $.ajax({
             url: "/reply/" + replyId,
             type: "delete",
-            success: function(text){
+            success: function(text, status, xhr){
                 if(callback){
                     callback(text);
                 }
@@ -60,8 +58,7 @@ let replyService = (function () {
         $.ajax({
             url: "/reply/" + boardId,
             type: "post",
-            data: JSON.stringify(boardId),
-            contentType: "application/json; charset=utf-8",
+            // data: boardId,
             success: function(reply, status, xhr){
                 if(callback){
                     callback(reply);
@@ -73,6 +70,29 @@ let replyService = (function () {
                 }
             }
         });
+    }
+
+    function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+        if (betweenTime < 1) return '방금전';
+        if (betweenTime < 60) {
+            return `${betweenTime}분전`;
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+            return `${betweenTimeHour}시간전`;
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+            return `${betweenTimeDay}일전`;
+        }
+
+        return `${Math.floor(betweenTimeDay / 365)}년전`;
     }
 
 
@@ -97,5 +117,7 @@ let replyService = (function () {
 
 
 
-    return {replyAdd: replyAdd, getList: getList, remove: remove, getTotal: getTotal}
+
+
+    return {replyAdd: replyAdd, getList: getList, remove: remove, getTotal: getTotal, timeForToday:timeForToday}
 })();

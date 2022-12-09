@@ -3,12 +3,14 @@ package com.codefarm.codefarmer.service.board;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.board.QBoardDTO;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
+import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.QBoard;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.type.MemberType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +38,24 @@ public class BoardService {
 //    게시글 제목, 내용 작성
     public void boardAdd(BoardDTO boardDTO){
         Board board = boardDTO.toEntity();
-        board.changeMember(boardDTO.getMember());
+        board.changeMember(memberRepository.findById(boardDTO.getMemberId()).get());
         boardRepository.save(board);
+    }
+
+//    타입 구별
+    public String getMemberType(Long memberId) {
+        Optional<Member> memberType = memberRepository.findById(memberId);
+        if (memberType.get().getMemberType() == MemberType.FARMER) {
+            return "농장주";
+        } else if (memberType.get().getMemberType() == MemberType.USER) {
+            return "일반회원";
+        } else if (memberType.get().getMemberType() == MemberType.MENTOR) {
+            return "농장주 / 멘토";
+        } else if(memberType.get().getMemberType() == MemberType.MENTEE){
+            return "일반회원 / 멘티";
+        }else{
+            return "관리자";
+        }
     }
 
 //    게시글 제목, 내용 수정
@@ -53,6 +71,7 @@ public class BoardService {
 
         BoardDTO boardDTO = new BoardDTO();
 
+        boardDTO.setMemberId(board.getMember().getMemberId());
         boardDTO.setBoardId(board.getBoardId());
         boardDTO.setBoardTitle(board.getBoardTitle());
         boardDTO.setBoardContent(board.getBoardContent());
@@ -146,6 +165,7 @@ public class BoardService {
     }
 
     public String getNickNameNologin(){
+
         return "닉네임";
     }
 
