@@ -18,6 +18,7 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContent;
     private int boardViewCount;
+    private Long memberId;
     private Member member;
     private String memberNickName;
     private LocalDateTime createdDate;

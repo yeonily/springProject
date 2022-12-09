@@ -76,34 +76,46 @@ public class CommunityController {
 //    }
 
     @GetMapping("/community")
-    public void pagingList(Model model/*HttpServletRequest request*/){
+    public void pagingList(Model model,/*HttpServletRequest request,*/ HttpSession session){
 //        Page<Board> boards = boardRepository.findAll(pageable);
 
 //        model.addAttribute("lists", boards);
 //         HttpSession session = (HttpSession)request.getSession();
-//            Long memberId = (Long)session.getAttribute("")
-
-             Long memberId = 3l;
-        Long boardCount = boardService.showBoardCountMine(memberId);
-        Long replyCount = replyService.showReplyAllCount(memberId);
+            Long memberId = (Long)session.getAttribute("memberId");
+        if(memberId != null){
+            Long boardCount = boardService.showBoardCountMine(memberId);
+            Long replyCount = replyService.showReplyAllCount(memberId);
+            model.addAttribute("boardCount", boardCount);
+            model.addAttribute("replyCount", replyCount);
+        }else {
+            model.addAttribute("boardCount", 0);
+            model.addAttribute("replyCount", 0);
+        }
+        log.info("a;slkfj" + memberId);
+        model.addAttribute("sessionMemberId", memberId);
 //        String farmerNickName = boardService.showFarmerNickName(memberId);
 //        String userNickName = boardService.showUserNickName(memberId);
-        model.addAttribute("boardCount", boardCount);
-        model.addAttribute("replyCount", replyCount);
+
         if(memberId==null){
-            model.addAttribute("nickName",boardService.getNickNameNologin());
+            model.addAttribute("nickName","닉네임");
+            model.addAttribute("memberType" , "로그인 후 이용해주세요.");
         }else{
             model.addAttribute("nickName",boardService.showNickName(memberId));
+            model.addAttribute("memberType", boardService.getMemberType(memberId));
         }
     }
 
 
 
     @GetMapping("/detail")
-    public void detailPage(Model model, Long boardId){
+    public void detailPage(Model model, Long boardId, HttpSession session){
+        Long memberId = (Long)session.getAttribute("memberId");
+
         BoardDTO list = boardService.boardShowDetail(boardId);
         boardService.updateViewCount(boardId);
+
         model.addAttribute("list", list);
+        model.addAttribute("sessionMemberId", memberId);
     }
 
     @GetMapping("/delete")
@@ -143,8 +155,9 @@ public class CommunityController {
     }
 
     @PostMapping("/register")
-    public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
-        boardDTO.setMember(memberRepository.findById(3L).get());
+    public RedirectView write(BoardDTO boardDTO, RedirectAttributes redirectAttributes, HttpSession session){
+        Long memberId = (Long)session.getAttribute("memberId");
+        boardDTO.setMemberId(memberId);
         boardService.boardAdd(boardDTO);
         redirectAttributes.addFlashAttribute("boardId", boardDTO.getBoardId());
         return  new RedirectView("/community/community");

@@ -37,6 +37,21 @@ $(".drop-option").on("click", function (){
     }
 });
 
+// 작성자 일때 수정/삭제 옵션 버튼
+$("#reply-lists").on("click",".drop-option", function (){
+    if (!($(this).next().hasClass("show"))){
+        $(".drop-option-menu").removeClass("show");
+        $(".drop-option-menu").hide();
+
+        $(this).next().addClass("show");
+        $(this).next().show();
+
+    } else if($(this).next().hasClass("show")) {
+        $(".drop-option-menu").removeClass("show");
+        $(".drop-option-menu").hide();
+    }
+});
+
 // textarea 크기 자동조절
 $(".reply-input").keyup(function () {
     $(this).css("height", "46px");
