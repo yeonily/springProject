@@ -5,6 +5,8 @@ import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.type.MemberType;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 

@@ -49,7 +49,7 @@
                 </a>
             </div>
             <div class="menu">
-                <a  th:href="@{/mypage/payment}">
+                <a  th:href="@{/mypage/payment}" th:if="${session.memberType == 'USER' or session.memberType == 'MENTEE'}">
                     <div class="menu-a" id="payment">
                         결제 내역
                     </div>

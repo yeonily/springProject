@@ -25,18 +25,22 @@
                     <div class="c-header">
                         <div class="c-title">
                             <!-- 멘티일 때-->
-<!--                            <div>멘티 목록</div>-->
+                            <div th:if="${session.memberType == 'USER'}">멘토 목록</div>
                             <!-- 멘토일 때 -->
-                            <div>멘토 관리</div>
+                            <div th:if="${session.memberType == 'MENTOR'}">멘티 관리</div>
                             <!----------->
                         </div>
 
                         <!-- 멘티일 때 -->
-<!--                        <div th:replace="/myPage/mentoringContent.html :: mentoringMentee"></div>-->
+                        <th:block  th:if="${session.memberType == 'USER'}">
+                        <div th:replace="/myPage/mentoringContent.html :: mentoringMentee"></div>
+                        </th:block>
                         <!----------->
 
                         <!-- 멘토일 때 -->
+                        <th:block  th:if="${session.memberType == 'MENTOR'}">
                         <div th:replace="/myPage/mentoringContent.html :: mentoringMentor"></div>
+                        </th:block>
                         <!----------->
                     </div>
                 </div>
