@@ -14,7 +14,7 @@
         <div id="main-grid">
             <div class="c-new-row">
                 <div class="c-new-col">
-                    <form id="writeForm" method="post" action="/program/register" th:object="${programRegister}">
+                    <form id="writeForm" method="post"  action="/program/register" th:object="${programRegister}">
                         <span>
                             <!--헤더-->
                             <div>
@@ -511,7 +511,7 @@
                         <div class="curriculum-write-input-container flex">
                         <div class="curriculum-write-input-title">신청 인원</div>
                         <div class="curriculum-write-input-body">
-                            <input type="text" th:field="*{programApplyCount}" name="programApplyCount" placeholder="프로그램 신청 인원을 작성하세요! ex) 10명" autocomplete="off" class="c-text-field-input2">
+                            <input type="text" th:field="*{programApplyTotalCount}" name="programApplyCount" placeholder="프로그램 신청 인원을 작성하세요! ex) 10명" autocomplete="off" class="c-text-field-input2">
                         </div>
                         </div>
                     </div>

@@ -428,7 +428,33 @@ $("#second_select span").on("click" , function () {
     console.log(second_text);
 })
 
-//일반인용,멘티전용 클릭
+
+
+$(".button-ok").on("click",function () {
+    //일반인용,멘티전용 클릭
+    var first_text = $("#first_selected").find('.selected-c-chip').text();
+    //초급,중급,고급 클릭
+    var second_text = $("#second_selected").find('.selected-c-chip').text();
+    console.log(first_text);
+    console.log(second_text);
+    // test1 = "BASIC";
+    // test2 = "ALL_USER";
+
+    var text = "";
+    // text += '<input type="hidden" name="programType" value="BASIC">'
+    // text += '<input type="hidden" name="programLevel" value="ALL_USER">'
+    text += '<input type="hidden" name="programTypeString" value="'
+    text += first_text
+    text += '">'
+    text += '<input type="hidden" name="programLevelString" value="'
+    text += second_text
+    text += '">'
+    // text += '<input type="hidden" name="programId" value="'
+    // text += 9999
+    // text += '">'
+    $("#writeForm").append(text);
+})
+
 // var first_text = $("#first_selected").find('.selected-c-chip').text();
 // console.log(first_text);
 //

@@ -16,12 +16,17 @@ $(document).ready(function () {
         // processData: false,
         success: function (lists) {
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 /*프로그램 가격 0 이면 무료, 아니라면 가격 표시*/
                 nowDate = new Date();
                 nowDateDTO = list.programApplyStartDate;
                 startDate = new Date(nowDateDTO);
+                rootPath = "C:/upload";
 
                 if(list.programPrice == 0){
                     list.programPrice = "무료"
@@ -43,8 +48,9 @@ $(document).ready(function () {
                 }
                 text += '</div>'
                 text += '</div>'
+                console.log(list.files);
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -79,7 +85,8 @@ $(document).ready(function () {
 //카테고리 선택 표시
 $(".filter-button").on("click", function(){
     if($(this).hasClass('selected-button')){
-        $(this).attr('class', 'filter-button');
+        return;
+        /*$(this).attr('class', 'filter-button');*/
     }else{
         $(this).attr('class', 'selected-button');
         $(this).siblings().attr('class', 'filter-button');
@@ -101,6 +108,10 @@ $("#showall-btn").on("click", function () {
         // processData: false,
         success: function (lists) {
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
@@ -125,7 +136,7 @@ $("#showall-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -173,6 +184,10 @@ $("#progress-btn").on("click", function () {
         // processData: false,
         success: function (lists) {
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
@@ -182,7 +197,7 @@ $("#progress-btn").on("click", function () {
                 nowDateDTO = list.programApplyStartDate;
                 startDate = new Date(nowDateDTO);
 
-                text += '<div class="list-container" th:object="${list}">'
+                text += '<div class="list-container">'
                 var number = list.programId;
                 text += '<a href="/program/detail?programId='
                 text += number
@@ -197,7 +212,7 @@ $("#progress-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -241,6 +256,10 @@ $("#recent-register-btn").on("click", function () {
         type: "post",
         success: function (lists) {
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
@@ -265,7 +284,7 @@ $("#recent-register-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -308,6 +327,10 @@ $("#recent-end-btn").on("click", function () {
             console.log("들어옴3");
             console.log(lists);
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
@@ -332,7 +355,7 @@ $("#recent-end-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -375,6 +398,10 @@ $("#mentee-btn").on("click", function () {
             console.log("들어옴3");
             console.log(lists);
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
@@ -399,7 +426,7 @@ $("#mentee-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -444,6 +471,11 @@ $("#user-btn").on("click", function () {
             console.log(lists);
             let text = "";
 
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
+
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
                     list.programPrice = "무료"
@@ -467,7 +499,7 @@ $("#user-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -511,6 +543,10 @@ $("#pay-btn").on("click", function () {
             console.log("들어옴3");
             console.log(lists);
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
@@ -535,7 +571,7 @@ $("#pay-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -579,6 +615,10 @@ $("#free-btn").on("click", function () {
             console.log("들어옴3");
             console.log(lists);
             let text = "";
+            if(lists.length==0){
+                $("#list-foreach").html(text);
+                return;
+            }
 
             lists.forEach(function (list) {
                 if(list.programPrice == 0){
@@ -603,7 +643,7 @@ $("#free-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src="/image/program/pgimage.gif">'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }

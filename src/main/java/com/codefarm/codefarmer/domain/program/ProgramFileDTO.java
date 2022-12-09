@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.domain.program;
 
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.ProgramFile;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class ProgramFileDTO {
     private String fileUuid;
     private Long fileSize;
     private boolean fileImageCheck;
-    private Program program;
+    private Long programId;
 
     public ProgramFile toEntity(){
         return ProgramFile.builder()
@@ -26,6 +27,16 @@ public class ProgramFileDTO {
                 .fileSize(fileSize)
                 .fileImageCheck(fileImageCheck)
                 .build();
+    }
+
+    @QueryProjection
+    public ProgramFileDTO(Long fileId, String fileName, String fileUploadPath, String fileUuid, Long fileSize, boolean fileImageCheck) {
+        this.fileId = fileId;
+        this.fileName = fileName;
+        this.fileUploadPath = fileUploadPath;
+        this.fileUuid = fileUuid;
+        this.fileSize = fileSize;
+        this.fileImageCheck = fileImageCheck;
     }
 
 }

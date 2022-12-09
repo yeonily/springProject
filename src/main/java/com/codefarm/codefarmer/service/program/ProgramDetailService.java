@@ -1,7 +1,9 @@
 package com.codefarm.codefarmer.service.program;
 
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.domain.program.QProgramDTO;
+import com.codefarm.codefarmer.domain.program.QProgramFileDTO;
 import com.codefarm.codefarmer.entity.program.QProgram;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
+import static com.codefarm.codefarmer.entity.program.QProgramFile.programFile;
 
 
 @Service
@@ -106,5 +109,18 @@ public class ProgramDetailService {
         )).from(program)
           .where(program.programId.eq(programId))
           .fetchOne();
+    }
+
+//    선택한 프로그램의 첨부파일 가져오기
+    public List<ProgramFileDTO> showFiles(Long prgramId){
+        return jpaQueryFactory.select(new QProgramFileDTO(
+                programFile.fileId,
+                programFile.fileName,
+                programFile.fileUploadPath,
+                programFile.fileUuid,
+                programFile.fileSize,
+                programFile.fileImageCheck
+        )).from(programFile)
+                .where(programFile.program.programId.eq(prgramId)).fetch();
     }
 }

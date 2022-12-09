@@ -43,7 +43,7 @@ public class ProgramTest {
     public void saveTest(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        Optional<Program> findMember = programRepository.findById(1L);
+        Optional<Member> findMember = memberRepository.findById(27L);
         log.info("findFarmer : " + findMember.toString());
         ProgramDTO programDTO = new ProgramDTO();
 
@@ -78,8 +78,9 @@ public class ProgramTest {
         programDTO.setProgramPrice(0);
         programDTO.setProgramLocation("충남 영동");
         programDTO.setProgramInquire("wjdghtjr5345@gmail.com");
-//        programDTO.setMemberId();
+        programDTO.setMemberId(27L);
         Program program = programDTO.toEntity();
+        program.changeMember(findMember.get());
         programRepository.save(program);
     }
 
