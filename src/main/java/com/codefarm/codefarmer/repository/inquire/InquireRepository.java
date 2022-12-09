@@ -18,7 +18,7 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
 //    검색(내용) + 페이징
     public Page<Inquire> findByInquireQContentContaining(String inquireQContent, Pageable pageable);
 //    검색(작성자) + 페이징
-    public Page<Inquire> findByInquire(String inquireQContent, Pageable pageable);
+//    public Page<Inquire> findByInquire(String inquireQContent, Pageable pageable);
 
 
     //    문의 글 개수
