@@ -73,8 +73,8 @@ public class ReplyRestController {
 
 //    댓글 삭제
     @DeleteMapping("/{replyId}")
-    public String delete(@PathVariable Long replyId, ReplyDTO replyDTO){
-        replyService.removeReply(replyId, replyDTO);
+    public String delete(@PathVariable Long replyId){
+        replyService.removeReply(replyId);
         return "delete success";
     }
 

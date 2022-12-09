@@ -20,7 +20,6 @@ let replyService = (function () {
     }
 
     function getList(param, callback, error) {
-        getTotal();
         $.ajax({
             url: "/reply/list/" + param,
             type: "get",

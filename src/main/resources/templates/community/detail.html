@@ -106,7 +106,7 @@
                                     <span class="q-nickname">일반</span>
                                 </div>
 
-                                <input type="hidden" th:value="${sessionMemberId}" id="sessionMember">
+                                <input type="hidden" th:value="${sessionMemberId}" name="session" id="sessionMember">
                                 <input type="hidden" th:value="${list.memberId}" id="listMember">
 
                                 <!-- 댓글 작성자 일 때 -->
@@ -156,7 +156,6 @@
 <script src="/js/community/reply.js"></script>
 
 <script th:inline="javascript">
-
     let boardId = [[${list.boardId}]];
 
     // replyService.replyAdd({
@@ -291,27 +290,29 @@
             text += `<hr>`
             text += `<span class="q-nickname">일반 </span>`
             text += `</div>`
-            text += `<div class="drop-option-wrap">`
-            text += `<div class="drop-option">`
-            // if(reply.memberNickName == boardId.memberNickName){
-            text += `<button>`
-            text += `<svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>`
-            text += `</button>`
-            text += `</div>`
-            text += `<div class="drop-option-menu" style="display: none">`
-            // text += `<div class="o-m-wrap re-modify">`
-            // text += `<img src="/image/community/modify.png">`
-            // text += `수정하기`
-            // text += `</div>`
-            // text += `<hr>`
-            // }
-            text += `<div class="o-m-wrap re-delete">`
-            text += `<img src="/image/community/delete.png">`
-            text += `삭제하기`
-            // text += `<button type="button" class="re-btn m-delete">삭제하기</button>`
-            text += `</div>`
-            text += `</div>`
-            text += `</div>`
+            if(reply.memberId == $("#sessionMember").val()) {
+                // text += `<input type="hidden" class="replyMember `+ reply.memberId + `" id="replyMember">`
+                text += `<div class="drop-option-wrap" id="replyBtn">`  
+                text += `<div class="drop-option">`
+                text += `<button>`
+                text += `<svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>`
+                text += `</button>`
+                text += `</div>`
+                text += `<div class="drop-option-menu" style="display: none">`
+                // text += `<div class="o-m-wrap re-modify">`
+                // text += `<img src="/image/community/modify.png">`
+                // text += `수정하기`
+                // text += `</div>`
+                // text += `<hr>`
+                // }
+                text += `<div class="o-m-wrap re-delete">`
+                text += `<img src="/image/community/delete.png">`
+                text += `삭제하기`
+                // text += `<button type="button" class="re-btn m-delete">삭제하기</button>`
+                text += `</div>`
+                text += `</div>`
+                text += `</div>`
+            }
             text += `<div class="modify-group" style="display: none;">`
             text += `<button type="button" class="re-btn m-save">수정</button>>`
             text += `<button type="button" class="re-btn m-cancel">취소</button>`
@@ -332,6 +333,21 @@
     }else{
         $(".drop-option-wrap").hide();
     }
+
+console.log($("#sessionMember").val());
+// console.log($("#replyMember").val());
+// console.log($(".drop-option-wrap").val());
+// console.log($(".drop-option-wrap." + ($("#sessionMember").val())));
+
+
+        // if ($("#sessionMember").val() == $("#replyMember").val()) {
+        //     $("#replyBtn").show();
+        // } else {
+        //     $(".replyBtn").hide();
+        // }
+
+
+
 
 
 </script>
