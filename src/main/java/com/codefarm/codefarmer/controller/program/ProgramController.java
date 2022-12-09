@@ -7,6 +7,7 @@ import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
 import com.codefarm.codefarmer.service.program.ProgramDetailService;
 import com.codefarm.codefarmer.service.program.ProgramListService;
 import com.codefarm.codefarmer.service.program.ProgramRegisterService;
+import com.codefarm.codefarmer.service.program.ProgramUpdateService;
 import com.codefarm.codefarmer.type.ProgramLevel;
 import com.codefarm.codefarmer.type.ProgramType;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,10 +38,10 @@ public class ProgramController {
     private final ProgramDetailService programDetailService;
     private final ProgramRegisterService programRegisterService;
     private final ProgramFileRepository programFileRepository;
+    private final ProgramUpdateService programUpdateService;
 
     @GetMapping("/list")
     public void list(Model model){
-        log.info("들어옴1");
         List<ProgramDTO> lists = programListService.showAll();
         model.addAttribute("lists",lists);
     }
@@ -76,10 +78,14 @@ public class ProgramController {
     }
 
     @PostMapping("/register")
-    public RedirectView registerFin(ProgramDTO programDTO, ProgramFileDTO programFileDTO, String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString , String programTypeString, String programLevelString) throws DateTimeParseException {
+    public RedirectView registerFin(ProgramDTO programDTO, ProgramFileDTO programFileDTO, HttpSession session ,String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString , String programTypeString, String programLevelString) throws DateTimeParseException {
         log.info("리스폰스바디 컨트롤러 들어옴");
         log.info("programTypeString: " + programTypeString);
         log.info("programLevelString: " + programLevelString);
+        Long sessionId = (Long)session.getAttribute("memberId");
+
+//       세션에 memberId 넣기
+        programDTO.setMemberId(sessionId);
 
 //        글 등록 시 일반인용,멘티전용 따라 DTO에 값 넣기
         if(programTypeString.equals("일반인용")){
@@ -142,6 +148,17 @@ public class ProgramController {
 //        programFileRepository.save(programDTO.getFiles())
 
 //        redirectAttributes.addFlashAttribute("boardNumber", boardVO.getBoardNumber());
+        return new RedirectView("list");
+    }
+    @GetMapping("/update")
+    public void update(Model model , @RequestParam Long programId){
+        ProgramDTO updateRegister = programUpdateService.showUpdate(programId);
+        model.addAttribute("updateRegister" , updateRegister);
+    }
+
+    @PostMapping("/update")
+    public RedirectView updateFin( ){
+
         return new RedirectView("list");
     }
 

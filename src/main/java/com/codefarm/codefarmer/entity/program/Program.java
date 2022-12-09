@@ -106,9 +106,7 @@ public class Program extends Period {
         this.programFiles = fileEntities;
     }
 
-    public void changeMember(Member member){
-        this.member = member;
-    }
+    public void changeMember(Member member){ this.member = member; }
 
     public void update(ProgramDTO programDTO){
         this.programCrop = programDTO.getProgramCrop();
@@ -147,7 +145,7 @@ public class Program extends Period {
 
 
     @Builder
-    public Program(Long programId, String programCrop, ProgramType programType, String programTarget1, String programTarget2, String programTarget3, String programTarget4, String programTitle, String programTitleSub, ProgramLevel programLevel, String programResult1, String programResult2, String programResult3, String programResult4, String programFarmerInfo, String programInfoTitle1, String programInfoContent1, String programInfoTitle2, String programInfoContent2, String programInfoTitle3, String programInfoContent3, String programInfoTitle4, String programInfoContent4, LocalDateTime programWorkDate, LocalDateTime programWorkStartTime, LocalDateTime programApplyStartDate, LocalDateTime programApplyEndDate, LocalDateTime programWorkEndTime, int programApplyCount, int programApplyTotalCount, int programPrice, String programLocation, String programInquire) {
+    public Program(Long programId, String programCrop, ProgramType programType, String programTarget1, String programTarget2, String programTarget3, String programTarget4, String programTitle, String programTitleSub, ProgramLevel programLevel, String programResult1, String programResult2, String programResult3, String programResult4, String programFarmerInfo, String programInfoTitle1, String programInfoContent1, String programInfoTitle2, String programInfoContent2, String programInfoTitle3, String programInfoContent3, String programInfoTitle4, String programInfoContent4, LocalDateTime programWorkDate, LocalDateTime programWorkStartTime, LocalDateTime programApplyStartDate, LocalDateTime programApplyEndDate, LocalDateTime programWorkEndTime, int programApplyCount, int programApplyTotalCount, int programPrice, String programLocation, String programInquire,Member member) {
         this.programId = programId;
         this.programCrop = programCrop;
         this.programType = programType;
@@ -181,6 +179,7 @@ public class Program extends Period {
         this.programPrice = programPrice;
         this.programLocation = programLocation;
         this.programInquire = programInquire;
+        this.member = member;
     }
 }
 
