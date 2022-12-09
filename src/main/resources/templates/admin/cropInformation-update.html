@@ -40,7 +40,7 @@
 
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form th:action="@{/admin/crop/update}" th:object="${crop}" name="cropForm" method="post">
+            <form th:action="@{/admin/crop/update}" th:object="${crop}" name="cropForm" method="post" enctype="multipart/form-data">
                 <table>
                     <colgroup>
                         <col width="20%;">
@@ -86,7 +86,7 @@
                             <div class="file">
                                 <label class="input-file-button" for="input-image">
                                 </label>
-                                <input type="file" name="file" id="input-image">
+                                <input type="file" name="image" id="input-image">
                             </div>
                             <div id="file-content"></div>
                         </td>

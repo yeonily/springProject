@@ -46,7 +46,7 @@ public class AdminController {
     private final NoticeFileService noticeFileService;
 //    작물, 정책
     private final InformationService informationService;
-//    작물, 정책
+//    문의
     private final InquireService inquireService;
 
     // 문의 관리
@@ -57,7 +57,9 @@ public class AdminController {
     }
 
     @GetMapping("/help/answer")
-    public String adminAskDetail() {
+    public String adminAskDetail(Long inquireId, Model model) {
+        model.addAttribute("inquire", inquireService.showInquireOne(inquireId));
+        model.addAttribute("writer", inquireService.showInquireOne(inquireId));
         return "/admin/ask-detail";
     }
 
@@ -82,7 +84,8 @@ public class AdminController {
     public String adminBoard() {return "/admin/board";
     }
 
-    // 농업정보 관리
+
+    // 농업정보 - 이미지(단일)
     @GetMapping("/crop")
     public String crop(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "cropId", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Crop> crops = informationService.cropSearchShowAll(pageable, keyword, searchText, searchText);
@@ -100,10 +103,9 @@ public class AdminController {
         return "/admin/cropInformation-write";
     }
 
-    @PostMapping("/crop/write")
+    @PostMapping("/crop/write") // 저장
     public RedirectView cropWrite(Crop crop, @RequestParam MultipartFile image) throws IOException {
-//        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/information/crop");
-        String path = "C:/upload/image";
+        String path = "C:/upload/crop";
         String uploadFileName = null;
 
         File uploadPath = new File(path);
@@ -116,9 +118,8 @@ public class AdminController {
             String fileName = image.getOriginalFilename();
             uploadFileName = uuid.toString() + "_" + fileName;
 
-//            String fullPath = path +"/"+ image.getOriginalFilename();
-
             File saveFile = new File(path, uploadFileName);
+            log.info("경로임 -> " + saveFile);
             image.transferTo(saveFile);
             crop.setCropImage(uploadFileName);
         }
@@ -128,41 +129,7 @@ public class AdminController {
         return new RedirectView("/admin/crop");
     }
 
-    @GetMapping("/display")
-    @ResponseBody
-    public byte[] display(String fileName) throws IOException{
-        File file = new File("C:/upload/image", fileName);
-        log.info("이거 맞냐구~~  -> " + file);
-        log.info("모냐구 -> " + FileCopyUtils.copyToByteArray(file));
-
-        return FileCopyUtils.copyToByteArray(file);
-    }
-
-    /*=============================================*/
-    @GetMapping("/img")
-    public String imgPage() {
-        return "/admin/img";
-    }
-
-    @PostMapping("/img")
-    public String imgPage(@RequestParam String name, @RequestParam MultipartFile file) throws IOException {
-        log.info("name -> " + name);
-        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/information/crop");
-//        String path = new ClassPathResource("/static/image/information/crop").getFile().getAbsolutePath();
-
-        if (!file.isEmpty()){
-//           String fullPath = "C://upload/" + file.getOriginalFilename();
-           String fullPath = path +"/"+ file.getOriginalFilename();
-           log.info("파일 이름 저장 -> " + file.getOriginalFilename());
-           log.info("파일 저장 -> " + fullPath);
-           file.transferTo(new File(fullPath));
-        }
-
-        return "/admin/img";
-    }
-    /*=============================================*/
-
-//    농업정보 수정
+    //    농업정보 수정
     @GetMapping("/crop/update")
     public String cropUpdate(Long cropId, Model model) {
         model.addAttribute("crop", informationService.cropShowOne(cropId));
@@ -170,18 +137,67 @@ public class AdminController {
     }
 
     @PostMapping("/crop/update")
-    public RedirectView cropUpdate(Crop crop) {
-        informationService.cropUpdate(crop);
+    public RedirectView cropUpdate(Crop crop, @RequestParam MultipartFile image) throws IOException {
+        String path = "C:/upload/crop";
+        String uploadFileName = null;
+        String dbFile = informationService.cropShowOne(crop.getCropId()).getCropImage();
 
+        if (!image.isEmpty()){
+            UUID uuid = UUID.randomUUID();
+            String fileName = image.getOriginalFilename();
+            uploadFileName = uuid.toString() + "_" + fileName;
+
+            if (uploadFileName != dbFile && dbFile != null){
+                File file = new File(path, dbFile);
+                log.info("파일 있 -> " + file);
+                if(file.exists()){
+                    file.delete();
+                }
+            }
+
+            File saveFile = new File(path, uploadFileName);
+            image.transferTo(saveFile);
+            crop.setCropImage(uploadFileName);
+
+        } else if (dbFile != null) {
+            File file = new File(path, dbFile);
+            if(file.exists()){
+                file.delete();
+            }
+        }
+        informationService.cropUpdate(crop);
         return new RedirectView("/admin/crop");
     }
 
-//    농업정보 삭제
+    @GetMapping("/cropimg/display") // 보기
+    @ResponseBody
+    public byte[] display(String fileName) throws IOException{
+        File file = new File("C:/upload/crop", fileName);
+
+        return FileCopyUtils.copyToByteArray(file);
+    }
+
+    //    농업정보 삭제
     @PostMapping("/crop/delete")
     public RedirectView cropDelete(Long cropId){
+        String path = "C:/upload/crop";
+        String dbFile = informationService.cropShowOne(cropId).getCropImage();
+
+        if (dbFile != null) {
+            File file = new File(path, dbFile);
+            log.info("XXX -> " + file);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
         informationService.cropDelete(cropId);
         return new RedirectView("/admin/crop");
     }
+
+    @PostMapping("/one/delete")
+    public void delete(String uploadPath, String fileName, boolean fileImageCheck){
+    }
+
 
     // 알바 관리
     @GetMapping("/job")

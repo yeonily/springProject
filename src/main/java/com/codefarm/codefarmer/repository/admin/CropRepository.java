@@ -27,4 +27,5 @@ public interface CropRepository extends JpaRepository<Crop, Long> {
 //    작물정보 글 개수
     @Query("select count(c) from Crop c")
     public int countByCrop();
+
 }

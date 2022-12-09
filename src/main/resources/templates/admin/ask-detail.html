@@ -39,7 +39,7 @@
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
             <form action="" name="askForm" method="" class="askForm">
-                <table>
+                <table th:object="${inquire}">
                     <colgroup>
                         <col width="20%;">
                         <col width="80%">
@@ -49,7 +49,7 @@
                         <th>문의번호</th>
                         <td>
                             <div class="title">
-                                <input type="text" name="ask_number" class="ask_number" autocomplete="off" readonly>
+                                <input th:value="*{inquireId}" class="ask_number" autocomplete="off" readonly>
                             </div>
                         </td>
                     </tr>
@@ -57,7 +57,7 @@
                         <th>제목</th>
                         <td>
                             <div class="title">
-                                <input type="text" name="ask_title" class="ask_title" autocomplete="off" readonly>
+                                <input th:value="*{inquireQTitle}" class="ask_title" autocomplete="off" readonly>
                             </div>
                         </td>
                     </tr>
@@ -65,7 +65,7 @@
                         <th>작성자</th>
                         <td>
                             <div class="writer">
-                                <input type="text" name="ask_writer" class="ask_writer" autocomplete="off" readonly>
+                                <input th:value="*{member.memberNickname}" class="ask_writer" autocomplete="off" readonly>
                             </div>
                         </td>
                     </tr>
@@ -73,7 +73,7 @@
                         <th>작성날짜</th>
                         <td>
                             <div class="writer">
-                                <input type="text" name="ask_date" class="ask_date" autocomplete="off" readonly>
+                                <input th:value="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}" class="ask_date" autocomplete="off" readonly>
                             </div>
                         </td>
                     </tr>
@@ -81,7 +81,7 @@
                         <th>문의내용</th>
                         <td>
                             <div id="ask_editor" style="border: solid 1px #e6e6e6">
-                                <textarea rows="10" class="summernote_ask" name="editorForm" readonly>환불받고 싶은데 어떻게 해야 되나요?</textarea>
+                                <textarea th:value="*{inquireQContent}" class="summernote_ask" style="outline: none; min-height: 170px;" readonly>환불받고 싶은데 어떻게 해야 되나요?</textarea>
                             </div>
                         </td>
                     </tr>
