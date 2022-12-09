@@ -72,10 +72,12 @@ public class ProgramUpdateService {
 
         Program program = programDTO.toEntity();
         program.changeFiles(programDTO.getFiles());
-        program.changeMember(memberRepository.findById(programDTO.getMemberId()).get());
-        program.update(programDTO);
-        programRepository.save(program);
+//        program.changeMember(memberRepository.findById(programDTO.getMemberId()).get());
         program.getProgramFiles().stream().map(t -> programFileRepository.save(t));
+        program.update(programDTO);
+        programRepository.deleteById(program.getProgramId());
+        programRepository.save(program);
+
     }
 
 }

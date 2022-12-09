@@ -157,8 +157,8 @@ public class ProgramController {
     }
 
     @PostMapping("/update")
-    public RedirectView updateFin( ){
-
+    public RedirectView updateFin(ProgramDTO programDTO){
+        programUpdateService.update(programDTO);
         return new RedirectView("list");
     }
 
