@@ -29,7 +29,7 @@
                         <div class="pg-detail-banner-headline" th:text="*{programTitleSub}"></div>
                     </div>
                     <div class="banner-image-container">
-                        <img class="pg-detail-banner-image" src="/image/program/pgimage.gif">
+                        <img class="pg-detail-banner-image" style="width: 542px; height: 287px; object-fit: cover" th:src="@{/file/display(fileName=${list.files[0].fileUploadPath} + '/s_' + ${list.files[0].fileUuid} + '_' + ${list.files[0].fileName})}">
                     </div>
                 </section>
             </div>
@@ -261,11 +261,9 @@
                                 <div class="pg-info-content" th:text="*{programInfoContent4}"></div>
                             </div>
                         </div>
-                        <div class="pg-info-background">
-                        <div class="register-img-wrapper">(글 등록시 업로드하는 이미지, 링크 들어가는 영역)
-                        <img class="register-img" src="/image/program/program_register_img.gif">
-                        </div>
-                        </div>
+<!--                        <div class="pg-info-background" th:each="test: ${list.files}">-->
+<!--                            <img class="register-img" style="width: 729px; object-fit: cover;" th:src="@{/file/display(fileName=${test[0].fileUploadPath} + '/s_' + ${test[0].fileUuid} + '_' + ${test[0].fileName})}">-->
+<!--                        </div>-->
                     </section>
                 </div>
             </div>

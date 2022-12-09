@@ -7,6 +7,8 @@ import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
 import com.codefarm.codefarmer.service.program.ProgramDetailService;
 import com.codefarm.codefarmer.service.program.ProgramListService;
 import com.codefarm.codefarmer.service.program.ProgramRegisterService;
+import com.codefarm.codefarmer.type.ProgramLevel;
+import com.codefarm.codefarmer.type.ProgramType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,7 @@ public class ProgramController {
         log.info("상세페이지 들어옴");
         log.info("programId:" + programId);
         ProgramDTO list = programDetailService.showByProgramId(programId);
+        list.setFiles(programDetailService.showFiles(programId));
         log.info("리스트 내용: " );
 //        List<ProgramDTO> lists = programListService.();
         model.addAttribute("list",list);
@@ -73,9 +76,28 @@ public class ProgramController {
     }
 
     @PostMapping("/register")
-    public RedirectView registerFin(ProgramDTO programDTO, ProgramFileDTO programFileDTO, String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString) throws DateTimeParseException {
+    public RedirectView registerFin(ProgramDTO programDTO, ProgramFileDTO programFileDTO, String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString , String programTypeString, String programLevelString) throws DateTimeParseException {
         log.info("리스폰스바디 컨트롤러 들어옴");
-        log.info("files: " + programDTO.getFiles());
+        log.info("programTypeString: " + programTypeString);
+        log.info("programLevelString: " + programLevelString);
+
+//        글 등록 시 일반인용,멘티전용 따라 DTO에 값 넣기
+        if(programTypeString.equals("일반인용")){
+            programDTO.setProgramType(ProgramType.ALL_USER);
+        }else{
+            programDTO.setProgramType(ProgramType.ONLY_MENTEE);
+        }
+
+//        글 등록 시 초급,중급,고급 따라 DTO에 값 넣기
+        if(programLevelString.equals("초급")){
+            programDTO.setProgramLevel(ProgramLevel.BASIC);
+        }else if(programLevelString.equals("중급")){
+            programDTO.setProgramLevel(ProgramLevel.SKILL_UP);
+        }else{
+            programDTO.setProgramLevel(ProgramLevel.MASTER);
+        }
+
+//        log.info("files: " + programDTO.getFiles());
 //        programDTO.getFiles().stream().map(t -> programFileDTO.setFileName(t.getFileName()));
 //        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileName());
 //        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileUploadPath());

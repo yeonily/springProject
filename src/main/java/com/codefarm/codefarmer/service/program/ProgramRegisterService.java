@@ -18,13 +18,10 @@ public class ProgramRegisterService {
 
     public void saveAll(ProgramDTO programDTO){
 
-//        programDTO.setProgramId();
         Program program = programDTO.toEntity();
         program.changeFiles(programDTO.getFiles());
-
         programRepository.save(program);
-
-        program.getProgramFiles().stream().map(t -> programFileRepository.save(t)).forEach(t -> log.info("파일첨부 값은: " + t.toString()));
+        program.getProgramFiles().stream().map(t -> programFileRepository.save(t));
     }
 
 }

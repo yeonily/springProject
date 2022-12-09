@@ -2,9 +2,12 @@ package com.codefarm.codefarmer.service.program;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.domain.program.QProgramDTO;
+import com.codefarm.codefarmer.domain.program.QProgramFileDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.program.QProgram;
+import com.codefarm.codefarmer.entity.program.QProgramFile;
 import com.codefarm.codefarmer.type.ProgramType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
+import static com.codefarm.codefarmer.entity.program.QProgramFile.programFile;
 
 
 @Service
@@ -66,6 +70,18 @@ public class ProgramListService {
 
         )).from(program).fetch();
 
+    }
+//    선택한 프로그램의 첨부파일 가져오기
+    public List<ProgramFileDTO> showFiles(Long prgramId){
+        return jpaQueryFactory.select(new QProgramFileDTO(
+            programFile.fileId,
+            programFile.fileName,
+            programFile.fileUploadPath,
+            programFile.fileUuid,
+            programFile.fileSize,
+            programFile.fileImageCheck
+        )).from(programFile)
+         .where(programFile.program.programId.eq(prgramId)).fetch();
     }
 
 //    진행중 정렬

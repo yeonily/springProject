@@ -29,7 +29,7 @@ public class ProgramFile extends Period {
     @JoinColumn(name = "PROGRAM_ID")
     private Program program;
 
-    public void changeMember(Program program){
+    public void changeProgram(Program program){
         this.program = program;
     }
 

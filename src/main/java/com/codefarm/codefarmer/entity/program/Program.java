@@ -94,12 +94,13 @@ public class Program extends Period {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "program",cascade = CascadeType.ALL)
     private List<ProgramFile> programFiles;
 
     public void changeFiles(List<ProgramFileDTO> files){
-//        files.stream().forEach(file -> file.setProgram(this));
-        this.programFiles = files.stream().map(file -> file.toEntity()).collect(Collectors.toList());
+        List<ProgramFile> fileEntities = files.stream().map(file -> file.toEntity()).collect(Collectors.toList());
+        fileEntities.stream().forEach(file -> file.changeProgram(this));
+        this.programFiles = fileEntities;
     }
 
     public void changeMember(Member member){
