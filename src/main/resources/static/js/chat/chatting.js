@@ -12,7 +12,7 @@ $(".left_lists").on("click", function (){
     $(".right_text .list_text_p1").text(nickName); // 닉네임을 선택한 채팅방의 닉네임으로 변경함
 
     /*실행 순서 첫 번째*/
-    /*sockJS 소켓 정상적으로 연결되었을 때*/
+    /*stomp 소켓 정상적으로 연결되었을 때*/
     stomp.connect({}, function() {
         console.log("연결됨!");
 
@@ -79,15 +79,19 @@ $(".left_lists").on("click", function (){
     /*만약 메세지를 입력하는 input에서 엔터를 눌렀을 때 채팅 전송 처리*/
     $("#message").on("keyup", function(e) {
         if(e.keyCode === 13) {
-            e.preventDefault();
-            document.getElementById("send").click();
+            messageSend();
         }
     })
 
     /*send 즉, 전송 버튼 클릭 시*/
     $("#send").on("click", function(e) {
+        messageSend();
+    })
+
+
+    function messageSend() {
         let inputMessage = $("#message").val(); // 사용자가 입력한 텍스트를 저장
         stomp.send("/pub/chatting/message", {}, JSON.stringify({roomId : roomId, chatMessage : inputMessage, chatStatus: "UNREAD", memberId: sessionId}));
         $("#message").val('');
-    })
+    }
 });

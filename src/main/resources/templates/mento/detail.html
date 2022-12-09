@@ -15,8 +15,10 @@
 <!--헤더 삽입-->
 <div th:replace="/header/header.html :: header" class="header"/>
 
+<!--해당 게시글을 작성한 멘토 멤버ID를 담음-->
 <form action="/mento/chatting" id="mentoIdForm">
-    <input type="hidden" name="mentorId" th:value="${mentorId}">
+    <input type="hidden" name="mentorId" id="mentorId" th:value="${mentorId}">
+    <input type="hidden" name="sessionId" id="sessionId" th:value="${sessionId}">
 </form>
 
 <div id="main_grid">
@@ -616,11 +618,18 @@
 <script src="/js/header/header.js"></script>
 <script src="/js/mento/detail.js"></script>
 <script>
+    console.log("세션 아이디 : " + $("#sessionId").val());
+    console.log("작성자 아이디 : " + $("#mentorId").val());
+
     function mentorIdSend() {
-        $("#chatting_submit").on("click", function() {
+
+
+        if($("#mentorId").val() == $("#sessionId").val()) {
+            alert("자신에게 채팅을 요청할 수 없습니다.");
+        } else {
             $("#mentoIdForm").submit();
             location.href("/mento/chatting");
-        });
+        }
     }
 </script>
 </html>

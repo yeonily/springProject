@@ -1,10 +1,6 @@
 package com.codefarm.codefarmer.service.chat;
 
 import com.codefarm.codefarmer.domain.chat.ChatDTO;
-import com.codefarm.codefarmer.entity.chat.Chat;
-import com.codefarm.codefarmer.entity.chat.ChatRoom;
-import com.codefarm.codefarmer.entity.member.Member;
-import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.chat.ChatRoomRepository;
 import com.codefarm.codefarmer.type.ChatStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -16,7 +12,6 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
 
 
 @SpringBootTest
@@ -49,14 +44,14 @@ public class ChatRoomTest {
     @Test
     public void checkChatRoom() {
         // 14번 멘티(일반회원이) 13번 멘토에게 채팅 요청
-        log.info("결과 : " + chatRoomService.checkChatRoom(1L, 42L));
+        log.info("결과 : " + chatRoomService.checkChatRoom(131L, 86L));
     }
 
 
     /*채팅방 유무에 따라 채팅방 만들기*/
     @Test
     public void createChatRoom() {
-        chatRoomService.createChatRoom(1L, 42L);
+        chatRoomService.createChatRoom(131L, 86L);
     }
 
     /*채팅방 대화내역 불러오기*/
