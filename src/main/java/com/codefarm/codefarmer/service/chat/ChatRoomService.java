@@ -138,8 +138,13 @@ public class ChatRoomService {
         List<Mentor> mentorList = mentorRepository.findAll();
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
 
+        /*만약 멘토, 멘티 아이디가 같을 경우 즉, 로그인 세션이 자기가 작성한 글에 멘토신청할 경우*/
+        if(mentorId.equals(menteeId)) {
+            return;
+        }
+
         for(Mentor mentor : mentorList) {
-            if(mentor.getMember().getMemberId() == mentorId) {
+            if(mentor.getMember().getMemberId().equals(mentorId)) {
                 if(!checkChatRoom(mentorId, menteeId)) {
                     chatRoomDTO.setMentor(mentor.getMember());
                     chatRoomDTO.setMentee(findByMemberId(menteeId).get());

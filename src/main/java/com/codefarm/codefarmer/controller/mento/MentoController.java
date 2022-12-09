@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -46,9 +48,14 @@ public class MentoController {
 
 
     @GetMapping("/detail")
-    public void detail(Model model){
-        /*선택한 게시글의 번호로 글의 정보를 program JSON 형식으로 전송*/
-        model.addAttribute("mentorId", ms.showDetailMentorBoard(53L).getMentorId());
+    public void detail(Model model, HttpSession session){
+        /*선택한 게시글의 번호로 글의 정보를 program JSON 형식으로 전송(이후에 boardNumber에는 클릭한 값을 받아서 작업 필요)*/
+        model.addAttribute("mentorId", ms.showDetailMentorBoard(738L).getMentorId());
+
+        /*로그인 세션 변수로 보내기*/
+        Long sessionId = (Long) session.getAttribute("memberId");
+//        Long sessionId = 1L;
+        model.addAttribute("sessionId", sessionId);
     }
 
 
@@ -61,14 +68,12 @@ public class MentoController {
     @GetMapping("/chatting")
     @RequestMapping(value = "/mento/chatting", method = RequestMethod.GET)
     public void chatting(Model model, Long mentorId, HttpSession session) {
-        Long sessionId = (Long) session.getAttribute("memberId"); // 로그인은 현재 13번 일반 회원으로 되어 있다고 가정
-//        Long sessionId = 1L;
-
-        System.out.println("결과 : " + cs.chatRoomSelectAll(sessionId));
-
-
         /*로그인 세션 변수로 보내기*/
+        Long sessionId = (Long) session.getAttribute("memberId"); // 로그인은 현재 86번 일반 회원으로 되어 있다고 가정
+//        Long sessionId = 1L;
         model.addAttribute("sessionId", sessionId);
+
+        mentorId = 86L;
 
         /*대화가 이미 있는지에 따라 채팅방 생성*/
         cs.createChatRoom(mentorId, sessionId); // 게시글을 작성한 멘토 멤버아이디와 로그인 세션
@@ -88,7 +93,6 @@ public class MentoController {
 
         System.out.println("--------채팅 불러오기 로딩 완료--------");
 
-
         /*대화방 유무에 따른 메세지 처리*/
         if(!chatList.isEmpty()) {
             for (ChatDTO chatDTO : chatList) {
@@ -100,7 +104,9 @@ public class MentoController {
     /*메세지 보냄*/
     @MessageMapping(value = "/chatting/message")
     public void message(ChatDTO message) {
-        System.out.println("결과 : " + message.toString());
+        LocalDateTime now = LocalDateTime.now();
+        message.setChatDate(now);
+        System.out.println("결과 : " + message.getChatDate());
         template.convertAndSend("/sub/mento/chatting" + message.getRoomId(), message);
         cs.sendMessage(message); // 입력한 메세지를 DB로 보냄
     }
