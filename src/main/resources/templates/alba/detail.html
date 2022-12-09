@@ -290,7 +290,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>아르바이트 상세페이지</title>
@@ -365,7 +365,7 @@
                                             <button id="update_button" onclick="location.href='/alba/write'">
                                                 <div/>수정하기<div/>
                                             </button>
-                                            <button id="remove_button" th:href="@{/alba/delete(albaId=${param.alba})}">
+                                            <button id="remove_button">
                                                 <div/>삭제하기<div/>
                                             </button>
                                             <button type="button" class="list_go_button" onclick="location.href='/alba/list'">
@@ -536,15 +536,13 @@
             <div class="c-modal">
                 <div class="m-wrap">
                     <div class="m-title">아르바이트 글 삭제</div>
-                    <form action="">
                         <div class="m-c-wrap">
                             <div class="m-c-title">작성된 아르바이트 게시글을 삭제하시겠습니까?</div>
                         </div>
                         <div class="applyBtnWrap">
-                            <button type="button" class="applyBtn">예</button>
+                            <button type="button" class="applyBtn" th:onclick="|location.href='@{/alba/delete(albaId=${param.albaId})}'|">예</button>
                             <button type="button" class="cancel">아니오</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

@@ -71,6 +71,7 @@ public class AlbaDTO {
                 .albaTitle(albaTitle)
                 .albaTitleOne(albaTitleOne)
                 .albaWorkDate(albaWorkDate)
+                .member(member)
                 .build();
     }
 

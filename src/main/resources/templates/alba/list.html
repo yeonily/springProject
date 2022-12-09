@@ -36,7 +36,7 @@
             <div class="alba_list_list" id="albaList">
 <!--                아래부터 div 추가-->
                 <th:block th:each="list:${lists}">
-                <div class="alba_div" onclick="location.href='/alba/detail'" th:object="${list}">
+                <div class="alba_div" th:onclick="|location.href='@{/alba/detail(albaId=${list.albaId})}'|" th:object="${list}">
                     <img th:src="@{/alba/display(fileName=*{albaImage})}" th:if="*{albaImage != null}">
                     <div><span style="color: black" th:text="${list.albaApplyCount}"/>/<span style="color: black" th:text="${list.albaApplyTotalCount}"/>명 <span style="color: rgb(238, 126, 65)" >・ <span th:text="${list.albaPrice}"/>원</span></div>
                     <p class="alba_title" th:text="*{albaTitle}"></p>

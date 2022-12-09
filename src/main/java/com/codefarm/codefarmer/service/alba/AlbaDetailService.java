@@ -90,7 +90,9 @@ public class AlbaDetailService {
                 .fetchOne();
     }
 
-    public void removeAlbaId(Long albaId){
+    // 알바 게시글 삭제하기
+    public Long removeAlbaId(Long albaId){
         albaRepository.deleteById(albaId);
+        return albaId;
     }
 }
