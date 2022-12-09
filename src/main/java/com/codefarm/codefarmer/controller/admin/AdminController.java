@@ -1,13 +1,16 @@
 package com.codefarm.codefarmer.controller.admin;
 
+import com.codefarm.codefarmer.domain.inquire.InquireAnswerDTO;
 import com.codefarm.codefarmer.entity.admin.Criteria;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
+import com.codefarm.codefarmer.entity.inquire.InquireAnswer;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.service.admin.InformationService;
 import com.codefarm.codefarmer.service.admin.InquireService;
 import com.codefarm.codefarmer.service.notice.NoticeFileService;
 import com.codefarm.codefarmer.service.notice.NoticeService;
+import com.codefarm.codefarmer.type.Status;
 import io.github.classgraph.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,14 +29,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -51,16 +48,39 @@ public class AdminController {
 
     // 문의 관리
     @GetMapping("/help")
-    public String adminAsk(Model model) {
+    public String ask(Model model) {
+        model.addAttribute("inquireCounts", inquireService.countInquire()); // 정책 글 개수
         model.addAttribute("inquires", inquireService.inquireShowAll());
         return "/admin/ask";
     }
 
+//    답변 등록
     @GetMapping("/help/answer")
-    public String adminAskDetail(Long inquireId, Model model) {
+    public String askAnswer(Long inquireId, Model model) {
+        InquireAnswer inquireAnswer = inquireService.answerCheck(inquireService.showInquireOne(inquireId));
+        boolean answerCheck = inquireAnswer == null;
+
+        if (answerCheck) {
+            model.addAttribute("inquireAnswer", new InquireAnswerDTO());
+        } else {
+            model.addAttribute("inquireAnswerUpdate", inquireAnswer);
+        }
+        model.addAttribute("answerCheck", answerCheck);
         model.addAttribute("inquire", inquireService.showInquireOne(inquireId));
-        model.addAttribute("writer", inquireService.showInquireOne(inquireId));
         return "/admin/ask-detail";
+    }
+
+    @PostMapping("/help/answer")
+    public RedirectView askAnswerWrite(Long inquireId, InquireAnswerDTO inquireAnswerDTO) {
+        inquireAnswerDTO.setInquire(inquireService.showInquireOne(inquireId));
+        inquireService.answerAdd(inquireAnswerDTO);
+        inquireService.statusUpdate(inquireId, Status.CONFIRM);
+        return new RedirectView("/admin/help");
+    }
+    @PostMapping("/help/answer/update")
+    public RedirectView askAnswerUpdate(InquireAnswerDTO inquireAnswerDTO) {
+        inquireService.answerUpdate(inquireAnswerDTO);
+        return new RedirectView("/admin/help");
     }
 
     // 배너 관리

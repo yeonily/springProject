@@ -18,7 +18,6 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
     @Query("select count(nf) from Notice nf")
     public int countByNotice();
 
-
 //    조회수 1씩 증가
     @Transactional
     @Modifying

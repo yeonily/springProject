@@ -1,5 +1,7 @@
 package com.codefarm.codefarmer.entity.inquire;
 
+import com.codefarm.codefarmer.domain.board.BoardDTO;
+import com.codefarm.codefarmer.domain.inquire.InquireAnswerDTO;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.querydsl.core.annotations.QueryProjection;
 import com.sun.istack.NotNull;
@@ -23,6 +25,10 @@ public class InquireAnswer extends Period {
 
     public void changeInquire(Inquire inquire){
         this.inquire = inquire;
+    }
+
+    public void update(InquireAnswerDTO inquireAnswerDTO){
+        this.inquireAnswer = inquireAnswerDTO.getInquireAnswer();
     }
 
     @Builder

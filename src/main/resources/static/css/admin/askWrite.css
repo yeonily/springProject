@@ -1,19 +1,24 @@
 @charset "utf-8";
 
+textarea {
+    padding: 3px 12px;
+    outline: none;
+}
+
 #write {
     width: 90%;
     margin: 0 auto;
     margin-top: 95px;
 }
 
-#write form table {
+#write table {
     border-top: 2px solid #565656;
     border-bottom: 2px solid #565656;
     width: 100%;
     font-weight: 300;
 }
 
-#write form table tr th {
+#write table tr th {
     min-height: 70px;
     background: #ffffff;
     vertical-align: middle;
