@@ -31,7 +31,11 @@
                             <li class="left_lists" th:object="${room}">
                                 <a href="javascript:void(0);" class="left_lists_a">
                                     <div>
-                                        <div class="list_name"><p class="list_name_p1" th:text="*{mentor.memberNickname}" id="nickName"></p><p class="list_name_p2"></p></div>
+                                        <!--로그인 세션에 따라 멘토인지, 멘티인지 구분하고 대화 상대의 닉네임 출력하는 부분 수정해야 함-->
+                                        <div class="list_name">
+                                            <p class="list_name_p1" th:if="${sessionId} == *{mentee.memberId}" th:text="*{mentor.memberNickname}"></p>
+                                            <p class="list_name_p1" th:unless="${sessionId} == *{mentee.memberId}" th:text="*{mentee.memberNickname}"></p>
+                                            <p class="list_name_p2"></p></div>
                                         <div>
                                             <p class="list_text_p1"></p><p class="list_text_p2">채팅방을 클릭하면 대화기록이 보여집니다</p>
                                         </div>
@@ -150,97 +154,14 @@
 <!--푸터 삽입-->
 <div th:replace="/footer/footer.html :: footer" class="footer"/>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/mento/chatting.js"></script>
 <script src="/js/chat/chatting.js"></script>
+
 <script th:inline="javascript">
-    var nickname = "김덕춘";
-    var roomId = $("#chatId").text(); // 방 번호(임사 48번)
-    var webSocket;
 
-    connect();
-
-    /*웹소켓을 연결*/
-    function connect() {
-        webSocket = new WebSocket("ws://localhost:5555/chat"); // 웹소켓이 연결될 주소
-        webSocket.onopen = onOpen;
-        webSocket.onclose = onClose;
-        webSocket.onmessage = onMessage;
-    }
-
-
-
-    /*웹소켓이 연결된 상태일 경우 웹소켓 연결 성공임을 알림*/
-    function onOpen() {
-        webSocket.onopen = function (e) {
-            console.log("웹소켓 연결 성공!");
-        };
-    };
-
-
-    /*메세지 전송 함수*/
-    function send() {
-        msg = document.getElementById("message").value;
-        webSocket.send(JSON.stringify({nickname : nickname, message : msg, type : "message"})); // JSON으로 데이터를 보냄
-        console.log("채팅 전송됨 : " + JSON.stringify({nickname : nickname, message : msg, type : "message"}));
-    }
-
-
-    /*전송버튼 클릭 시*/
-    document.getElementById("send").addEventListener("click", function() {
-        send();
-    });
-
-
-    function disconnect(){
-        webSocket.close();
-    }
-
-    function onClose(){
-        disconnect();
-    }
-
-    function onMessage(e) {
-        data = e.data;
-        console.log("채팅결과 : " + data);
-    }
-
-
-
-
-
-
-
-    /*새로운 채팅이 올라올 때마다 해당 함수 실행*/
-    // function onMessage(e){
-    //     data = e.data;
-    //     chatroom = document.getElementById("chat-foreach"); // 입력한 데이터를 출력할 태그 아이디
-    //     chatroom.innerHTML = chatroom.innerHTML + "<br>" + data;
-    //     console.log(e);
-    // }
-
-    //
-    // /*나갔을 때 발생하는 함수*/
-    // // 채팅방에서 나갔을 때는 type이 LEAVE로 변환되어 퇴장 메세지를 출력한다.
-    // // function disconnect(){
-    // //     webSocket.send(JSON.stringify({type:'LEAVE',text: "나가!"}));
-    // //     webSocket.close();
-    // // }
-    //
-    //
-
-    //
-    // /*채팅방 입장*/
-    // function onOpen(){
-    //     webSocket.send(JSON.stringify({roomId: 'roomId', type: '확인', text: 'msg', nickname: 'nickName'}));
-    // }
-
-
-
-    // /*채팅을 나가게 되면 disconnect 함수 호출*/
-    // function onClose(){
-    //     disconnect();
-    // }
 </script>
 </html>

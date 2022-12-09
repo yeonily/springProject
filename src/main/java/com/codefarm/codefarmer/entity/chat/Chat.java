@@ -4,7 +4,6 @@ import com.codefarm.codefarmer.domain.chat.ChatDTO;
 import com.codefarm.codefarmer.entity.period.ChatPeriod;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.type.ChatStatus;
-import com.codefarm.codefarmer.type.MessageType;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -32,10 +31,7 @@ public class Chat extends ChatPeriod {
     @NotNull
     @Enumerated(EnumType.STRING)
     private ChatStatus chatStatus;
-
-//    @NotNull
-//    @Enumerated(EnumType.STRING)
-//    private MessageType type;
+    
 
     @Builder
     public Chat(Long chatId, ChatRoom chatRoom, String chatMessage, ChatStatus chatStatus, Member member, Long memberId) {

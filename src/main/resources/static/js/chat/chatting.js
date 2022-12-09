@@ -1,69 +1,93 @@
 /*-----------------------------------------------------------*/
                         /*채팅방 선택 시*/
 /*-----------------------------------------------------------*/
-var sessionId = $("#sessionId").text(); // 현재 로그인된 세션 아이디
+var sessionId = Number($("#sessionId").text()); // 현재 로그인된 세션 아이디
 
 $(".left_lists").on("click", function (){
     const roomId = $(this).find("span").text(); // 각 방의 방 번호를 저장
-    const nickName = $(this).find("#nickName").text(); // 닉네임
+    const nickName = $(this).find(".list_name_p1").text(); // 닉네임
+    let sockJs = new SockJS("/chatting");
+    let stomp = Stomp.over(sockJs);
 
     $(".right_text .list_text_p1").text(nickName); // 닉네임을 선택한 채팅방의 닉네임으로 변경함
 
+    /*실행 순서 첫 번째*/
+    /*sockJS 소켓 정상적으로 연결되었을 때*/
+    stomp.connect({}, function() {
+        console.log("연결됨!");
 
-    $.ajax({
-        url: "/getChat/test",
-        type : "post",
-        dataType: "json",
-        data : {
-            roomId : roomId
-        },
-        success: function(chats) {
-            let text = "";
+        /*실행 순서 두 번째*/
+        /*선택한 채팅방 번호에 따른 채팅 내역을 모두 불러옴*/
+        stomp.subscribe("/sub/mento/chatting" + roomId, function (chat) {
+            let content = JSON.parse(chat.body); // JSON 키값을 통해 리턴받은 값에 접근 가능
+            let message = content.chatMessage; // 메세지 내용
+            let sendDate = content.chatDate; // 메세지 날짜
+            let writer = content.memberId; // 채팅을 작성한 사람
+            let chatStatus = "READ" ? true : false; // 채팅 읽음 표시(읽었을 때는 true)
 
-            /*채팅이 없는 방은 대화내역 없는걸로 처리*/
-            if(chats.length == 0) {
-                $("#chat-foreach").html(text);
+            // console.log("채팅 : " + chatStatus);
+
+            const item = new LiModel(message, sendDate, writer, chatStatus);
+            item.makeLi();
+
+            /*실행 순서 네 번째*/
+            function LiModel(message, sendDate, writer, chatStatus) {
+                this.message = message;
+                this.sendDate = sendDate;
+                this.writer = writer;
+                this.chatStatus = chatStatus;
+
+                this.makeLi = () => {
+                    const month = new Date(this.sendDate).getMonth()+1;
+                    const days = new Date(this.sendDate).getDate();
+                    let text = "";
+                    const check =  this.chatStatus == true ? true : false; // 채팅을 읽은 상태일 경우 true
+
+
+                    /*현재 로그인 한 세션이 보낸 채팅의 경우*/
+                    if(sessionId == this.writer) {
+                        this.chatStatus = check == true ? `` : `1&nbsp&nbsp`; // 채팅을 읽지 않은 상태일 경우 1을 표시
+                        text += `<div class="chatting_inner">`;
+                            text += `<div class="chatting_inner_right">`;
+                                text += `<p class="chatting_date_right"><span class="no_read_chat">${this.chatStatus}</span>` + month + "월 " + days + "일" + `</p>`;
+                                text += `<ul class="chatting_ul">`;
+                                    text += `<li class="chatting_text">${this.message}</li>`;
+                                text += `</ul>`;
+                            text += `</div>`;
+                        text += `</div>`;
+                    }
+                    /*상대방이 보낸 채팅의 경우*/
+                    else {
+                        this.chatStatus = check == true ? `` : `&nbsp&nbsp1`; // 채팅을 읽지 않은 상태일 경우 1을 표시
+                        text += `<div class="chatting_inner">`;
+                            text += `<div class="chatting_inner_left">`;
+                                text += `<p class="chatting_date_left">` + month + "월 " + days + "일" + `<span class="no_read_chat">${this.chatStatus}</span></p>`;
+                                text += `<ul class="chatting_ul">`;
+                                    text += `<li class="chatting_text">${this.message}</li>`;
+                                text += `</ul>`;
+                            text += `</div>`;
+                        text += `</div>`;
+                    }
+                    $("#chat-foreach").append(text);
+                }
             }
+        })
+        /*실행 순서 세 번째*/
+        stomp.send('/pub/chatting/enter', {}, JSON.stringify({roomId: roomId}))
+    });
 
-            /*채팅 내역 출력*/
-            chats.forEach(function (chat) {
-                let chatDate = new Date(chat.chatDate);
-                let chatMonth = chatDate.getMonth()+1;
-                let chatDay = chatDate.getDate();
-                let readCheck = chat.chatStatus == "UNREAD"; // 메세지가 안 읽음인 경우
-
-                /*내가 보낸 메세지*/
-                if(chat.memberId == sessionId) {
-                    readCheck = readCheck ? "1&nbsp&nbsp" : "";
-                    text += '<div class="chatting_inner" th:object="${chat}">';
-                        text += '<div class="chatting_inner_right">';
-                            text += '<p class="chatting_date_right"><span class="no_read_chat">' + readCheck + '</span>' + chatMonth + "월 " + chatDay + "일" + '</p>'
-                            text += '<ul class="chatting_ul">';
-                                text += '<li class="chatting_text">' + chat.chatMessage + '</li>';
-                            text += `</ul>`;
-                        text += '</div>';
-                    text += '</div>';
-                }
-                // /*상대방이 보낸 메세지*/
-                else {
-                    readCheck = readCheck ? "&nbsp&nbsp1" : "";
-                    text += '<div class="chatting_inner" th:object="${chat}">';
-                        text += '<div class="chatting_inner_left">';
-                            text += '<p class="chatting_date_left">' + chatMonth + "월 " + chatDay + "일" + '<span class="no_read_chat">' + readCheck + '</span></p>'
-                            text += '<ul class="chatting_ul">';
-                                text += '<li class="chatting_text">' + chat.chatMessage + '</li>';
-                            text += `</ul>`;
-                        text += '</div>';
-                    text += '</div>';
-                }
-                $("#chat-foreach").html(text);
-            });
-        },
-        error: function (request, status, error) {
-            console.log(request);
-            console.log("error : " + error);
-            console.log("status : " + status);
-            alert("error");
+    /*만약 메세지를 입력하는 input에서 엔터를 눌렀을 때 채팅 전송 처리*/
+    $("#message").on("keyup", function(e) {
+        if(e.keyCode === 13) {
+            e.preventDefault();
+            document.getElementById("send").click();
         }
+    })
+
+    /*send 즉, 전송 버튼 클릭 시*/
+    $("#send").on("click", function(e) {
+        let inputMessage = $("#message").val(); // 사용자가 입력한 텍스트를 저장
+        stomp.send("/pub/chatting/message", {}, JSON.stringify({roomId : roomId, chatMessage : inputMessage, chatStatus: "UNREAD", memberId: sessionId}));
+        $("#message").val('');
     })
 });
