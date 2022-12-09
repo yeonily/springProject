@@ -107,7 +107,7 @@
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
 <script src="/js/myPage/list.js"></script>
-<script>
+<script th:inline="javascript">
     $("div.menu-a").removeClass('menu-select');
     $("#alba").addClass('menu-select');
 
@@ -120,5 +120,11 @@
     $(".a-no").on("click", function(){
         $(".alam-wrap").hide();
     });
+
+
+    function viewDetail(albaId) {
+        console.log("??");
+        location.href = "/alba/detail?albaId=" + albaId;
+    }
 </script>
 </html>

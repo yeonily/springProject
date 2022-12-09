@@ -35,7 +35,7 @@
 <div class="alba-lists-wrap" th:fragment="farmerAlbas" th:each="alba : ${albas}">
     <div class="alba-list" >
         <!---->
-        <div class="commu c-link" th:onclick="'location.href=\''+ ${alba.albaId} + '\''">
+        <div class="commu c-link"  th:onclick="|javascript:viewDetail(${alba.albaId})|">
             <div class="c-top-wrap">
                 <div class="t-s-wrap">
                     <div class="c-address" th:text="${#temporals.format(alba.albaWorkDate, 'yyyy.MM.dd')}"/><div class="c-address>">・</div>

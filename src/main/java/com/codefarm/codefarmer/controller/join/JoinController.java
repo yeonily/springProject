@@ -78,15 +78,17 @@ public class JoinController {
     public String joinOk(MemberDTO memberDTO, HttpSession session){
         memberService.join(memberDTO);
         Long id = joinService.selectId(memberDTO.getMemberOauthId());
+        String type = joinService.selectType(memberDTO.getMemberOauthId());
         log.info("멤버11:"+memberDTO);
         log.info("멤버95:"+memberDTO.getMemberType());
 
+
+
         session.setAttribute("memberId", id);
-        session.setAttribute("memberType", memberDTO.getMemberType());
+        session.setAttribute("memberType", type);
         Long value = (Long)session.getAttribute("memberId");
-        MemberType stringv = (MemberType)session.getAttribute("memberType");
         log.info("세션 value"+ value);
-        log.info("세션 stringv"+ stringv);
+        log.info("세션 stringv"+ type);
         return "/main/main";
     }
 
