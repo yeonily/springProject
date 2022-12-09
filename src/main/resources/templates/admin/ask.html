@@ -71,7 +71,7 @@
         <!-- 프로그램 리스트 출력 틀 -->
         <div class="p-contents contents-bottom">
                 <span class="list-count">총
-                    <span>2476</span>건
+                    <span th:text="${inquireCounts}"></span>건
                 </span>
             <table>
                 <tr class="title">
@@ -88,10 +88,9 @@
                         <td th:text="*{inquireId}"></td>
                         <td class="title" th:text="*{inquireQTitle}" th:onclick="'location.href=\''+ @{/admin/help/answer(inquireId=*{inquireId})} + '\''"></td>
                         <td class="content" th:text="*{inquireQContent}"></td>
-                        <td>herd</td>
+                        <td th:text="*{member.getMemberNickname}"></td>
                         <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
                         <td class="askStatus" th:text="*{inquireStatus}"></td>
-<!--                        <td class="askStatusOk" th:text="*{inquireStatus}"></td>-->
                     </tr>
                 </th:block>
             </table>

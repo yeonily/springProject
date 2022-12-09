@@ -37,19 +37,18 @@
         </header>
 
         <!-- 메인화면 컨텐츠 -->
-        <div id="write">
-            <form action="" name="askForm" method="" class="askForm">
-                <table th:object="${inquire}">
-                    <colgroup>
-                        <col width="20%;">
-                        <col width="80%">
-                    </colgroup>
-                    <tbody>
+        <div id="write" th:object="${inquire}">
+            <table>
+                <colgroup>
+                    <col width="20%;">
+                    <col width="80%">
+                </colgroup>
+                <tbody>
                     <tr>
                         <th>문의번호</th>
                         <td>
                             <div class="title">
-                                <input th:value="*{inquireId}" class="ask_number" autocomplete="off" readonly>
+                                <input th:field="*{inquireId}" class="ask_number" readonly>
                             </div>
                         </td>
                     </tr>
@@ -57,7 +56,7 @@
                         <th>제목</th>
                         <td>
                             <div class="title">
-                                <input th:value="*{inquireQTitle}" class="ask_title" autocomplete="off" readonly>
+                                <input th:field="*{inquireQTitle}" class="ask_title" readonly>
                             </div>
                         </td>
                     </tr>
@@ -65,7 +64,7 @@
                         <th>작성자</th>
                         <td>
                             <div class="writer">
-                                <input th:value="*{member.memberNickname}" class="ask_writer" autocomplete="off" readonly>
+                                <input th:value="*{member.getMemberNickname}" class="ask_writer" readonly>
                             </div>
                         </td>
                     </tr>
@@ -73,7 +72,7 @@
                         <th>작성날짜</th>
                         <td>
                             <div class="writer">
-                                <input th:value="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}" class="ask_date" autocomplete="off" readonly>
+                                <input th:value="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}" class="ask_date" readonly>
                             </div>
                         </td>
                     </tr>
@@ -81,13 +80,13 @@
                         <th>문의내용</th>
                         <td>
                             <div id="ask_editor" style="border: solid 1px #e6e6e6">
-                                <textarea th:value="*{inquireQContent}" class="summernote_ask" style="outline: none; min-height: 170px;" readonly>환불받고 싶은데 어떻게 해야 되나요?</textarea>
+                                <textarea th:field="*{inquireQContent}" class="summernote_ask" style="outline: none; min-height: 170px;" readonly>환불받고 싶은데 어떻게 해야 되나요?</textarea>
                             </div>
                         </td>
                     </tr>
-                    </tbody>
-                </table>
-
+                </tbody>
+            </table>
+            <form th:action="@{/admin/help/answer}" name="askForm" method="post" class="askForm" th:if="${answerCheck}">
                 <table class="ask_all_reply">
                     <colgroup>
                         <col width="20%;">
@@ -96,27 +95,47 @@
                     <tbody>
                     <tr>
                         <th>답변 내용</th>
-                        <td style="background: #ffffff;">
-                            <div id="ask_reply">
-                                <textarea rows="6" class="summernote_ask" name="editorForm">안녕하세요. 너와농부싶어 입니다.
-
-[ 마이페이지 > 내 프로그램 ] 각 프로그램의 옵션 버튼에서 신청취소 버튼 이용 부탁드립니다.
-관련하여 궁금한 사항이 있으시면 고객센터 이용 부탁드립니다:)
-
-앞으로 더 좋은 서비스를 준비하겠습니다!
-서비스 이용해주셔서 감사합니다.</textarea>
+                        <td>
+                            <div class="ask_reply">
+                                <input type="hidden" th:field="*{inquireId}">
+                                <textarea th:field="${inquireAnswer.inquireAnswer}" rows="6" class="summernote_ask"></textarea>
                             </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="btns-group">
-                    <input type="button" onclick="location.href='/admin/ask'" class="g-btn list" value="문의 목록">
-                    <input type="submit" onclick="doReplyCheck()" class="g-btn submit" value="답변 등록">
+                    <input type="button" onclick="aBackList()" class="g-btn list" value="문의 목록">
+                    <input type="submit" class="g-btn submit" value="답변 등록">
                 </div>
             </form>
+            <form th:action="@{/admin/help/answer/update}" name="askForm" method="post" class="askForm" th:if="${!answerCheck}">
+                <table class="ask_all_reply">
+                    <colgroup>
+                        <col width="20%;">
+                        <col width="80%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>답변 내용</th>
+                        <td>
+                            <div class="ask_reply" th:object="${inquireAnswerUpdate}">
+                                <input type="hidden" th:field="*{inquireAnswerId}">
+                                <textarea th:field="*{inquireAnswer}" rows="6" class="summernote_ask"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="btns-group">
+                    <input type="button" onclick="aBackList()" class="g-btn list" value="문의 목록">
+                    <input type="submit" class="g-btn submit" value="답변 등록">
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
 </body>
+<script src="/js/admin/write.js"></script>
 <html>

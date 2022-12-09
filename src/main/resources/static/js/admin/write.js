@@ -55,3 +55,25 @@ function cBackList() {
         location.href="/admin/crop";
     }
 }
+
+// 문의 글
+$(".c-submit").on("click", function (){
+    if(!(askForm.inquireAnswer.value)){
+        askForm.inquireAnswer.focus();
+        return;
+    }
+
+    askForm.submit();
+});
+
+
+function aBackList() {
+    if(askForm.inquireAnswer.value){
+        var flag = confirm(msg);
+        if (flag) {
+            location.href="/admin/help";
+        }
+    } else {
+        location.href="/admin/help";
+    }
+}
