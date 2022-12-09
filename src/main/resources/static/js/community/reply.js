@@ -1,13 +1,15 @@
 
 let replyService = (function () {
-    function replyAdd(reply, callback, error) {
+    function replyAdd(replyDTO, callback, error) {
+        alert("들어옴2");
         $.ajax({
             url :"/reply/new",
             type : "post",
-            data: JSON.stringify(reply),
+            data: JSON.stringify(replyDTO),
             contentType: "application/json; charset=utf-8",
             success: function (result, status, xhr) {
                 if(callback){
+                    console.log(result)
                     callback(result);
                 }
             },
@@ -20,6 +22,7 @@ let replyService = (function () {
     }
 
     function getList(param, callback, error) {
+        getTotal();
         $.ajax({
             url: "/reply/list/" + param,
             type: "get",
@@ -53,6 +56,27 @@ let replyService = (function () {
         });
     }
 
+    function getTotal(boardId, callback, error){
+        $.ajax({
+            url: "/reply/" + boardId,
+            type: "post",
+            data: JSON.stringify(boardId),
+            contentType: "application/json; charset=utf-8",
+            success: function(reply, status, xhr){
+                if(callback){
+                    callback(reply);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+
+
     // function replyUpdate(reply, callback, error) {
     //     $.ajax({
     //         url :"/reply/" + reply.replyId,
@@ -73,5 +97,5 @@ let replyService = (function () {
 
 
 
-    return {replyAdd: replyAdd, getList: getList, remove: remove}
+    return {replyAdd: replyAdd, getList: getList, remove: remove, getTotal: getTotal}
 })();

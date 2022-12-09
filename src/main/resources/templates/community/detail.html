@@ -20,7 +20,6 @@
             <article>
                 <div class="top-wrap">
                     <div class="commu-nickname" th:text="*{memberNickName}">
-
                         <hr>
                         <span class="q-nickname">농장주</span>
                     </div>
@@ -63,7 +62,7 @@
             </article>
         </div>
     </section>
-    <section class="detail-wrap gray">
+    <section id="write-reply" class="detail-wrap gray">
         <div class="max">
             <div class="w-wrap white-wrap margin32">
                 <div id="re-before">
@@ -74,7 +73,7 @@
                 </div>
                 <div id="re-after" style="display: none;">
                     <div id="reply-form">
-                        <textarea name="reply" id="re-register" class="reply-input" placeholder="댓글을 입력하시겠습니까?"></textarea>
+                        <textarea name="replyContent" id="re-register" class="reply-input" placeholder="댓글을 입력하시겠습니까?"></textarea>
                     </div>
                     <button class="reply-btn reply-register">댓글 추가하기</button>
                 </div>
@@ -181,14 +180,92 @@
     //     alert(text);
     // }
 
+
+
     show();
 
-    function show(){
-        replyService.getList(boardId, getList);
+
+    $(".reply-btn").on("click", function(){
+        replyService.replyAdd({
+            replyContent: $("textarea[name=replyContent]").val(),
+            boardId: boardId
+        }, function () {show()});
+
+        $("textarea[name=replyContent]").val("");
+
+    });
+
+
+
+    function getTotal() {
+        replyService.getTotal({
+            boardId:boardId
+        }, function () {show()
+        });
     }
 
 
+    function show(){
+        replyService.getList(boardId, getList);
+
+    }
+
+    function replyAdd(result) {
+        let text = "";
+        result(reply =>{
+            text += `<section class="detail-wrap gray">`
+            text += `<div class="max">`
+            text += `<div class="w-wrap white-wrap margin32">`
+            text += `<div id="re-before">`
+            text += `<div class="reply-input">`
+            // text += `댓글을 입력하시겠습니까?`
+            text += `</div>`
+            text += `<button class="r-input">댓글 입력하기</button>`
+            text += `</div>`
+            text += `<div id="re-after" style="display: none;">`
+            text += `<div id="reply-form">`
+            text += ` <textarea name="replyContent" id="re-register" class="reply-input" placeholder="댓글을 입력하시겠습니까?"></textarea>`
+            text += `</div>`
+            text += `<button class="reply-btn reply-register" disabled="">댓글 추가하기</button>`
+            text += `</div>`
+            text += `</div>`
+            text += `</div>`
+            text += `</section>`
+        })
+        $("#write-reply").html(text);
+    }
+
+
+
+    function getTotal(reply) {
+        console.log(reply);
+        let text = "";
+        reply(replyCount =>{
+            text += `<div id="re-count-wrap">`
+            text += `댓글`
+            text += `<span>123</span>`
+            text += `</div>`
+        })
+        $("#re-count-wrap").html(text);
+    }
+
+
+
+
     function getList(replyDTO) {
+
+        function getTotal(reply) {
+            console.log(reply);
+            let text = "";
+            reply(replyCount =>{
+                text += `<div id="re-count-wrap">`
+                text += `댓글`
+                text += `<span>123</span>`
+                text += `</div>`
+            })
+            $("#re-count-wrap").html(text);
+        }
+
         let text = "";
         replyDTO.forEach(reply => {
             text += `<div id="reply-lists">`
@@ -205,16 +282,16 @@
             text += `<svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>`
             text += `</button>`
             text += `</div>`
-            text += `<div class="drop-option-menu" style="display: none;">`
+            text += `<div class="drop-option-menu show" style="display: none;">`
             text += `<div class="o-m-wrap re-modify">`
             text += `<img src="/image/community/modify.png">`
-            text += `"수정하기"`
+            text += `수정하기`
             text += `</div>`
             text += `<hr>`
             // text += `<a class="remove" onclick="replyService.remove()"></a>`
             text += `<div class="o-m-wrap re-delete">`
             text += `<img src="/image/community/delete.png">`
-            text += `"삭제하기"`
+            text += `삭제하기`
             text += `</div>`
             text += `</div>`
             text += `</div>`
