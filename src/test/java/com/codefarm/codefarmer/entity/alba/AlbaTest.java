@@ -164,7 +164,7 @@ public class AlbaTest {
     }
 
     @Test void deleteById(){
-        albaRepository.deleteById(91L);
+        albaRepository.deleteById(104L);
     }
 
 //    알바 마감순

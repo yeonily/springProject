@@ -1,15 +1,12 @@
 package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
-import com.codefarm.codefarmer.domain.program.ProgramDTO;
-import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.alba.AlbaListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,18 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.UUID;
 
@@ -49,6 +42,7 @@ public class AlbaController {
 
         log.info("들어옴1");
 
+        log.info("테스트 : " + albaListService.showListByRecentEndDate().size());
         model.addAttribute("lists", albaListService.showListByRecentEndDate());
         model.addAttribute("counts", albaListService.showCount());
         model.addAttribute("recents", albaListService.showByRecent(pageable));
@@ -134,11 +128,11 @@ public class AlbaController {
         model.addAttribute("list",list);
     }
 
-    @PostMapping("/delete")
-    public void albaDelete(Long albaId){
+    @GetMapping("/delete")
+    public RedirectView albaDelete(Long albaId){
+        log.info("albaId : " + albaId);
+        log.info("게시글 삭제 되니?");
         albaDetailService.removeAlbaId(albaId);
-
+        return new RedirectView("/alba/list");
     }
-
-
 }

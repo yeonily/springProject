@@ -84,13 +84,13 @@ $("#removeModal .cancel").on("click", function(){
 });
 
 /*예 버튼 클릭 시*/
-$("#removeModal button.applyBtn").on("click", function(){
-    $("#removeModal").hide();
-    $("#modalSuccess .m-title").css("text-align", "center");
-    $("#modalSuccess .m-title").text("게시글이 정상적으로 삭제되었습니다.");
-    $("#modalSuccess .m-c-title").text("이후 해당 서비스를 다시 이용해주세요.");
-    $("#modalSuccess").show();
-});
+// $("#removeModal button.applyBtn").on("click", function(){
+//     $("#removeModal").hide();
+//     $("#modalSuccess .m-title").css("text-align", "center");
+//     $("#modalSuccess .m-title").text("게시글이 정상적으로 삭제되었습니다.");
+//     $("#modalSuccess .m-c-title").text("이후 해당 서비스를 다시 이용해주세요.");
+//     $("#modalSuccess").show();
+// });
 
 
 
