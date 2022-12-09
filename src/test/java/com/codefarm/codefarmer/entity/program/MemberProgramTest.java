@@ -44,8 +44,8 @@ public class MemberProgramTest {
     public void saveTest(){
         MemberProgramDTO memberProgramDTO = new MemberProgramDTO();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Optional<Member> findUser = memberRepository.findById(2L);
-        Optional<Program> findProgram = programRepository.findById(35L);
+        Optional<Member> findUser = memberRepository.findById(14L);
+        Optional<Program> findProgram = programRepository.findById(10L);
         memberProgramDTO.setProgramApplyCount(10);
         memberProgramDTO.setProgramPayment(10000);
         memberProgramDTO.setProgramStatus(ProgramStatus.PAY_SUCCEED);

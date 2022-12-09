@@ -11,12 +11,15 @@ import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.entity.program.QMemberProgram;
 import com.codefarm.codefarmer.entity.program.QProgram;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.type.MemberType;
+import com.codefarm.codefarmer.type.Status;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +33,7 @@ import static com.codefarm.codefarmer.entity.alba.QAlba.*;
 import static com.codefarm.codefarmer.entity.board.QBoard.*;
 import static com.codefarm.codefarmer.entity.inquire.QInquire.inquire;
 import static com.codefarm.codefarmer.entity.member.QMember.*;
+import static com.codefarm.codefarmer.entity.program.QMemberProgram.*;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
 import static com.codefarm.codefarmer.entity.program.QProgram.*;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
@@ -191,5 +195,18 @@ public class MemberTest {
 //    }
 //
 
+    @Test
+    public void findMyProgramApplyersTest(){
+        Long memberId = 1l;
+        memberRepository.findMyProgramApplyers(memberId).stream().map(memberProgram->memberProgram.getProgramApplyName()).forEach(log::info);
+    }
+
+    @Test
+    public void updateAlbaStatusTest(){
+        Long albaApplyId = 1l;
+        Status status = Status.CONFIRM;
+        memberRepository.updateAlbaStatues(albaApplyId, status);
+
+    }
 
 }

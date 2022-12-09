@@ -1,13 +1,20 @@
 package com.codefarm.codefarmer.repository.member;
 
 import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.alba.MemberAlba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
+import com.codefarm.codefarmer.entity.alba.QMemberAlba;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.inquire.QInquire;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.member.QMember;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.entity.program.QMemberProgram;
+import com.codefarm.codefarmer.type.Status;
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,9 +22,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
+import static com.codefarm.codefarmer.entity.alba.QMemberAlba.*;
 import static com.codefarm.codefarmer.entity.board.QBoard.board;
 import static com.codefarm.codefarmer.entity.inquire.QInquire.*;
 import static com.codefarm.codefarmer.entity.member.QMember.*;
+import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
 
 @Repository
@@ -35,51 +44,18 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public List<Member> findMyProgramApplyers(Long memberId) {
-
-
-        /*
-         * SELECT * FROM TBL_MEMBER_PROGRAM MP JOIN TBL_PROGRAM P
-         * ON P.MEMBER_ID = 1 AND MP.PROGRAM_ID = P.PROGRAM_ID
-         *
-         *
-         * */
-
-//    @Override
-//    public List<User> findMyProgramApplyers(Long memberId) {
-//        QProgram subProgram = new QProgram("subProgram");
-//        return queryFactory.select(Projections.fields(QMemberProgram.class,
-//                        QMemberProgram.memberProgram.program.programId.as("mp"),
-//                        ExpressionUtils.as(
-//                                JPAExpressions.select(QProgram.program.programId)
-//                                        .from(QProgram.program)
-//                                        .where(QProgram.program.member.memberId.eq(memberId)),
-//                                "p")
-//                )
-//                .from(QMemberProgram.memberProgram)
-//                .fetch();
-//    }
-
-
-//    @Override
-//    public LatestOrderDto findLatestOrderHistoryByLimit(Long orderId) {
-//        return from(orders)
-//                .leftJoin(ordersHistory)
-//                .on(ordersHistory.orders.eq(orders))
-//                .where(orders.id.eq(orderId))
-//                .select(
-//                        Projections.constructor(LatestOrderDto.class,
-//                                orders,
-//                                Expressions.as(
-//                                        from(ordersHistory)
-//                                                .orderBy(ordersHistory.createdAt.desc())
-//                                                .limit(1)
-//                                        , "ordersHistory")
-//                        )
-//                )
-//                .fetchFirst();
-//    }
-        return null;
+    public List<MemberProgram> findMyProgramApplyers(Long memberId) {
+        return jpaQueryFactory.select(memberProgram)
+                .from(memberProgram)
+                .join(program).on((program.member.memberId.eq(memberId)).and(memberProgram.program.programId.eq(program.programId)))
+                .fetch();
+    }
+    @Override
+    public List<MemberAlba> findMyAlbaApplyers(Long memberId) {
+        return jpaQueryFactory.select(memberAlba)
+                .from(memberAlba)
+                .join(alba).on((alba.member.memberId.eq(memberId)).and(memberAlba.alba.albaId.eq(alba.albaId)))
+                .fetch();
     }
 
     @Override
@@ -121,6 +97,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .where(inquire.member.memberId.eq(memberId))
                 .fetchJoin().fetch();
     }
+
 
 
 }

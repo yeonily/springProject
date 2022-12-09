@@ -5,6 +5,8 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.type.Status;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -17,11 +19,15 @@ public class MentorMentee extends Period {
     private Long mentorMenteeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTOR_ID", nullable = false)
+    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTOR_ID")
+    @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member mentor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTEE_ID", nullable = false)
+    @JoinColumn(referencedColumnName = "MEMBER_ID", name="MENTEE_ID")
+    @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member mentee;
 
 

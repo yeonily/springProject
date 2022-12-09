@@ -4,6 +4,8 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.type.Status;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -21,6 +23,7 @@ public class MemberAlba extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @Enumerated(EnumType.STRING)

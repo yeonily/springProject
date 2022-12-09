@@ -38,7 +38,9 @@ public class LoginController {
         session.setAttribute("memberId", id);
         session.setAttribute("memberType", type);
         session.setAttribute("token", token);
-
+        if(kakaoService.checkOauth(memberOauthId) == 0){
+            return new RedirectView("/register/form");
+        }
         return new RedirectView("/main/main");
     }
 

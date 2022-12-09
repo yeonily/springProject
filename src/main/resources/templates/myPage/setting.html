@@ -253,6 +253,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
+<script src="/js/myPage/myPageRest.js"></script>
 <script th:inline="javascript">
 
     /* 탈퇴 탭에서 넘어올 때 이벤트 */
@@ -299,7 +300,7 @@
             }
         })
     }
-
+//---------------------------------------------------------------------------------------------------
     $("div.menu-a").removeClass('menu-select');
     $("#myInfoPage").addClass('menu-select');
 
@@ -316,6 +317,69 @@
         }
     }
 
+//---------------------------------------------------------------------------------------------------
+    show();
 
+    function show(){
+        myPageService.getInfo(memberId, getList);
+
+    }
+
+    function getInfo(memberDTO) {
+
+        function getTotal(reply) {
+            console.log(reply);
+            let text = "";
+            reply(replyCount =>{
+                text += `<div id="re-count-wrap">`
+                text += `댓글`
+                text += `<span>123</span>`
+                text += `</div>`
+            })
+            $("#re-count-wrap").html(text);
+        }
+
+        let text = "";
+        replyDTO.forEach(reply => {
+            text += `<div id="reply-lists">`
+            text += `<article class="re-list-wrap">`
+            text += `<div class="top-wrap">`
+            text += `<div class="commu-nickname re-nick">` + reply.memberNickname + ``
+            text += `<span class="writer"> `+ reply.replyId +`</span>>`
+            text += `<hr>`
+            text += `<span class="q-nickname">일반 </span>`
+            text += `</div>`
+            text += `<div class="drop-option-wrap">`
+            text += `<div class="drop-option">`
+            text += `<button>`
+            text += `<svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>`
+            text += `</button>`
+            text += `</div>`
+            text += `<div class="drop-option-menu show" style="display: none;">`
+            text += `<div class="o-m-wrap re-modify">`
+            text += `<img src="/image/community/modify.png">`
+            text += `수정하기`
+            text += `</div>`
+            text += `<hr>`
+            // text += `<a class="remove" onclick="replyService.remove()"></a>`
+            text += `<div class="o-m-wrap re-delete">`
+            text += `<img src="/image/community/delete.png">`
+            text += `삭제하기`
+            text += `</div>`
+            text += `</div>`
+            text += `</div>`
+            text += `<div class="modify-group" style="display: none;">`
+            text += `<button type="button" class="re-btn m-save">수정</button>>`
+            text += `<button type="button" class="re-btn m-cancel">취소</button>`
+            text += `</div>`
+            text += `</div>`
+            text += `<p class="commu-content re-content">`+ reply.replyContent +`</p>`
+            text += `<p class="commu-date">`+ reply.updatedDate +`</p>`
+            text += `</article>`
+            text += `</div>`
+        })
+
+        $("#reply-lists").html(text);
+    }
 </script>
 </html>

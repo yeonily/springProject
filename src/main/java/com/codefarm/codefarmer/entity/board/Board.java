@@ -6,6 +6,8 @@ import com.codefarm.codefarmer.entity.period.Period;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,6 +29,7 @@ public class Board extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.REMOVE)

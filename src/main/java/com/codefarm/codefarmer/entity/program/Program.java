@@ -9,6 +9,8 @@ import com.codefarm.codefarmer.type.ProgramType;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -92,6 +94,7 @@ public class Program extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "program",cascade = CascadeType.ALL)

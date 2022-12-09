@@ -7,6 +7,8 @@ import com.codefarm.codefarmer.type.Status;
 import com.querydsl.core.annotations.QueryProjection;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -27,6 +29,7 @@ public class Inquire extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     public void changeMember(Member member){
