@@ -352,7 +352,7 @@
                                                 </dl>
                                             </div>
                                             <!--작성자가 아닌 사람이 해당 게시글에 접속했을 때-->
-                                            <button id="main_fixed_button">
+                                            <button id="main_fixed_button" style="display: none">
                                                 <div/>지원하기<div/>
                                             </button>
 
@@ -362,10 +362,10 @@
                                             </button>
 
                                             <!--자신이 작성한 게시글에 접속했을 때 버튼 변경-->
-                                            <button id="update_button" style="display: none" onclick="location.href='/alba/write'">
+                                            <button id="update_button" onclick="location.href='/alba/write'">
                                                 <div/>수정하기<div/>
                                             </button>
-                                            <button id="remove_button" style="display: none">
+                                            <button id="remove_button" th:href="@{/alba/delete(albaId=${param.alba})}">
                                                 <div/>삭제하기<div/>
                                             </button>
                                             <button type="button" class="list_go_button" onclick="location.href='/alba/list'">

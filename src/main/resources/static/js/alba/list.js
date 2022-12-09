@@ -24,32 +24,32 @@ for(var i = 0; i < $status.length; i++) {
                     //알바 곧 마감해 REST
 /*-----------------------------------------------------------*/
 
-$(document).ready(function () {
+// $(document).ready(function () {
 
-    $.ajax({
-        url: "/kind/main",
-        type: "post",
-        success: function (lists) {
-            console.log("들어옴?");
-            let text = "";
-
-            lists.forEach(function (list) {
-                var number = list.albaId;
-                text += '<div class="alba_div" onclick="location.href='
-                text += '/alba/detail?albaId='
-                text += number
-                text += '">'
-                text += '<img src=@{albaImage}>'
-                text += '<div>' + list.albaApplyCount + '/' + list.albaApplyTotalCount + '명' + '・' + '<span>' + list.albaPrice + '원' +'</span></div>'
-                text += '<p class="alba_title">' + list.albaTitle + '</p>'
-                text += '</div>'
-                text += '</div>'
-                text += '</div>'
-                $("#albaList").html(text);
-            });
-            }
-        });
-    });
+    // $.ajax({
+    //     url: "/kind/main",
+    //     type: "post",
+    //     success: function (lists) {
+    //         console.log("들어옴?");
+    //         let text = "";
+    //
+    //         lists.forEach(function (list) {
+    //             var number = list.albaId;
+    //             text += '<div class="alba_div" onclick="location.href='
+    //             text += '/alba/detail?albaId='
+    //             text += number
+    //             text += '">'
+    //             text += '<img src=@{albaImage}>'
+    //             text += '<div>' + list.albaApplyCount + '/' + list.albaApplyTotalCount + '명' + '・' + '<span>' + list.albaPrice + '원' +'</span></div>'
+    //             text += '<p class="alba_title">' + list.albaTitle + '</p>'
+    //             text += '</div>'
+    //             text += '</div>'
+    //             text += '</div>'
+    //             $("#albaList").html(text);
+    //         });
+    //         }
+    //     });
+    // });
 
 /*-----------------------------------------------------------*/
                         //알바 게시글 개수 REST

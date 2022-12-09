@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +32,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -66,24 +69,26 @@ public class AlbaController {
         }
 
     @PostMapping("/write")
-    public RedirectView albaWrite(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile file) throws Exception {
+    public RedirectView albaWrite(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image) throws Exception {
 
-        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/image/alba");
-//        String path = new ClassPathResource("/static/image/information/crop").getFile().getAbsolutePath();
+        String path = "/Users/yeontaegwan/Desktop/project/image";
+        String uploadFileName = null;
 
-        if (!file.isEmpty()) {
-//           String fullPath = "C://upload/" + file.getOriginalFilename();
-            String fullPath = path + "/" + file.getOriginalFilename();
-            log.info("파일 저장 -> " + fullPath);
-            file.transferTo(new File(fullPath));
-            albaDTO.setAlbaImage(fullPath);
+        File uploadPath = new File(path);
+        if(!uploadPath.exists()){
+            uploadPath.mkdirs();
+        }
+
+        if (!image.isEmpty()){
+            UUID uuid = UUID.randomUUID();
+            String fileName = image.getOriginalFilename();
+            uploadFileName = uuid.toString() + "_" + fileName;
+            File saveFile = new File(path, uploadFileName);
+            image.transferTo(saveFile);
+            albaDTO.setAlbaImage(uploadFileName);
         }
 
         log.info("들어왔니?");
-        log.info("albaApplyStartDateString:"+ albaApplyStartDateString);
-        log.info("albaApplyEndDateString:"+ albaApplyEndDateString);
-        log.info("albaWorkDateString:"+ albaWorkDateString);
-        log.info("albaDTO: " + albaDTO.toString());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -107,8 +112,17 @@ public class AlbaController {
 
         albaListService.saveAll(albaDTO);
 
-//        redirectAttributes.addFlashAttribute("albaId", albaDTO.getAlbaId());
-        return new RedirectView("list");
+        return new RedirectView("/alba/list");
+    }
+
+    @GetMapping("/display")
+    @ResponseBody
+    public byte[] display(String fileName) throws IOException{
+        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
+        log.info("이거 맞냐구~~  -> " + file);
+        log.info("모냐구 -> " + FileCopyUtils.copyToByteArray(file));
+
+        return FileCopyUtils.copyToByteArray(file);
     }
 
     @GetMapping("/detail")
@@ -120,10 +134,11 @@ public class AlbaController {
         model.addAttribute("list",list);
     }
 
-//    @GetMapping("/display")
-//    public byte[] display(String fileName) throws IOException{
-//        File file = new File("")
-//    }
+    @PostMapping("/delete")
+    public void albaDelete(Long albaId){
+        albaDetailService.removeAlbaId(albaId);
+
+    }
 
 
 }
