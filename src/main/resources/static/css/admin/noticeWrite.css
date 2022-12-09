@@ -109,6 +109,7 @@ td div.file {
     display: flex;
     margin-top: 1%;
     float: right;
+    cursor: pointer;
 }
 
 td div.file input {
@@ -117,6 +118,7 @@ td div.file input {
     height: 30px !important;
     opacity: 0 !important;
     overflow: hidden !important;
+    cursor: pointer !important;
 }
 
 td div#file-content {

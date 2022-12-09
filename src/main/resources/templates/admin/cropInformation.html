@@ -92,9 +92,12 @@
                             </td>
                             <td class="content" th:utext="*{cropContent}"></td>
                             <td>관리자</td>
-                            <td><img src="/image/admin/fileImage.png"></td>
+                            <td>
+                                <span th:if="*{cropImage == null}">-</span>
+                                <img src="/image/admin/fileImage.png" th:unless="*{cropImage == null}">
+                            </td>
                             <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
-                            <td class="revise"><input type="button" value="수정" th:onclick="'location.href=\''+ @{/admin/crop/update(cropId=*{cropId})} + '\''"></td>
+                            <td class="revise"><input type="button" value="수정" th:onclick="|javascript:goUpdate(*{cropId})|"></td>
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/crop/delete}">
                                     <input type="text" hidden name="cropId" th:value="*{cropId}">
@@ -139,6 +142,10 @@
 
     const urlParams = new URL(location.href).searchParams;
     const keyword = urlParams.get('keyword');
+
+    function goUpdate(cropId) {
+        location.href ="/admin/crop/update?cropId=" + cropId;
+    }
 
     // 검색 옵션
     if(keyword == null || keyword =="") {
