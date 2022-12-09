@@ -54,7 +54,7 @@ public class ProgramDTO {
     private int programPrice;
     private String programLocation;
     private String programInquire;
-//    private Member member;
+    private Member member;
     private Long memberId;
     private List<ProgramFileDTO> files;
 
@@ -93,6 +93,7 @@ public class ProgramDTO {
                 .programWorkDate(programWorkDate)
                 .programWorkEndTime(programWorkEndTime)
                 .programWorkStartTime(programWorkStartTime)
+                .member(member)
                 .build();
     }
 
