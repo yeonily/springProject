@@ -227,15 +227,26 @@
 
 
     $(".detail-wrap").on("click", ".re-delete",function () {
-        let number = $(this).closest(".drop-option-wrap").prev().find(".writer").text();
+        let number = $(this).closest(".drop-option-wrap").prev().find(".writer").attr('id');
         replyService.remove(number, show);
         setTimeout(()=>{
             getTotal(
                 replyService.getTotal(boardId, getTotal)
             );
-        },100);
+        },200);
 
     });
+
+    $(".detail-wrap").on("click", ".re-delete",function () {
+        refreshPage();
+    });
+
+
+
+
+    $(".detail-wrap").on("click", ".reply-btn", function () {
+       refreshPage();
+    })
 
 
     function replyAdd(result) {
@@ -254,7 +265,7 @@
             text += `<div id="reply-form">`
             text += ` <textarea name="replyContent" id="re-register" class="reply-input" placeholder="댓글을 입력하시겠습니까?"></textarea>`
             text += `</div>`
-            text += `<button class="reply-btn reply-register" disabled="">댓글 추가하기</button>`
+            text += `<button class="reply-btn reply-register">댓글 추가하기</button>`
             text += `</div>`
             text += `</div>`
             text += `</div>`
@@ -286,13 +297,16 @@
             text += `<article class="re-list-wrap">`
             text += `<div class="top-wrap">`
             text += `<div class="commu-nickname re-nick">` + reply.memberNickName + ``
-            text += `<span class="writer"> `+ reply.replyId +`</span>`
-            text += `<hr>`
-            text += `<span class="q-nickname">일반 </span>`
+            if(reply.memberId == $("#listMember").val()){
+                text += `<span class="writer" id="`+ reply.replyId +`">게시글 작성자</span>`
+            }
+            if(reply.memberId != $("#listMember").val()) {
+                text += `<hr>`
+                text += `<span class="q-nickname">일반</span>`
+            }
             text += `</div>`
             if(reply.memberId == $("#sessionMember").val()) {
-                // text += `<input type="hidden" class="replyMember `+ reply.memberId + `" id="replyMember">`
-                text += `<div class="drop-option-wrap" id="replyBtn">`  
+                text += `<div class="drop-option-wrap" id="replyBtn">`
                 text += `<div class="drop-option">`
                 text += `<button>`
                 text += `<svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>`
@@ -308,7 +322,6 @@
                 text += `<div class="o-m-wrap re-delete">`
                 text += `<img src="/image/community/delete.png">`
                 text += `삭제하기`
-                // text += `<button type="button" class="re-btn m-delete">삭제하기</button>`
                 text += `</div>`
                 text += `</div>`
                 text += `</div>`
@@ -322,10 +335,15 @@
             text += `<p class="commu-date">`+ replyService.timeForToday(reply.updateDate) +`</p>`
             text += `</article>`
             text += `</div>`
+
         })
 
         $("#reply-lists").html(text);
+
     }
+
+
+
 
 
     if($("#sessionMember").val() == $("#listMember").val()){
@@ -335,9 +353,6 @@
     }
 
 console.log($("#sessionMember").val());
-// console.log($("#replyMember").val());
-// console.log($(".drop-option-wrap").val());
-// console.log($(".drop-option-wrap." + ($("#sessionMember").val())));
 
 
         // if ($("#sessionMember").val() == $("#replyMember").val()) {
@@ -346,6 +361,9 @@ console.log($("#sessionMember").val());
         //     $(".replyBtn").hide();
         // }
 
+function refreshPage() {
+    window.location.reload();
+}
 
 
 

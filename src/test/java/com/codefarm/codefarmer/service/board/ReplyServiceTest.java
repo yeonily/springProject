@@ -66,7 +66,7 @@ public class ReplyServiceTest {
 //        replyDTO.setMemberId(findFarmer.get());
         replyDTO.setReplyId(findReply.get().getReplyId());
 
-        replyService.replyUpdate(replyDTO);
+//        replyService.replyUpdate(replyDTO);
     }
 
 //    댓글 단 사람의 닉네임 갖고오기
@@ -90,7 +90,7 @@ public class ReplyServiceTest {
 //  내가 등록한 댓글 삭제하기
     @Test
     public void removeReplyTest(){
-        replyService.removeReply(19L);
+        replyService.removeReply(108L);
     }
 
     @Test
