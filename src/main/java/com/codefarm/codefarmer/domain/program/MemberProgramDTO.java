@@ -40,14 +40,31 @@ public class MemberProgramDTO {
                 .build();
     }
 
+<<<<<<< HEAD
 
+=======
+//    @QueryProjection
+//    public MemberProgramDTO(Program program, Member member, ProgramStatus programStatus, int programApplyCount, int programPayment) {
+//        this.program = program;
+//        this.member = member;
+//        this.programStatus = programStatus;
+//        this.programApplyCount = programApplyCount;
+//        this.programPayment = programPayment;
+//    }
+>>>>>>> origin/master
 
     @QueryProjection
-    public MemberProgramDTO(Program program, Member member, ProgramStatus programStatus, int programApplyCount, int programPayment) {
+    public MemberProgramDTO(Long programApplyId, Program program, Member member, ProgramStatus programStatus, int programApplyCount, int programPayment, String programApplyName, String programApplyPhoneNum, String programApplyEmail, String programApplyLocation, LocalDateTime programApplyBirth) {
+        this.programApplyId = programApplyId;
         this.program = program;
         this.member = member;
         this.programStatus = programStatus;
         this.programApplyCount = programApplyCount;
         this.programPayment = programPayment;
+        this.programApplyName = programApplyName;
+        this.programApplyPhoneNum = programApplyPhoneNum;
+        this.programApplyEmail = programApplyEmail;
+        this.programApplyLocation = programApplyLocation;
+        this.programApplyBirth = programApplyBirth;
     }
 }

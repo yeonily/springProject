@@ -104,19 +104,53 @@ $("button.infoBtn").on("click", function(){
 })
 
 /*------------- 닉네임 수정 -------------*/
+
 function nickCheck (){ /* 중복 체크 */
-    if(!nickForm.nickname.value) {
-        nickForm.nickname.focus();
-        return;
-    }
 
-    $("button.nick-save").attr("disabled", false);
+    memberNickname = nickForm.memberNickname.value;
+    console.log(memberNickname);
+
+    $.ajax({
+        url: "/mypage/setting",
+        type : "post",
+        data : {memberNickname: memberNickname},
+        success : function(data){
+            if(data == 0){
+                console.log("성공");
+                $("#n-message1").css("display", "block");
+                $("#n-message2").css("display", "none");
+                $("button.nick-save").attr("disabled", false);
+            }else{
+                console.log("씰패");
+                $("#n-message1").css("display", "none");
+                $("#n-message2").css("display", "block");
+            }
+        }
+
+    });
+
+
 }
 
+// let memberId = [[${member.memberId}]];
 function nickSave() { /* 저장 */
-    nickForm.submit();
+
+    $.ajax({
+        url: "/mypage/settingnick",
+        type : "put",
+        data : JSON.stringify({memberId : memberId,
+                memberNickname: memberNickname}),
+        contentType: "application/json; charset=utf-8",
+        success : function(){
+            console.log("??"+memberNickname);
+            $("div.nick").text(memberNickname);
+        }
+
+    });
+
 }
 
+$("button.nick-save").on("click", nickSave);
 
 /*------------- 개인 정보 수정 -------------*/
 function myInfoSave() {
@@ -144,7 +178,24 @@ function newMentorSave (){ /* 중복 체크 */
         return;
     }
 
-    newMentorForm.submit();
+    // newMentorForm.submit();
+
+
+    let crops = newMentorForm.newMainCrops.value;
+    let years = newMentorForm.newYears.value;
+    $.ajax({
+        url: "/mypage/settingMentor",
+        type : "put",
+        data : JSON.stringify({crops : crops,
+            years: years}),
+        contentType: "application/json; charset=utf-8",
+        success : function(){
+        //    저장
+        //    멘토타입으로 변경
+
+        }
+
+    });
 }
 
 

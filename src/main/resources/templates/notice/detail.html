@@ -22,15 +22,17 @@
                     <div class="p-img"><img src="/image/header/favicon.png"></div>
                 </div>
                 <div id="notice-content">
-                    <pre th:text="*{noticeContent}"></pre>
+                    <pre th:utext="*{noticeContent}"></pre>
                 </div>
                 <div id="notice-date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></div>
-                <div id="files">
-                    <div class="file">
-                        <span class="f-img"><img src="/image/community/clip.png"></span>
-                        <span class="f-title">JPA_신난다.jpg</span>
-                        <span class="f-size">[1.63MB]</span>
-                    </div>
+                <div id="files" >
+                    <a href="">
+                        <div class="file">
+                            <span class="f-img"><img src="/image/community/clip.png"></span>
+                            <span class="f-title">JPA_신난다.jpg</span>
+                            <span class="f-size">[1.63MB]</span>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div id="list-btn">

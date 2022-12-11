@@ -3,27 +3,34 @@
 /*-----------------------------------------------------------*/
 var sessionId = Number($("#sessionId").text()); // 현재 로그인된 세션 아이디
 
-$(".left_lists").on("click", function (){
+
+$(".left_lists").on("click", function () {
     const roomId = $(this).find("span").text(); // 각 방의 방 번호를 저장
     const nickName = $(this).find(".list_name_p1").text(); // 닉네임
     let sockJs = new SockJS("/chatting");
+    /*실행 순서 첫 번째*/
     let stomp = Stomp.over(sockJs);
 
+    $("#chat-foreach").html("");
     $(".right_text .list_text_p1").text(nickName); // 닉네임을 선택한 채팅방의 닉네임으로 변경함
 
-    /*실행 순서 첫 번째*/
+
+
+
+    /*실행 순서 두 번째*/
     /*stomp 소켓 정상적으로 연결되었을 때*/
     stomp.connect({}, function() {
         console.log("연결됨!");
 
-        /*실행 순서 두 번째*/
+        /*실행 순서 네 번째*/
         /*선택한 채팅방 번호에 따른 채팅 내역을 모두 불러옴*/
         stomp.subscribe("/sub/mento/chatting" + roomId, function (chat) {
+            console.log("챗 : " + chat.toString());
             let content = JSON.parse(chat.body); // JSON 키값을 통해 리턴받은 값에 접근 가능
             let message = content.chatMessage; // 메세지 내용
             let sendDate = content.chatDate; // 메세지 날짜
             let writer = content.memberId; // 채팅을 작성한 사람
-            let chatStatus = "READ" ? true : false; // 채팅 읽음 표시(읽었을 때는 true)
+            let chatStatus = content.chatStatus == 'READ' ? true : false; // 채팅 읽음 표시(읽었을 때는 true)
 
             // console.log("채팅 : " + chatStatus);
 
@@ -42,7 +49,6 @@ $(".left_lists").on("click", function (){
                     const days = new Date(this.sendDate).getDate();
                     let text = "";
                     const check =  this.chatStatus == true ? true : false; // 채팅을 읽은 상태일 경우 true
-
 
                     /*현재 로그인 한 세션이 보낸 채팅의 경우*/
                     if(sessionId == this.writer) {
@@ -68,12 +74,14 @@ $(".left_lists").on("click", function (){
                             text += `</div>`;
                         text += `</div>`;
                     }
-                    $("#chat-foreach").append(text);
+                    $("#chat-foreach").prepend(text);
                 }
             }
         })
         /*실행 순서 세 번째*/
-        stomp.send('/pub/chatting/enter', {}, JSON.stringify({roomId: roomId}))
+        stomp.send('/pub/chatting/enter', {}, JSON.stringify({roomId: roomId, memberId: sessionId}))
+
+        // stomp.disconnect();
     });
 
     /*만약 메세지를 입력하는 input에서 엔터를 눌렀을 때 채팅 전송 처리*/
@@ -91,6 +99,9 @@ $(".left_lists").on("click", function (){
 
     function messageSend() {
         let inputMessage = $("#message").val(); // 사용자가 입력한 텍스트를 저장
+        if(inputMessage.length == 0) {
+            return;
+        }
         stomp.send("/pub/chatting/message", {}, JSON.stringify({roomId : roomId, chatMessage : inputMessage, chatStatus: "UNREAD", memberId: sessionId}));
         $("#message").val('');
     }

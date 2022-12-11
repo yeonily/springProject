@@ -1,294 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>아르바이트 상세페이지</title>-->
-<!--    <link rel="stylesheet" href="/css/header/header.css"/>-->
-<!--    <link rel="stylesheet" href="/css/footer/footer.css"/>-->
-<!--    <link rel="stylesheet" href="/css/common/font.css"/>-->
-<!--    <link rel="stylesheet" href="/css/alba/detail.css"/>-->
-<!--    <link rel="icon" href="/image/header/favicon.png" />-->
-<!--    <link rel="shortcut icon" href="/image/header/favicon.png" />-->
-<!--</head>-->
-<!--<body>-->
-<!--<div th:replace="/header/header.html :: header" class="header"/>-->
-<!--<div id="wrap">-->
-<!--    &lt;!&ndash;상단 서브배너&ndash;&gt;-->
-<!--    <div class="sub-banner">-->
-<!--        <div class="sub-banner-inner">-->
-<!--            <div class="left-div">-->
-<!--                <span>모집중</span>-->
-<!--                <div class="left-div-title">논산 딸기재배 아르바이트</div>-->
-<!--                <div class="left-div-content">몸이 힘들지 않은 간단 아르바이트</div>-->
-<!--            </div>-->
-<!--            <div class="right-div-image">-->
-<!--                <img src="/image/alba/alba_banner.png">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div class="content">-->
-<!--        &lt;!&ndash;우측 고정 aside&ndash;&gt;-->
-<!--        <div id="main_banner_inner3">-->
-<!--            <div id="main_banner_inner4">-->
-<!--                <div id="main_banner_flex_1"></div>-->
-<!--                <div id="main_banner_flex_2">-->
-<!--                    <section id="main_fixed">-->
-<!--                        <aside>-->
-<!--                            <div>-->
-<!--                                <article id="main_fixed_inner1">-->
-<!--                                    <div id="main_fixed_inner2">-->
-<!--                                        <div id="main_fixed_category">모집중</div>-->
-<!--                                        <div id="main_fixed_title">논산 딸기재배 아르바이트</div>-->
-<!--                                        <div>-->
-<!--                                            <dl>-->
-<!--                                                <div class="main_fixed_dl">-->
-<!--                                                    <dt class="main_fixed_dl_dt">모집기간</dt>-->
-<!--                                                    <dd class="main_fixed_dl_dd">~ 2022년 11월 31일</dd>-->
-<!--                                                </div>-->
-<!--                                                <div class="main_fixed_dl">-->
-<!--                                                    <dt class="main_fixed_dl_dt">작업날짜</dt>-->
-<!--                                                    <dd class="main_fixed_dl_dd">2022년 12월 31일</dd>-->
-<!--                                                </div>-->
-<!--                                                <div class="main_fixed_dl">-->
-<!--                                                    <dt class="main_fixed_dl_dt">모집인원</dt>-->
-<!--                                                    <dd class="main_fixed_dl_dd">1/5명</dd>-->
-<!--                                                </div>-->
-<!--                                                <div class="main_fixed_dl">-->
-<!--                                                    <dt class="main_fixed_dl_dt">시급</dt>-->
-<!--                                                    <dd class="main_fixed_dl_dd">10,200원</dd>-->
-<!--                                                </div>-->
-<!--                                            </dl>-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash;작성자가 아닌 사람이 해당 게시글에 접속했을 때&ndash;&gt;-->
-<!--                                        <button id="main_fixed_button">-->
-<!--                                            <div/>지원하기<div/>-->
-<!--                                        </button>-->
-
-<!--                                        &lt;!&ndash;지원한 게시글에 접근했을 때&ndash;&gt;-->
-<!--                                        <button id="cancel" style="display: none">-->
-<!--                                            <div/>지원 취소하기<div/>-->
-<!--                                        </button>-->
-
-<!--                                        &lt;!&ndash;자신이 작성한 게시글에 접속했을 때 버튼 변경&ndash;&gt;-->
-<!--                                        <button id="update_button" style="display: none" onclick="location.href='/alba/write'">-->
-<!--                                            <div/>수정하기<div/>-->
-<!--                                        </button>-->
-<!--                                        <button id="remove_button" style="display: none">-->
-<!--                                            <div/>삭제하기<div/>-->
-<!--                                        </button>-->
-<!--                                        <button type="button" class="list_go_button" onclick="location.href='/alba/list'">-->
-<!--                                            <div/>목록으로<div/>-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </article>-->
-<!--                            </div>-->
-<!--                        </aside>-->
-<!--                    </section>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash;컨텐츠 아래 상세내용&ndash;&gt;-->
-<!--        <div class="grid-fluid-second-col">-->
-<!--            <div class="grid-fluid-second-col-out">-->
-<!--                <div class="grid-container-out">-->
-<!--                    <div class="grid-container">-->
-<!--                        &lt;!&ndash;첫 번째 컨텐츠(농장 큰틀 소개)&ndash;&gt;-->
-<!--                        <div class="main-content">-->
-<!--                            <h2 class="title">논산에서 제일 으뜸으로 인정해주는 딸기농장입니다.</h2>-->
-<!--                            <p class="content">3명의 현직자와 함께 진짜 직무가 하는 일을 경험하고,<br>-->
-<!--                                내가 잘하고 좋아할 수 있는 일인지 확인해보세요.</p>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;두 번째 컨텐츠(농장 장점 소개)&ndash;&gt;-->
-<!--                        <div class="second-content">-->
-<!--                            <h2>저희 농장에서는<br>아래와 같은 장점이 있습니다.</h2>-->
-<!--                            <div class="step">-->
-<!--                                <p class="title">온라인을 통해<br>진행되는 안전교육</p>-->
-<!--                                <p class="content">현장에서 지루한 안전교육은 그만!<br>온라인으로 빠르게 미리 교육을 받을 수 있습니다.</p>-->
-<!--                                <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-2.svg">-->
-<!--                            </div>-->
-<!--                            <div class="step">-->
-<!--                                <p class="title">셔틀차량을 통해<br>모두가 한 번에 출퇴근!</p>-->
-<!--                                <p class="content">셔틀차량을 통해 농장까지<br>편하게 이동할 수 있습니다.</p>-->
-<!--                                <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-1.svg">-->
-<!--                            </div>-->
-<!--                            <div class="step">-->
-<!--                                <p class="title">협업을 통해<br>조기퇴근을 해보세요!</p>-->
-<!--                                <p class="content">하루 할당량을 모두 채웠을 경우<br>일급은 그대로! 퇴근은 빨리!</p>-->
-<!--                                <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-3.svg">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash;중간 배너&ndash;&gt;-->
-<!--                    <div class="middle-banner">-->
-<!--                        <div class="middle-banner-content-out">-->
-<!--                            <div class="middle-banner-content">-->
-<!--                                <p class="topText">딸기농사 10년차 농장주 김민혁 입니다.</p>-->
-<!--                                <p class="bottomText">저희 농장에서 편하게 <span>딸기 농사</span> 아르바이트 해보시겠어요?</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="grid-container">-->
-<!--                        &lt;!&ndash;세 번째 컨텐츠(농장주의 서술)&ndash;&gt;-->
-<!--                        <div class="third-content">-->
-<!--                            <strong>안녕하세요 현재 논산에서 10년째 딸기 농사를 하고 있는 김민혁 입니다.</strong>-->
-<!--                            <p>저는 처음 중소 SI 회사에서 풀스택 웹 개발자(Spring + JSP + jquery)로 일을 시작했습니다. 첫 1년 반 동안은 웹 브라우저에서부터 Database 까지 데이터가 어떻게 왔다갔다 하는 지를 알게 되었고, 누군가 요청하는 기능을 어떤 식으로든 돌아가게 구현할 줄 아는 사람이 되었습니다. 그런데 그 이후 같은 코드 베이스를 복사, 붙여넣기하여 여러 사이트들을 찍어내고, 똑같은 방식으로 유지·보수하며 2년 반을 더 근무하였고, 그 동안 개발자로서의 추가적인 성장은 없었습니다.<br><br>-->
-<!--                                물론 자기 개발을 소홀히 한 저의 잘못이기도 하나, 회사의 그 어떤 선배들에게서도 일을 더 잘하는 방법, 코드를 더 잘 작성하는 방법, 좋은 개발자로 성장하는 방법에 대해서는 조언을 듣기 어려운 환경이였습니다.<br><br>-->
-<!--                                그렇게 스스로 개발자가 아닌 것 같은 자괴감에 빠지게 되면서 이직을 준비하게 되었고 남의 일을 해주는 회사가 아닌 자사 서비스를 개발하고 운영하는 회사, 또한 좋은 개발문화가 있는 회사를 목표로 잡았고, 그 당시 한 해 개발자만 100명 넘게 채용하던 서비스 스타트업에 운 좋게 입사하게 되었습니다.<br><br>-->
-<!--                                일을 서로 미루고, 책임만을 묻기 바빴던 전 회사와 달리 정말 일을 주도적으로 해나가는 것을 즐기고 당연하게 생각하시는 분들이 대부분이였고, 정말 기본적인 것도 몰라서 했던 기초적인 질문에 선배 개발자분은 1시간도 넘게 옆에 붙어서 친절하게 설명해주기도 하였으며, 제가 장애를 내도 책임을 묻기는 커녕 다같이 원인과 해결 방법을 찾아주고 격려해주는 모습들을 보면서 정말 많은 것들을 보고 느끼게 되었습니다.<br><br>-->
-<!--                                그때의 이직이 저에게는 가장 큰 커리어의 터닝포인트였으며, 좋은 선배들에게 문화와 기술, 마인드를 배우며 이전과는 비교도 되지 않는 속도로 성장할 수 있었습니다. 이러한 경험들을 바탕으로 이제는 어엿한 시니어 개발자로서 사내 개발문화 개선, 코드리뷰, 사내발표, 기술블로그 작성 등으로 개발팀에 기여하고, 과제 검토와 기술 면접도 담당하며 채용에도 기여하는 사람이 되었습니다.<br><br>-->
-<!--                                제가 부트캠프에서 소개하고 싶은 내용은 제가 몸담고 있는 서비스 스타트업 생태계에 대해 소개드리고, 백엔드 개발자는 실무에서는 어떤 일들을 하는지, 어떻게 하면 일을 잘 할 수 있는지, 또 그것을 어떻게 코드에 녹여내는지 등을 소개하려고 합니다. 또한 필수적으로 공부하면 좋은 것들(개념, 책, 강의)도 소개드리려고 합니다.<br><br>-->
-<!--                                좋은 개발자로 성장하는데 있어서 좋은 선배를 만나는 것 만큼 강력한 방법은 없는 것 같습니다.<br><br>-->
-<!--                                멘토링을 진행하는 동안 여러분들의 든든한 선배로서 성심성의껏 도와드리겠습니다.<br><br>-->
-<!--                                감사합니다.<br><br><br>-->
-<!--                                농장 위치 : 충청남도 논산시 부적면 신교리 677-2 아침애딸기-->
-<!--                            </p>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;농장주의 간단한 프로파일&ndash;&gt;-->
-<!--                        <div class="farmer-profile">-->
-<!--                            &lt;!&ndash;프로필 아이콘(간단설명)&ndash;&gt;-->
-<!--                            <div class="img-icon">-->
-<!--                                <img src="/image/alba/profile.png">-->
-<!--                                <h1>김민혁</h1>-->
-<!--                                <span><img src="/image/alba/mentoIcon.png">인증 멘토</span>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash;프로필 상세설명&ndash;&gt;-->
-<!--                            <div class="profile-content">-->
-<!--                                <p>-->
-<!--                                    <strong>현 논산시 딸기농장, 딸기농장체험프로그램 운영중</strong><br>-->
-<!--                                    - 연매출 10억 기록한 딸기농장<br>-->
-<!--                                    - 논산에서 인정한 대표 딸기<br>-->
-<!--                                    - 알바생 및 체험프로그램 높은 만족도 보유<br><br>-->
-
-<!--                                    <strong>농장주의 간단 자기소개</strong><br>-->
-<!--                                    - 다양한 경험과 노하우가 있는 베테랑 농부<br>-->
-<!--                                    - 고리타분하지 않은 성격, 개방적인 마인드 보유<br>-->
-<!--                                    - 유쾌함과 즐거움이 함께 공존을 희망하며 노력중-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash;지도 들어갈 위치&ndash;&gt;-->
-<!--                    <div class="alba-location">-->
-<!--                        <div id="map" style="width:750px;height:350px;"></div>-->
-<!--                        <p>아르바이트 주소 : <span class="work-location">충청남도 논산시 부적면 신교리 677-2 아침애딸기</span></p>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash;신청방법(고정)&ndash;&gt;-->
-<!--                    <div class="last-comment">-->
-<!--                        <div class="last-comment-inner">-->
-<!--                            <h2><span>아르바이트 지원 방법을 알려드릴게요!</span></h2>-->
-<!--                            <p>1. 해당 아르바이트를 신청하기 위해서는 우측에 있는 지원하기 버튼을 클릭합니다.<br>-->
-<!--                                2. 클릭 후, 농장주의 이메일을 확인 후 아르바이트 지원서를 해당 이메일로 전송합니다.<br>-->
-<!--                                3. 전송 후 확인 버튼을 누르게 되면 아르바이트 지원이 정상적으로 처리됩니다.-->
-<!--                            </p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--&lt;!&ndash;지원하기 모달창&ndash;&gt;-->
-<!--<div id="modal" style="display: none;">-->
-<!--    <div id="modal-overlay">-->
-<!--        <div class="c-modal">-->
-<!--            <div class="m-wrap">-->
-<!--                <div class="m-title">아르바이트 지원하기</div>-->
-<!--                <form action="" method="post">-->
-<!--                    <div class="m-c-wrap">-->
-<!--                        <div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>-->
-<!--                        <p>mesudal@naver.com</p>-->
-<!--                    </div>-->
-<!--                    <div class="applyBtnWrap">-->
-<!--                        <button type="button" class="applyBtn">메일전송 완료</button>-->
-<!--                        <button type="button" class="cancel">취소</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--&lt;!&ndash;지원 완료&ndash;&gt;-->
-<!--<div id="modalSuccess" style="display: none;">-->
-<!--    <div id="modalSuccess-overlay">-->
-<!--        <div class="c-modal">-->
-<!--            <div class="m-wrap">-->
-<!--                <div class="m-title">아르바이트에 지원해주셔서 감사합니다!</div>-->
-<!--                <form action="" method="post">-->
-<!--                    <div class="m-c-wrap">-->
-<!--                        <div class="m-c-title">빠른 시일 내에 지원결과를 알려드리도록 하겠습니다.</div>-->
-<!--                    </div>-->
-<!--                    <div class="applyBtnWrap">-->
-<!--                        <button type="button" class="listBtn" onclick="location.href='/alba/list'">목록으로</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--&lt;!&ndash;지원 취소&ndash;&gt;-->
-<!--<div id="cancelModal" style="display: none">-->
-<!--    <div id="modalCancel-overlay">-->
-<!--        <div class="c-modal">-->
-<!--            <div class="m-wrap">-->
-<!--                <div class="m-title">아르바이트 지원 취소</div>-->
-<!--                <form action="" method="post">-->
-<!--                    <div class="m-c-wrap">-->
-<!--                        <div class="m-c-title">신청한 아르바이트를 신청하시겠습니까?</div>-->
-<!--                    </div>-->
-<!--                    <div class="applyBtnWrap">-->
-<!--                        <button type="button" class="applyBtn">예</button>-->
-<!--                        <button type="button" class="cancel">아니오</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--&lt;!&ndash;글 삭제&ndash;&gt;-->
-<!--<div id="removeModal" style="display: none">-->
-<!--    <div id="removeCancel-overlay">-->
-<!--        <div class="c-modal">-->
-<!--            <div class="m-wrap">-->
-<!--                <div class="m-title">아르바이트 글 삭제</div>-->
-<!--                <form action="" method="post">-->
-<!--                    <div class="m-c-wrap">-->
-<!--                        <div class="m-c-title">작성된 아르바이트 게시글을 삭제하시겠습니까?</div>-->
-<!--                    </div>-->
-<!--                    <div class="applyBtnWrap">-->
-<!--                        <button type="button" class="applyBtn">예</button>-->
-<!--                        <button type="button" class="cancel">아니오</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--<footer th:replace="/footer/footer.html :: footer" class="footer"/>-->
-<!--</body>-->
-<!--<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>-->
-<!--<script src="/js/header/header.js"></script>-->
-<!--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f55e971f1bb222a365c9e75eb0175b7e&libraries=services"></script>-->
-<!--<script src="/js/alba/detail.js"></script>-->
-<!--</html>-->
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
 <head>
@@ -302,254 +11,255 @@
     <link rel="shortcut icon" href="/image/header/favicon.png" />
 </head>
 <body>
-    <div th:replace="/header/header.html :: header" class="header"/>
-    <div id="wrap">
-        <!--상단 서브배너-->
-        <div class="sub-banner">
-            <div class="sub-banner-inner">
-                <div class="left-div">
-                    <span>모집중</span>
-                    <div class="left-div-title" th:text="${list.albaTitle}"></div>
-                    <div class="left-div-content" th:text="${list.albaTitleOne}"></div>
-                </div>
-                <div class="right-div-image">
-                    <img src="/image/alba/alba_banner.png">
-                </div>
+<div th:replace="/header/header.html :: header" class="header"/>
+<div id="wrap">
+    <!--상단 서브배너-->
+    <div class="sub-banner">
+        <div class="sub-banner-inner">
+            <div class="left-div">
+                <span>모집중</span>
+                <div class="left-div-title" th:text="${list.albaTitle}"></div>
+                <div class="left-div-content" th:text="${list.albaTitleOne}"></div>
+            </div>
+            <div class="right-div-image">
+                <img src="/image/alba/alba_banner.png">
             </div>
         </div>
+    </div>
 
-        <div class="content">
-            <!--우측 고정 aside-->
-            <div id="main_banner_inner3">
-                <div id="main_banner_inner4">
-                    <div id="main_banner_flex_1"></div>
-                    <div id="main_banner_flex_2">
-                        <section id="main_fixed">
-                            <aside>
-                                <div>
-                                    <article id="main_fixed_inner1">
-                                        <div id="main_fixed_inner2" th:object="${list}">
-                                            <div id="main_fixed_category">모집중</div>
-                                            <div id="main_fixed_title" th:text="*{albaTitle}"></div>
-                                            <div>
-                                                <dl>
-                                                    <div class="main_fixed_dl">
-                                                        <dt class="main_fixed_dl_dt">모집기간</dt>
-                                                        <dd class="main_fixed_dl_dd" th:with="weekday=${#temporals.dayOfWeekNameShort(list.albaApplyEndDate)}" th:text=" '~' + ${#temporals.format(list.albaApplyEndDate,'YYYY.MM.dd(' +weekday + ')')}"></dd>
-                                                    </div>
-                                                    <div class="main_fixed_dl">
-                                                        <dt class="main_fixed_dl_dt">작업날짜</dt>
-                                                        <dd class="main_fixed_dl_dd" th:with="weekday=${#temporals.dayOfWeekNameShort(list.albaWorkDate)}" th:text="${#temporals.format(list.albaWorkDate,'YYYY.MM.dd(' +weekday + ')')}"></dd>
-                                                    </div>
-                                                    <div class="main_fixed_dl">
-                                                        <dt class="main_fixed_dl_dt">모집인원</dt>
-                                                        <dd class="main_fixed_dl_dd"th:text="*{albaApplyCount} + '/' + *{albaApplyTotalCount} + '명'"></dd>
-                                                    </div>
-                                                    <div class="main_fixed_dl">
-                                                        <dt class="main_fixed_dl_dt">시급</dt>
-                                                        <dd class="main_fixed_dl_dd" th:text="*{albaPrice} + '원'"></dd>
-                                                    </div>
-                                                </dl>
-                                            </div>
-                                            <!--작성자가 아닌 사람이 해당 게시글에 접속했을 때-->
-                                            <button id="main_fixed_button" style="display: none">
-                                                <div/>지원하기<div/>
-                                            </button>
-
-                                            <!--지원한 게시글에 접근했을 때-->
-                                            <button id="cancel" style="display: none">
-                                                <div/>지원 취소하기<div/>
-                                            </button>
-
-                                            <!--자신이 작성한 게시글에 접속했을 때 버튼 변경-->
-                                            <button id="update_button" onclick="location.href='/alba/write'">
-                                                <div/>수정하기<div/>
-                                            </button>
-                                            <button id="remove_button">
-                                                <div/>삭제하기<div/>
-                                            </button>
-                                            <button type="button" class="list_go_button" onclick="location.href='/alba/list'">
-                                                <div/>목록으로<div/>
-                                            </button>
+    <div class="content">
+        <!--우측 고정 aside-->
+        <div id="main_banner_inner3">
+            <div id="main_banner_inner4">
+                <div id="main_banner_flex_1"></div>
+                <div id="main_banner_flex_2">
+                    <section id="main_fixed">
+                        <aside>
+                            <div>
+                                <article id="main_fixed_inner1">
+                                    <div id="main_fixed_inner2" th:object="${list}">
+                                        <div id="main_fixed_category">모집중</div>
+                                        <div id="main_fixed_title" th:text="*{albaTitle}"></div>
+                                        <div>
+                                            <dl>
+                                                <div class="main_fixed_dl">
+                                                    <dt class="main_fixed_dl_dt">모집기간</dt>
+                                                    <dd class="main_fixed_dl_dd" th:with="weekday=${#temporals.dayOfWeekNameShort(list.albaApplyEndDate)}" th:text=" '~' + ${#temporals.format(list.albaApplyEndDate,'YYYY.MM.dd(' +weekday + ')')}"></dd>
+                                                </div>
+                                                <div class="main_fixed_dl">
+                                                    <dt class="main_fixed_dl_dt">작업날짜</dt>
+                                                    <dd class="main_fixed_dl_dd" th:with="weekday=${#temporals.dayOfWeekNameShort(list.albaWorkDate)}" th:text="${#temporals.format(list.albaWorkDate,'YYYY.MM.dd(' +weekday + ')')}"></dd>
+                                                </div>
+                                                <div class="main_fixed_dl">
+                                                    <dt class="main_fixed_dl_dt">모집인원</dt>
+                                                    <dd class="main_fixed_dl_dd"th:text="*{albaApplyCount} + '/' + *{albaApplyTotalCount} + '명'"></dd>
+                                                </div>
+                                                <div class="main_fixed_dl">
+                                                    <dt class="main_fixed_dl_dt">시급</dt>
+                                                    <dd class="main_fixed_dl_dd" th:text="*{albaPrice} + '원'"></dd>
+                                                </div>
+                                            </dl>
                                         </div>
-                                    </article>
-                                </div>
-                            </aside>
-                        </section>
-                    </div>
+                                        <!--작성자가 아닌 사람이 해당 게시글에 접속했을 때-->
+
+                                        <button id="main_fixed_button" >
+                                            <div/>지원하기<div/>
+                                        </button>
+
+                                        <!--지원한 게시글에 접근했을 때-->
+                                        <button id="cancel" >
+                                            <div/>지원 취소하기<div/>
+                                        </button>
+
+                                        <!--자신이 작성한 게시글에 접속했을 때 버튼 변경-->
+                                        <button id="update_button" th:onclick="|location.href='@{/alba/update(albaId=${list.albaId})}'|">
+                                            <div/>수정하기<div/>
+                                        </button>
+                                        <button id="remove_button">
+                                            <div/>삭제하기<div/>
+                                        </button>
+                                        <button type="button" class="list_go_button" onclick="location.href='/alba/list'">
+                                            <div/>목록으로<div/>
+                                        </button>
+                                    </div>
+                                </article>
+                            </div>
+                        </aside>
+                    </section>
                 </div>
             </div>
+        </div>
 
-            <!--컨텐츠 아래 상세내용-->
-            <div class="grid-fluid-second-col">
-                <div class="grid-fluid-second-col-out">
-                    <div class="grid-container-out">
-                        <div class="grid-container">
-                            <!--첫 번째 컨텐츠(농장 큰틀 소개)-->
-                            <div class="main-content">
-                                <h2 class="title" th:text="${list.albaMainTitle}"></h2>
-                                <p class="content" th:text="${list.albaMainContent}"></p>
-                            </div>
-                            <!--두 번째 컨텐츠(농장 장점 소개)-->
-                            <div class="second-content">
-                                <h2>저희 농장에서는<br>아래와 같은 장점이 있습니다.</h2>
-                                <div class="step">
-                                    <p class="title" th:text="${list.albaStrongTitle1}"></p>
-                                    <p class="content" th:text="${list.albaStrongContent1}"></p>
-                                    <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-2.svg">
-                                </div>
-                                <div class="step">
-                                    <p class="title" th:text="${list.albaStrongTitle2}"></p>
-                                    <p class="content" th:text="${list.albaStrongContent2}"></p>
-                                    <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-1.svg">
-                                </div>
-                                <div class="step">
-                                    <p class="title" th:text="${list.albaStrongTitle3}"></p>
-                                    <p class="content" th:text="${list.albaStrongContent3}"></p>
-                                    <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-3.svg">
-                                </div>
-                            </div>
+        <!--컨텐츠 아래 상세내용-->
+        <div class="grid-fluid-second-col">
+            <div class="grid-fluid-second-col-out">
+                <div class="grid-container-out">
+                    <div class="grid-container">
+                        <!--첫 번째 컨텐츠(농장 큰틀 소개)-->
+                        <div class="main-content">
+                            <h2 class="title" th:text="${list.albaMainTitle}"></h2>
+                            <p class="content" th:text="${list.albaMainContent}"></p>
                         </div>
-
-                        <!--중간 배너-->
-                        <div class="middle-banner">
-                            <div class="middle-banner-content-out">
-                                <div class="middle-banner-content">
-                                    <p class="topText" th:text="${list.albaBannerTitle}"></p>
-                                    <p class="bottomText" th:text="${list.albaBannerOne}"><span></span></p>
-                                </div>
+                        <!--두 번째 컨텐츠(농장 장점 소개)-->
+                        <div class="second-content">
+                            <h2>저희 농장에서는<br>아래와 같은 장점이 있습니다.</h2>
+                            <div class="step">
+                                <p class="title" th:text="${list.albaStrongTitle1}"></p>
+                                <p class="content" th:text="${list.albaStrongContent1}"></p>
+                                <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-2.svg">
                             </div>
-                        </div>
-
-                        <div class="grid-container">
-                            <!--세 번째 컨텐츠(농장주의 서술)-->
-                            <div class="third-content">
-                                <strong th:text="${list.albaTextTitle}"></strong>
-                                <p th:text="${list.albaText}"></p>
-                                <p th:text="'농장 위치 : ' + ${list.albaAddress}"></p>
+                            <div class="step">
+                                <p class="title" th:text="${list.albaStrongTitle2}"></p>
+                                <p class="content" th:text="${list.albaStrongContent2}"></p>
+                                <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-1.svg">
                             </div>
-                            <!--농장주의 간단한 프로파일-->
-                            <div class="farmer-profile">
-                                <!--프로필 아이콘(간단설명)-->
-                                <div class="img-icon">
-                                    <img src="/image/alba/profile.png">
-                                    <h1>김민혁</h1>
-                                    <span><img src="/image/alba/mentoIcon.png">인증 멘토</span>
-                                </div>
-                                <!--프로필 상세설명-->
-                                <div class="profile-content">
-                                    <p th:text="${list.albaProfileTitle1}"><strong></strong><br></p>
-                                    <p th:text="'-' + ${list.albaProfileContent1}"></p>
-
-                                    <p th:text="${list.albaProfileTitle2}"><strong></strong><br></p>
-                                    <p th:text="'-' + ${list.albaProfileContent2}"></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--지도 들어갈 위치-->
-                        <div class="alba-location">
-                            <div id="map" style="width:750px;height:350px;"></div>
-                            <p>아르바이트 주소 : <span class="work-location" id="locations" th:text="${list.albaAddress}"></span></p>
-                        </div>
-
-                        <!--신청방법(고정)-->
-                        <div class="last-comment">
-                            <div class="last-comment-inner">
-                                <h2><span>아르바이트 지원 방법을 알려드릴게요!</span></h2>
-                                <p>1. 해당 아르바이트를 신청하기 위해서는 우측에 있는 지원하기 버튼을 클릭합니다.<br>
-                                    2. 클릭 후, 농장주의 이메일을 확인 후 아르바이트 지원서를 해당 이메일로 전송합니다.<br>
-                                    3. 전송 후 확인 버튼을 누르게 되면 아르바이트 지원이 정상적으로 처리됩니다.
-                                </p>
+                            <div class="step">
+                                <p class="title" th:text="${list.albaStrongTitle3}"></p>
+                                <p class="content" th:text="${list.albaStrongContent3}"></p>
+                                <img src="https://cdn.comento.kr/images/edu/detail/edu-career-goodpoint-3.svg">
                             </div>
                         </div>
                     </div>
+
+                    <!--중간 배너-->
+                    <div class="middle-banner">
+                        <div class="middle-banner-content-out">
+                            <div class="middle-banner-content">
+                                <p class="topText" th:text="${list.albaBannerTitle}"></p>
+                                <p class="bottomText" th:text="${list.albaBannerOne}"><span></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-container">
+                        <!--세 번째 컨텐츠(농장주의 서술)-->
+                        <div class="third-content">
+                            <strong th:text="${list.albaTextTitle}"></strong>
+                            <p th:text="${list.albaText}"></p>
+                            <p th:text="'농장 위치 : ' + ${list.albaAddress}"></p>
+                        </div>
+                        <!--농장주의 간단한 프로파일-->
+                        <div class="farmer-profile">
+                            <!--프로필 아이콘(간단설명)-->
+                            <div class="img-icon">
+                                <img src="/image/alba/profile.png">
+                                <h1>김민혁</h1>
+                                <span><img src="/image/alba/mentoIcon.png">인증 멘토</span>
+                            </div>
+                            <!--프로필 상세설명-->
+                            <div class="profile-content">
+                                <p th:text="${list.albaProfileTitle1}"><strong></strong><br></p>
+                                <p th:text="'-' + ${list.albaProfileContent1}"></p>
+
+                                <p th:text="${list.albaProfileTitle2}"><strong></strong><br></p>
+                                <p th:text="'-' + ${list.albaProfileContent2}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--지도 들어갈 위치-->
+                    <div class="alba-location">
+                        <div id="map" style="width:750px;height:350px;"></div>
+                        <p>아르바이트 주소 : <span class="work-location" id="locations" th:text="${list.albaAddress}"></span></p>
+                    </div>
+
+                    <!--신청방법(고정)-->
+                    <div class="last-comment">
+                        <div class="last-comment-inner">
+                            <h2><span>아르바이트 지원 방법을 알려드릴게요!</span></h2>
+                            <p>1. 해당 아르바이트를 신청하기 위해서는 우측에 있는 지원하기 버튼을 클릭합니다.<br>
+                                2. 클릭 후, 농장주의 이메일을 확인 후 아르바이트 지원서를 해당 이메일로 전송합니다.<br>
+                                3. 전송 후 확인 버튼을 누르게 되면 아르바이트 지원이 정상적으로 처리됩니다.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!--지원하기 모달창-->
-    <div id="modal" style="display: none;">
-        <div id="modal-overlay">
-            <div class="c-modal">
-                <div class="m-wrap">
-                    <div class="m-title">아르바이트 지원하기</div>
-                    <form action="">
-                        <div class="m-c-wrap">
-                            <div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>
-                            <p>mesudal@naver.com</p>
-                        </div>
-                        <div class="applyBtnWrap">
-                            <button type="button" class="applyBtn">메일전송 완료</button>
-                            <button type="button" class="cancel">취소</button>
-                        </div>
-                    </form>
+<!--지원하기 모달창-->
+<div id="modal" style="display: none;">
+    <div id="modal-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">아르바이트 지원하기</div>
+                <form method="post" th:action="@{/alba/apply}">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>
+                        <p>mesudal@naver.com</p>
+                    </div>
+                    <div class="applyBtnWrap">
+                        <button type="submit" class="applyBtn">메일전송 완료</button>
+                        <button type="button" class="cancel">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--지원 완료-->
+<div id="modalSuccess" style="display: none;">
+    <div id="modalSuccess-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">아르바이트에 지원해주셔서 감사합니다!</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">빠른 시일 내에 지원결과를 알려드리도록 하겠습니다.</div>
+                    </div>
+                    <div class="applyBtnWrap">
+                        <button type="button" class="listBtn" onclick="location.href='/alba/list'">목록으로</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--지원 취소-->
+<div id="cancelModal" style="display: none">
+    <div id="modalCancel-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">아르바이트 지원 취소</div>
+                <form action="">
+                    <div class="m-c-wrap">
+                        <div class="m-c-title">신청한 아르바이트를 신청하시겠습니까?</div>
+                    </div>
+                    <div class="applyBtnWrap">
+                        <button type="button" class="applyBtn">예</button>
+                        <button type="button" class="cancel">아니오</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--글 삭제-->
+<div id="removeModal" style="display: none">
+    <div id="removeCancel-overlay">
+        <div class="c-modal">
+            <div class="m-wrap">
+                <div class="m-title">아르바이트 글 삭제</div>
+                <div class="m-c-wrap">
+                    <div class="m-c-title">작성된 아르바이트 게시글을 삭제하시겠습니까?</div>
+                </div>
+                <div class="applyBtnWrap">
+                    <button type="button" class="applyBtn" th:onclick="|location.href='@{/alba/delete(albaId=${param.albaId})}'|">예</button>
+                    <button type="button" class="cancel">아니오</button>
                 </div>
             </div>
         </div>
     </div>
-    <!--지원 완료-->
-    <div id="modalSuccess" style="display: none;">
-        <div id="modalSuccess-overlay">
-            <div class="c-modal">
-                <div class="m-wrap">
-                    <div class="m-title">아르바이트에 지원해주셔서 감사합니다!</div>
-                    <form action="">
-                        <div class="m-c-wrap">
-                            <div class="m-c-title">빠른 시일 내에 지원결과를 알려드리도록 하겠습니다.</div>
-                        </div>
-                        <div class="applyBtnWrap">
-                            <button type="button" class="listBtn" onclick="location.href='/alba/list'">목록으로</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
 
-    <!--지원 취소-->
-    <div id="cancelModal" style="display: none">
-        <div id="modalCancel-overlay">
-            <div class="c-modal">
-                <div class="m-wrap">
-                    <div class="m-title">아르바이트 지원 취소</div>
-                    <form action="">
-                        <div class="m-c-wrap">
-                            <div class="m-c-title">신청한 아르바이트를 신청하시겠습니까?</div>
-                        </div>
-                        <div class="applyBtnWrap">
-                            <button type="button" class="applyBtn">예</button>
-                            <button type="button" class="cancel">아니오</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!--글 삭제-->
-    <div id="removeModal" style="display: none">
-        <div id="removeCancel-overlay">
-            <div class="c-modal">
-                <div class="m-wrap">
-                    <div class="m-title">아르바이트 글 삭제</div>
-                        <div class="m-c-wrap">
-                            <div class="m-c-title">작성된 아르바이트 게시글을 삭제하시겠습니까?</div>
-                        </div>
-                        <div class="applyBtnWrap">
-                            <button type="button" class="applyBtn" th:onclick="|location.href='@{/alba/delete(albaId=${param.albaId})}'|">예</button>
-                            <button type="button" class="cancel">아니오</button>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <footer th:replace="/footer/footer.html :: footer" class="footer"/>
+<footer th:replace="/footer/footer.html :: footer" class="footer"/>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>

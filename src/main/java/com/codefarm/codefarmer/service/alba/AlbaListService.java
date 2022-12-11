@@ -61,7 +61,8 @@ public class AlbaListService {
                 alba.albaProfileTitle1,
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
-                alba.albaProfileContent2
+                alba.albaProfileContent2,
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .limit(8)
@@ -114,7 +115,8 @@ public class AlbaListService {
                 alba.albaProfileTitle1,
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
-                alba.albaProfileContent2
+                alba.albaProfileContent2,
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime))
                 .orderBy(alba.albaApplyStartDate.desc())
@@ -151,7 +153,8 @@ public class AlbaListService {
                 alba.albaProfileTitle1,
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
-                alba.albaProfileContent2
+                alba.albaProfileContent2,
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .orderBy(alba.albaPrice.desc())
@@ -194,7 +197,8 @@ public class AlbaListService {
                 alba.albaProfileTitle1,
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
-                alba.albaProfileContent2
+                alba.albaProfileContent2,
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .orderBy(alba.albaApplyStartDate.desc())
@@ -233,7 +237,8 @@ public class AlbaListService {
                 alba.albaProfileTitle1,
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
-                alba.albaProfileContent2
+                alba.albaProfileContent2,
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .orderBy(alba.albaApplyEndDate.asc())

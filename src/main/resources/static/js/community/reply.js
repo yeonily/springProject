@@ -1,6 +1,7 @@
 
 let replyService = (function () {
     function replyAdd(replyDTO, callback, error) {
+        console.log(replyDTO);
         $.ajax({
             url :"/reply/new",
             type : "post",
@@ -20,7 +21,6 @@ let replyService = (function () {
     }
 
     function getList(param, callback, error) {
-        getTotal();
         $.ajax({
             url: "/reply/list/" + param,
             type: "get",

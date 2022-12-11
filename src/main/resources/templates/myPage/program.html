@@ -148,7 +148,81 @@
         location.href = "/program/detail?programId=" + programId;
     }
 
+<<<<<<< HEAD
 
 
+=======
+    globalThis.page = 1;
+
+    myPageService.getPgList({programs: programs}, getList);
+
+    function getList(programs){
+        let text = "";
+
+            if(programs.length == 0){
+                text += "<div id='content-wrap'>";
+                text += "<div class='n-c-wrap' style='line-height: 25px;'>";
+                text += "프로그램 목록이 없어요.<br>";
+                text += "지금 프로그램을 개설해 보세요!";
+                text += "</div>";
+                text += "</div>";
+                return;
+            }
+
+        programs.forEach(function (programDTO) {
+                if(programDTO.programPrice == 0){
+                    programDTO.programPrice = "무료"
+                }
+                nowDate = new Date();
+                nowDateDTO = programDTO.programApplyStartDate;
+                startDate = new Date(nowDateDTO);
+
+                text += '<div class="list-wrap" th:object="${programDTO}">'
+                var number = programDTO.programId;
+                text += '<div class="myProgram f-column select-l" onclick="javascript:viewDetail("'
+                text += number
+                text += '")>"'
+                text += '<div class="list-img">'
+                text += '<div class="only-mentor">'
+                if(programDTO.programType == 'ONLY_MENTEE'){
+                    text += '<span class="only-mentor">멘토 전용</span>'
+                }
+                text += '</div>'
+                if(nowDate > startDate){
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + programDTO.files[0].fileUploadPath + '/s_' + programDTO.files[0].fileUuid + '_' + programDTO.files[0].fileName + '>'
+                }else{
+                    text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
+                }
+                text += '<div class="applied-cancel">'
+                text += '<a href="/program/update?programId="'
+                text += number
+                text += '">'
+                text += '<div class="a-c-btn" style="margin-bottom: 1px;">수정하기</div></a>'
+                text += '<a href="javascript:void(0);" onclick="javascript:removeCheck();">'
+                text += '<div class="a-c-btn">삭제하기</div></a>'
+                text += '<a href="/mypage/program/apply/"'
+                text += number
+                text += '">"'
+                text += '<div class="a-c-btn">신청자 목록</div></a>'
+                text += '</div>'
+                text += '<img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">'
+                text += '</div>'
+                text += '<div class="list-text">'
+                text += '<div class="l-text l-ing">진행 중</div>'
+                text += '<div class="l-m-c">∙</div>'
+                text += '<div class="l-text">' + programDTO.programLocation +'</div>'
+                text += '<div class="l-m-c">∙</div>'
+                text += '<div class="l-text">' + programDTO.programPrice + '</div>'
+                text += '</div>'
+                text += '<div class="list-title">' + programDTO.programTitle +'</div>'
+                text += '</div>'
+                let date = new Date(programDTO.programWorkDate);
+                let month = date.getMonth()+1;
+                let day = date.getDate();
+                text += '<div class="start-day">'+ month + '월' + day  + '일 시작'   +'</div>'
+                text += '</div>'
+            })
+        }
+>>>>>>> origin/master
 </script>
 </html>

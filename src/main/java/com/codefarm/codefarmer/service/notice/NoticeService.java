@@ -1,8 +1,11 @@
 package com.codefarm.codefarmer.service.notice;
 
+import com.codefarm.codefarmer.domain.notice.NoticeDTO;
 import com.codefarm.codefarmer.entity.notice.Notice;
+import com.codefarm.codefarmer.repository.notice.NoticeFileRepository;
 import com.codefarm.codefarmer.repository.notice.NoticeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,11 +14,22 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class NoticeService {
     private final NoticeRepository noticeRepository;
+    private final NoticeFileRepository noticeFileRepository;
 
 //    공지 글 작성
-    public void register(Notice notice){
+    public void register(NoticeDTO noticeDTO){
+        Notice notice = noticeDTO.toEntity();
+
+        log.info("첨부 서비스 : " + noticeDTO.getNoticeFiles());
+
+        if (noticeDTO.getNoticeFiles() != null){
+            log.info("공지 서비스 파일 : " + noticeDTO.getNoticeFiles());
+            notice.changeFiles(noticeDTO.getNoticeFiles());
+            notice.getNoticeFiles().stream().map(nf -> noticeFileRepository.save(nf));
+        }
         noticeRepository.save(notice);
     }
 

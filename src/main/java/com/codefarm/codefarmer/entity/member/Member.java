@@ -38,13 +38,15 @@ public class Member extends Period {
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
 
-    public void update(MemberDTO memberDTO){
+    public void updateNick(MemberDTO memberDTO){
         this.memberNickname = memberDTO.getMemberNickname();
+    }
+
+    public void update(MemberDTO memberDTO) {
         this.memberPhone = memberDTO.getMemberPhone();
         this.memberLocation = memberDTO.getMemberLocation();
-        this.memberEmail = memberDTO.getMemberEmail();
-        this.memberType = memberDTO.getMemberType();
     }
+
 
     @Builder
     public Member(String memberName, String memberNickname, String memberPhone, String memberLocation, String memberBirth, String memberEmail, String memberOauthId, MemberType memberType) {

@@ -69,19 +69,15 @@ public class MentoController {
     @RequestMapping(value = "/mento/chatting", method = RequestMethod.GET)
     public void chatting(Model model, Long mentorId, HttpSession session) {
         /*로그인 세션 변수로 보내기*/
-        Long sessionId = (Long) session.getAttribute("memberId"); // 로그인은 현재 86번 일반 회원으로 되어 있다고 가정
+        Long sessionId = (Long) session.getAttribute("memberId");
 //        Long sessionId = 1L;
         model.addAttribute("sessionId", sessionId);
-
         mentorId = 86L;
 
         /*대화가 이미 있는지에 따라 채팅방 생성*/
         cs.createChatRoom(mentorId, sessionId); // 게시글을 작성한 멘토 멤버아이디와 로그인 세션
         /*로그인 멤버 세션이 참여 중인 대화방 목록 저장*/
         model.addAttribute("rooms", cs.chatRoomSelectAll(sessionId));
-
-        /*대화방 클릭 시 해당 방의 대화기록 불러오기*/
-        model.addAttribute("chats", cs.chatList(12L));
         /*로그인 세션에 따른 읽지 않은 메세지 개수 가져오기*/
         model.addAttribute("alarmCnt", cs.chatAlarm(sessionId)); // 메세지 개수의 경우 이후 세션으로 등록 필요(모든 페이지에서 쓰기 위함)
     }
@@ -91,15 +87,17 @@ public class MentoController {
     public void enter(ChatDTO message) {
         List<ChatDTO> chatList = cs.chatList(message.getRoomId()); // 매개변수로 받은 객체에 저장된 대화목록
 
-        System.out.println("--------채팅 불러오기 로딩 완료--------");
-
         /*대화방 유무에 따른 메세지 처리*/
-        if(!chatList.isEmpty()) {
+        if (!chatList.isEmpty()) {
             for (ChatDTO chatDTO : chatList) {
+                if (message.getMemberId().equals(chatDTO.getMember().getMemberId())) {
+                    cs.readChange(chatDTO.getChatRoom().getChatRoomId(), chatDTO.getMember().getMemberId());
+                }
                 template.convertAndSend("/sub/mento/chatting" + chatDTO.getChatRoom().getChatRoomId(), chatDTO);
             }
         }
     }
+
 
     /*메세지 보냄*/
     @MessageMapping(value = "/chatting/message")

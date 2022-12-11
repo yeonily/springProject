@@ -29,6 +29,11 @@ public class MemberAlba extends Period {
     @Enumerated(EnumType.STRING)
     private Status memberStatus;
 
+    public void changeMember(Member member){
+        this.member = member;
+    }
+    public void changeAlba(Alba alba){ this.alba = alba; }
+
 
     @Builder
     public MemberAlba(Status memberStatus) {

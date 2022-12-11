@@ -1,6 +1,9 @@
 package com.codefarm.codefarmer.service.notice;
 
+import com.codefarm.codefarmer.domain.notice.NoticeDTO;
+import com.codefarm.codefarmer.domain.notice.NoticeFileDTO;
 import com.codefarm.codefarmer.entity.notice.Notice;
+import com.codefarm.codefarmer.entity.notice.NoticeFile;
 import com.codefarm.codefarmer.repository.notice.NoticeRepository;
 import com.codefarm.codefarmer.service.notice.NoticeService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 @Slf4j
@@ -24,31 +30,31 @@ public class NoticeServiceTest {
 //    공지 등록
     @Test
     public void registerTest(){
-        Notice notice = new Notice();
+        NoticeDTO noticeDTO = new NoticeDTO();
 
-//        List<NoticeFile> files = new ArrayList<>();
-//        NoticeFile noticeFile01 = new NoticeFile();
+//        List<NoticeFileDTO> files = new ArrayList<>();
+//        NoticeFileDTO noticeFile01 = new NoticeFileDTO();
 //        noticeFile01.setFileName("day01.txt");
 //        noticeFile01.setFileSize(30L);
 //        noticeFile01.setFileUploadPath("test");
 //        noticeFile01.setFileUuid("abc111");
-//        noticeFile01.setNotice(noticeDTO.getNoticeId());
-
-//        NoticeFile noticeFile02 = new NoticeFile();
+//        noticeFile01.setNoticeId(noticeDTO.getNoticeId());
+//
+//        NoticeFileDTO noticeFile02 = new NoticeFileDTO();
 //        noticeFile02.setFileName("day02.txt");
 //        noticeFile02.setFileSize(30L);
 //        noticeFile02.setFileUploadPath("test");
 //        noticeFile02.setFileUuid("abc111");
-//        noticeFile02.setBoardNumber(269L);
-
+//        noticeFile02.setNoticeId(noticeDTO.getNoticeId());
+//
 //        files.add(noticeFile01);
-//        files.add(fileVO2);
+//        files.add(noticeFile02);
 
-        notice.setNoticeTitle("공지 TEST");
-        notice.setNoticeContent("서비스 내용");
-//        noticeDTO.setNoticeFiles(files);
+        noticeDTO.setNoticeTitle("공지 TEST");
+        noticeDTO.setNoticeContent("서비스 내용");
+//        noticeDTO.setFiles(files);
 
-        noticeService.register(notice);
+        noticeService.register(noticeDTO);
     }
 
 //    공지 수정

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 @NoArgsConstructor
@@ -18,6 +19,15 @@ public class NoticeDTO {
     private int noticeViewCount;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
+    private List<NoticeFileDTO> noticeFiles;
+
+    public Notice toEntity(){
+        return Notice.builder()
+                .noticeContent(noticeContent)
+                .noticeTitle(noticeTitle)
+                .noticeViewCount(noticeViewCount)
+                .build();
+    }
 
     @QueryProjection
     public NoticeDTO(Long noticeId, String noticeTitle, String noticeContent, int noticeViewCount, LocalDateTime createdDate, LocalDateTime updateDate) {
@@ -27,13 +37,5 @@ public class NoticeDTO {
         this.noticeViewCount = noticeViewCount;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
-    }
-
-    public Notice toEntity(){
-        return Notice.builder()
-                .noticeContent(noticeContent)
-                .noticeTitle(noticeTitle)
-                .noticeViewCount(noticeViewCount)
-                .build();
     }
 }

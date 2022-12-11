@@ -1,8 +1,10 @@
 package com.codefarm.codefarmer.entity.member;
 
+import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.entity.board.Board;
@@ -132,14 +134,14 @@ public class MemberTest {
     //내가 등록한 알바 select
     @Test
     public void findMyAlbaTest(){
-            memberRepository.findMyAlba(1l).stream().map(Alba::getAlbaTitle).forEach(log::info);
+            memberRepository.findMyAlba(1l).stream().map(AlbaDTO::getAlbaTitle).forEach(log::info);
     }
 
 
     //내가 등록한 프로그램 select
     @Test
     public void findMyProgramTest(){
-            memberRepository.findMyProgram(1l).stream().map(Program::toString).forEach(log::info);
+            memberRepository.findMyProgram(1l).stream().map(ProgramDTO::toString).forEach(log::info);
     }
 
     //내가 쓴 글 select
@@ -184,16 +186,14 @@ public class MemberTest {
     public void checkUserNickTest(){
         Assertions.assertThat(memberRepository.checkNick("러너")).isEqualTo(0);
     }
-//
-//    //내가 쓴 문의글 select
-//    @Test
-//    public void findMyInquireTest(){
-//        jpaQueryFactory.select(inquire)
-//                .from(inquire).join(inquire.member)
-//                .where(inquire.member.memberId.eq(1l))
-//                .fetchJoin().fetch().stream().map(Inquire::getInquireQTitle).forEach(log::info);
-//    }
-//
+
+    //내가 쓴 문의글 select
+    @Test
+    public void findMyInquireTest(){
+            Long memberId = 1l;
+            log.info("결과 : "+memberRepository.findMyInquire(1l).size());
+    }
+
 
     @Test
     public void findMyProgramApplyersTest(){

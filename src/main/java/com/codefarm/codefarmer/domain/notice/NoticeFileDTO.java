@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.domain.notice;
 
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.entity.notice.NoticeFile;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class NoticeFileDTO {
     private String fileUuid;
     private Long fileSize;
     private boolean fileImageCheck;
-    private Notice notice;
+    private Long noticeId;
 
     public NoticeFile toEntity(){
         return NoticeFile.builder()
@@ -26,5 +27,15 @@ public class NoticeFileDTO {
                 .fileSize(fileSize)
                 .fileImageCheck(fileImageCheck)
                 .build();
+    }
+
+    @QueryProjection
+    public NoticeFileDTO(Long fileId, String fileName, String fileUploadPath, String fileUuid, Long fileSize, boolean fileImageCheck) {
+        this.fileId = fileId;
+        this.fileName = fileName;
+        this.fileUploadPath = fileUploadPath;
+        this.fileUuid = fileUuid;
+        this.fileSize = fileSize;
+        this.fileImageCheck = fileImageCheck;
     }
 }

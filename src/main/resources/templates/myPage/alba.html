@@ -50,13 +50,13 @@
 <!--                            </div>-->
                             <!------------------------>
                             <div id="c-w-wrap" class="f-column" >
-                                <!-- 일반 유저 - 내가 신청한 프로그램 -->
+                                <!-- 일반 유저 - 내가 신청한 알바 -->
                                 <th:block  th:if="${session.memberType == 'USER' or session.memberType == 'MENTEE'}">
                                 <div th:replace="/myPage/albaContent.html :: userAlbas"/>
                                 </th:block>
                                 <!------------------->
 
-                                <!-- 농장주 - 내가 만든 프로그렘 -->
+                                <!-- 농장주 - 내가 만든 알바 -->
                                 <th:block  th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                 <div th:replace="/myPage/albaContent.html :: farmerAlbas"/>
                                 </th:block>
@@ -125,6 +125,68 @@
     function viewDetail(albaId) {
         console.log("??");
         location.href = "/alba/detail?albaId=" + albaId;
+    }
+
+
+    myPageService.getAbList({albas: albas}, getList);
+
+    function getList(albas){
+        let text = "";
+
+        if(albas.length == 0){
+            text += "<div id='content-wrap'>";
+            text += "<div class='n-c-wrap'>";
+            text += "너와농부싶어와 함께하는 아르바이트를 확인해보세요!";
+            text += "<button class='sendPage-btn' onclick='/alba/list'>아르바이트 보러 가기</button>";
+            text += "</div>";
+            text += "</div>";
+            return;
+        }
+
+        albas.forEach(function (albaDTO) {
+            nowDate = new Date();
+            nowDateDTO1 = albaDTO.albaApplyStartDate;
+            nowDateDTO2 = albaDTO.albaApplyEndDate;
+            startDate = new Date(nowDateDTO1);
+            endDate = new Date(nowDateDTO2);
+
+            text += '<div class="alba-lists-wrap" th:object="${albaDTO}">'
+            text += '<div class="alba-list" th:object="${albaDTO}">'
+            var number = albaDTO.albaId;
+            text += '<div class="commu c-link" onclick="javascript:viewDetail("'
+            text += number
+            text += '")>"'
+            text += '<div class="c-top-wrap">'
+            text += '<div class="t-s-wrap">'
+            let date = new Date(albaDTO.albaWorkDate);
+            let year = date.getFullYear();
+            let month = date.getMonth()+1;
+            let day = date.getDate();
+            text += '<div class="c-address">'+ year + '.' + month + '.' + day +'</div><div class="c-address>">・</div>'
+            text += '<div class="c-address">' + albaDTO.albaAddress +'</div><div class="c-address>">・</div>'
+            text += '<div class="c-pay">시급' + albaDTO.albaPrice +'원</div>'
+            text += '</div>'
+            text += '<div class="applied-cancel a-c-color">'
+            text += '<a href="#"><div class="a-c-btn2" style="margin-bottom: 1px;">수정하기</div></a>'
+            text += '<a href="javascript:void(0);" onclick="javascript:removeCheck();"><div class="a-c-btn2">삭제하기</div></a>'
+            text += '<a href="/mypage/alba/apply"><div class="a-c-btn2">신청자 목록</div></a>'
+            text += '</div>'
+            text += '<img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">'
+            text += '</div>'
+            text += '<div class="c-group">'
+            text += '<div class="c-g-title">' + albaDTO.albaTitle +'</div>'
+            text += '</div>'
+            text += '<div class="commu-group">'
+            if(nowDate > startDate){
+                text += '<div class="c-status">모집 중</div>'
+            }else if(endDate > nowDate){
+                text += '<div class="c-status c-end">마감</div>'
+            }
+            text += '</div>'
+            text += '</div>'
+            text += '</div>'
+            text += '</div>'
+        })
     }
 </script>
 </html>

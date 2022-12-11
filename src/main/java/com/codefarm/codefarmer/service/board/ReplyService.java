@@ -84,9 +84,9 @@ public class ReplyService {
 
 
 //    내가 작성한 댓글 지우기
-    public void removeReply(Long replyId, ReplyDTO replyDTO){
-        Reply reply = replyDTO.toEntity();
-        reply.changeMember(memberRepository.findById(replyDTO.getMemberId()).get());
+    public void removeReply(Long replyId){
+//        Reply reply = replyDTO.toEntity();
+//        reply.changeMember(memberRepository.findById(replyDTO.getMemberId()).get());
         replyRepository.deleteById(replyId);
     }
 
