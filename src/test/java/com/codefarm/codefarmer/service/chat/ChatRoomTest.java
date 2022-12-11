@@ -57,14 +57,14 @@ public class ChatRoomTest {
     /*채팅방 대화내역 불러오기*/
     @Test
     public void findChatList() {
-        log.info("결과 : " + chatRoomService.chatList(87L).toString());
+        log.info("결과 : " + chatRoomService.chatList(196L).toString());
     }
 
 
     /*안 읽은 메세지 읽음으로 변경*/
     @Test
     public void changeChatStatus() {
-        chatRoomService.readChange(12L);
+//        chatRoomService.readChange(12L);
     }
 
 

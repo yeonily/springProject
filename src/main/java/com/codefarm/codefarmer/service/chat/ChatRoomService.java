@@ -84,8 +84,7 @@ public class ChatRoomService {
     /*-----------------------------------------------*/
         /*채팅방에 접속했을 때 상대방이 보낸 메세지 읽음 처리*/
     /*-----------------------------------------------*/
-    public void readChange(Long chatRoomId) {
-        Long memberId = 33L; // 이후에 세션 추가되면 변경해야함(현재 로그인 세션 아이디로)
+    public void readChange(Long chatRoomId, Long memberId) {
         List<ChatDTO> chatDTOList = chatList(chatRoomId); // 해당 채팅방의 모든 채팅을 가져옴
         List<Chat> chatList = new ArrayList<>();
 
@@ -103,17 +102,6 @@ public class ChatRoomService {
         }
     }
 
-
-    /*-----------------------------------------------*/
-            /*가장 최근에 보낸 채팅 보여주기(작업해야함)*/
-    /*-----------------------------------------------*/
-    public List<Chat> lastChatSelectAll() {
-        // 1번 회원이 참여 중인 채팅방들을 모두 List로 저장
-        List<ChatRoomDTO> chatRoomDTOList = chatRoomSelectAll(1L);
-
-
-        return null;
-    }
 
 
     /*-----------------------------------------------*/

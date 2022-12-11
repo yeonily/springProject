@@ -32,7 +32,6 @@ public class ChatController {
     public List<ChatDTO> test(@RequestParam("roomId") String roomId) throws Exception {
         Long chatRoomId = Long.parseLong(roomId);
         log.info("방 번호 : " + chatRoomId);
-        chatRoomService.readChange(chatRoomId); // 해당 방 번호 접근 시 메세지 모두 읽음 처리
         return chatRoomService.chatList(chatRoomId);
     }
 }
