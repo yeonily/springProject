@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TBL_ALBA")
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class Alba extends Period {
     @Id @GeneratedValue

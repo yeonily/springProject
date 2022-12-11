@@ -1,6 +1,8 @@
 package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
@@ -109,16 +111,6 @@ public class AlbaController {
         return new RedirectView("/alba/list");
     }
 
-    @GetMapping("/display")
-    @ResponseBody
-    public byte[] display(String fileName) throws IOException{
-        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
-        log.info("이거 맞냐구~~  -> " + file);
-        log.info("모냐구 -> " + FileCopyUtils.copyToByteArray(file));
-
-        return FileCopyUtils.copyToByteArray(file);
-    }
-
     @GetMapping("/detail")
     public void albaDetail(Model model, @RequestParam Long albaId) throws Exception {
         log.info("디테일 들어옴");
@@ -135,4 +127,55 @@ public class AlbaController {
         albaDetailService.removeAlbaId(albaId);
         return new RedirectView("/alba/list");
     }
+
+    //    알바 게시글 수정
+    @GetMapping("/update")
+    public String albaUpdate(Long albaId, Model model) {
+        model.addAttribute("alba", albaDetailService.albaShowOne(albaId));
+        return "/alba/update";
+    }
+
+    @PostMapping("/update")
+    public RedirectView albaUpdate(AlbaDTO albaDTO, @RequestParam MultipartFile image) throws IOException {
+        String path = "/Users/yeontaegwan/Desktop/project/image";
+        String uploadFileName = null;
+        String dbFile = albaDetailService.albaShowOne(albaDTO.getAlbaId()).getAlbaImage();
+
+        if (!image.isEmpty()){
+            UUID uuid = UUID.randomUUID();
+            String fileName = image.getOriginalFilename();
+            uploadFileName = uuid.toString() + "_" + fileName;
+
+            if (uploadFileName != dbFile && dbFile != null){
+                File file = new File(path, dbFile);
+                log.info("파일 있니? -> " + file);
+                if(file.exists()){
+                    file.delete();
+                }
+            }
+
+            File saveFile = new File(path, uploadFileName);
+            image.transferTo(saveFile);
+            albaDTO.setAlbaImage(uploadFileName);
+
+        } else if (dbFile != null) {
+            File file = new File(path, dbFile);
+            if(file.exists()){
+                file.delete();
+            }
+        }
+        albaDetailService.albaUpdate(albaDTO);
+        return new RedirectView("/alba/list");
+    }
+
+    @GetMapping("/albaimg/display") // 보기
+    @ResponseBody
+    public byte[] display(String fileName) throws IOException{
+        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
+
+        return FileCopyUtils.copyToByteArray(file);
+    }
+
+
+
 }

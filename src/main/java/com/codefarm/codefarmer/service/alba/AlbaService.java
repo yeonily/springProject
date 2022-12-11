@@ -55,9 +55,8 @@ public class AlbaService {
                 alba.albaProfileTitle1,
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
-                alba.albaProfileContent2
-
+                alba.albaProfileContent2,
+                alba.member.memberId
         )).from(alba).fetch();
-
     }
 }
