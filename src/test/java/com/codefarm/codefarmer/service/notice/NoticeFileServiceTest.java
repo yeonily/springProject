@@ -39,7 +39,7 @@ public class NoticeFileServiceTest {
         noticeFileDTO01.setFileUploadPath("test");
         noticeFileDTO01.setFileUuid("abc111");
         noticeFileDTO01.setFileImageCheck(false);
-        noticeFileDTO01.setNotice(findNotice.get());
+        noticeFileDTO01.setNoticeId(11L);
 
         NoticeFileDTO noticeFileDTO02 = new NoticeFileDTO();
         noticeFileDTO02.setFileName("day02.txt");
@@ -47,10 +47,10 @@ public class NoticeFileServiceTest {
         noticeFileDTO02.setFileUploadPath("test");
         noticeFileDTO02.setFileUuid("abc111");
         noticeFileDTO02.setFileImageCheck(false);
-        noticeFileDTO02.setNotice(findNotice.get());
+        noticeFileDTO02.setNoticeId(11L);
 
-        noticeFileService.add(noticeFileDTO01);
-        noticeFileService.add(noticeFileDTO02);
+        noticeFileService.noticeFileAdd(noticeFileDTO01);
+        noticeFileService.noticeFileAdd(noticeFileDTO02);
     }
 
 //    해당 공지 글의 첨부파일 조회

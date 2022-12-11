@@ -48,13 +48,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
         return new SliceImpl<>(content,pageable,hasNext);
     }
 
-//         this.boardId = boardId;
-//        this.boardTitle = boardTitle;
-//        this.boardContent = boardContent;
-//        this.boardViewCount = boardViewCount;
-//        this.memberNickName = memberNickName;
-//        this.createdDate = createdDate;
-//        this.updateDate = updateDate;
+
     @Override
     public Slice<BoardDTO> findAllSliceDTO(Pageable pageable) {
         List<BoardDTO> boardList = jpaQueryFactory.select(

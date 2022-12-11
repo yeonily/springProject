@@ -40,6 +40,7 @@ public class AlbaDTO {
     private String albaProfileTitle2;
     private String albaProfileContent2;
     private Member member;
+    private Long memberId;
 
 
     public Alba toEntity() {
@@ -76,7 +77,7 @@ public class AlbaDTO {
     }
 
     @QueryProjection
-    public AlbaDTO( Long albaId, String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2) {
+    public AlbaDTO( Long albaId, String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2, Long memberId) {
         this.albaId = albaId;
         this.albaTitle = albaTitle;
         this.albaImage = albaImage;
@@ -104,6 +105,7 @@ public class AlbaDTO {
         this.albaProfileContent1 = albaProfileContent1;
         this.albaProfileTitle2 = albaProfileTitle2;
         this.albaProfileContent2 = albaProfileContent2;
+        this.memberId = memberId;
     }
 
     public AlbaDTO(Alba entity) {

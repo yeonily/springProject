@@ -24,6 +24,7 @@ public class InquireDTO {
         this.inquireQTitle = inquireQTitle;
         this.inquireQContent = inquireQContent;
         this.inquireStatus = inquireStatus;
+        this.member = member;
     }
 
     public Inquire toEntity(){

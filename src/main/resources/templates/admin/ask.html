@@ -44,23 +44,23 @@
         <div class="p-contents chart-no">
 
             <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
+            <form th:action="@{/admin/help}" name="searchForm">
                 <div class="search-form">
                         <span class="s-form">
-                            <select name="searchSelect">
-                                <option value="title">제목</option>
-                                <option value="content">내용</option>
-                                <option value="all">제목 + 내용</option>
-                                <option value="nickName">작성자</option>
-                                <option value="askStatus">상태</option>
+                            <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                <option value="t">제목</option>
+                                <option value="c">내용</option>
+                                <option value="tc">제목 + 내용</option>
+                                <option value="w">작성자</option>
+                                <option value="s">상태</option>
                             </select>
                         </span>
                     <span class="s-f-input">
                             <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                                <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
                             </span>
                         </span>
-                    <button type="button" class="">
+                    <button type="submit" class="searchBtn">
                         <img src="/image/admin/search.png">
                     </button>
                 </div>
@@ -93,33 +93,56 @@
                         <td class="askStatus" th:text="*{inquireStatus}"></td>
                     </tr>
                 </th:block>
+                <tr th:if="${data}">
+                    <td colspan="6" style="height: 180px;">검색 결과가 없습니다.</td>
+                </tr>
             </table>
 
             <!-- 페이징 -->
-            <div id="page">
+            <div id="page" th:if="${!data}">
                 <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
+                    <th:block th:with="start=${(inquires.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">
+                        <th:block th:if="${inquires.pageable.pageNumber > 0}">
+                            <a class="arrow pprev" th:href="@{/admin/help(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            <a class="arrow prev" th:href="@{/admin/help(page=${((inquires.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                        </th:block >
+
+                        <th:block  th:each="i: ${#numbers.sequence(start, end)}">
+                            <a th:href="@{/admin/help(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == inquires.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                        </th:block >
+
+                        <th:block th:if="${end < resultCount}">
+                            <a class="arrow next" th:href="@{/admin/help(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            <a class="arrow nnext" th:href="@{/admin/help(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                        </th:block>
+                    </th:block>
                 </div>
+                <form th:action="@{/admin/help}" th:object="${criteria}" name="pageForm">
+                    <input type="hidden" th:field="*{page}">
+<!--                    <input type="hidden" th:field="*{keyword}">-->
+<!--                    <input type="hidden" th:field="*{searchText}">-->
+                </form>
             </div>
+
         </div>
     </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
+    console.log(queryString);
+
+    const urlParams = new URL(location.href).searchParams;
+    const keyword = urlParams.get('keyword');
+
+    // 검색 옵션
+    if(keyword == null || keyword == "") {
+        $(".keywords").val('t').prop("selected", true);
+    } else {
+        $(".keywords").val(keyword).prop("selected", true);
+    }
+
     $(document).ready(function(){
         $(".askStatus").each(function(i, item) {
             if($(this).html() == "CONFIRM"){

@@ -11,10 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -47,9 +43,9 @@ public class InformationService {
 //    정책 검색
     @Transactional(readOnly = true)
     public Page<Policy> policySearchShowAll(Pageable pageable, String keyword, String policyTitle, String policyContent){
-        if (keyword == "t"){
+        if (keyword.equals("t")){
             return policyRepository.findByPolicyTitleContaining(policyTitle, pageable);
-        } else if (keyword == "c"){
+        } else if (keyword.equals("c")){
             return policyRepository.findByPolicyContentContaining(policyContent, pageable);
         } else {
             return policyRepository.findByPolicyTitleContainingOrPolicyContentContaining(policyTitle, policyContent, pageable);
@@ -89,9 +85,9 @@ public class InformationService {
 //    농업정보 검색
     @Transactional(readOnly = true)
     public Page<Crop> cropSearchShowAll(Pageable pageable, String keyword, String cropTitle, String cropContent){
-        if (keyword == "t"){
+        if (keyword.equals("t")){
             return cropRepository.findByCropTitleContaining(cropTitle, pageable);
-        } else if (keyword == "c"){
+        } else if (keyword.equals("c")){
             return cropRepository.findByCropContentContaining(cropContent, pageable);
         } else {
             return cropRepository.findByCropTitleContainingOrCropContentContaining(cropTitle, cropContent, pageable);
