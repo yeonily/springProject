@@ -77,3 +77,10 @@ function aBackList() {
         location.href="/admin/help";
     }
 }
+
+// 공지 목록 돌아가기
+function nBackList() {
+    if (flag) {
+        location.href="/admin/notice";
+    }
+}

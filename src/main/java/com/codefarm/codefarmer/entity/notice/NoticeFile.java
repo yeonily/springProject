@@ -13,15 +13,10 @@ import javax.persistence.*;
 public class NoticeFile extends Period{
     @Id @GeneratedValue
     private Long fileId;
-    @NotNull
     private String fileName;
-    @NotNull
     private String fileUploadPath;
-    @NotNull
     private String fileUuid;
-    @NotNull
     private Long fileSize;
-    @NotNull
     private boolean fileImageCheck;
 
     @ManyToOne(fetch = FetchType.LAZY)

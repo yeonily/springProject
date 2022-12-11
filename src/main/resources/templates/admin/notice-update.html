@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/common/font.css"> <!-- 폰트 -->
     <link rel="stylesheet" href="/css/admin/side_menu.css"> <!-- 사이드 메뉴 & 해더 -->
     <!-- 글 작성 폼 -->
-    <link rel="stylesheet" href="/css/admin/noticeUpdate.css">
+    <link rel="stylesheet" href="/css/admin/noticeWrite.css">
     <link rel="icon" href="/image/header/favicon.png" />
     <link rel="shortcut icon" href="/image/header/favicon.png" />
 
@@ -73,16 +73,20 @@
                     </tr>
                     <tr style="background: #ffffff;">
                         <th>첨부파일</th>
-                        <td style="border: 1px solid #e6e6e6;">
-                            <img id="preview-image">
+                        <td style="border: 1px solid #e6e6e6; position: relative;">
                             <div class="file">
                                 <label class="input-file-button" for="input-image">
                                 </label>
-                                <input type="file" name="file" id="input-image" multiple>
-                                <img src="/image/admin/realLogo.png" class="uploadImg">
-                                <div class="cancelBtn">x</div>
+                                <input type="file" name="upload" id="input-image" multiple>
                             </div>
-                            <div id="file-content"></div>
+                            <div id="preview-image">
+                                <ul id="img-wrap">
+                                    <li>
+                                        <img src="/image/admin/realLogo.png">
+                                        <div class="cancelBtn">×</div>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
