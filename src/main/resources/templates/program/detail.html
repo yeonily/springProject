@@ -24,12 +24,12 @@
                 <section class="pg-detail-banner">
                     <div class="banner-title-container">
                         <span class="pg-detail-banner-chip" th:if="${list.programPrice} == 0" th:text="무료"></span>
-                        <span class="pg-detail-banner-chip" th:unless="${list.programPrice} == 0" th:text="*{programPrice}"></span>
+                        <span class="pg-detail-banner-chip" th:unless="${list.programPrice} == 0" th:text="유료"></span>
                         <div class="pg-detail-banner-title" th:text="*{programTitle}"></div>
                         <div class="pg-detail-banner-headline" th:text="*{programTitleSub}"></div>
                     </div>
                     <div class="banner-image-container">
-                        <img class="pg-detail-banner-image" style="width: 542px; height: 287px; object-fit: cover" th:src="@{/file/display(fileName=${list.files[0].fileUploadPath} + '/s_' + ${list.files[0].fileUuid} + '_' + ${list.files[0].fileName})}">
+                        <img class="pg-detail-banner-image" style="width: 542px; height: 287px;" th:src="@{/file/display(fileName=${list.files[0].fileUploadPath} + '/s_' + ${list.files[0].fileUuid} + '_' + ${list.files[0].fileName})}">
                     </div>
                 </section>
             </div>
@@ -74,7 +74,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="apply-a" th:href="@{/program/apply}">
+                                <a class="apply-a" th:href="@{/program/apply(programId=${list.programId})}">
                                     <button class="apply-button">
                                         <div class="button-icon"></div>
                                         프로그램 신청하기

@@ -103,10 +103,13 @@
     <div id="alam">
         <p>정말 삭제하시겠어요?</p>
         <p>한번 삭제된 프로그램은 복구할 수 없습니다.</p>
-        <div id="alam-btn-group">
-            <button class="a-ok">확인</button>
-            <button type="button" class="a-no">취소</button>
-        </div>
+        <form action="/program/delete" method="post" id="delete-Program">
+            <div id="alam-btn-group">
+                <button class="a-ok" id="program-delete-btn">확인</button>
+                <button type="button" class="a-no">취소</button>
+                <input hidden name="programIdString" id="prgramIdString">
+            </div>
+        </form>
     </div>
 </div>
 
@@ -120,18 +123,32 @@
     $("#program").addClass('menu-select');
 
     // 농장주일 때 글 삭제 모달 알람
-    function removeCheck(){
+    function removeCheck(programId){
         event.stopImmediatePropagation();
+        $("#prgramIdString").attr("value",programId);
         $(".alam-wrap").show();
     };
 
+    // 프로그램 삭제 버튼 클릭 시
+    $("#program-delete-btn").on("click" , function () {
+        // let programId;
+        // programId = $("programIdResult").val();
+        // location.href = "/program/delete?programId=" + programId;
+        $("#delete-Program").submit();
+    })
+
+    //삭제 취소 버튼 클릭 시
     $(".a-no").on("click", function(){
         $(".alam-wrap").hide();
+        return;
     });
 
     function viewDetail(programId) {
         console.log("??");
         location.href = "/program/detail?programId=" + programId;
     }
+
+
+
 </script>
 </html>

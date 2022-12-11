@@ -40,6 +40,8 @@ public class MemberProgramDTO {
                 .build();
     }
 
+
+
     @QueryProjection
     public MemberProgramDTO(Program program, Member member, ProgramStatus programStatus, int programApplyCount, int programPayment) {
         this.program = program;

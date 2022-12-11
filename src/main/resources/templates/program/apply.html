@@ -19,7 +19,7 @@
         <div class="telling-avatar-quote">
             <div class="telling-wrapper">
                 <div class="telling-title">
-                    <div class="telling-title-content"><span id="name"></span>님, 만나서 반가워요</div>
+                    <div class="telling-title-content"><span id="name" th:text="*{memberName}"></span>님, 만나서 반가워요</div>
                 </div>
                 <div class="telling-body">
                     <div class="telling-body-content">
@@ -35,7 +35,7 @@
                     <div class="user-div"></div>
                 </div>
                 <div class="avatar-name">
-                    <div class="farmer-name">농장주이름</div>
+                    <div class="farmer-name" th:text="*{farmerName}"></div>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                     <div class="c-w-full">
                         <img class="callout-img" src="/image/program/greencheck.gif">
                         <div class="callout-message">
-                            <strong>프로그램명</strong>을 얼른 신청해보아요.
+                            <strong th:text="*{programName}"></strong>을 얼른 신청해보아요.
                         </div>
                     </div>
                 </div>

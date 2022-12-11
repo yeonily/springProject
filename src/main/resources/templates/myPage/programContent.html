@@ -35,7 +35,7 @@
                 <img src="https://cdn.comento.kr/images/pt/tmp/prefix_4gTSmjheRr.png" class="program-img">
                 <div class="applied-cancel">
                     <a th:href="@{/program/update(programId=${program.programId})}"><div class="a-c-btn" style="margin-bottom: 1px;">수정하기</div></a>
-                    <a href="javascript:void(0);" onclick="javascript:removeCheck();"><div class="a-c-btn">삭제하기</div></a>
+                    <a href="javascript:void(0);" th:data-parameter1="${program.programId}"  onclick="javascript:removeCheck(this.getAttribute('data-parameter1'));"><div class="a-c-btn">삭제하기</div></a>
                     <a th:href="@{/mypage/program/apply}"><div class="a-c-btn">신청자 목록</div></a>
                 </div>
                 <img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">
