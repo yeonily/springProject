@@ -1,5 +1,7 @@
 package com.codefarm.codefarmer.repository.member;
 
+import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.MemberAlba;
 import com.codefarm.codefarmer.entity.board.Board;
@@ -21,9 +23,9 @@ public interface MemberCustomRepository {
     //oauthid 검사
     public Integer checkOauth(String oauthId);
     //내가 등록한 알바목록
-    public List<Alba> findMyAlba(Long memberId);
+    public List<AlbaDTO> findMyAlba(Long memberId);
     //내가 등록한 프로그램목록
-    public List<Program> findMyProgram(Long memberId);
+    public List<ProgramDTO> findMyProgram(Long memberId);
     //내가 등록한 게시글
     public List<Board> findMyBoard(Long memberId);
     //내가 문의한 목록

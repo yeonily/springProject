@@ -80,16 +80,13 @@
                                         </div>
                                     </div>
                                     <div class="flex section-right">
-                                        <div class="qna-count">
-                                            0건
+                                        <div class="qna-count" th:text="|${countOfInquire}건|">
                                             <div class="qna-title">내 문의</div>
                                         </div>
-                                        <div class="qna-count">
-                                            0건
+                                        <div class="qna-count" th:text="|${countOfBoard}건|">
                                             <div class="qna-title">내 커뮤니티</div>
                                         </div>
-                                        <div class="qna-count q-c-last">
-                                            0건
+                                        <div class="qna-count q-c-last" th:text="|${countOfMyProgram}건|">
                                             <div class="qna-title">내 프로그램</div>
                                         </div>
                                     </div>
@@ -99,20 +96,20 @@
                                     <div class="nickname-c">
                                         <form action="" name="nickForm" class="nick-c-group">
                                             <div class="nickname-input">
-                                                <input type="text" name="nickname" value="닉네임" th:value="*{memberNickname}">
+                                                <input class="nicknameValue" type="text" value="닉네임" th:field="*{memberNickname}" th:value="*{memberNickname}">
                                             </div>
                                             <button type="button" class="nick nick-check" onclick="nickCheck()">중복확인</button>
-                                            <button type="button" class="nick nick-save saveHover" onclick="nickSave()">저장</button>
+                                            <button type="button" class="nick nick-save saveHover">저장</button>
                                         </form>
                                         <div class="nickname-check">
                                             <!-- 중복 체크 문구 -->
-                                            <div class="nick-c-save" style="display: none;">
+                                            <div class="nick-c-save" id="n-message1" style="display: none;">
                                                 <div class="nick-warning" style="background: #47c880;">!</div>
                                                 <div style="color: #47c880;">사용 가능한 닉네임입니다.</div>
                                             </div>
-                                            <div class="nick-c-save" style="display: none;">
+                                            <div class="nick-c-save" id="n-message2" style="display: none;">
                                                 <div class="nick-warning" style="background: rgb(233, 37, 37);">!</div>
-                                                <div style="color: rgb(233, 37, 37);">>이미 사용중인 닉네임입니다.</div>
+                                                <div style="color: rgb(233, 37, 37);">이미 사용중인 닉네임입니다.</div>
                                             </div>
                                             <!------------------>
                                         </div>
@@ -318,68 +315,6 @@
     }
 
 //---------------------------------------------------------------------------------------------------
-    show();
 
-    function show(){
-        myPageService.getInfo(memberId, getList);
-
-    }
-
-    function getInfo(memberDTO) {
-
-        function getTotal(reply) {
-            console.log(reply);
-            let text = "";
-            reply(replyCount =>{
-                text += `<div id="re-count-wrap">`
-                text += `댓글`
-                text += `<span>123</span>`
-                text += `</div>`
-            })
-            $("#re-count-wrap").html(text);
-        }
-
-        let text = "";
-        replyDTO.forEach(reply => {
-            text += `<div id="reply-lists">`
-            text += `<article class="re-list-wrap">`
-            text += `<div class="top-wrap">`
-            text += `<div class="commu-nickname re-nick">` + reply.memberNickname + ``
-            text += `<span class="writer"> `+ reply.replyId +`</span>>`
-            text += `<hr>`
-            text += `<span class="q-nickname">일반 </span>`
-            text += `</div>`
-            text += `<div class="drop-option-wrap">`
-            text += `<div class="drop-option">`
-            text += `<button>`
-            text += `<svg data-v-bd9f2bcc="" data-v-3035bc76="" width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" style="fill: rgb(148, 155, 160);"><circle data-v-bd9f2bcc="" cx="12" cy="5.5" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="12" r="1.5"></circle><circle data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg>`
-            text += `</button>`
-            text += `</div>`
-            text += `<div class="drop-option-menu show" style="display: none;">`
-            text += `<div class="o-m-wrap re-modify">`
-            text += `<img src="/image/community/modify.png">`
-            text += `수정하기`
-            text += `</div>`
-            text += `<hr>`
-            // text += `<a class="remove" onclick="replyService.remove()"></a>`
-            text += `<div class="o-m-wrap re-delete">`
-            text += `<img src="/image/community/delete.png">`
-            text += `삭제하기`
-            text += `</div>`
-            text += `</div>`
-            text += `</div>`
-            text += `<div class="modify-group" style="display: none;">`
-            text += `<button type="button" class="re-btn m-save">수정</button>>`
-            text += `<button type="button" class="re-btn m-cancel">취소</button>`
-            text += `</div>`
-            text += `</div>`
-            text += `<p class="commu-content re-content">`+ reply.replyContent +`</p>`
-            text += `<p class="commu-date">`+ reply.updatedDate +`</p>`
-            text += `</article>`
-            text += `</div>`
-        })
-
-        $("#reply-lists").html(text);
-    }
 </script>
 </html>

@@ -4,35 +4,31 @@
 
 
 let myPageService = (function () {
-    function replyAdd(replyDTO, callback, error) {
-        alert("들어옴2");
+
+    function getPgList(param, callback, error){
         $.ajax({
-            url: "/reply/new",
-            type: "post",
-            data: JSON.stringify(replyDTO),
-            contentType: "application/json; charset=utf-8",
-            success: function (result, status, xhr) {
-                if (callback) {
-                    console.log(result)
-                    callback(result);
+            url: "/mypage/program" ,
+            type: "get",
+            success: function(programDTO, status, xhr){
+                if(callback){
+                    callback(programDTO);
                 }
             },
-            error: function (xhr, status, err) {
-                if (error) {
+            error: function(xhr, status, err){
+                if(error){
                     error(err);
                 }
             }
         });
     }
 
-    function getInfo(memberId, callback, error) {
-        getTotal();
+    function getAbList(param, callback, error) {
         $.ajax({
-            url: "/mypage/setting/" + memberId,
+            url: "/mypage/alba",
             type: "get",
-            success: function (memberDTO, status, xhr) {
+            success: function (albaDTO, status, xhr) {
                 if (callback) {
-                    callback(memberDTO);
+                    callback(albaDTO);
                 }
             },
             error: function (xhr, status, err) {
