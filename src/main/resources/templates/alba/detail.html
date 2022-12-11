@@ -61,12 +61,13 @@
                                             </dl>
                                         </div>
                                         <!--작성자가 아닌 사람이 해당 게시글에 접속했을 때-->
-                                        <button id="main_fixed_button" style="display: none">
+
+                                        <button id="main_fixed_button" >
                                             <div/>지원하기<div/>
                                         </button>
 
                                         <!--지원한 게시글에 접근했을 때-->
-                                        <button id="cancel" style="display: none">
+                                        <button id="cancel" >
                                             <div/>지원 취소하기<div/>
                                         </button>
 
@@ -184,13 +185,13 @@
         <div class="c-modal">
             <div class="m-wrap">
                 <div class="m-title">아르바이트 지원하기</div>
-                <form action="">
+                <form method="post" th:action="@{/alba/apply}">
                     <div class="m-c-wrap">
                         <div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>
                         <p>mesudal@naver.com</p>
                     </div>
                     <div class="applyBtnWrap">
-                        <button type="button" class="applyBtn">메일전송 완료</button>
+                        <button type="submit" class="applyBtn">메일전송 완료</button>
                         <button type="button" class="cancel">취소</button>
                     </div>
                 </form>

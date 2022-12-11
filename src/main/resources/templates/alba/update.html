@@ -11,11 +11,11 @@
 </head>
 <body>
 <div id="wrap">
-    <form method="post" th:action="@{/alba/update}" id="writeForm" th:object="${alba}" enctype="multipart/form-data">
+    <form method="post" th:action="@{/alba/update}" id="writeForm" th:object="${updateAlba}" enctype="multipart/form-data">
         <!--헤더 영역-->
         <div id="header">
             <div class="header-inner">
-                <div class="header-left">새 아르바이트</div>
+                <div class="header-left">아르바이트 수정하기</div>
                 <div class="header-btn">
                     <button type="button" id="btn-modal">나가기</button>
                 </div>
@@ -318,7 +318,7 @@
                 <button type="button" class="prev"><img class="footer-img-prev" src="/image/alba/prev_register.gif">이전</button>
                 <button type="button" class="next">다음<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
                 <!--작성 완료 시 작성된 게시글로 이동되어야 함, alba/detail.js 300번째 줄쯤에 있음-->
-                <button type="submit" class="submitBtn" style="display: none; width: 82px">제출하기<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
+                <button type="submit" class="submitBtn" style="display: none; width: 82px">수정하기<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
             </div>
         </div>
     </form>

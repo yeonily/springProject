@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.alba.Alba;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
@@ -58,6 +60,14 @@ public class AlbaController {
         return "/alba/list";
 
     }
+
+    @PostMapping("/apply")
+    public RedirectView albaApply(MemberAlbaDTO memberAlbaDTO) throws Exception{
+        log.info("memberAlbaDTO : " + memberAlbaDTO.toString());
+        albaDetailService.albaApply(memberAlbaDTO);
+        return new RedirectView("/alba/list");
+    }
+
 
     @GetMapping("/write")
     public void albaWrite(Model model) {
@@ -130,45 +140,74 @@ public class AlbaController {
 
     //    알바 게시글 수정
     @GetMapping("/update")
-    public String albaUpdate(Long albaId, Model model) {
-        model.addAttribute("alba", albaDetailService.albaShowOne(albaId));
+    public String albaUpdate(Long albaId, Model model) throws IOException {
+        AlbaDTO updateAlba = albaDetailService.showByAlbaId(albaId);
+        log.info("enter?");
+        log.info("albaId : " + albaId);
+        model.addAttribute("updateAlba", updateAlba);
+
         return "/alba/update";
     }
 
     @PostMapping("/update")
-    public RedirectView albaUpdate(AlbaDTO albaDTO, @RequestParam MultipartFile image) throws IOException {
+    public RedirectView albaUpdate(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image, RedirectAttributes redirectAttributes) throws Exception {
+        log.info("들어오긴 하니?");
+        log.info("몇 번째일까요? : " + albaDTO.getAlbaId());
         String path = "/Users/yeontaegwan/Desktop/project/image";
         String uploadFileName = null;
-        String dbFile = albaDetailService.albaShowOne(albaDTO.getAlbaId()).getAlbaImage();
+//        String dbFile = albaDetailService.showByAlbaId(albaDTO.getAlbaId()).getAlbaImage();
 
         if (!image.isEmpty()){
             UUID uuid = UUID.randomUUID();
             String fileName = image.getOriginalFilename();
             uploadFileName = uuid.toString() + "_" + fileName;
 
-            if (uploadFileName != dbFile && dbFile != null){
-                File file = new File(path, dbFile);
-                log.info("파일 있니? -> " + file);
-                if(file.exists()){
-                    file.delete();
-                }
-            }
+//            if (uploadFileName != dbFile && dbFile != null){
+//                File file = new File(path, dbFile);
+//                log.info("파일 있니? -> " + file);
+//                if(file.exists()){
+//                    file.delete();
+//                }
+//            }
 
             File saveFile = new File(path, uploadFileName);
             image.transferTo(saveFile);
             albaDTO.setAlbaImage(uploadFileName);
 
-        } else if (dbFile != null) {
-            File file = new File(path, dbFile);
-            if(file.exists()){
-                file.delete();
-            }
+//        } else if (dbFile != null) {
+//            File file = new File(path, dbFile);
+//            if(file.exists()){
+//                file.delete();
+//            }
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        DateTimeFormatter formatter1 = new DateTimeFormatterBuilder()
+                .append(DateTimeFormatter.ISO_LOCAL_TIME)
+                .parseDefaulting(ChronoField.EPOCH_DAY, 0)
+                .toFormatter();
+
+        LocalDateTime albaWorkDateTest = LocalDate.parse(albaWorkDateString, formatter).atStartOfDay();
+        log.info("1." + albaWorkDateTest);
+
+        LocalDateTime albaApplyStartDateTest = LocalDate.parse(albaApplyStartDateString, formatter).atStartOfDay();
+        log.info("2." + albaApplyStartDateTest);
+
+        LocalDateTime albaApplyEndDateTest = LocalDate.parse(albaApplyEndDateString, formatter).atStartOfDay();
+        log.info("3." + albaApplyEndDateTest);
+
+        albaDTO.setAlbaApplyStartDate(albaApplyStartDateTest);
+        albaDTO.setAlbaApplyEndDate(albaApplyEndDateTest);
+        albaDTO.setAlbaWorkDate(albaWorkDateTest);
+
+        log.info("entering???");
         albaDetailService.albaUpdate(albaDTO);
         return new RedirectView("/alba/list");
     }
 
-    @GetMapping("/albaimg/display") // 보기
+    // 보기
+    @GetMapping("/display")
     @ResponseBody
     public byte[] display(String fileName) throws IOException{
         File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
