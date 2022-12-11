@@ -15,9 +15,8 @@ public class NoticeFileService {
     private final NoticeFileRepository noticeFileRepository;
 
 //    공지 첨부파일 저장
-    public void add(NoticeFileDTO noticeFileDTO){
+    public void noticeFileAdd(NoticeFileDTO noticeFileDTO){
         NoticeFile noticeFile = noticeFileDTO.toEntity();
-        noticeFile.changeNotice(noticeFileDTO.getNotice());
         noticeFileRepository.save(noticeFile);
     }
 

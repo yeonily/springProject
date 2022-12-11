@@ -40,7 +40,7 @@
 
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form action="" name="noticeForm" method="">
+            <form th:action="@{/admin/notice/write}" th:object="${notice}" name="noticeForm" id="noticeWriteForm" method="post" enctype="multipart/form-data">
                 <table>
                     <colgroup>
                         <col width="20%;">
@@ -51,7 +51,7 @@
                         <th>제목</th>
                         <td>
                             <div class="title">
-                                <input type="text" name="notice" class="notice_title" placeholder="제목을 입력하세요" autocomplete="off">
+                                <input th:field="*{noticeTitle}" class="notice_title" placeholder="제목을 입력하세요." autocomplete="off">
                             </div>
                         </td>
                     </tr>
@@ -59,7 +59,7 @@
                         <th>내용</th>
                         <td>
                             <div id="editor">
-                                <textarea class="summernote" name="editorForm"></textarea>
+                                <textarea th:field="*{noticeContent}" class="summernote"></textarea>
 <!--                                <div id="letter-count">-->
 <!--                                    <br>-->
 <!--                                    <p id="letter-length" style="display: inline;">0</p> / 100-->
@@ -69,23 +69,22 @@
                     </tr>
                     <tr style="background: #ffffff;">
                         <th>첨부파일</th>
-                        <td style="border: 1px solid #e6e6e6;">
-                            <img id="preview-image">
+                        <td style="border: 1px solid #e6e6e6; position: relative;">
                             <div class="file">
                                 <label class="input-file-button" for="input-image">
                                 </label>
                                 <input type="file" name="upload" id="input-image" multiple>
-                                <img src="/image/admin/realLogo.png" class="uploadImg">
-                                <div class="cancelBtn">x</div>
                             </div>
-                            <div id="file-content"></div>
+                            <div id="preview-image">
+                                <ul id="img-wrap"></ul>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="btns-group">
-                    <input type="button" onclick="location.href='/admin/notice'" class="g-btn list" value="공지 목록">
-                    <input type="submit" onclick="saveNoticeCheck()" class="g-btn submit" value="등록">
+                    <input type="button" onclick="nBackList()" class="g-btn list" value="공지 목록">
+                    <input type="button" class="g-btn submit n-submit" value="등록">
                 </div>
             </form>
         </div>
@@ -99,5 +98,100 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="/js/admin/summerNote.js"></script>
-<script src="/js/admin/uploadFile.js"></script>
+<script src="/js/admin/write.js"></script>
+<script>
+    let arrayFile = [];
+
+    $("input[type='file']").on("change", function(){
+        let formData = new FormData();
+        let $inputFile = $("input[name='upload']");
+        let files = $inputFile[0].files;
+
+        Array.from(files).forEach(file => arrayFile.push(file));
+        const dataTransfer = new DataTransfer();
+        arrayFile.forEach(file => dataTransfer.items.add(file));
+        $(this)[0].files = dataTransfer.files;
+
+        $(files).each(function(i, file){
+            formData.append("upload", file);
+        });
+
+        $.ajax({
+            url: "/notice/file/upload",
+            type: "post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: showUploadResult
+        });
+    });
+
+    // 미리보기 띄우기
+    function showUploadResult(files){
+        let text = "";
+        $(files).each(function(i, file){
+            text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+            if (!file.fileImageCheck){
+                text += `<img src="/image/admin/uploadFile.png" width="75px">`;
+                text += `<div class="file-name">` + file.fileName + `</div>`;
+            } else {
+                text += `<img src="/notice/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+            }
+            text += `<div class="cancelBtn">×</div>`;
+            text += `</li>`;
+        });
+        $("#preview-image ul").append(text);
+    }
+
+    // 미리보기 삭제
+    $("#preview-image ul").on("click", ".cancelBtn", function(){
+        const $li = $(this).closest("li");
+        let i = $("#preview-image ul .cancelBtn").index($(this));
+        let uploadPath = $li.data("file-upload-path");
+        let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
+        $.ajax({
+            url: "/notice/file/delete",
+            type: "post",
+            data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
+            success: function(){
+                $li.remove();
+                arrayFile.splice(i, 1);
+                const dataTransfer = new DataTransfer();
+                arrayFile.forEach(file => dataTransfer.items.add(file));
+                $("input[name='upload']")[0].files = dataTransfer.files;
+            }
+        });
+    });
+
+    $(".n-submit").on("click", function(){
+        let text = "";
+        if(!(noticeForm.noticeTitle.value)){
+            noticeForm.noticeTitle.focus();
+            return;
+        }
+        if(!(noticeForm.noticeContent.value)){
+            noticeForm.noticeContent.focus();
+            return;
+        }
+
+        $.each($("#preview-image ul li"), function(i, li){
+            let fileName = $(li).data("file-name");
+            let fileUploadPath = $(li).data("file-upload-path");
+            let fileUuid = $(li).data("file-uuid");
+            let fileSize = $(li).data("file-size");
+            let fileImageCheck = $(li).data("file-image-check");
+            console.log(fileName);
+            console.log(fileUploadPath);
+            console.log(fileUuid);
+            console.log(fileSize);
+            console.log(fileImageCheck);
+            text += `<input type="text" name="noticeFiles[` + i + `].fileName" value="` + fileName + `">`;
+            text += `<input type="text" name="noticeFiles[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
+            text += `<input type="text" name="noticeFiles[` + i + `].fileUuid" value="` + fileUuid + `">`;
+            text += `<input type="text" name="noticeFiles[` + i + `].fileSize" value="` + fileSize + `">`;
+            text += `<input type="text" name="noticeFiles[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
+        });
+        $("form#noticeWriteForm").append(text).submit();
+    });
+</script>
 <html>

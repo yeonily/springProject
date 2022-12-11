@@ -102,13 +102,16 @@
                             </td>
                         </tr>
                     </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="6" style="height: 180px;">검색 결과가 없습니다.</td>
+                    </tr>
                 </table>
                 <div id="write" style="float: right;">
                     <input type="button" th:onclick="'location.href=\''+ @{/admin/policy/write} + '\''" value="작성">
                 </div>
 
                 <!-- 페이징 -->
-                <div id="page">
+                <div id="page" th:if="${!data}">
                     <div class="page_nation">
                         <th:block th:with="start=${(policies.number/maxPage)*maxPage + 1}, end=(${(policies.totalPages == 0) ? 1 : (start + (maxPage - 1) < policies.totalPages ? start + (maxPage - 1) : policies.totalPages)})">
                             <th:block th:if="${policies.pageable.pageNumber > 0}">
@@ -145,6 +148,7 @@
     let keywordUrl = keyword!="" && keyword!=null?("keyword=" + keyword +"&"):"";
     let searchTextUrl = searchText!="" && searchText!=null?("&searchText=" + searchText +"&"):"";
 
+    // 수정 페이지 이동
     function goUpdate(policyId) {
         location.href='/admin/policy/update?' + pageUrl + keywordUrl + searchTextUrl + 'policyId=' + policyId;
     }
@@ -162,9 +166,9 @@
         $(this).html(content);
     });
 
+    // 삭제 확인 알람
     var msg = "삭제 하시겠습니까?";
 
-    // 공지 삭제
     $(".deleteBtn").on("click", function () {
         var flag = confirm(msg);
         let policyId = $(this).data("id");

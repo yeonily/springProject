@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+ul {
+    margin: 0;
+    padding: 0;
+    list-style:none;
+}
+
 #write {
     width: 90%;
     margin: 0 auto;
@@ -107,8 +113,9 @@ td div.file {
     overflow: hidden;
     cursor: pointer;
     display: flex;
-    margin-top: 1%;
-    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 0;
     cursor: pointer;
 }
 
@@ -121,16 +128,31 @@ td div.file input {
     cursor: pointer !important;
 }
 
-td div#file-content {
-
+td #preview-image{
+    margin-top: 15px!important;
 }
 
-td span.file-limit {
+#img-wrap {
+    display: flex!important;
+    flex-wrap: wrap;
+    margin-left: 15px;
+    min-height: 100px;
+}
+
+#img-wrap>li {
+    display: flex!important;
+    flex-direction: column;
+    position: relative;
+    margin: 10px 15px 10px 0;
+}
+
+#img-wrap img {height: 70px;}
+
+.file-name {
+    width: 75px;
     font-size: 12px;
-    color: #868686;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 div.btns-group {
@@ -175,18 +197,12 @@ table.ask_all_reply{
     margin-top: 140px;
 }
 
-td img#preview-image{
-    height: 120px;
-    display: flex;
-    margin: 3% auto;
-}
-
 div.cancelBtn{
     display: flex;
     justify-content: center;
     position: absolute;
-    top: 660px;
-    right: 421px;
+    top: -5px;
+    right: -5px;
     width: 22px;
     height: 22px;
     padding: 5px;
@@ -197,11 +213,4 @@ div.cancelBtn{
     line-height: 9px;
     color: #fff;
     cursor: pointer;
-}
-
-img.uploadImg{
-    position: absolute;
-    right: 440px;
-    width: 250px;
-    bottom: 125px;
 }
