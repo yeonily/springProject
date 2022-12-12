@@ -3,7 +3,6 @@ package com.codefarm.codefarmer.entity.notice;
 import com.codefarm.codefarmer.domain.notice.NoticeDTO;
 import com.codefarm.codefarmer.domain.notice.NoticeFileDTO;
 import com.codefarm.codefarmer.entity.period.Period;
-import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;

@@ -107,9 +107,9 @@ div#n-w-wrap {
 div.file {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-top: 5px;
     padding: 5px 10px 5px;
-    /*background: #ebebeb69;*/
     border-radius: 2px;
     font-size: 13px;
     font-weight: 300;

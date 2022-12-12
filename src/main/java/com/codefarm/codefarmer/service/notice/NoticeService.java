@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,15 +19,13 @@ import java.util.List;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final NoticeFileRepository noticeFileRepository;
+    private final NoticeFileService noticeFileService;
 
 //    공지 글 작성
     public void register(NoticeDTO noticeDTO){
         Notice notice = noticeDTO.toEntity();
 
-        log.info("첨부 서비스 : " + noticeDTO.getNoticeFiles());
-
         if (noticeDTO.getNoticeFiles() != null){
-            log.info("공지 서비스 파일 : " + noticeDTO.getNoticeFiles());
             notice.changeFiles(noticeDTO.getNoticeFiles());
             notice.getNoticeFiles().stream().map(nf -> noticeFileRepository.save(nf));
         }
@@ -34,8 +33,18 @@ public class NoticeService {
     }
 
 //    공지 글 수정
-    public void update(Notice notice){
-        Notice noticeModify = noticeRepository.findById(notice.getNoticeId()).get();
+    public void update(NoticeDTO noticeDTO){
+        Notice noticeModify = noticeRepository.findById(noticeDTO.getNoticeId()).get();
+
+        noticeFileService.remove(noticeDTO.getNoticeId());
+        if (noticeDTO.getNoticeFiles() != null){
+            for (int i = 0; i < noticeDTO.getNoticeFiles().size(); i++ ) {
+                noticeModify.changeFiles(noticeDTO.getNoticeFiles());
+                noticeModify.getNoticeFiles().stream().map(nf -> noticeFileRepository.save(nf));
+            }
+        }
+
+        noticeModify.update(noticeDTO);
         noticeRepository.save(noticeModify);
     }
 
@@ -51,8 +60,20 @@ public class NoticeService {
     }
 
 //    공지 목록
+@Transactional(readOnly = true)
     public Page<Notice> showAll(Pageable pageable){
         return noticeRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Notice> searchShowAll(Pageable pageable, String keyword, String noticeTitle, String noticeContent){
+        if (keyword.equals("t")){
+            return noticeRepository.findByNoticeTitleContaining(noticeTitle, pageable);
+        } else if (keyword.equals("c")){
+            return noticeRepository.findByNoticeContentContaining(noticeContent, pageable);
+        } else {
+            return noticeRepository.findByNoticeTitleContainingAndNoticeContentContaining(noticeTitle, noticeContent, pageable);
+        }
     }
 
 //    공지 디테일 보기

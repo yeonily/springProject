@@ -25,14 +25,17 @@
                     <pre th:utext="*{noticeContent}"></pre>
                 </div>
                 <div id="notice-date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></div>
-                <div id="files" >
-                    <a href="">
-                        <div class="file">
-                            <span class="f-img"><img src="/image/community/clip.png"></span>
-                            <span class="f-title">JPA_신난다.jpg</span>
-                            <span class="f-size">[1.63MB]</span>
-                        </div>
-                    </a>
+                <div id="files">
+                    <th:block th:each="file:*{noticeFiles}">
+                        <a th:href="@{/notice/file/download(fileName=${file.fileUploadPath + '/' + file.fileUuid + '_' + file.fileName})}">
+                            <div class="file">
+                                <span class="f-img"><img src="/image/admin/imageCheck.png" th:if="${file.fileImageCheck}" style="height: 18px;"></span>
+                                <span class="f-img"><img src="/image/community/clip.png" th:unless="${file.fileImageCheck}"></span>
+                                <span class="f-title" th:text="${file.fileName}"></span>
+                                <span class="f-size" th:text="${'[' + file.fileSize / 1024 + 'KB]'}"></span>
+                            </div>
+                        </a>
+                    </th:block>
                 </div>
             </div>
             <div id="list-btn">

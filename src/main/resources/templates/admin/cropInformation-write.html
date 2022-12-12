@@ -40,49 +40,50 @@
 
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form th:action="@{/admin/crop/write}" th:object="${crop}" name="cropForm" method="post" enctype="multipart/form-data">
+            <form th:action="@{/admin/crop/register}" th:object="${crop}" name="cropForm" method="post" enctype="multipart/form-data">
                 <table>
                     <colgroup>
                         <col width="20%;">
                         <col width="80%">
                     </colgroup>
                     <tbody>
-                    <tr>
-                        <th>카테고리</th>
-                        <td>
-                            <div class="categori">
-                                <input th:field="*{cropKeyword}" class="categori" placeholder="카테고리를 입력하세요." autocomplete="off">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>제목</th>
-                        <td>
-                            <div class="title">
-                                <input th:field="*{cropTitle}" class="notice_title" placeholder="제목을 입력하세요." autocomplete="off">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="background: #ffffff;">
-                        <th>내용</th>
-                        <td>
-                            <div id="editor">
-                                <textarea th:field="*{cropContent}" class="summernote"></textarea>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="background: #ffffff;">
-                        <th>첨부파일</th>
-                        <td style="border: 1px solid #e6e6e6;">
-                            <img id="preview-image">
-                            <div class="file">
-                                <label class="input-file-button" for="input-image">
-                                </label>
-                                <input type="file" name="image" id="input-image">
-                            </div>
-                            <div id="file-content"></div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th>카테고리</th>
+                            <td>
+                                <div class="categori">
+                                    <input th:field="*{cropKeyword}" class="categori" placeholder="카테고리를 입력하세요." autocomplete="off">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>제목</th>
+                            <td>
+                                <div class="title">
+                                    <input th:field="*{cropTitle}" class="notice_title" placeholder="제목을 입력하세요." autocomplete="off">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="background: #ffffff;">
+                            <th>내용</th>
+                            <td>
+                                <div id="editor">
+                                    <textarea th:field="*{cropContent}" class="summernote"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="background: #ffffff;">
+                            <th>첨부파일</th>
+                            <td style="border: 1px solid #e6e6e6; position: relative;">
+                                <div class="file">
+                                    <label class="input-file-button" for="input-image">
+                                    </label>
+                                    <input type="file" name="image" id="input-image">
+                                </div>
+                                <div id="img-wrap">
+                                    <img id="preview-image" style="height: 100px; margin-bottom: 15px">
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="btns-group">

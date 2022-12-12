@@ -26,120 +26,114 @@
 <div id="wrapper">
     <!-- 세로 메뉴바 -->
     <nav th:replace="/fix/side_menu.html :: sideMenu"></nav>
-    <!-- 헤더 ~ 밑에 메인 컨텐츠 -->
-    <div id="container">
-        <!-- 헤더 -->
-        <header>
-            <span id="admin-header-title">자유게시판 관리</span>
-            <span id="admin-mode">관리자 모드</span>
-            <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
-        </header>
-        <div id="wrapContents">
-        <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents chart-no">
+        <!-- 헤더 ~ 밑에 메인 컨텐츠 -->
+        <div id="container">
+            <!-- 헤더 -->
+            <header>
+                <span id="admin-header-title">자유게시판 관리</span>
+                <span id="admin-mode">관리자 모드</span>
+                <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
+            </header>
+            <div id="wrapContents">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents chart-no">
 
-            <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
-                <div class="search-form">
-                        <span class="s-form">
-                            <select name="searchSelect">
-                                <option value="title">제목</option>
-                                <option value="content">내용</option>
-                                <option value="all">제목 + 내용</option>
-                                <option value="nickName">작성자</option>
-                                <option value="boardNumber">게시판번호</option>
-                            </select>
-                        </span>
-                    <span class="s-f-input">
-                            <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                <!-- 검색어 입력 폼 -->
+                <form th:action="@{/admin/board}" name="searchForm">
+                    <div class="search-form">
+                            <span class="s-form">
+                                <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                    <option value="t">제목</option>
+                                    <option value="c">내용</option>
+                                    <option value="tc">제목 + 내용</option>
+                                    <option value="w">작성자</option>
+                                    <option value="i">게시판번호</option>
+                                </select>
                             </span>
-                        </span>
-                    <button type="button" class="">
-                        <img src="/image/admin/search.png">
-                    </button>
-                </div>
-            </form>
+                        <span class="s-f-input">
+                                <span class="search-input">
+                                    <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
+                                </span>
+                            </span>
+                        <button type="submit" class="">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
 
-        </div>
-
-        <!-- 프로그램 리스트 출력 틀 -->
-        <div class="p-contents contents-bottom">
-                <span class="list-count">총
-                    <span>2476</span>건
-                </span>
-
-            <table class="board">
-                <tr class="title">
-                    <th class="num">번호</th>
-                    <th class="title">제목</th>
-                    <th class="content">내용</th>
-                    <th class="nickName">작성자</th>
-                    <th class="file-check">첨부파일</th>
-                    <th class="date">작성날짜</th>
-                    <th class="hits">조회수</th>
-                    <th class="reply">댓글</th>
-                    <th class="delete"></th>
-                </tr>
-                <!-- ↓ 데이터 출력 -->
-                <tr>
-                    <td>1</td>
-                    <td class="title" onclick="location.href='/community/detail'">
-                        ● [ 농산물상자 & 파렛트 ] 저렴히 판매합니다..●</td>
-                    <td class="content">1 . 플라스틱상자 일체 (농산물상자 , 과일상자 , 운반상자 , 계육상자 , 두부상자 등)</td>
-                    <td>herd</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-11-14</td>
-                    <td>86</td>
-                    <td>0</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td class="title" onclick="location.href='/community/detail'">
-                        ● [ 농산물상자 & 파렛트 ] 저렴히 판매합니다..●</td>
-                    <td class="content">1 . 플라스틱상자 일체 (농산물상자 , 과일상자 , 운반상자 , 계육상자 , 두부상자 등)</td>
-                    <td>herd</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-11-14</td>
-                    <td>86</td>
-                    <td>0</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td class="title" onclick="location.href='/community/detail'">
-                        ● [ 농산물상자 & 파렛트 ] 저렴히 판매합니다..●</td>
-                    <td class="content">1 . 플라스틱상자 일체 (농산물상자 , 과일상자 , 운반상자 , 계육상자 , 두부상자 등)</td>
-                    <td>herd</td>
-                    <td><img src="/image/admin/fileImage.png"></td>
-                    <td>2022-11-14</td>
-                    <td>86</td>
-                    <td>0</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-            </table>
-
-            <!-- 페이징 -->
-            <div id="page">
-                <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
-                </div>
             </div>
-        </div>
+
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
+                    <span class="list-count">총
+                        <span th:text="${boardCounts}"></span>건
+                    </span>
+
+                <table class="board">
+                    <tr class="title">
+                        <th class="num">번호</th>
+                        <th class="title">제목</th>
+                        <th class="content">내용</th>
+                        <th class="nickName">작성자</th>
+                        <th class="file-check">첨부파일</th>
+                        <th class="date">작성날짜</th>
+                        <th class="hits">조회수</th>
+                        <th class="reply">댓글</th>
+                        <th class="delete"></th>
+                    </tr>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="board:${boards}">
+                        <tr th:object="${board}">
+                            <td th:text="*{boardId}"></td>
+                            <td class="title" th:text="*{boardTitle}" onclick="location.href='/community/detail'"></td>
+                            <td class="content" th:text="*{boardContent}"></td>
+                            <td th:text="*{member.getMemberNickname}"></td>
+                            <td>
+                                <img src="/image/community/clip.png">
+    <!--                            <div th:if="*{#lists.isEmpty(noticeFiles)}">-</div>-->
+    <!--                            <div th:unless="*{#lists.isEmpty(noticeFiles)}" class="fileCheck">-->
+    <!--                                <img src="/image/community/clip.png" style="width: 14px;">-->
+    <!--                            </div>-->
+                            </td>
+                            <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                            <td>86</td>
+                            <td>0</td>
+                            <td class="delete">
+                                <form method="post" class="deleteForm" th:action="@{/board/delete}">
+                                    <input type="text" hidden name="boardId" th:value="*{boardId}">
+                                    <input type="button" value="삭제" class="deleteBtn">
+                                </form>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="9" style="height: 180px;">검색 결과가 없습니다.</td>
+                    </tr>
+                </table>
+
+                <!-- 페이징 -->
+<!--                <div id="page" th:if="${!data}">-->
+<!--                    <div class="page_nation">-->
+<!--                        <th:block th:with="start=${(boards.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">-->
+<!--                            <th:block th:if="${boards.pageable.pageNumber > 0}">-->
+<!--                                <a class="arrow pprev" th:href="@{/admin/board(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>-->
+<!--                                <a class="arrow prev" th:href="@{/admin/board(page=${((boards.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>-->
+<!--                            </th:block >-->
+
+<!--                            <th:block  th:each="i: ${#numbers.sequence(start, end)}">-->
+<!--                                <a th:href="@{/admin/board(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == boards.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>-->
+<!--                            </th:block >-->
+
+<!--                            <th:block th:if="${end < resultCount}">-->
+<!--                                <a class="arrow next" th:href="@{/admin/board(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>-->
+<!--                                <a class="arrow nnext" th:href="@{/admin/board(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>-->
+<!--                                <a class="arrow nnext" th:href="@{/admin/board(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>-->
+<!--                            </th:block>-->
+<!--                        </th:block>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </div>
         </div>
     </div>
 </div>

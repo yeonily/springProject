@@ -1,7 +1,7 @@
 package com.codefarm.codefarmer.entity.notice;
 
+import com.codefarm.codefarmer.domain.notice.NoticeFileDTO;
 import com.codefarm.codefarmer.entity.period.Period;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +25,13 @@ public class NoticeFile extends Period{
 
     public void changeNotice(Notice notice){
         this.notice = notice;
+    }
+
+    public void update(NoticeFileDTO NoticeFileDTO){
+        this.fileName = NoticeFileDTO.getFileName();
+        this.fileUploadPath = NoticeFileDTO.getFileUploadPath();
+        this.fileUuid = NoticeFileDTO.getFileUuid();
+        this.fileSize = NoticeFileDTO.getFileSize();
     }
 
     @Builder
