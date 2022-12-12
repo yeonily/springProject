@@ -39,9 +39,9 @@ public class MentorBoardTest {
     @Test
     public void mentorWriteTest(){
         MentorBoardDTO mentorBoardDTO = new MentorBoardDTO();
-        Optional<Member> findMentor = memberRepository.findById(1L);
+        Optional<Member> findMember = memberRepository.findById(112L);
+        Optional<Mentor> findMentor = mentorRepository.findById(293L);
 
-        if(findMentor.get().getMemberType() == MemberType.MENTOR) {
             mentorBoardDTO.setMentorCareer("고구마 농사 멘토 활동중");
             mentorBoardDTO.setMentorExCareer("20회 이상 멘티 컨설팅 25년 다양한 작물 재배");
             mentorBoardDTO.setMentorStrongTitle1("20회 이상 멘티 가르침으로 생긴 노하우 전수");
@@ -50,22 +50,23 @@ public class MentorBoardTest {
             mentorBoardDTO.setMentorStrongContent2("내 강점 내용 2");
             mentorBoardDTO.setMentorStrongTitle3("내 강점 3");
             mentorBoardDTO.setMentorStrongContent3("내 강점 내용 3");
-            mentorBoardDTO.setMentorTitle("딸기를 재배해보양");
+            mentorBoardDTO.setMentorTitle("크리스마스 파뤼!");
             mentorBoardDTO.setMentorTitleSub("서브 배너 문구입니다.");
             mentorBoardDTO.setMentorTextTitle("텍스트 제목");
             mentorBoardDTO.setMentorTextContent("텍스트 내용");
-            mentorBoardDTO.setMemberId(findMentor.get());
-        }
+            mentorBoardDTO.setMemberId(findMember.get().getMemberId());
+            mentorBoardDTO.setMentorId(findMentor.get().getMentorId());
 
         MentorBoard mentorBoard = mentorBoardDTO.toEntity();
-        mentorBoard.changeMember(mentorBoardDTO.getMemberId());
+        mentorBoard.changeMember(findMember.get());
+        mentorBoard.changeMentor(findMentor.get());
         mentorBoardRepository.save(mentorBoard);
     }
 
 // 멘토 글 상세보기
     @Test
     public void mentorDetailTest(){
-        Optional<MentorBoard> findMentorDetail = mentorBoardRepository.findById(6L);
+        Optional<MentorBoard> findMentorDetail = mentorBoardRepository.findById(294L);
 
         log.info("경력 : " + findMentorDetail.get().getMentorCareer());
         log.info("이전 경력 : " + findMentorDetail.get().getMentorExCareer());

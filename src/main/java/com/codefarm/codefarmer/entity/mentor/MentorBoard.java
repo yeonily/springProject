@@ -43,10 +43,16 @@ public class MentorBoard extends Period {
     @NotNull
     private String mentorTextContent;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTOR_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Mentor mentor;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorBoard")
     private List<MentorFile> mentorFiles;
@@ -68,6 +74,10 @@ public class MentorBoard extends Period {
 
     public void changeMember(Member member){
         this.member = member;
+    }
+
+    public void changeMentor(Mentor mentor){
+        this.mentor = mentor;
     }
 
 
