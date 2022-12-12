@@ -60,10 +60,10 @@ public class NoticeServiceTest {
 //    공지 수정
     @Test
     public void upateTest(){
-        Notice notice = noticeService.showOne(40L);
+        Notice notice = noticeRepository.findById(49L).get();
         notice.setNoticeContent("수정임");
 
-        noticeService.update(notice);
+        noticeRepository.save(notice);
     }
 
 //    공지 삭제

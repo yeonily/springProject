@@ -80,7 +80,65 @@ function aBackList() {
 
 // 공지 목록 돌아가기
 function nBackList() {
+    var flag = confirm(msg);
     if (flag) {
         location.href="/admin/notice";
+    }
+}
+
+$(".n-submit").on("click", function(){
+    let text = "";
+    if(!(noticeForm.noticeTitle.value)){
+        noticeForm.noticeTitle.focus();
+        return;
+    }
+    if(!(noticeForm.noticeContent.value)){
+        noticeForm.noticeContent.focus();
+        return;
+    }
+
+    $.each($("#preview-image ul li"), function(i, li){
+        let fileName = $(li).data("file-name");
+        let fileUploadPath = $(li).data("file-upload-path");
+        let fileUuid = $(li).data("file-uuid");
+        let fileSize = $(li).data("file-size");
+        let fileImageCheck = $(li).data("file-image-check");
+        console.log(fileName);
+        console.log(fileUploadPath);
+        console.log(fileUuid);
+        console.log(fileSize);
+        console.log(fileImageCheck);
+        text += `<input type="hidden" name="noticeFiles[` + i + `].fileName" value="` + fileName + `">`;
+        text += `<input type="hidden" name="noticeFiles[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
+        text += `<input type="hidden" name="noticeFiles[` + i + `].fileUuid" value="` + fileUuid + `">`;
+        text += `<input type="hidden" name="noticeFiles[` + i + `].fileSize" value="` + fileSize + `">`;
+        text += `<input type="hidden" name="noticeFiles[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
+    });
+    $("form#noticeWriteForm").append(text).submit();
+});
+
+// 배너
+$(".b-submit").on("click", function (){
+    if(!(bannerForm.bannerTitle.value)){
+        bannerForm.bannerTitle.focus();
+        return;
+    }
+    if(!(bannerForm.bannerInfo.value)){
+        bannerForm.bannerInfo.focus();
+        return;
+    }
+    if(!(bannerForm.image.value)){
+        alert("배너를 등록해주세요.")
+        return;
+    }
+
+    bannerForm.submit();
+});
+
+function bBackList() {
+    var flag = confirm(msg);
+
+    if (flag) {
+        location.href="/admin/banner";
     }
 }

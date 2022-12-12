@@ -81,14 +81,15 @@
                     </tr>
                     <tr style="background: #ffffff;">
                         <th>첨부파일</th>
-                        <td style="border: 1px solid #e6e6e6;">
-                            <img id="preview-image">
+                        <td style="border: 1px solid #e6e6e6; position: relative;">
                             <div class="file">
                                 <label class="input-file-button" for="input-image">
                                 </label>
                                 <input type="file" name="image" id="input-image">
                             </div>
-                            <div id="file-content"></div>
+                            <div id="img-wrap">
+                                <img id="preview-image" style="height: 100px; margin-bottom: 15px">
+                            </div>
                         </td>
                     </tr>
                     </tbody>

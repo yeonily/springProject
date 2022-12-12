@@ -19,7 +19,7 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
     public Page<Inquire> findByInquireQContentContaining(String inquireQContent, Pageable pageable);
 
 
-    //    문의 글 개수
+//    문의 글 개수
     @Query("select count(i) from Inquire i")
     public int countByInquire();
 

@@ -94,13 +94,13 @@
                             <td>관리자</td>
                             <td>
                                 <span th:if="*{cropImage == null}">-</span>
-                                <img src="/image/admin/fileImage.png" th:unless="*{cropImage == null}">
+                                <img src="/image/community/clip.png" th:unless="*{cropImage == null}" style="width: 14px;">
                             </td>
                             <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
                             <td class="revise"><input type="button" value="수정" th:onclick="|javascript:goUpdate(*{cropId})|"></td>
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/crop/delete}">
-                                    <input type="text" hidden name="cropId" th:value="*{cropId}">
+                                    <input type="hidden" name="cropId" th:value="*{cropId}">
                                     <input type="button" value="삭제" class="deleteBtn">
                                 </form>
                             </td>
@@ -111,7 +111,7 @@
                     </tr>
                 </table>
                 <div id="write" style="float: right;">
-                    <input type="button" th:onclick="'location.href=\''+ @{/admin/crop/write} + '\''" value="작성">
+                    <input type="button" th:onclick="'location.href=\''+ @{/admin/crop/register} + '\''" value="작성">
                 </div>
 
                 <!-- 페이징 -->
@@ -123,7 +123,7 @@
                                 <a class="arrow prev" th:href="@{/admin/crop(page=${((crops.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
                             </th:block >
 
-                            <th:block  th:each="i: ${#numbers.sequence(start, end)}">
+                            <th:block th:each="i: ${#numbers.sequence(start, end)}">
                                 <a th:href="@{/admin/crop(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == crops.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
                             </th:block >
 

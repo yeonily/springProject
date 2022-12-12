@@ -35,99 +35,109 @@
             <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
         </header>
         <div id="wrapContents">
-        <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents chart-no">
-
-            <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
-                <div class="search-form">
-                        <span class="s-form">
-                            <select name="searchSelect">
-                                <option value="t">제목</option>
-                                <option value="c">내용</option>
-                                <option value="tc">제목 + 내용</option>
-                            </select>
-                        </span>
-                    <span class="s-f-input">
-                            <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents chart-no">
+    
+                <!-- 검색어 입력 폼 -->
+                <form th:action="@{/admin/notice}" name="searchForm">
+                    <div class="search-form">
+                            <span class="s-form">
+                                <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                    <option value="t">제목</option>
+                                    <option value="c">내용</option>
+                                    <option value="tc">제목 + 내용</option>
+                                </select>
                             </span>
-                        </span>
-                    <button type="button" class="">
-                        <img src="/image/admin/search.png">
-                    </button>
-                </div>
-            </form>
-
-        </div>
-
-        <!-- 프로그램 리스트 출력 틀 -->
-        <div class="p-contents contents-bottom">
+                        <span class="s-f-input">
+                                <span class="search-input">
+                                    <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
+                                </span>
+                            </span>
+                        <button type="submit" class="searchBtn">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
+    
+            </div>
+    
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
                 <span class="list-count">총
                     <span th:text="${noticeCount}"></span>건
                 </span>
-
-            <table>
-                <tr class="title">
-                    <th class="num">공지번호</th>
-                    <th class="title">제목</th>
-                    <th class="content">내용</th>
-                    <th class="id">작성자</th>
-                    <th class="file-check">첨부파일</th>
-                    <th class="date">작성날짜</th>
-                    <th class="hits">조회수</th>
-                    <th class="revise"></th>
-                    <th class="delete"></th>
-                </tr>
-                <!-- ↓ 데이터 출력 -->
-                <th:block th:each="notice:${noticeLists}">
-                    <tr th:object="${notice}">
-                        <td th:text="*{noticeId}"></td>
-                        <td class="title" th:onclick="'location.href=\''+ @{/notice/detail(noticeId=*{noticeId})} + '\''" th:text="*{noticeTitle}"></td>
-                        <td class="content" th:utext="*{noticeContent}"></td>
-                        <td>관리자</td>
-                        <td>
-                            <div th:if="${#lists.isEmpty(countFiles)}">-</div>
-                            <div th:unless="${#lists.isEmpty(countFiles)}">
-                                <img src="/image/admin/fileImage.png">
-                            </div>
-                        </td>
-                        <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
-                        <td th:text="*{noticeViewCount}"></td>
-                        <td class="revise"><input type="button" value="수정" th:onclick="|javascript:goUpdate('*{noticeId}')|"></td>
-                        <td class="delete">
-                            <form method="post" class="deleteForm" th:action="@{/admin/notice/delete}">
-                                <input type="text" hidden name="noticeId" th:value="*{noticeId}">
-                                <input type="button" value="삭제" class="deleteBtn">
-                            </form>
-                        </td>
+    
+                <table>
+                    <tr class="title">
+                        <th class="num">공지번호</th>
+                        <th class="title">제목</th>
+                        <th class="content">내용</th>
+                        <th class="id">작성자</th>
+                        <th class="file-check">첨부파일</th>
+                        <th class="date">작성날짜</th>
+                        <th class="hits">조회수</th>
+                        <th class="revise"></th>
+                        <th class="delete"></th>
                     </tr>
-                </th:block>
-            </table>
-            <div id="write" style="float: right;">
-                <input type="button" onclick="location.href='/admin/notice/write'" value="작성">
-            </div>
-
-            <!-- 페이징 -->
-            <div id="page">
-                <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="notice:${noticeLists}">
+                        <tr th:object="${notice}">
+                            <td th:text="*{noticeId}"></td>
+                            <td class="title" th:onclick="'location.href=\''+ @{/notice/detail(noticeId=*{noticeId})} + '\''" th:text="*{noticeTitle}"></td>
+                            <td class="content" th:utext="*{noticeContent}"></td>
+                            <td>관리자</td>
+                            <td>
+                                <div th:if="*{#lists.isEmpty(noticeFiles)}">-</div>
+                                <div th:unless="*{#lists.isEmpty(noticeFiles)}" class="fileCheck">
+                                    <img src="/image/community/clip.png" style="width: 14px;">
+    <!--                                <th:block th:each="file:*{noticeFiles}" th:object="${file}">-->
+    <!--                                    <input type="hidden" name="fileName" th:value="*{fileUuid + '_' + fileName}">-->
+    <!--                                    <input type="hidden" name="fileUploadPath" th:value="*{fileUploadPath}">-->
+    <!--                                    <input type="hidden" name="fileImageCheck" th:value="*{fileImageCheck}">-->
+    <!--                                </th:block>-->
+                                </div>
+                            </td>
+                            <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                            <td th:text="*{noticeViewCount}"></td>
+                            <td class="revise"><input type="button" value="수정" th:onclick="|javascript:goUpdate('*{noticeId}')|"></td>
+                            <td class="delete">
+                                <form method="post" class="deleteForm" th:action="@{/admin/notice/delete}">
+                                    <input type="text" hidden name="noticeId" th:value="*{noticeId}">
+                                    <input type="button" value="삭제" class="deleteBtn">
+                                </form>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="9" style="height: 180px;">검색 결과가 없습니다.</td>
+                    </tr>
+                </table>
+                <div id="write" style="float: right;">
+                    <input type="button" onclick="location.href='/admin/notice/register'" value="작성">
                 </div>
+    
+                <!-- 페이징 -->
+                <div id="page" th:if="${!data}">
+                    <div class="page_nation">
+                        <th:block th:with="start=${(noticeLists.number/maxPage)*maxPage + 1}, end=(${(noticeLists.totalPages == 0) ? 1 : (start + (maxPage - 1) < noticeLists.totalPages ? start + (maxPage - 1) : noticeLists.totalPages)})">
+                            <th:block th:if="${noticeLists.pageable.pageNumber > 0}">
+                                <a class="arrow pprev" th:href="@{/admin/notice(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow prev" th:href="@{/admin/notice(page=${((noticeLists.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block >
+    
+                            <th:block  th:each="i: ${#numbers.sequence(start, end)}">
+                                <a th:href="@{/admin/notice(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == noticeLists.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                            </th:block >
+    
+                            <th:block th:if="${end < noticeLists.totalPages}">
+                                <a class="arrow next" th:href="@{/admin/notice(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/notice(page=${noticeLists.totalPages - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+                
             </div>
-        </div>
         </div>
     </div>
 </div>
@@ -161,17 +171,13 @@
 
     $(".deleteBtn").on("click", function () {
         var flag = confirm(msg);
-        let noticeId = $(this).data("id");
 
-        // $(document).ready(function(){
-            if(flag){
-                $(this).parents("form.deleteForm").submit();
-                // alert("공지사항 " + parseInt(noticeId) + "번 삭제완료.");
-            }
-            // history.replaceState({}, null, null);
-        });
+        if(flag){
+            $(this).parents("form.deleteForm").submit();
+            // alert("공지사항 " + parseInt(noticeId) + "번 삭제완료.");
+        }
+    });
 
-    // });
 </script>
 </body>
 <html>

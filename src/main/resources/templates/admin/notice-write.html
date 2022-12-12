@@ -40,7 +40,7 @@
 
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form th:action="@{/admin/notice/write}" th:object="${notice}" name="noticeForm" id="noticeWriteForm" method="post" enctype="multipart/form-data">
+            <form th:action="@{/admin/notice/register}" th:object="${notice}" name="noticeForm" id="noticeWriteForm" method="post" enctype="multipart/form-data">
                 <table>
                     <colgroup>
                         <col width="20%;">
@@ -60,10 +60,6 @@
                         <td>
                             <div id="editor">
                                 <textarea th:field="*{noticeContent}" class="summernote"></textarea>
-<!--                                <div id="letter-count">-->
-<!--                                    <br>-->
-<!--                                    <p id="letter-length" style="display: inline;">0</p> / 100-->
-<!--                                </div>-->
                             </div>
                         </td>
                     </tr>
@@ -161,37 +157,6 @@
                 $("input[name='upload']")[0].files = dataTransfer.files;
             }
         });
-    });
-
-    $(".n-submit").on("click", function(){
-        let text = "";
-        if(!(noticeForm.noticeTitle.value)){
-            noticeForm.noticeTitle.focus();
-            return;
-        }
-        if(!(noticeForm.noticeContent.value)){
-            noticeForm.noticeContent.focus();
-            return;
-        }
-
-        $.each($("#preview-image ul li"), function(i, li){
-            let fileName = $(li).data("file-name");
-            let fileUploadPath = $(li).data("file-upload-path");
-            let fileUuid = $(li).data("file-uuid");
-            let fileSize = $(li).data("file-size");
-            let fileImageCheck = $(li).data("file-image-check");
-            console.log(fileName);
-            console.log(fileUploadPath);
-            console.log(fileUuid);
-            console.log(fileSize);
-            console.log(fileImageCheck);
-            text += `<input type="text" name="noticeFiles[` + i + `].fileName" value="` + fileName + `">`;
-            text += `<input type="text" name="noticeFiles[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
-            text += `<input type="text" name="noticeFiles[` + i + `].fileUuid" value="` + fileUuid + `">`;
-            text += `<input type="text" name="noticeFiles[` + i + `].fileSize" value="` + fileSize + `">`;
-            text += `<input type="text" name="noticeFiles[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
-        });
-        $("form#noticeWriteForm").append(text).submit();
     });
 </script>
 <html>

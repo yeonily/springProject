@@ -76,7 +76,6 @@ public class InquireService {
     public void answerAdd(InquireAnswerDTO inquireAnswerDTO) {
         InquireAnswer inquireAnswer = inquireAnswerDTO.toEntity();
         inquireAnswer.changeInquire(inquireAnswerDTO.getInquire());
-        log.info("문의답변 --> " + inquireAnswer);
 
         inquireAnswerRepository.save(inquireAnswer);
     }

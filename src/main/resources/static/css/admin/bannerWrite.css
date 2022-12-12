@@ -185,12 +185,6 @@ div.fileDiv{
     background-color: white;
 }
 
-td img#preview-image{
-    height: 120px;
-    display: flex;
-    margin: 3% auto;
-}
-
 td div.file {
     width: 150px;
     height: 40px;
@@ -199,8 +193,10 @@ td div.file {
     overflow: hidden;
     cursor: pointer;
     display: flex;
-    margin-top: 1%;
-    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
 }
 
 td div.file input {
@@ -209,7 +205,29 @@ td div.file input {
     height: 30px !important;
     opacity: 0 !important;
     overflow: hidden !important;
+    cursor: pointer !important;
 }
+
+td img#preview-image{
+    margin-top: 15px!important;
+    margin-bottom: 15px
+}
+
+#img-wrap {
+    display: flex!important;
+    flex-wrap: wrap;
+    margin-left: 15px;
+    min-height: 115px;
+}
+
+#img-wrap>li {
+    display: flex!important;
+    flex-direction: column;
+    position: relative;
+    margin: 10px 15px 10px 0;
+}
+
+#img-wrap img {height: 100px;}
 
 
 

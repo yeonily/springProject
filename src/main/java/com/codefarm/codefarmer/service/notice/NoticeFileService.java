@@ -25,11 +25,6 @@ public class NoticeFileService {
         return noticeFileRepository.findByNoticeId(noticeId);
     }
 
-//    공지 첨부파일 게시글 번호로 개수 조회
-    public int count(Long noticeId){
-        return noticeFileRepository.countByNoticeId(noticeId);
-    }
-
 //    삭제
     public void remove(Long noticeId){
         noticeFileRepository.deleteByNoticeId(noticeId);

@@ -40,7 +40,7 @@
         <div id="wrapContents">
         <!-- 메인화면 컨텐츠 -->
         <div id="write">
-            <form action="" name="noticeForm" method="">
+            <form th:action="@{/admin/banner/register}" th:object="${banner}" name="bannerForm" method="post" enctype="multipart/form-data">
                 <table>
                     <colgroup>
                         <col width="20%;">
@@ -51,7 +51,7 @@
                         <th>배너명</th>
                         <td>
                             <div class="title">
-                                <input type="text" name="bannerTitle" class="bannerTitle" placeholder="배너명을 입력하세요" autocomplete="off">
+                                <input th:field="*{bannerTitle}" class="bannerTitle" placeholder="배너명을 입력하세요." autocomplete="off">
                             </div>
                         </td>
                     </tr>
@@ -59,7 +59,7 @@
                         <th>베너텍스트</th>
                         <td>
                             <div class="title">
-                                <input type="text" name="bannerContent" class="bannerContent" placeholder="베너텍스트를 입력하세요." autocomplete="off">
+                                <input th:field="*{bannerInfo}" class="bannerContent" placeholder="베너텍스트를 입력하세요." autocomplete="off">
                             </div>
                         </td>
                     </tr>
@@ -68,9 +68,9 @@
                         <td>
                             <div id="date" class="title">
                                 <span class="dateSpan">
-                                <input type="date" name="bannerDate" class="dateLeft" placeholder="배너기간을 입력하세요." autocomplete="off">
-                                    <span class="wave">~</span>
-                                <input type="date" name="bannerDate" class="dateRight" placeholder="배너기간을 입력하세요." autocomplete="off">
+                                    <input type="date" name="startDate" class="dateLeft" placeholder="배너기간을 입력하세요." autocomplete="off">
+                                        <span class="wave">~</span>
+                                    <input type="date" name="endDate" class="dateRight" placeholder="배너기간을 입력하세요." autocomplete="off">
                                 </span>
                             </div>
                         </td>
@@ -80,7 +80,7 @@
                         <td>
                             <div class="title" style="height: 33px">
                                 <input type="text" name="bannerContent" class="bannerContent" style="display: none;">
-                                <select name="searchStatus" style="height: 33px; width: 11%; text-align: center; border: white; ">
+                                <select name="status" style="height: 33px; width: 11%; text-align: center; border: white; ">
                                     <option value="statusOk">사용</option>
                                     <option value="statusNo">사용안함</option>
                                 </select>
@@ -89,21 +89,22 @@
                     </tr>
                     <tr style="background: #ffffff;">
                         <th>첨부파일</th>
-                        <td style="border: 1px solid #e6e6e6;">
-                            <img id="preview-image">
+                        <td style="border: 1px solid #e6e6e6; position: relative;">
                             <div class="file">
                                 <label class="input-file-button" for="input-image">
                                 </label>
-                                <input type="file" name="file" id="input-image" multiple>
+                                <input type="file" name="image" id="input-image">
                             </div>
-                            <div id="file-content"></div>
+                            <div id="img-wrap">
+                                <img id="preview-image">
+                            </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="btns-group">
-                    <input type="button" onclick="location.href='/admin/banner'" class="g-btn list" value="배너 목록">
-                    <input type="submit" onclick="saveBannerCheck()" class="g-btn submit" value="등록">
+                    <input type="button" onclick="bBackList()" class="g-btn list" value="배너 목록">
+                    <input type="button" class="g-btn submit b-submit" value="등록">
                 </div>
             </form>
         </div>
@@ -118,4 +119,5 @@
 <!--<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>-->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/admin/bannerFile.js"></script>
+<script src="/js/admin/write.js"></script>
 <html>
