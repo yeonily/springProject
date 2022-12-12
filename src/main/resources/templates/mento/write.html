@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/mento/write.css">
@@ -12,6 +12,7 @@
 <div id="main_grid">
     <div id="main_grid_inner1">
         <div id="main_grid_inner2">
+            <form name="mentorBoardForm" method="post" action="/mento/write" th:object="${mentorBoard}">
             <span>
                 <div>
                     <!--멘토 소개 페이지 헤더-->
@@ -78,8 +79,7 @@
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="현재 경력을 입력해주세요">
+                                                    <input type="text" th:field="*{mentorCareer}" class="fisrt_section4_write_input" placeholder="현재 경력을 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                   <textarea name="" id="carrer_textarea" cols="30" rows="5" placeholder="과거 경력을 입력해주세요"></textarea>
+                                                   <textarea name="" th:field="*{mentorExCareer}" id="carrer_textarea" cols="30" rows="5" placeholder="과거 경력을 입력해주세요"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -114,48 +114,42 @@
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="첫 번째 제목을 입력해주세요">
+                                                    <input type="text" th:field="*{mentorStrongTitle1}" class="fisrt_section4_write_input" placeholder="첫 번째 제목을 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="첫 번째 추천 이유를 입력해주세요">
+                                                    <input type="text" th:field="*{mentorStrongContent1}" class="fisrt_section4_write_input" placeholder="첫 번째 추천 이유를 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="두 번째 제목을 입력해주세요">
+                                                    <input type="text" th:field="*{mentorStrongTitle2}" class="fisrt_section4_write_input" placeholder="두 번째 제목을 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="두 번째 추천 이유를 입력해주세요">
+                                                    <input type="text" th:field="*{mentorStrongContent2}" class="fisrt_section4_write_input" placeholder="두 번째 추천 이유를 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="세 번째 제목을 입력해주세요">
+                                                    <input type="text" th:field="*{mentorStrongTitle3}" class="fisrt_section4_write_input" placeholder="세 번째 제목을 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="세 번째 추천 이유를 입력해주세요">
+                                                    <input type="text" th:field="*{mentorStrongContent3}" class="fisrt_section4_write_input" placeholder="세 번째 추천 이유를 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
@@ -193,8 +187,7 @@
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="멘토 홍보글 제목을 입력해주세요">
+                                                    <input type="text" th:field="*{mentorTitle}" class="fisrt_section4_write_input" placeholder="멘토 홍보글 제목을 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
@@ -203,8 +196,7 @@
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="멘토 홍보글 소제목을 입력해주세요">
+                                                    <input type="text" th:field="*{mentorTitleSub}" class="fisrt_section4_write_input" placeholder="멘토 홍보글 소제목을 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
@@ -222,15 +214,14 @@
                                         <div>
                                             <div class="first_section4_write">
                                                 <div style="position: relative">
-                                                    <input type="text" class="fisrt_section4_write_input"
-                                                           placeholder="멘토 홍보글 내용 제목을 입력해주세요">
+                                                    <input type="text" th:field="*{mentorTextTitle}" class="fisrt_section4_write_input" placeholder="멘토 홍보글 내용 제목을 입력해주세요">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!--상세페이지 내용 작성 textarea-->
                                     <div class="textarea_content">
-                                            <textarea placeholder="멘토 홍보글 내용을 입력해주세요" autocomplete="off" class="textarea-editor" oninput="this.style.height = &quot;21px&quot;; this.style.height = this.scrollHeight + &quot;px&quot;"></textarea>
+                                            <textarea th:field="*{mentorTextContent}" placeholder="멘토 홍보글 내용을 입력해주세요" autocomplete="off" class="textarea-editor" oninput="this.style.height = &quot;21px&quot;; this.style.height = this.scrollHeight + &quot;px&quot;"></textarea>
                                     </div>
                                 </section>
 
@@ -443,17 +434,20 @@
                                     이전
                                     <div style="display: flex;" disabled="disabled"></div>
                                 </button>
-                                    <button id="footer_button_next" onclick="nextButton()">다음<img
+                                    <button id="footer_button_next" type="button" onclick="nextButton()">다음<img
                                             src="/image/program/next_register.gif" class="footer_next_image"></button>
-                                    <button class="submitBtn" style="display: none">제출<img
+                                    <button class="submitBtn" type="submit" style="display: none">제출<img
                                             src="/image/program/next_register.gif" class="footer_next_image"></button>
                             </div>
                         </div>
                     </div>
+            </form>
                 </div>
             </span>
+
         </div>
     </div>
+
 </div>
 
 

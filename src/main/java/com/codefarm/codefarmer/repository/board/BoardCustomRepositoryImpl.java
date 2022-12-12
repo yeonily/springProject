@@ -23,6 +23,7 @@ import static com.codefarm.codefarmer.entity.board.QBoard.*;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardCustomRepositoryImpl implements BoardCustomRepository {
+
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
