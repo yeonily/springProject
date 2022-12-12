@@ -7,6 +7,7 @@ import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
 import com.codefarm.codefarmer.service.member.MemberService;
@@ -73,24 +74,66 @@ public class ProgramController {
         String memberName = member.getMemberName();
         ProgramDTO programDTO = programDetailService.showByProgramId(programId);
         log.info("프로그램DTO:" + programDTO.toString());
-//        log.info("프로그램DTO.getmember:" + programDTO.getMember().toString());
         String farmerName = memberService.select(programDTO.getMemberId()).getMemberName();
         String programName = programDTO.getProgramTitle();
         model.addAttribute("memberName" , memberName);
         model.addAttribute("farmerName" , farmerName);
         model.addAttribute("programName" , programName);
-
-//        MemberDTO memberDTO
+        model.addAttribute("programId" , programId);
     }
 
-    @GetMapping("/applyfin")
-    public void applyfin(){
+    @ResponseBody
+    @PostMapping("/applyfin")
+    public void applyfin(@RequestParam Long programApplyCount, @RequestParam String programApplyLocation, @RequestParam String programApplyName, @RequestParam int programPayment)throws Exception{
+        log.info("결제 applyfin 들어옴");
+        log.info("programApplyCount:" + programApplyCount);
+        log.info("programApplyLocation:" + programApplyLocation);
+        log.info("programApplyName:"+ programApplyName);
+        log.info("programPayment:"+programPayment);
+
 
     }
 
-    @GetMapping("/pay")
-    public void pay(){
+    @PostMapping("/pay")
+    public void pay(HttpSession session, @RequestParam Long programId,Model model ,MemberProgramDTO memberProgramDTO,String programApplyBirthString){
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("memberId:" + memberId);
+        Member member = memberService.select(memberId);
+        String memberName = member.getMemberName();
+        ProgramDTO programDTO = programDetailService.showByProgramId(programId);
+        log.info("프로그램DTO:" + programDTO.toString());
+        String farmerName = memberService.select(programDTO.getMemberId()).getMemberName();
+        int programPrice = programDTO.getProgramPrice();
+        int programApplyCount = memberProgramDTO.getProgramApplyCount();
+        int programApplyTotalCount = programDTO.getProgramApplyTotalCount();
+        int programTotalPrice = programPrice * programApplyCount;
+        String programName = programDTO.getProgramTitle();
+        String memberEmail = memberService.select(programDTO.getMemberId()).getMemberEmail();
+        String memberPhone = memberService.select(programDTO.getMemberId()).getMemberPhone();
+        String memberLocation = memberService.select(programDTO.getMemberId()).getMemberLocation();
+        model.addAttribute("memberName" , memberName);
+        model.addAttribute("farmerName" , farmerName);
+        model.addAttribute("programApplyCount" , programApplyCount);
+        model.addAttribute("programApplyTotalCount" ,programApplyTotalCount);
+        model.addAttribute("programPrice" , programPrice);
+        model.addAttribute("programTotalPrice" , programTotalPrice);
+        model.addAttribute("programName", programName);
+        model.addAttribute("memberEmail", memberEmail);
+        model.addAttribute("memberPhone", memberPhone);
+        model.addAttribute("memberLocation", memberLocation);
+        model.addAttribute("programApplyBirthString",programApplyBirthString);
 
+//        model.addAttribute("programTotalPrice" , programDTO.getProgramPrice() * )
+
+
+        log.info("첫번째 신청 테스트:" + memberProgramDTO.toString());
+        log.info("programApplyBirthString" + programApplyBirthString);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime programApplyBirth = LocalDate.parse(programApplyBirthString, formatter).atStartOfDay();
+        memberProgramDTO.setProgramApplyBirth(programApplyBirth);
+        model.addAttribute("programApplyBirth",programApplyBirth);
+
+        log.info("멤버프로그램DTO:" + memberProgramDTO.toString());
     }
 
     @GetMapping("/register")
@@ -142,11 +185,8 @@ public class ProgramController {
 //        태관 참고
         LocalDateTime programWorkDateTest = LocalDate.parse(programWorkDateString, formatter).atStartOfDay();
 
-        log.info("1" + programWorkDateTest);
         LocalDateTime programWorkStartTimeTest = LocalDateTime.parse(programWorkStartTimeString, formatter1);
-        log.info("2" + programWorkStartTimeTest);
         LocalDateTime programWorkEndTimeTest = LocalDateTime.parse(programWorkEndTimeString, formatter1);
-        log.info("3" + programWorkEndTimeTest);
         LocalDateTime programApplyStartDateTest = LocalDate.parse(programApplyStartDateString, formatter).atStartOfDay();
         LocalDateTime programApplyEndDateTest = LocalDate.parse(programApplyEndDateString, formatter).atStartOfDay();
 
@@ -181,7 +221,7 @@ public class ProgramController {
 
 //    프로그램 업데이트 제출하기 버튼 클릭 시
     @PostMapping("/update")
-    public RedirectView updateFin(ProgramDTO programDTO ,HttpSession session , String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString , String programTypeString, String programLevelString){
+    public RedirectView updateFin(@RequestParam Long programId, ProgramDTO programDTO ,HttpSession session , String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString , String programTypeString, String programLevelString){
         log.info("리스폰스바디 컨트롤러 들어옴");
         log.info("programTypeString: " + programTypeString);
         log.info("programLevelString: " + programLevelString);
@@ -244,7 +284,12 @@ public class ProgramController {
 
 //        태관 참고
         log.info("프로그램id 가져오는지? : " + programDTO.getProgramId());
+
+
+        programDTO.setProgramId(programId);
         programUpdateService.update(programDTO);
+
+
 
 //        programDTO.getFiles().stream().map(t -> programFileRepository.saveAll(t));
 

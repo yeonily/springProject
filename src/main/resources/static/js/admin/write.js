@@ -57,26 +57,18 @@ function cBackList() {
 }
 
 // 문의 글
-$(".c-submit").on("click", function (){
-    if(!(askForm.inquireAnswer.value)){
-        askForm.inquireAnswer.focus();
-        return;
-    }
-
-    askForm.submit();
-});
 
 
-function aBackList() {
-    if(askForm.inquireAnswer.value){
-        var flag = confirm(msg);
-        if (flag) {
-            location.href="/admin/help";
-        }
-    } else {
-        location.href="/admin/help";
-    }
-}
+// function aBackList() {
+//     if(askForm.inquireAnswer.value){
+//         var flag = confirm(msg);
+//         if (flag) {
+//             location.href="/admin/help";
+//         }
+//     } else {
+//         location.href="/admin/help";
+//     }
+// }
 
 // 공지 목록 돌아가기
 function nBackList() {
