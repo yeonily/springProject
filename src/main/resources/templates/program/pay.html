@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="/css/program/pay.css"/>
     <link rel="stylesheet" href="/css/common/font.css"/>
     <link rel="stylesheet" href="/css/header/header.css"/>
-    <link rel="icon" href="/image/header/favicon.png" />
-    <link rel="shortcut icon" href="/image/header/favicon.png" />
+    <link rel="icon" href="/image/header/favicon.png"/>
+    <link rel="shortcut icon" href="/image/header/favicon.png"/>
 </head>
 <body>
 <div th:replace="/header/header.html :: header" class="header"/>
@@ -19,13 +19,16 @@
                     <div class="telling-avatar-quote">
                         <div class="telling-wrapper">
                             <div class="telling-title">
-                                <div class="telling-title-content"><span id="name"></span>님, 참여를 결정해주셔서 감사드려요!</div>
+                                <div class="telling-title-content"><span id="name" th:text="${memberName}"></span>님, 참여를
+                                    결정해주셔서 감사드려요!
+                                </div>
                             </div>
                             <div class="telling-body">
                                 <div class="telling-body-content">
                                     귀농귀촌 경험을 쌓고 싶은데, 혼자서는 어렵게 느껴지셨죠?<br>
                                     너와농부싶어 프로그램과 함께라면<br>
-                                    차곡차곡 경험이 쌓여있는 나를 발견할 수 있을거예요.</div>
+                                    차곡차곡 경험이 쌓여있는 나를 발견할 수 있을거예요.
+                                </div>
                             </div>
                         </div>
                         <div class="avatar-wrapper">
@@ -34,7 +37,7 @@
                                 <div class="user-div"></div>
                             </div>
                             <div class="avatar-name">
-                                <div class="farmer-name">농장주이름</div>
+                                <div class="farmer-name" th:text="${farmerName}"></div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +49,7 @@
                                 <div class="c-w-full">
                                     <img class="callout-img" src="/image/program/greencheck.gif">
                                     <div class="callout-message">
-                                        4명이 프로그램명에 신청했어요. 서두르세요!
+                                        <span th:text="${programApplyTotalCount}"></span>명이 프로그램명에 신청했어요. 서두르세요!
                                     </div>
                                 </div>
                             </div>
@@ -54,6 +57,14 @@
                         <div class="user-line">결제자 정보</div>
                         <span class="user-info">
                 <form action="" id="pg-apply-form" name="paymentForm">
+                    <input type="hidden" th:value="${programName}" id="programName">
+                    <input type="hidden" th:value="${memberEmail}" id="memberEmail">
+                    <input type="hidden" th:value="${memberPhone}" id="memberPhone">
+                    <input type="hidden" th:value="${memberLocation}" id="memberLocation">
+                    <input type="hidden" th:value="${programApplyCount}" id="programApplyCount">
+                    <input type="hidden" th:value="${programApplyBirth}" id="programApplyBirth">
+
+
                     <!-- 결제자 정보 -->
                     <div class="card-item-wrapper">
                     <div class="pg-apply-form-input">
@@ -61,10 +72,10 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="name" id="username">
+                                    <input type="text" class="text-field-name" name="name" id="username" th:value="${memberName}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
-                                    <p class="caption1" ></p>
+                                    <p class="caption1"></p>
                                 </div>
                             </div>
                         </span>
@@ -77,7 +88,7 @@
                                     <input type="text" class="text-field-name" name="phone" id="userphone">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
-                                    <p class="caption2" ></p>
+                                    <p class="caption2"></p>
                                 </div>
                             </div>
                         </span>
@@ -90,7 +101,7 @@
                                     <input type="text" class="text-field-name" name="email" id="useremail">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
-                                    <p class="caption3" ></p>
+                                    <p class="caption3"></p>
                                 </div>
                             </div>
                         </span>
@@ -99,7 +110,7 @@
                         <div class="apply-form-body">신청인원</div>
                         <span class="body-span">
                             <div class="body-text-field">
-                                <div class="apply-count">1명</div>
+                                <div class="apply-count" th:text="${programApplyCount} + 명"></div>
                             </div>
                         </span>
                     </div>
@@ -110,16 +121,16 @@
                         <div class="payment-card-price-wrapper">
                             <div class="payment-price">
                                 <div class="payment-info">정가</div>
-                                <div class="price-number">20,000원</div>
+                                <div class="price-number" id="programPrice" th:text="${programPrice}"></div>
                             </div>
                             <div class="payment-price">
                                 <div class="payment-info">신청인원</div>
-                                <div class="price-number"> × 1명</div>
+                                <div class="price-number" th:text="x +${programApplyCount}+명"></div>
                             </div>
                             <hr class="dash">
                             <div class="total-price">
                                 <div class="total-payment-info">최종 결제 금액</div>
-                                <div class="total-payment-info">20,000원</div>
+                                <div class="total-payment-info" id="totalPrice" th:text="${programTotalPrice}"></div>
                             </div>
                         </div>
                     </div>
@@ -128,7 +139,8 @@
                         <div class="user-line">결제 수단</div>
                         <ul class="payment-type-group">
                             <li class="payment-type-list a">
-                                <input id="inicis" name="pay" value="inicis" checked="checked" type="radio" class="payment-radio">
+                                <input id="inicis" name="pay" value="inicis" checked="checked" type="radio"
+                                       class="payment-radio">
                                 <label class="clearfix commoncss">
                                     <div class="payment-type-item-wrapper">
                                         <div class="payment-type-item">
@@ -143,7 +155,8 @@
                                 <label class="nofix commoncss">
                                     <div class="payment-type-item-wrapper">
                                         <div class="payment-type-item">
-                                            <img class="logo-pg" src="https://cdn.comento.kr/images/logo/logo-kakaopay.png">
+                                            <img class="logo-pg"
+                                                 src="https://cdn.comento.kr/images/logo/logo-kakaopay.png">
                                             <div class="payment-type-item-typo">간편결제</div>
                                         </div>
                                     </div>
@@ -155,11 +168,12 @@
                     <div>
                         <div class="rules">
                             <div class="rules-title">이용약관 및 유의사항</div>
-                            <button type="button" class="rule-button" id="ruleB" ><img class="rule-button" src="/image/program/updown.gif"></button>
+                            <button type="button" class="rule-button" id="ruleB"><img class="rule-button"
+                                                                                      src="/image/program/updown.gif"></button>
                         </div>
                         <hr class="divider">
-                        <div class="slide-fade" id="ruleD" >
-                            <div class="rule-detail" >
+                        <div class="slide-fade" id="ruleD">
+                            <div class="rule-detail">
                                 - 강의 시작 24시간 전까지 취소 시, 결제 금액 전액 환불<br>
                                 - 그 이후 취소 신청 시, 환불 불가<br>
                                 - 취소하면 결제에 사용된 할인 쿠폰은 소멸되며 재사용할 수 없습니다.<br>
@@ -168,9 +182,9 @@
                         </div>
                         <div class="pay-agree">위 내용을 확인하였으며, 결제에 동의합니다.</div>
                     <!-- 결제버튼 -->
-                    <div class="button-wrapper" >
+                    <div class="button-wrapper">
                     <button type="button" class="pay-button" id="pay">
-                        <div class="button-icon" >결제하기</div></button>
+                        <div class="button-icon" id="pay_button">결제하기</div></button>
                     </div>
                 </form>
             </span>
@@ -184,4 +198,189 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/program/pay.js"></script>
+<script src="https://js.bootpay.co.kr/bootpay-4.2.6.min.js" type="application/javascript"></script>
+<script>
+    let payProgramName = $("#programName").val();
+    let payEmail = $("#useremail").val();
+    let payPhone = $("#userphone").val();
+    let payLocation = $("#memberLocation").val();
+    let payPrice = $("#programPrice").text();
+    let payMemberName = $("#username").val();
+    let programApplyCount = $("#programApplyCount").val();
+    let programTotalPrice = $("#totalPrice").text();
+    let programApplyBirth = $("#programApplyBirth").val();
+
+
+
+    $("#pay").on("click", function () {
+        console.log(payProgramName);
+        console.log(payEmail);
+        console.log(payPhone);
+        console.log(payLocation);
+        console.log(payPrice);
+        console.log(payMemberName);
+        console.log(programApplyCount);
+        console.log(programTotalPrice);
+        test();
+    })
+
+    async function test() {
+
+        const response = await Bootpay.requestPayment({
+            "application_id": "6396e2d3d01c7e001bfeb95a",
+            // "price": programTotalPrice,
+            "price": 1000,
+            "order_name": payMemberName,
+            "order_id": "order_id_" + new Date().getTime(),
+            "pg": "케이씨피",
+            "method": "카드",
+            "tax_free": 0,
+            "user": {
+                // "id": "회원아이디",
+                "username": payMemberName,
+                // "phone": payPhone,
+                // "email": payEmail
+            },
+            "items": [
+                {
+                    "id": "item_id_" + new Date().getTime(),
+                    "name": payProgramName,
+                    // "qty": programApplyCount,
+                    "qty": 1,
+                    // "price": payPrice
+                    "price": 1000
+                }
+            ],
+            "extra": {
+                "open_type": "iframe",
+                "card_quota": "0,2,3",
+                "escrow": false,
+                "seller_name": "너와농부싶어"
+            }
+        })
+
+        switch (response.event) {
+            case 'done':
+                alert("성공!");
+                // 결제 완료 처리
+                giveMoneyCash({
+
+                    // programApplyBirth : programApplyBirth,
+                    programApplyCount : programApplyCount,
+                    // programApplyEmail : payEmail,
+                    programApplyLocation : payLocation,
+                    programApplyName : payMemberName,
+                    // programApplyPhone : payProgramName,
+                    programPayment: response.data.price
+
+
+                    // applyBirth :
+
+                    // userId: $('#userId').val()
+                });
+                break
+
+            case 'error':
+                alert("에러 발생");
+                break;
+        }
+
+        // var param = {"programApplyBirth" : programApplyBirth,
+        //     "programApplyCount" : programApplyCount,
+        //     "programApplyEmail" : payEmail,
+        //     "programApplyLocation" : payLocation,
+        //     "programApplyName" : payMemberName,
+        //     "programApplyPhone" : payProgramName,
+        //     "programPayment": response.data.price}
+
+        function giveMoneyCash(programApplyCount,programApplyLocation,programApplyName,programPayment) {
+            $.ajax({
+                url: "/program/applyfin",
+                type : "post",
+                data : {
+                    // programApplyBirth : programApplyBirth,
+                    programApplyCount : programApplyCount,
+                    // programApplyEmail : payEmail,
+                    programApplyLocation : payLocation,
+                    programApplyName : payMemberName,
+                    // programApplyPhone : payProgramName,
+                    programPayment: programPayment
+                },
+                success : function(data){
+                    if(data == 0){
+                        console.log("성공");
+                        $("#n-message1").css("display", "block");
+                        $("#n-message2").css("display", "none");
+                        nickCheck = true;
+                    }else{
+                        console.log("씰패");
+                        $("#n-message1").css("display", "none");
+                        $("#n-message2").css("display", "block");
+                        nickCheck = false;
+                    }
+                }
+
+            });
+        }
+        // function giveMoneyCash(programApplyBirth,programApplyCount,programApplyEmail,programApplyLocation,programApplyName,programApplyPhone,programPayment) {
+        //     $.ajax({
+        //         url: "/program/applyfin",
+        //         type : "post",
+        //         data : {
+        //             programApplyBirth : programApplyBirth,
+        //             programApplyCount : programApplyCount,
+        //             programApplyEmail : payEmail,
+        //             programApplyLocation : payLocation,
+        //             programApplyName : payMemberName,
+        //             programApplyPhone : payProgramName,
+        //             programPayment: programPayment
+        //         },
+        //         success : function(data){
+        //             if(data == 0){
+        //                 console.log("성공");
+        //                 $("#n-message1").css("display", "block");
+        //                 $("#n-message2").css("display", "none");
+        //                 nickCheck = true;
+        //             }else{
+        //                 console.log("씰패");
+        //                 $("#n-message1").css("display", "none");
+        //                 $("#n-message2").css("display", "block");
+        //                 nickCheck = false;
+        //             }
+        //         }
+        //
+        //     });
+        // }
+
+
+        // const response = await Bootpay.requestPayment({
+        //     "application_id": "6396e2d3d01c7e001bfeb95a",
+        //     "price": payPrice,
+        //     "order_name": payProgramName,
+        //     "order_id": "order_id_" + new Date().getTime(),
+        //     "pg": "KCP",
+        //     "method": "카드",
+        //     "tax_free": 0,
+        //     "user": {
+        //         // "id": "회원아이디",
+        //         "username": payMemberName,
+        //         "phone": payPhone,
+        //         "email": payEmail
+        //     },
+        //     "items": [
+        //         {
+        //             "id": "item_id_" + new Date().getTime(),
+        //             "name": payProgramName,
+        //             "qty": programApplyCount,
+        //             "price": programTotalPrice
+        //         }
+        //     ],
+        //     "extra": {
+        //         "open_type": "iframe",
+        //         "card_quota": "0,2,3",
+        //         "escrow": false
+        //     }
+        // })
+    }
+</script>
 </html>
