@@ -63,7 +63,7 @@ public class InquireService {
     public Inquire showInquireOne(Long inquireId){return inquireRepository.findById(inquireId).get();}
 
 //    문의글 개수
-    public int countInquire(){return inquireRepository.countByInquire();}
+    public int countByInquire(){return inquireRepository.countByInquire();}
 
 //    문의 답변이 달리면 상태 변경
     @Transactional

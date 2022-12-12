@@ -13,6 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
+//    검색(제목+내용) + 페이징
+    public Page<Board> findByBoardTitleContainingOrBoardContentContaining(String boardTitle, String boardContent, Pageable pageable);
+//    검색(제목) + 페이징
+    public Page<Board> findByBoardTitleContaining(String boardTitle, Pageable pageable);
+//    검색(내용) + 페이징
+    public Page<Board> findByBoardContentContaining(String boardContent, Pageable pageable);
+
+//    게시판 글 총 개수
+    @Query("select count(b) from Board b")
+    public int countByBoard();
 
 //    사용자가 작상한 게시글 총 개수
     public Long countByMemberMemberId(@Param("boardId") Long boardId);

@@ -13,6 +13,7 @@ import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.service.admin.AdminService;
 import com.codefarm.codefarmer.service.admin.InformationService;
 import com.codefarm.codefarmer.service.admin.InquireService;
+import com.codefarm.codefarmer.service.board.BoardService;
 import com.codefarm.codefarmer.service.notice.NoticeService;
 import com.codefarm.codefarmer.type.Status;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
@@ -45,6 +47,7 @@ import java.util.UUID;
 public class AdminController {
     private final AdminService adminService;
 //    공지
+    private final BoardService boardService;
     private final NoticeService noticeService;
 //    작물, 정책
     private final InformationService informationService;
@@ -53,11 +56,13 @@ public class AdminController {
 
     // 문의 관리
     @GetMapping("/help")
-    public String ask(Criteria criteria, Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "inquireId", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String ask(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "inquireId", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Inquire> inquires = inquireService.inquireShowAll(pageable, keyword, searchText, searchText, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria();
+        }
 
-        model.addAttribute("inquireCounts", inquireService.countInquire()); // 정책 글 개수
-        model.addAttribute("criteria", adminService.createCriteriaPage(pageable, keyword, searchText));
+        model.addAttribute("inquireCounts", inquireService.countByInquire()); // 정책 글 개수
         model.addAttribute("maxPage", 10); // 페이징
         model.addAttribute("inquires", inquires);
 
@@ -73,7 +78,7 @@ public class AdminController {
 
 //    문의 답변 등록
     @GetMapping("/help/answer")
-    public String askAnswer(Long inquireId, Model model) {
+    public String askAnswer(Criteria criteria, Long inquireId, Model model) {
         InquireAnswer inquireAnswer = inquireService.answerCheck(inquireService.showInquireOne(inquireId));
         boolean answerCheck = inquireAnswer == null;
 
@@ -84,21 +89,29 @@ public class AdminController {
         }
         model.addAttribute("answerCheck", answerCheck);
         model.addAttribute("inquire", inquireService.showInquireOne(inquireId));
+
+        log.info("디테일 -- " + criteria.getQueryString());
         return "/admin/ask-detail";
     }
 
     @PostMapping("/help/answer")
-    public RedirectView askAnswerWrite(Long inquireId, InquireAnswerDTO inquireAnswerDTO) {
+    public RedirectView askAnswerWrite(Criteria criteria, RedirectAttributes redirectAttributes, Long inquireId, InquireAnswerDTO inquireAnswerDTO) {
+        log.info("등록 : " + criteria.getQueryString());
         inquireAnswerDTO.setInquire(inquireService.showInquireOne(inquireId));
         inquireService.answerAdd(inquireAnswerDTO);
         inquireService.statusUpdate(inquireId, Status.CONFIRM);
+
+        redirectAttributes.addAttribute("page", criteria.getPage());
+        redirectAttributes.addAttribute("searchText", criteria.getSearchText());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
         return new RedirectView("/admin/help");
     }
+
 //    문의 답변 수정
     @PostMapping("/help/answer/update")
-    public RedirectView askAnswerUpdate(InquireAnswerDTO inquireAnswerDTO) {
+    public RedirectView askAnswerUpdate(@ModelAttribute("criteria")Criteria criteria, InquireAnswerDTO inquireAnswerDTO) {
         inquireService.answerUpdate(inquireAnswerDTO);
-        return new RedirectView("/admin/help");
+        return new RedirectView("/admin/help" + criteria.getQueryString());
     }
 
     // 배너 관리
@@ -108,7 +121,7 @@ public class AdminController {
 
         model.addAttribute("banners", banners);
         model.addAttribute("maxPage", 10); // 페이징
-        model.addAttribute("bannerCounts", informationService.countByCrop()); // 정책 글 개수
+        model.addAttribute("bannerCounts", adminService.countByBanner()); // 배너 글 개수
         model.addAttribute("data", banners.isEmpty());
         return "/admin/banner";
     }
@@ -187,7 +200,6 @@ public class AdminController {
             }
         }
 
-        log.info("상태 ---> " + status);
         adminService.bannerAdd(banner, status, startDate, endDate);
         return new RedirectView("/admin/banner");
     }
@@ -208,24 +220,30 @@ public class AdminController {
         return new RedirectView("/admin/banner");
     }
 
-    // 자유게시판 관리
+    // 커뮤니티 (게시판)
     @GetMapping("/board")
-    public String adminBoard(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")Long boardId, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable) {
-//        Page<Board> boards = adminService.boardShowAll(pageable, keyword, boardId, searchText, searchText, searchText);
-//
-//        model.addAttribute("noticeLists", boards);
-//        model.addAttribute("maxPage", 10);
-//        model.addAttribute("boardCount", adminService.countByBoard());
-//        if(keyword.equals("w")) {
-//            model.addAttribute("resultCount", adminService.countByBoardNickname(searchText));
-//        } else {
-//            model.addAttribute("resultCount", boards.getTotalPages());
-//        }
-//        model.addAttribute("page", pageable);
-//        model.addAttribute("data", boards.isEmpty());
+    public String adminBoard(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Board> boards = adminService.boardShowAll(pageable, keyword, searchText, searchText, searchText);
+
+        model.addAttribute("boardCounts", adminService.countByBoard());
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("boards", boards);
+        if(keyword.equals("w")) {
+            model.addAttribute("resultCount", adminService.countByBoardNickname(searchText));
+        } else {
+            model.addAttribute("resultCount", boards.getTotalPages());
+        }
+        model.addAttribute("page", pageable);
+        model.addAttribute("data", boards.isEmpty());
         return "/admin/board";
     }
 
+//    공지 삭제
+    @PostMapping("/community/delete")
+    public RedirectView detailDelete(Long boardId){
+        boardService.removeBoard(boardId);
+        return new RedirectView("/admin/board");
+    }
 
     // 농업정보 - 이미지(단일)
     @GetMapping("/crop")
