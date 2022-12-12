@@ -24,8 +24,9 @@ public class StompController {
         /*대화방 유무에 따른 메세지 처리*/
         if (!chatList.isEmpty()) {
             for (ChatDTO chatDTO : chatList) {
-                // /chatting으로 채팅방의 대화내역을 보냄
+
                 System.out.println("채팅내용 : " + chatDTO.toString());
+                // /chatting으로 채팅방의 대화내역(DB)을 보냄
                 template.convertAndSend("/sub/mento/chatting/" + chatDTO.getChatRoom().getChatRoomId(), chatDTO);
             }
 //            message.setChatMessage("환영합니다!");

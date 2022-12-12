@@ -33,6 +33,7 @@ $(".left_lists").on("click", function () {
 
         /*실행 순서 네 번째*/
         /*선택한 채팅방 번호에 따른 채팅 내역을 모두 불러옴(Path, callback)*/
+        /*StompController에서 DB에 담긴 대화내역들을 여기서 받음*/
         stomp.subscribe("/sub/mento/chatting/" + roomId, function (chat) {
             console.log("챗 : " + chat);
             let content = JSON.parse(chat.body); // JSON 키값을 통해 리턴받은 값(대화내역)에 접근 가능
