@@ -1,8 +1,10 @@
 package com.codefarm.codefarmer.service.program;
 
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.domain.program.QProgramDTO;
 import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.codefarm.codefarmer.entity.program.QProgram;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
@@ -12,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
 
@@ -69,13 +74,34 @@ public class ProgramUpdateService {
     }
 
     public void update(ProgramDTO programDTO){
-
+        log.info("업데이트 내용: " + programDTO.toString());
         Program program = programDTO.toEntity();
+
         program.changeFiles(programDTO.getFiles());
-//        program.changeMember(memberRepository.findById(programDTO.getMemberId()).get());
+        program.changeMember(memberRepository.findById(programDTO.getMemberId()).get());
+//        programFileRepository.();
         program.getProgramFiles().stream().map(t -> programFileRepository.save(t));
+
+
+        List<ProgramFileDTO> files = programDTO.getFiles();
+        log.info(files.toString());
+        files.stream().map(t -> t.toEntity());
+//        programFiles.add();
+
+        List<ProgramFile> programFiles = new ArrayList<>();
+        files.stream().map(t -> t.toEntity()).forEach(programFiles::add);
+
+
+
+        programFiles.forEach(t -> log.info("테스트" + t));
+        log.info("programfiles" + programFiles.get(0).toString());
+        log.info("files" + files.get(0).toString());
+        for(int i =0 ; i< programFiles.size(); i++){
+            programFiles.get(i).update(files.get(i));
+//            programFileRepository.save(programFiles.get(i));
+        }
         program.update(programDTO);
-        programRepository.deleteById(program.getProgramId());
+
         programRepository.save(program);
 
     }

@@ -1,5 +1,7 @@
 package com.codefarm.codefarmer.entity.program;
 
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.sun.istack.NotNull;
@@ -40,5 +42,15 @@ public class ProgramFile extends Period {
         this.fileUuid = fileUuid;
         this.fileSize = fileSize;
         this.fileImageCheck = fileImageCheck;
+    }
+
+    public void update(ProgramFileDTO programFileDTO){
+//        this.programCrop = programDTO.getProgramCrop();
+        this.fileId = programFileDTO.getFileId();
+        this.fileName = programFileDTO.getFileName();
+        this.fileUploadPath = programFileDTO.getFileUploadPath();
+        this.fileUuid = programFileDTO.getFileUuid();
+        this.fileSize = programFileDTO.getFileSize();
+        this.fileImageCheck = programFileDTO.isFileImageCheck();
     }
 }

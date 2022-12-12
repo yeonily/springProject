@@ -40,6 +40,9 @@ public class MemberProgramDTO {
                 .build();
     }
 
+<<<<<<< HEAD
+
+=======
 //    @QueryProjection
 //    public MemberProgramDTO(Program program, Member member, ProgramStatus programStatus, int programApplyCount, int programPayment) {
 //        this.program = program;
@@ -48,6 +51,7 @@ public class MemberProgramDTO {
 //        this.programApplyCount = programApplyCount;
 //        this.programPayment = programPayment;
 //    }
+>>>>>>> origin/master
 
     @QueryProjection
     public MemberProgramDTO(Long programApplyId, Program program, Member member, ProgramStatus programStatus, int programApplyCount, int programPayment, String programApplyName, String programApplyPhoneNum, String programApplyEmail, String programApplyLocation, LocalDateTime programApplyBirth) {

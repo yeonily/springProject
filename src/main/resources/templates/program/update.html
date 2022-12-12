@@ -15,6 +15,7 @@
             <div class="c-new-row">
                 <div class="c-new-col">
                     <form id="writeForm" method="post"  action="/program/update" th:object="${updateRegister}">
+                        <input hidden th:field="*{programId}">
                         <span>
                             <!--헤더-->
                             <div>
