@@ -4,11 +4,13 @@ import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorCustomRepository;
 import com.codefarm.codefarmer.service.mentor.MentorService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,8 @@ public class MentorBoardServiceTest {
     private MentorService mentorService;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private MentorCustomRepository mentorCustomRepository;
 
     @Test
     public void mentorBoardAddTest(){
@@ -42,9 +46,20 @@ public class MentorBoardServiceTest {
         mentorBoardDTO.setMentorTitleSub("서브 배너 문구입니다.");
         mentorBoardDTO.setMentorTextTitle("텍스트 제목");
         mentorBoardDTO.setMentorTextContent("텍스트 내용");
-        mentorBoardDTO.setMemberId(findMentor.get());
+//        mentorBoardDTO.setMemberId(findMentor.get());
         mentorService.mentorBoardAdd(mentorBoardDTO);
     }
+
+    @Test
+    public void getMentorBoardListTest(Long mentorBoardId, Pageable pageable){
+        mentorService.showAll(mentorBoardId, pageable).stream().forEach(m -> log.info("" + m));
+    }
+
+    @Test
+    public void findAll2Test(){
+            mentorCustomRepository.findAllQDSL().stream().map(MentorBoard::toString).forEach(log::info);
+    }
+
 
 //    멘토 글 상세페이지에서 확인하기
     @Test

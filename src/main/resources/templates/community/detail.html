@@ -238,9 +238,21 @@
     });
 
     $(".detail-wrap").on("click", ".re-delete",function () {
-        refreshPage();
+        let number = $(this).closest(".drop-option-wrap").prev().find(".q-nickname").attr('id');
+        replyService.remove(number, show);
+        setTimeout(()=>{
+            getTotal(
+                replyService.getTotal(boardId, getTotal)
+            );
+        },200);
+
     });
 
+
+
+    $(".detail-wrap").on("click", ".re-delete",function () {
+        refreshPage();
+    });
 
 
 
@@ -302,7 +314,7 @@
             }
             if(reply.memberId != $("#listMember").val()) {
                 text += `<hr>`
-                text += `<span class="q-nickname">일반</span>`
+                text += `<span class="q-nickname" id="`+ reply.replyId +`">일반</span>`
             }
             text += `</div>`
             if(reply.memberId == $("#sessionMember").val()) {
@@ -335,33 +347,23 @@
             text += `<p class="commu-date">`+ replyService.timeForToday(reply.updateDate) +`</p>`
             text += `</article>`
             text += `</div>`
-
         })
-
         $("#reply-lists").html(text);
-
     }
 
 
 
 
-
+    //보드 수정, 삭제 도시락 버튼 세션에 따라 show, hide 하기
     if($("#sessionMember").val() == $("#listMember").val()){
         $(".drop-option-wrap").show();
     }else{
         $(".drop-option-wrap").hide();
     }
 
-console.log($("#sessionMember").val());
 
-
-        // if ($("#sessionMember").val() == $("#replyMember").val()) {
-        //     $("#replyBtn").show();
-        // } else {
-        //     $(".replyBtn").hide();
-        // }
-
-function refreshPage() {
+    // 새로고침 할 때마다 적용이 되서 새로고침 할 수 있는 메소드 하나 만듬
+    function refreshPage() {
     window.location.reload();
 }
 

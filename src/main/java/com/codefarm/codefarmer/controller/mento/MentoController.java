@@ -2,16 +2,20 @@ package com.codefarm.codefarmer.controller.mento;
 
 
 import com.codefarm.codefarmer.domain.chat.ChatDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.service.chat.ChatRoomService;
 import com.codefarm.codefarmer.service.mentor.MentorService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -26,43 +30,58 @@ public class MentoController {
     private final MentorService ms;
     private final ChatRepository chatRepository;
     private final SimpMessagingTemplate template;
+    private final MentorService mentorService;
 
-    public MentoController(ChatRoomService cs, MentorService ms, ChatRepository chatRepository, SimpMessagingTemplate template) {
+    public MentoController(ChatRoomService cs, MentorService ms, ChatRepository chatRepository, SimpMessagingTemplate template, MentorService mentorService) {
         this.cs = cs;
         this.ms = ms;
         this.chatRepository = chatRepository;
         this.template = template;
+        this.mentorService = mentorService;
     }
-
 
 
     @GetMapping("/intro")
     public void mentoIntro(){
-
     }
 
     @GetMapping("/list")
-    public void list(){
-
+    public void list(Model model, HttpSession session){
+        Long memberId = (Long)session.getAttribute("memberId");
     }
 
+    @GetMapping("/write")
+    public void write(Model model){
+        model.addAttribute("mentorBoard", new MentorBoardDTO());
+    }
 
+    @PostMapping("/write")
+    public RedirectView writeFin(MentorBoardDTO mentorBoardDTO, RedirectAttributes redirectAttributes, HttpSession session){
+        Long sessionId = (Long)session.getAttribute("memberId");
+        mentorBoardDTO.setMemberId(sessionId);
+        mentorBoardDTO.setMentorId(293L);
+        mentorService.mentorBoardAdd(mentorBoardDTO);
+        redirectAttributes.addFlashAttribute("mentorBoardId", mentorBoardDTO.getMentorBoardId());
+
+        return new RedirectView("/mento/list");
+    }
     @GetMapping("/detail")
-    public void detail(Model model, HttpSession session){
+    public void detail(Model model,Long mentorBoardId ,HttpSession session){
         /*선택한 게시글의 번호로 글의 정보를 program JSON 형식으로 전송(이후에 boardNumber에는 클릭한 값을 받아서 작업 필요)*/
-        model.addAttribute("mentorId", ms.showDetailMentorBoard(738L).getMentorId());
+        model.addAttribute("mentorId", ms.showDetailMentorBoard(294L).getMentorId());
 
+//      멘토 상세페이지 보여주기
+        MentorBoardDTO list = mentorService.showDetailMentorBoard(mentorBoardId);
         /*로그인 세션 변수로 보내기*/
         Long sessionId = (Long) session.getAttribute("memberId");
 //        Long sessionId = 1L;
         model.addAttribute("sessionId", sessionId);
+//        멘토 상세
+        model.addAttribute("list", list);
     }
 
 
-    @GetMapping("/write")
-    public void write(){
 
-    }
 
     /*채팅방 이동 시*/
     @GetMapping("/chatting")
