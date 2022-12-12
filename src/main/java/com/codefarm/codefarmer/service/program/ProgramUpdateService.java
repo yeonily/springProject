@@ -7,6 +7,7 @@ import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.codefarm.codefarmer.entity.program.QProgram;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.program.ProgramFileCustomRepository;
 import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
 import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -29,6 +30,7 @@ public class ProgramUpdateService {
     private final ProgramRepository programRepository;
     private final ProgramFileRepository programFileRepository;
     private final MemberRepository memberRepository;
+    private final ProgramFileCustomRepository programFileCustomRepository;
 
 
 //    프로그램Id로 수정 페이지 내용 출력
@@ -79,29 +81,26 @@ public class ProgramUpdateService {
 
         program.changeFiles(programDTO.getFiles());
         program.changeMember(memberRepository.findById(programDTO.getMemberId()).get());
-//        programFileRepository.();
+
         program.getProgramFiles().stream().map(t -> programFileRepository.save(t));
 
+        List<ProgramFile> programFiles = programFileCustomRepository.findByProgramId(programDTO.getProgramId());
+        programFiles.forEach(t -> programFileRepository.delete(t));
 
         List<ProgramFileDTO> files = programDTO.getFiles();
         log.info(files.toString());
         files.stream().map(t -> t.toEntity());
-//        programFiles.add();
 
-        List<ProgramFile> programFiles = new ArrayList<>();
-        files.stream().map(t -> t.toEntity()).forEach(programFiles::add);
+//        List<ProgramFile> programFiles = new ArrayList<>();
+//        files.stream().map(t -> t.toEntity()).forEach(programFiles::add);
 
-
-
-        programFiles.forEach(t -> log.info("테스트" + t));
-        log.info("programfiles" + programFiles.get(0).toString());
-        log.info("files" + files.get(0).toString());
-        for(int i =0 ; i< programFiles.size(); i++){
-            programFiles.get(i).update(files.get(i));
-//            programFileRepository.save(programFiles.get(i));
-        }
+//        programFiles.forEach(t -> log.info("테스트" + t));
+//        log.info("programfiles" + programFiles.get(0).toString());
+//        log.info("files" + files.get(0).toString());
+//        for(int i =0 ; i< programFiles.size(); i++){
+//            programFiles.get(i).update(files.get(i));
+//        }
         program.update(programDTO);
-
         programRepository.save(program);
 
     }

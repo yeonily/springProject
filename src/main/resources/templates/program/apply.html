@@ -54,13 +54,14 @@
             </div>
             <div class="user-line">신청자 정보</div>
             <span class="user-info">
-                <form action="" id="pg-apply-form" name="applyForm">
+                <form method="post" action="/program/pay" id="pg-apply-form" name="applyForm">
+                    <input type="hidden" name="programId" th:value="${programId}">
                     <div class="pg-apply-form-input">
                         <div class="apply-form-body">이름</div>
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="name" id="username">
+                                    <input type="text" class="text-field-name" name="programApplyName" id="username">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption1" ></p>
@@ -73,7 +74,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="phone" id="userphone">
+                                    <input type="text" class="text-field-name" name="programApplyPhoneNum" id="userphone" placeholder="예시) 010-1234-5678">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption2" ></p>
@@ -86,7 +87,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="email" id="useremail">
+                                    <input type="text" class="text-field-name" name="programApplyEmail" id="useremail">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption3" ></p>
@@ -99,7 +100,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="home" id="userhome">
+                                    <input type="text" class="text-field-name" name="programApplyLocation" id="userhome">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption4" ></p>
@@ -112,7 +113,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="birth" id="userbirth">
+                                    <input type="text" class="text-field-name" name="programApplyBirthString" id="userbirth" placeholder="예시) 2022-12-12">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption5" ></p>
@@ -125,13 +126,13 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <button type="button" class="down" disabled onclick='count("minus")'></button>
-                                <div id="apply-count">1</div>
+                                <div id="apply-count" >1</div>
+                                <input type="hidden" id="apply-count-hidden" name="programApplyCount">
                                 <button type="button" class="up" onclick='count("plus")'></button>
                             </div>
                         </span>
                     </div>
-                    <button type="button" class="apply-button" th:onclick="|location.href='@{/program/pay}'|" id="apply" disabled="disabled">
-                        <div class="button-icon" >다음</div></button>
+                    <button type="button" class="apply-button"  id="apply" disabled="disabled"><div class="button-icon" >다음</div></button>
                 </form>
             </span>
         </div>

@@ -14,9 +14,16 @@ import static com.codefarm.codefarmer.entity.program.QProgramFile.programFile;
 @RequiredArgsConstructor
 public class ProgramFileCustomRepositoryImpl implements ProgramFileCustomRepository{
     private final JPAQueryFactory jpaQueryFactory;
+    private final ProgramFileRepository programFileRepository;
+
     public List<ProgramFile> findByProgramId(Long programId){
         return jpaQueryFactory.selectFrom(programFile)
         .where(programFile.program.programId.eq(programId))
         .fetch();
     };
+
+//    public void deleteByProgramId(Long programId){
+//        return programFileRepository.deleteAllById(programId);
+//
+//    }
 }
