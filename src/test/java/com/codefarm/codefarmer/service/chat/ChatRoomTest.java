@@ -57,7 +57,7 @@ public class ChatRoomTest {
     /*채팅방 대화내역 불러오기*/
     @Test
     public void findChatList() {
-        log.info("결과 : " + chatRoomService.chatList(196L).toString());
+        log.info("결과 : " + chatRoomService.chatList(1982L).toString());
     }
 
 
