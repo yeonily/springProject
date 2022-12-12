@@ -211,18 +211,18 @@ public class AdminController {
     // 자유게시판 관리
     @GetMapping("/board")
     public String adminBoard(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")Long boardId, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Board> boards = adminService.boardShowAll(pageable, keyword, boardId, searchText, searchText, searchText);
-
-        model.addAttribute("noticeLists", boards);
-        model.addAttribute("maxPage", 10);
-        model.addAttribute("boardCount", adminService.countByBoard());
-        if(keyword.equals("w")) {
-            model.addAttribute("resultCount", adminService.countByBoardNickname(searchText));
-        } else {
-            model.addAttribute("resultCount", boards.getTotalPages());
-        }
-        model.addAttribute("page", pageable);
-        model.addAttribute("data", boards.isEmpty());
+//        Page<Board> boards = adminService.boardShowAll(pageable, keyword, boardId, searchText, searchText, searchText);
+//
+//        model.addAttribute("noticeLists", boards);
+//        model.addAttribute("maxPage", 10);
+//        model.addAttribute("boardCount", adminService.countByBoard());
+//        if(keyword.equals("w")) {
+//            model.addAttribute("resultCount", adminService.countByBoardNickname(searchText));
+//        } else {
+//            model.addAttribute("resultCount", boards.getTotalPages());
+//        }
+//        model.addAttribute("page", pageable);
+//        model.addAttribute("data", boards.isEmpty());
         return "/admin/board";
     }
 
