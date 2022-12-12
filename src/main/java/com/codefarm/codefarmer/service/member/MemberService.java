@@ -2,13 +2,18 @@ package com.codefarm.codefarmer.service.member;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
+import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +26,7 @@ import java.util.Optional;
 public class MemberService {
 
         private final MemberRepository memberRepository;
+        private final MentorRepository mentorRepository;
 
         //    회원가입
         public void join(MemberDTO memberDTO){
@@ -61,5 +67,12 @@ public class MemberService {
         public void updateInfo(MemberDTO memberDTO){
                 Member member= memberRepository.findById(memberDTO.getMemberId()).get();
                 member.update(memberDTO);
+        }
+
+//        멘토 등록
+        public void saveMentor(MentorDTO mentorDTO){
+                Mentor mentor = mentorDTO.toEntity();
+                mentor.changeMember(mentorDTO.getMemberId());
+                mentorRepository.save(mentor);
         }
 }

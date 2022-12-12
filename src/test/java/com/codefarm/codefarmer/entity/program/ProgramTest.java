@@ -31,8 +31,6 @@ public class ProgramTest {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
-
-
     @Autowired
     ProgramRepository programRepository;
 

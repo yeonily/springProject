@@ -32,8 +32,8 @@
 <!------------------->
 
 <!-- 농장주 - 내가 만든 아르바이트 -->
-<div class="alba-lists-wrap" th:fragment="farmerAlbas" th:each="alba : ${albas}">
-    <div class="alba-list" >
+<div class="alba-lists-wrap" th:fragment="farmerAlbas"  id="alba-list">
+    <div class="alba-list"  th:each="alba : ${albas}">
         <!---->
         <div class="commu c-link"  th:onclick="|javascript:viewDetail(${alba.albaId})|">
             <div class="c-top-wrap">
@@ -63,7 +63,10 @@
         </div>
     </div>
     <!---->
+
 </div>
+
+
 <!------------------->
 </body>
 </html>

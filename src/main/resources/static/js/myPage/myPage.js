@@ -183,19 +183,24 @@ function newMentorSave (){ /* 중복 체크 */
 
     let crops = newMentorForm.newMainCrops.value;
     let years = newMentorForm.newYears.value;
-    $.ajax({
-        url: "/mypage/settingMentor",
-        type : "put",
-        data : JSON.stringify({crops : crops,
-            years: years}),
-        contentType: "application/json; charset=utf-8",
-        success : function(){
-        //    저장
-        //    멘토타입으로 변경
 
-        }
+    myPageService.saveMentor({mentor: mentor}, saveMentor);
+    // $.ajax({
+    //     url: "/mypage/settingMentor",
+    //     type : "put",
+    //     data : JSON.stringify({crops : crops,
+    //         years: years}),
+    //     contentType: "application/json; charset=utf-8",
+    //     success : function(){
+    //     //    저장
+    //     //    멘토타입으로 변경
+    //
+    //     }
+    //
+    // });
+    function saveMentor(mentor) {
 
-    });
+    }
 }
 
 

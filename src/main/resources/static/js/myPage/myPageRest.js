@@ -5,13 +5,14 @@
 
 let myPageService = (function () {
 
-    function getPgList(param, callback, error){
+    function getPgList(memberId, callback, error){
         $.ajax({
-            url: "/mypage/program" ,
+            url: "/mypage/programlist",
             type: "get",
-            success: function(programDTO, status, xhr){
+            success: function(programs, status, xhr){
+                console.log("getPgList - "+ programs);
                 if(callback){
-                    callback(programDTO);
+                    callback(programs);
                 }
             },
             error: function(xhr, status, err){
@@ -22,13 +23,14 @@ let myPageService = (function () {
         });
     }
 
-    function getAbList(param, callback, error) {
+    function getAbList(memberId, callback, error) {
         $.ajax({
-            url: "/mypage/alba",
+            url: "/mypage/albalist",
             type: "get",
-            success: function (albaDTO, status, xhr) {
+            success: function (albas, status, xhr) {
+                console.log("getAbList - "+ albas);
                 if (callback) {
-                    callback(albaDTO);
+                    callback(albas);
                 }
             },
             error: function (xhr, status, err) {
@@ -39,13 +41,15 @@ let myPageService = (function () {
         });
     }
 
-    function remove(replyId, callback, error) {
+    function saveMentor(mentorDTO, callback, error) {
         $.ajax({
-            url: "/reply/" + replyId,
-            type: "delete",
-            success: function (text) {
+            url: "/mypage/settingMentor",
+            type: "put",
+            data: JSON.stringify(mentorDTO),
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
                 if (callback) {
-                    callback(text);
+                    callback(result);
                 }
             },
             error: function (xhr, status, err) {
@@ -74,5 +78,5 @@ let myPageService = (function () {
             }
         });
     }
-
-})
+    return {getPgList: getPgList, getAbList: getAbList}
+})();

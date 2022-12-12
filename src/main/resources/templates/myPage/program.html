@@ -43,37 +43,37 @@
 <!--                            </div>-->
                             <!------------------------>
                             <!-- 농장주 : 프로그램 내역이 없을 경우 -->
-<!--                            <div id="content-wrap">-->
+                            <div id="content-wrap">
 <!--                                <div class="n-c-wrap" style="line-height: 25px;">-->
 <!--                                    프로그램 목록이 없어요.<br>-->
 <!--                                    지금 프로그램을 개설해 보세요!-->
 <!--                                </div>-->
-<!--                            </div>-->
+                            </div>
                             <!------------------------>
 
                             <div id="c-w-wrap">
                                 <div id="ls-wrap" class="f-column">
-                                    <div class="f-wrap">
-
+                                    <!--<div class="f-wrap" id="pg-list">-->
+                                        <input class="types"  type="hidden" th:value="${session.memberType}">
                                         <!-- 일반 유저 - 내가 신청한 프로그램 -->
                                         <th:block  th:if="${session.memberType == 'USER' or session.memberType == 'MENTEE'}">
                                         <div th:replace="/myPage/programContent.html :: userPrograms"/>
                                         </th:block>
                                         <!------------------->
 
-                                        <!-- 농장주 - 내가 만든 프로그렘 -->
+                                        <!-- 농장주 - 내가 만든 프로그램 -->
+
                                         <th:block  th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                             <div th:replace="/myPage/programContent.html :: farmerPrograms"/>
                                         </th:block>
                                         <!------------------->
 
-                                    </div>
+                                    <!--</div>-->
                                 </div>
                             </div>
 
                         </div>
                     </div>
-
                     <div id="paging">
                         <ul>
                             <li class="sidePageNum prev">
@@ -89,6 +89,7 @@
                             </li>
                         </ul>
                     </div>
+
 
                 </div>
             </div>
@@ -117,8 +118,11 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
+<script src="/js/myPage/myPageRest.js"></script>
 <script src="/js/myPage/list.js"></script>
 <script th:inline="javascript">
+
+
     $("div.menu-a").removeClass('menu-select');
     $("#program").addClass('menu-select');
 
@@ -147,82 +151,84 @@
         console.log("??");
         location.href = "/program/detail?programId=" + programId;
     }
+//-------------------------------------------------
 
-<<<<<<< HEAD
+    let memberId = [[${member.memberId}]];
+    $(document).ready(function () {
+        myPageService.getPgList({
+            memberId: memberId
+        }, getList);
+    })
 
-
-=======
     globalThis.page = 1;
 
-    myPageService.getPgList({programs: programs}, getList);
-
     function getList(programs){
+        console.log("함수사용"+programs);
+
+        console.log("타입"+$("input.types").val());
         let text = "";
 
-            if(programs.length == 0){
-                text += "<div id='content-wrap'>";
-                text += "<div class='n-c-wrap' style='line-height: 25px;'>";
-                text += "프로그램 목록이 없어요.<br>";
-                text += "지금 프로그램을 개설해 보세요!";
-                text += "</div>";
-                text += "</div>";
-                return;
-            }
+        if(programs.length == 0){
+            console.log("여기잇니?");
+            text += "<div class='n-c-wrap' style='line-height: 25px;'>";
+            text += "프로그램 목록이 없어요.<br>";
+            text += "지금 프로그램을 개설해 보세요!";
+            text += "</div>";
+            $("#content-wrap").html(text);
+            return;
+        }
 
         programs.forEach(function (programDTO) {
-                if(programDTO.programPrice == 0){
-                    programDTO.programPrice = "무료"
-                }
-                nowDate = new Date();
-                nowDateDTO = programDTO.programApplyStartDate;
-                startDate = new Date(nowDateDTO);
+            console.log("여기들어오니?");
+            console.log("여기들어오니?"+programDTO);
+            if(programDTO.programPrice == 0){
+                programDTO.programPrice = "무료"
+            }
+            nowDate = new Date();
+            nowDateDTO = programDTO.programApplyStartDate;
+            startDate = new Date(nowDateDTO);
 
-                text += '<div class="list-wrap" th:object="${programDTO}">'
-                var number = programDTO.programId;
-                text += '<div class="myProgram f-column select-l" onclick="javascript:viewDetail("'
-                text += number
-                text += '")>"'
-                text += '<div class="list-img">'
-                text += '<div class="only-mentor">'
-                if(programDTO.programType == 'ONLY_MENTEE'){
-                    text += '<span class="only-mentor">멘토 전용</span>'
-                }
-                text += '</div>'
-                if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + programDTO.files[0].fileUploadPath + '/s_' + programDTO.files[0].fileUuid + '_' + programDTO.files[0].fileName + '>'
-                }else{
-                    text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
-                }
-                text += '<div class="applied-cancel">'
-                text += '<a href="/program/update?programId="'
-                text += number
-                text += '">'
-                text += '<div class="a-c-btn" style="margin-bottom: 1px;">수정하기</div></a>'
-                text += '<a href="javascript:void(0);" onclick="javascript:removeCheck();">'
-                text += '<div class="a-c-btn">삭제하기</div></a>'
-                text += '<a href="/mypage/program/apply/"'
-                text += number
-                text += '">"'
-                text += '<div class="a-c-btn">신청자 목록</div></a>'
-                text += '</div>'
-                text += '<img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">'
-                text += '</div>'
-                text += '<div class="list-text">'
-                text += '<div class="l-text l-ing">진행 중</div>'
-                text += '<div class="l-m-c">∙</div>'
-                text += '<div class="l-text">' + programDTO.programLocation +'</div>'
-                text += '<div class="l-m-c">∙</div>'
-                text += '<div class="l-text">' + programDTO.programPrice + '</div>'
-                text += '</div>'
-                text += '<div class="list-title">' + programDTO.programTitle +'</div>'
-                text += '</div>'
-                let date = new Date(programDTO.programWorkDate);
-                let month = date.getMonth()+1;
-                let day = date.getDate();
-                text += '<div class="start-day">'+ month + '월' + day  + '일 시작'   +'</div>'
-                text += '</div>'
-            })
-        }
->>>>>>> origin/master
+            var number = programDTO.programId;
+            text += '<div class="list-wrap"  th:object="${programDTO}">'
+            text += '<div class="myProgram f-column select-l" onclick="javascript:viewDetail("'+number+')>'
+            text += '<div class="list-img">'
+            text += '<div class="only-mentor">'
+            if(programDTO.programType == 'ONLY_MENTEE'){
+                text += '<span class="only-mentor">멘토 전용</span>'
+            }
+            text += '</div>'
+            if(nowDate > startDate){
+                text += '<img class="pg-image" src=' + '/file/display?fileName=' + programDTO.files[0].fileUploadPath + '/s_' + programDTO.files[0].fileUuid + '_' + programDTO.files[0].fileName + '>'
+            }else{
+                text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
+            }
+            text += '<div class="applied-cancel">'
+            text += '<a href="/program/update?programId="'+ number + '>'
+            text += '<div class="a-c-btn" style="margin-bottom: 1px;">수정하기</div></a>'
+            text += '<a href="javascript:void(0);" onclick="javascript:removeCheck();">'
+            text += '<div class="a-c-btn">삭제하기</div></a>'
+            text += '<a href="/mypage/program/apply/"'+ number + '>'
+            text += '<div class="a-c-btn">신청자 목록</div></a>'
+            text += '</div>'
+            text += '<img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">'
+            text += '</div>'
+            text += '<div class="list-text">'
+            text += '<div class="l-text l-ing">진행 중</div>'
+            text += '<div class="l-m-c">∙</div>'
+            text += '<div class="l-text">' + programDTO.programLocation +'</div>'
+            text += '<div class="l-m-c">∙</div>'
+            text += '<div class="l-text">' + programDTO.programPrice + '</div>'
+            text += '</div>'
+            text += '<div class="list-title">' + programDTO.programTitle +'</div>'
+            text += '</div>'
+            let date = new Date(programDTO.programWorkDate);
+            let month = date.getMonth()+1;
+            let day = date.getDate();
+            text += '<div class="start-day">'+ month + '월' + day  + '일 시작'   +'</div>'
+            text += '</div>'
+            text += '</div>'
+        })
+        $("div#pg-list").html(text);
+    }
 </script>
 </html>

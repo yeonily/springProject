@@ -23,11 +23,14 @@
         </div>
         <div class="start-day">2022.11.17 시작</div>
     </div>
+
+
     <!------------------->
 
     <!-- 농장주 - 내가 만든 프로그램 -->
-    <div class="list-wrap" th:fragment="farmerPrograms" th:each="program : ${programs}">
-        <div class="myProgram f-column select-l" th:onclick="|javascript:viewDetail(${program.programId})|">
+    <div class="f-wrap" id="pg-list" th:fragment="farmerPrograms">
+    <!--<div class="list-wrap"  th:object="${programDTO}">-->
+        <!--<div class="myProgram f-column select-l" th:onclick="|javascript:viewDetail(${program.programId})|">
             <div class="list-img">
                 <div class="only-mentor">
                     <span class="only-mentor">멘티전용</span>
@@ -50,7 +53,9 @@
             <div class="list-title" th:text="${program.programTitle}"></div>
         </div>
         <div class="start-day" th:text="|${#temporals.format(program.programApplyStartDate, 'yyyy.MM.dd')} 접수 시작|"></div>
+   </div> -->
     </div>
+
     <!------------------->
 </body>
 </html>
