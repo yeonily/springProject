@@ -15,7 +15,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // 그래서 아래와 같이 2개의 계층으로 분리하고 origins를 개발 도메인으로 변경하니 잘 동작.
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chatting")
+        registry.addEndpoint("/stomp/chat")
                 .setAllowedOrigins("http://localhost:w5555")
                 .withSockJS();
     }
