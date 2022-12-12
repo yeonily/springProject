@@ -114,7 +114,7 @@ public void saveUserTest(){
     @Test
     public void MentorSaveTest(){
         MentorDTO mentorDTO = new MentorDTO();
-        Optional<Member> findFarmer = memberRepository.findById(86l);
+        Optional<Member> findFarmer = memberRepository.findById(112l);
 
         mentorDTO.setMentorCrop("오렌지");
         mentorDTO.setMentorYear("3~5년차");

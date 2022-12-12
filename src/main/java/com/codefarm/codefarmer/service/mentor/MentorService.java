@@ -1,26 +1,37 @@
 package com.codefarm.codefarmer.service.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.QMentorBoardDTO;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.entity.mentor.QMentorBoard;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.codefarm.codefarmer.entity.mentor.QMentorBoard.mentorBoard;
 
 @Service
 @RequiredArgsConstructor
 public class MentorService {
     private final JPAQueryFactory jpaQueryFactory;
     private final MentorBoardRepository mentorBoardRepository;
+    private final MemberRepository memberRepository;
+    private final MentorRepository mentorRepository;
 
 //    멘토 글 등록하기
     public void mentorBoardAdd(MentorBoardDTO mentorBoardDTO){
         MentorBoard mentorBoard = mentorBoardDTO.toEntity();
-        mentorBoard.changeMember(mentorBoardDTO.getMemberId());
+        mentorBoard.changeMember(memberRepository.findById(mentorBoardDTO.getMemberId()).get());
+        mentorBoard.changeMentor(mentorRepository.findById(mentorBoardDTO.getMentorId()).get());
         mentorBoardRepository.save(mentorBoard);
     }
 
@@ -49,6 +60,31 @@ public class MentorService {
     }
 
 //    목록 들고오기
+    public List<MentorBoardDTO> getMentorList(){
+        return jpaQueryFactory.select(new QMentorBoardDTO(
+                mentorBoard.mentorBoardId,
+                mentorBoard.mentorCareer,
+                mentorBoard.mentorExCareer,
+                mentorBoard.mentorStrongTitle1,
+                mentorBoard.mentorStrongContent1,
+                mentorBoard.mentorStrongTitle2,
+                mentorBoard.mentorStrongContent2,
+                mentorBoard.mentorStrongTitle3,
+                mentorBoard.mentorStrongContent3,
+                mentorBoard.mentorTitle,
+                mentorBoard.mentorTitleSub,
+                mentorBoard.mentorTextTitle,
+                mentorBoard.mentorTextContent,
+                mentorBoard.mentor.mentorCrop
+                )).from(mentorBoard)
+                .orderBy(mentorBoard.updatedDate.desc())
+                .fetch();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MentorBoardDTO> showAll(Long mentorBoardId, Pageable pageable){
+        return mentorBoardRepository.findAllByMentorBoardId(mentorBoardId, pageable);
+    }
 
 //    멘토 목록에 닉네임 갖고오기
 //    멘토 목록에 제목 갖고오기  (닉넴이랑 제목 둘다 목록 한번에 묶을 필요있음)

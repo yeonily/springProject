@@ -23,15 +23,15 @@
 
 <div id="main_grid">
     <div id="main_grid_inner1">
-        <div id="main_grid_inner2">
+        <div id="main_grid_inner2" th:object="${list}">
             <section id="main_banner">
                 <div id="main_banner_inner1">
                     <div id="main_banner_inner2">
                         <div id="main_banner_text">
                             <div id="main_banner_text_inner1">
                                 <span id="main_banner_text_outline">멘토</span>
-                                <div id="main_banner_text_title">멘토가 알려주는 감자 농사 비법</div>
-                                <div id="main_banner_text_subTitle">현직 멘토가 농사하는 방법</div>
+                                <div id="main_banner_text_title" th:text="*{mentorTitle}"></div>
+                                <div id="main_banner_text_subTitle" th:text="*{mentorTitleSub}"></div>
                             </div>
                         </div>
                         <div id="main_banner_empty"></div>
@@ -54,7 +54,7 @@
                                         <article id="main_fixed_inner1">
                                             <div id="main_fixed_inner2">
                                                 <div id="main_fixed_category">멘토 이름</div>
-                                                <div id="main_fixed_title">멘토가 알려주는 감자 농사 비법</div>
+                                                <div id="main_fixed_title" th:text="*{mentorTitle}"></div>
                                                 <div>
                                                     <div>
                                                         <!--<div id="main_fixed_info_1">
@@ -69,11 +69,11 @@
                                                     <dl>
                                                         <div class="main_fixed_dl">
                                                             <dt class="main_fixed_dl_dt">주요 작물</dt>
-                                                            <dd class="main_fixed_dl_dd">감자</dd>
+                                                            <dd class="main_fixed_dl_dd" th:text="*{mentorCrop}"></dd>
                                                         </div>
                                                         <div class="main_fixed_dl">
                                                             <dt class="main_fixed_dl_dt">경력</dt>
-                                                            <dd class="main_fixed_dl_dd">5~7년차</dd>
+                                                            <dd class="main_fixed_dl_dd" th:text="*{mentorCareer}"></dd>
                                                         </div>
                                                         <div class="main_fixed_dl">
                                                             <dt class="main_fixed_dl_dt">지역</dt>
@@ -135,31 +135,11 @@
                             <section style="padding-bottom: 40px;">
                                 <img src="https://cdn.comento.kr/images/class/pt/detail/icon/doublequote-icon.png"
                                      class="vod-lecture-detail-quote-image" style="width: 18px;height: 13px;">
-                                <div id="main_intro_inner4">
-                                    체계적인 농작물 관리를 할 수 있도록
+                                <div id="main_intro_inner4" th:text="*{mentorTextTitle}">
                                     <br>
-                                    제대로 알려드릴게요.
                                 </div>
-                                <p id="main_intro_inner5">
-                                <p>안녕하세요,</p>
-                                <p>저는 국내 프리랜서 마켓 No.1 '크몽'에서 CRM 마케팅 업무를 진행하고 있습니다.</p>
-                                <p><br></p>
-                                <p>퍼포먼스 마케터로 커리어를 시작하여 다양한 DA, SA 채널을 운영했으며, 이러한 시야를 바탕으로 우리 고객 데이터와 Braze(브레이즈) 를 활용한
-                                    리텐션, LTV 를 올리는 CRM 마케터로 커리어를 이어가고 있습니다.</p>
-                                <p><br></p>
-                                <p>다양한 미디어를 통해 이미 아시는 것처럼 근래 CRM 마케팅이 대세라는 이야기를 들어보셨을 겁니다.</p>
-                                <p>특히 구글, 페이스북, 애플 등 글로벌 기업에서 개인 정보 이슈 등으로 3rd-party data 를 활용하는 퍼포먼스 마케팅 제한이 점점 심해지면서
-                                    우리 고객 데이터인 first-party data 를 활용하는 CRM 마케팅 대세로 떠오르고 있습니다.</p>
-                                <p><br></p>
-                                <p>CRM 마케팅 실무를 하시면서 RFM 분석, Braze(브레이즈) 활용한 고객 행동별 개인화 된 메세지 등에 관심은 있으시지만, 막상 혼자서 해보려고
-                                    하다 보면 막히는 부분들이 많아서 어려우셨을 것 같습니다. 체계적으로 CRM 마케팅을 하셨다기 보다는 혼자서 고군분투 했을 모습이 상상이
-                                    됩니다.</p>
-                                <p>그만큼 CRM 마케팅 관련 정보가 많이 없기 때문이기도 하지요.</p>
-                                <p><br></p>
-                                <p>이번 기회를 통해서 고객 행동 기반으로 CRM 마케팅 설계 + RFM 분석, 코호트 분석(Cohort)을 통한 우리 핵심 고객 발굴 +
-                                    Braze(브레이즈) 활용한 고객 행동별 개인화 된 CRM 마케팅 설정까지 직접 해보시겠어요?</p>
-                                <p><br></p>
-                                <p>여러분들과 만날 날을 기대하겠습니다!</p>
+                                <p id="main_intro_inner5" th:text="*{mentorTextContent}">
+
                                 </p>
                             </section>
                         </div>
@@ -176,21 +156,20 @@
                                                 <!--<img data-v-884eb42c=""
                                                      src="https://cdn.comento.kr/images/pt/tmp/prefix_laH12sIOyU.png"
                                                      alt="" id="main_intro_image1">-->
-                                                <p id="main_intro_text1">마케팅 5~7년차</p>
-                                                <p id="main_intro_text2"><strong id="main_intro_strong">호식</strong>멘토님
+                                                <p id="main_intro_text1" th:text="*{mentorExCareer}"></p>
+                                                <p id="main_intro_text2"><strong id="main_intro_strong" th:text="${memberNickName}"></strong>멘토님
                                                 </p>
                                             </div>
                                         </dt>
                                         <dd style="width: calc(100% - 152px);margin-top: 0;">
                                             <div id="main_intro_dd_inner1">
                                                 <p id="main_intro_dd_inner2">
-                                                <p><strong class="dd_strong">현) 국내 프리랜서 마켓 '크몽' 퍼포먼스/그로스팀 CRM
-                                                    마케터</strong></p>
+                                                <p><strong class="dd_strong">멘토님에게 얻을 수 있는 것들!</strong></p>
                                                 <p><br></p>
-                                                <p><strong class="dd_strong">전) CRM 마케팅 솔루션 개발/운영 B사 퍼포먼스 마케터</strong>
+                                                <p><strong class="dd_strong">1) 귀농귀촌에 대한 해박한 지식!</strong>
                                                 </p>
-                                                <p><strong class="dd_strong">전) 성인 실무 교육 F사 퍼포먼스 마케터</strong></p>
-                                                <p><strong class="dd_strong">전) 상하이 소재 E사 디지털 마케터</strong></p>
+                                                <p><strong class="dd_strong">2) 원하는 작물에 대한 정보!</strong></p>
+                                                <p><strong class="dd_strong">3) 리뷰와 멘토와의 1대1채팅을 통한 다양한 지식 교환!</strong></p>
                                                 </p>
                                             </div>
                                         </dd>
@@ -210,11 +189,11 @@
                                         <img src="https://cdn.comento.kr/images/class/pt/detail/icon/pt-detail-differentiation-live.png"
                                              alt="" class="main_point_img">
                                         <div style="text-align: center">
-                                            <div class="main_point_text1">생존형 기초 지식</div>
-                                            <div class="main_point_text2">
-                                                당장 꼭 알아야하는 지식만
+                                            <div class="main_point_text1" th:text="*{mentorStrongTitle1}"></div>
+                                            <div class="main_point_text2" th:text="*{mentorStrongContent1}">
+
                                                 <br>
-                                                실제 사례로 배워요.
+
                                             </div>
                                         </div>
                                     </div>
@@ -222,11 +201,9 @@
                                         <img src="https://cdn.comento.kr/images/class/pt/detail/icon/pt-detail-differentiation-curriculum.png"
                                              alt="" class="main_point_img">
                                         <div style="text-align: center">
-                                            <div class="main_point_text1">복습용 실무 과제</div>
-                                            <div class="main_point_text2">
-                                                배운 내용을 바로 적용하는
+                                            <div class="main_point_text1" th:text="*{mentorStrongTitle2}"></div>
+                                            <div class="main_point_text2" th:text="*{mentorStrongContent2}">
                                                 <br>
-                                                실무 과제를 풀어봐요.
                                             </div>
                                         </div>
                                     </div>
@@ -234,11 +211,9 @@
                                         <img src="https://cdn.comento.kr/images/class/pt/detail/icon/pt-detail-differentiation-qna.png"
                                              alt="" class="main_point_img">
                                         <div style="text-align: center">
-                                            <div class="main_point_text1">커뮤니티 게시판</div>
-                                            <div class="main_point_text2">
-                                                수강하다 막막할 때면 언제든
+                                            <div class="main_point_text1" th:text="*{mentorStrongTitle3}"></div>
+                                            <div class="main_point_text2" th:text="*{mentorStrongContent3}">
                                                 <br>
-                                                질문하고 답변 받으세요.
                                             </div>
                                         </div>
                                     </div>

@@ -37,43 +37,6 @@ public class CommunityController {
     private final BoardCustomRepository boardCustomRepository;
     private final MemberRepository memberRepository;
 
-//    @GetMapping("/community")
-//    public void communityPage(Model model, HttpServletRequest request,@PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable){
-//           /* HttpSession session = (HttpSession)request.getSession();
-//            Long memberId = (Long)session.getAttribute("")*/
-//            Long memberId = 14l;
-//        List<BoardDTO> lists =  boardService.getBoardList();
-//
-//        lists.stream().map(t -> t.toString()).forEach(t -> log.info("아이디: " + t));
-//        List<Long> listsBoardId = new ArrayList<>();
-//            lists.stream().map(t -> t.getBoardId()).forEach(listsBoardId::add);
-//            List<Long> listsReplyTotal = new ArrayList<>();
-//        listsBoardId.stream().map(t -> boardService.showBoardReplyCount(t)).forEach(listsReplyTotal::add);
-//        Long boardCount = boardService.showBoardCountMine(memberId);
-//        Long replyCount = replyService.showReplyAllCount(memberId);
-////        String farmerNickName = boardService.showFarmerNickName(memberId);
-////        String userNickName = boardService.showUserNickName(memberId);
-//
-//
-//        model.addAttribute("lists" , lists);
-//        model.addAttribute("listsReplyTotal", listsReplyTotal);
-//        model.addAttribute("boardCount", boardCount);
-//        model.addAttribute("replyCount", replyCount);
-//        if(memberId==null){
-//            model.addAttribute("nickName",boardService.getNickNameNologin());
-//        }else{
-//            model.addAttribute("nickName",boardService.showNickName(memberId));
-//        }
-//
-////        if(!farmerNickName.equals("닉넴")){
-////            model.addAttribute("nickName", userNickName);
-////        }else if (userNickName != null){
-////            model.addAttribute("nickName", farmerNickName);
-////        }else{
-////            model.addAttribute("nickName","닉네임");
-////        }
-//
-//    }
 
     @GetMapping("/community")
     public void pagingList(Model model,/*HttpServletRequest request,*/ HttpSession session){
@@ -91,7 +54,6 @@ public class CommunityController {
             model.addAttribute("boardCount", 0);
             model.addAttribute("replyCount", 0);
         }
-        log.info("a;slkfj" + memberId);
         model.addAttribute("sessionMemberId", memberId);
 //        String farmerNickName = boardService.showFarmerNickName(memberId);
 //        String userNickName = boardService.showUserNickName(memberId);
