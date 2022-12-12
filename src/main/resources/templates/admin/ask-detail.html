@@ -96,9 +96,9 @@
                     <tr>
                         <th>답변 내용</th>
                         <td>
-                            <div class="ask_reply">
-                                <input type="hidden" th:field="*{inquireId}">
-                                <textarea th:field="${inquireAnswer.inquireAnswer}" rows="6" class="summernote_ask"></textarea>
+                            <div class="ask_reply" th:object="${inquireAnswer}">
+                                <input type="hidden" th:field="${inquire.inquireId}">
+                                <textarea th:field="*{inquireAnswer}" rows="6" class="summernote_ask"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -106,10 +106,10 @@
                 </table>
                 <div class="btns-group">
                     <input type="button" onclick="aBackList()" class="g-btn list" value="문의 목록">
-                    <input type="submit" class="g-btn submit" value="답변 등록">
+                    <input type="button" class="g-btn submit a-submit" value="답변 등록">
                 </div>
             </form>
-            <form th:action="@{/admin/help/answer/update}" name="askForm" method="post" class="askForm" th:if="${!answerCheck}">
+            <form th:action="@{/admin/help/answer/update}" name="askUpdateForm" method="post" class="askForm" th:if="${!answerCheck}">
                 <table class="ask_all_reply">
                     <colgroup>
                         <col width="20%;">
@@ -128,8 +128,8 @@
                     </tbody>
                 </table>
                 <div class="btns-group">
-                    <input type="button" onclick="aBackList()" class="g-btn list" value="문의 목록">
-                    <input type="submit" class="g-btn submit" value="답변 등록">
+                    <input type="button" onclick="auBackList()" class="g-btn list" value="문의 목록">
+                    <input type="button" class="g-btn submit au-submit" value="답변 등록">
                 </div>
             </form>
 
@@ -137,5 +137,44 @@
     </div>
 </div>
 </body>
-<script src="/js/admin/write.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
+    var msg = "글을 저장하지 않고 나가시겠습니까?";
+
+    //답변 등록
+    $(".a-submit").on("click", function (){
+        if(!(askForm.inquireAnswer.value)){
+            alert("답변을 등록해 주세요.");
+            return;
+        }
+        askForm.submit();
+    });
+    //답변 수정
+    $(".au-submit").on("click", function (){
+        if(!(askUpdateForm.inquireAnswer.value)){
+            alert("답변을 등록해 주세요.");
+            return;
+        }
+        askUpdateForm.submit();
+    });
+
+    //문의 목록으로 돌아가기기
+   function aBackList() {
+        if(askForm.inquireAnswer.value){
+            var flag = confirm(msg);
+            if (flag) {
+                location.href='/admin/help' + queryString;
+            }
+        } else {
+            location.href='/admin/help' + queryString;
+        }
+    }
+    function auBackList() {
+        var flag = confirm(msg);
+        if (flag) {
+            location.href='/admin/help' + queryString;
+        }
+    }
+</script>
 <html>

@@ -18,9 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 import java.util.List;
 
 @Service
@@ -34,30 +32,31 @@ public class AdminService {
     private final BoardCustomRepository boardCustomRepository;
 
 //    공지 목록
-//    public Page<Board> boardShowAll(Pageable pageable, String keyword, Long boardId,String boardTitle, String boardContent, String memeberNickname){
-//        List<Board> boards = boardCustomRepository.findByBoardLikeMemberNickname(memeberNickname, pageable);
-//        final int total = boardCustomRepository.countByMemberNickname(memeberNickname);
-//        final int start = (int)pageable.getOffset();
-//        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
-//
-//        if (keyword.equals("t")){
-//            return boardRepository.findByBoardTitleContaining(boardTitle, pageable);
-//        } else if (keyword.equals("c")){
-//            return boardRepository.findByBoardContentContaining(boardContent, pageable);
-//        } else if (keyword.equals("w")){
-//            return new PageImpl<>(boards.subList(start, end), pageable, boards.size());
-//        } else if (keyword.equals("i")){
-//            return boardRepository.findByBoardIdContaining(boardId, pageable);
-//        } else {
-//            return boardRepository.findByBoardTitleContainingOrBoardContentContaining(boardTitle, boardContent, pageable);
-//        }
-//    }
+    public Page<Board> boardShowAll(Pageable pageable, String keyword, String boardTitle, String boardContent, String memeberNickname){
+        List<Board> boards = boardCustomRepository.findByBoardLikeMemberNickname(memeberNickname, pageable);
+        final int total = boardCustomRepository.countByMemberNickname(memeberNickname);
+        final int start = (int)pageable.getOffset();
+        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
 
+        if (keyword.equals("t")){
+            return boardRepository.findByBoardTitleContaining(boardTitle, pageable);
+        } else if (keyword.equals("c")){
+            return boardRepository.findByBoardContentContaining(boardContent, pageable);
+        } else if (keyword.equals("w")){
+            log.info("끝 : " + end);
+            return new PageImpl<>(boards.subList(start, end), pageable, boards.size());
+        } else {
+            return boardRepository.findByBoardTitleContainingOrBoardContentContaining(boardTitle, boardContent, pageable);
+        }
+    }
 //    공지 글 개수
-//    public int countByBoard() { return boardRepository.countByBoard(); }
+    public int countByBoard() { return boardRepository.countByBoard(); }
 
-//    공지 - 작성자로 검색했을 때 개수
-//    public int countByBoardNickname(String memeberNickname) { return boardCustomRepository.countByMemberNickname(memeberNickname); }
+//    공지 - 작성자로 검색했을 때 글 개수
+    public int countByBoardNickname(String memeberNickname) {
+        int total = boardCustomRepository.countByMemberNickname(memeberNickname);
+        return total % 10 == 0 ? (total / 10) : ((total / 10) + 1);
+    }
 
 //    배너 목록
     @Transactional(readOnly = true)
@@ -95,13 +94,6 @@ public class AdminService {
         bannerRepository.save(banner);
     }
 
-//    배너 수정
-    public void bannerUpdate(Banner banner, String startDate, String endDate, String status){
-
-
-        bannerRepository.save(banner);
-    }
-
 //    배너 삭제
     public Long bannerDelete(Long bannerId){
         bannerRepository.delete(bannerRepository.findById(bannerId).get());
@@ -110,14 +102,4 @@ public class AdminService {
 
 //    배너 글 개수
     public int countByBanner() { return bannerRepository.countByBanner(); }
-
-    public Criteria createCriteriaPage(Pageable pageable, String keyword, String searchText){
-        Criteria criteria = new Criteria();
-        criteria.setPage(pageable.getPageNumber());
-        criteria.setKeyword(keyword);
-        criteria.setSearchText(searchText);
-
-        return criteria;
-    }
-
 }

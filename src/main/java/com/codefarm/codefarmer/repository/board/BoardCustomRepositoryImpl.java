@@ -70,5 +70,22 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
         return new SliceImpl<>(content,pageable,hasNext);
     }
 
+//    닉네임 검색
+    @Override
+    public List<Board> findByBoardLikeMemberNickname(String memberNickname, Pageable pageable) {
+        return jpaQueryFactory.select(board)
+                .from(board)
+                .where(board.member.memberNickname.contains(memberNickname))
+                .orderBy(board.boardId.desc())
+                .fetch();
+    }
 
+//    닉네임 검색 시 글 개수
+    @Override
+    public Integer countByMemberNickname(String memberNickname) {
+        return Math.toIntExact(jpaQueryFactory.select(board.count())
+                .from(board)
+                .where(board.member.memberNickname.contains(memberNickname))
+                .fetchOne());
+    }
 }

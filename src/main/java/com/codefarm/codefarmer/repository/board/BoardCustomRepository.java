@@ -8,6 +8,11 @@ import org.springframework.data.domain.Slice;
 import java.util.List;
 
 public interface BoardCustomRepository {
+//    닉네임 검색
+    public List<Board> findByBoardLikeMemberNickname(String memberNickname, Pageable pageable);
+//    닉네임 검색 시 글 개수
+    public Integer countByMemberNickname(String memberNickname);
+
     public List<Board> findAllQDSL();
 
     public Slice<Board> findAllSlice(Pageable pageable);
