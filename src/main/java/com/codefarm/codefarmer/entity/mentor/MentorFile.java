@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity.mentor;
 
 import com.codefarm.codefarmer.entity.period.Period;
+import com.codefarm.codefarmer.entity.program.Program;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -27,6 +28,10 @@ public class MentorFile extends Period {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENTOR_BOARD_ID")
     private MentorBoard mentorBoard;
+
+    public void changeMentor(MentorBoard mentorBoard){
+        this.mentorBoard = mentorBoard;
+    }
 
     @Builder
     public MentorFile(@NotNull String fileName, @NotNull String fileUploadPath, @NotNull String fileUuid, @NotNull Long fileSize, @NotNull boolean fileImageCheck) {

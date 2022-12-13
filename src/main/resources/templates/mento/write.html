@@ -12,7 +12,7 @@
 <div id="main_grid">
     <div id="main_grid_inner1">
         <div id="main_grid_inner2">
-            <form name="mentorBoardForm" method="post" action="/mento/write" th:object="${mentorBoard}">
+            <form name="mentorBoardForm" method="post" id="writeForm" action="/mento/write" th:object="${mentorBoard}">
             <span>
                 <div>
                     <!--멘토 소개 페이지 헤더-->
@@ -235,23 +235,32 @@
 
                                         <!--파일 첨부 버튼 아이콘-->
                                         <div class="align-items-center field">
-                                            <label style="cursor: pointer">
-                                                <img style="width: 20px; height: 20px; border: 1px solid #e1e4e6" id="preview-image" src="/image/program/upload.gif">
-                                                <input type="file" name="upload" multiple class="input-div-input" id="input_file" style="display: none;">
-                                            </label>
+<!--                                            <label style="cursor: pointer">-->
+<!--                                                <img style="width: 20px; height: 20px; border: 1px solid #e1e4e6" id="preview-image" src="/image/program/upload.gif">-->
+<!--                                                <input type="file" name="upload" multiple class="input-div-input" id="input_file" style="display: none;">-->
+<!--                                            </label>-->
+                                             <input type="file" id="file-input" name="upload" style="display: none;" required accept="image/*" multiple>
+                                             <label for="file-input"><img class="upload" src="/image/program/upload.gif"></label>
                                         </div>
 
                                         <div class="c-callout-information">
                                             <div class="c-callout-wrapper">
                                                 <div class="align-center">
-                                                <img class="upload" src="/image/program/mark.gif">
-                                                <div class="c-callout-message">업로드되지 않는 경우, 압축하여 등록해주세요.
-                                                </div>
+                                                    <img class="upload" src="/image/program/mark.gif">
+                                                    <div class="c-callout-message">업로드되지 않는 경우, 압축하여 등록해주세요.</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--실제 들어갈 이미지-->
-                                        <div class="imgs_wrap" style="display: none"></div>
+
+                                        <div class="field">
+                                            <div class="uploadResult">
+                                                <ul style="list-style: none"></ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="c-callout-information-2" style="display: none">
+                                            <div id="file-content"></div><img id="deleteBtn" alt="첨부 삭제" src="/image/myPage/close.png" onclick="cancelFile()">
+                                        </div>
                                     </div>
                                 </section>
 
@@ -434,17 +443,15 @@
                                     이전
                                     <div style="display: flex;" disabled="disabled"></div>
                                 </button>
-                                    <button id="footer_button_next" type="button" onclick="nextButton()">다음<img
-                                            src="/image/program/next_register.gif" class="footer_next_image"></button>
-                                    <button class="submitBtn" type="submit" style="display: none">제출<img
-                                            src="/image/program/next_register.gif" class="footer_next_image"></button>
+                                    <button id="footer_button_next" type="button" onclick="nextButton()">다음<img src="/image/program/next_register.gif" class="footer_next_image"></button>
+                                    <button class="submitBtn okay" type="button" style="display: none">제출<img src="/image/program/next_register.gif" class="footer_next_image"></button>
                             </div>
                         </div>
                     </div>
-            </form>
+
                 </div>
             </span>
-
+            </form>
         </div>
     </div>
 
@@ -550,46 +557,149 @@
     var sel_files = [];
 
 
-    $(document).ready(function() {
+    // $(document).ready(function() {
+    //
+    //     $("#input_file").on("change", handleImgsFilesSelect);
+    // });
+    //
+    // function handleImgsFilesSelect(e) {
+    //     var files = e.target.files;
+    //     var filesArr = Array.prototype.slice.call(files);
+    //     // $(".imgs_wrap").empty();
+    //
+    //     filesArr.forEach(function(f) {
+    //         if(!f.type.match("image.*")) {
+    //             alert("확장자는 이미지 확장자만 가능합니다.");
+    //             return;
+    //         }
+    //
+    //         console.log("filesArr: " + filesArr.length);
+    //         let fileNo = 0;
+    //         sel_files.push(f);
+    //         console.log("sel_files" + sel_files.length);
+    //
+    //         sel_files.forEach(function(e,index)
+    //         {
+    //             console.log(index);
+    //             var reader = new FileReader();
+    //             reader.onload = function (e) {
+    //                 var fileValue = $("#input_file").val().split("\\");
+    //                 var fileName = fileValue[fileValue.length - 1]; // 파일명
+    //                 var img_html = `<div class="file-content-` + fileNo + `"></div><img class='deleteBtn' alt=\"첨부 삭제\" src=\"/image/myPage/close.png\" onclick=\"cancelFile()\"><br>`;
+    //                 $(".imgs_wrap").append(img_html);
+    //                 $('.file-content-' + fileNo).text(fileName);
+    //                 $(".imgs_wrap").show();
+    //                 $(".deleteBtn").show();
+    //                 var img_html = "";
+    //                 fileNo++;
+    //                 reader.readAsDataURL(f);
+    //             }
+    //         });
+    //
+    //     });
+    // }
 
-        $("#input_file").on("change", handleImgsFilesSelect);
-    });
 
-    function handleImgsFilesSelect(e) {
-        var files = e.target.files;
-        var filesArr = Array.prototype.slice.call(files);
-        // $(".imgs_wrap").empty();
 
-        filesArr.forEach(function(f) {
-            if(!f.type.match("image.*")) {
-                alert("확장자는 이미지 확장자만 가능합니다.");
-                return;
-            }
+    /*파일 첨부 부분*/
 
-            console.log("filesArr: " + filesArr.length);
-            let fileNo = 0;
-            sel_files.push(f);
-            console.log("sel_files" + sel_files.length);
+   let arrayFile = [];
+   /*$("a.list").on("click", function(e){
+       e.preventDefault();
+       location.href = "/board/list" + queryString;
+   });*/
 
-            sel_files.forEach(function(e,index)
-            {
-                console.log(index);
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var fileValue = $("#input_file").val().split("\\");
-                    var fileName = fileValue[fileValue.length - 1]; // 파일명
-                    var img_html = `<div class="file-content-` + fileNo + `"></div><img class='deleteBtn' alt=\"첨부 삭제\" src=\"/image/myPage/close.png\" onclick=\"cancelFile()\"><br>`;
-                    $(".imgs_wrap").append(img_html);
-                    $('.file-content-' + fileNo).text(fileName);
-                    $(".imgs_wrap").show();
-                    $(".deleteBtn").show();
-                    var img_html = "";
-                    fileNo++;
-                    reader.readAsDataURL(f);
-                }
-            });
+   /*파일이 넣어졌을 때*/
+   $("input[type='file']").on("change", function(){
+       let formData = new FormData();
+       let $inputFile = $("input[name='upload']");
+       let files = $inputFile[0].files;
 
-        });
-    }
+       console.log(Array.from(files));
 
+       Array.from(files).forEach(file => arrayFile.push(file));
+       const dataTransfer = new DataTransfer();
+       arrayFile.forEach(file => dataTransfer.items.add(file));
+       $(this)[0].files = dataTransfer.files;
+
+       console.log($(this)[0].files);
+
+       $(files).each(function(i, file){
+           formData.append("upload", file);
+       });
+
+       $.ajax({
+           url: "/mentofile/upload",
+           type: "post",
+           data: formData,
+           contentType: false,
+           processData: false,
+           success: showUploadResult
+       });
+   });
+
+   /*파일 선택 시 미리보기*/
+   function showUploadResult(files){
+       let text = "";
+       $(files).each(function(i, file){
+           text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+           text += `<span>X</span>`;
+           if(!file.fileImageCheck){
+               text += `<img src="/image/program/count.gif" width="100">`;
+           }else{
+               text += `<img src="/mentofile/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+           }
+           text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+           text += `</li>`;
+       });
+       $(".uploadResult ul").append(text);
+   }
+
+   /*미리보기 삭제*/
+   $(".uploadResult ul").on("click", "span", function(){
+       const $li = $(this).closest("li");
+       let i = $(".uploadResult ul span").index($(this));
+       let uploadPath = $li.data("file-upload-path");
+       let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
+       $.ajax({
+           url: "/mentofile/delete",
+           type: "post",
+           data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
+           success: function(){
+               $li.remove();
+               arrayFile.splice(i, 1);
+               const dataTransfer = new DataTransfer();
+               arrayFile.forEach(file => dataTransfer.items.add(file));
+               $("input[name='upload']")[0].files = dataTransfer.files;
+           }
+       });
+   });
+
+   //클릭 시
+   $("button.okay").on("click", function(e){
+       e.preventDefault();
+       let text = "";
+       $.each($(".uploadResult ul li"), function(i, li){
+           let fileName = $(li).data("file-name");
+           let fileUploadPath = $(li).data("file-upload-path");
+           let fileUuid = $(li).data("file-uuid");
+           let fileSize = $(li).data("file-size");
+           let fileImageCheck = $(li).data("file-image-check");
+           console.log(fileName);
+           console.log(fileUploadPath);
+           console.log(fileUuid);
+           console.log(fileSize);
+           console.log(fileImageCheck);
+
+           text += `<input type="hidden" name="files[` + i + `].fileName" value="` + fileName + `">`;
+           text += `<input type="hidden" name="files[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
+           text += `<input type="hidden" name="files[` + i + `].fileUuid" value="` + fileUuid + `">`;
+           text += `<input type="hidden" name="files[` + i + `].fileSize" value="` + fileSize + `">`;
+           text += `<input type="hidden" name="files[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
+       });
+       console.log(text);
+       $("form#writeForm").append(text).submit();
+
+
+   });
 </script>
