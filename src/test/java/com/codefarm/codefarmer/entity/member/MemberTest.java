@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity.member;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
@@ -151,7 +152,7 @@ public class MemberTest {
     //내가 쓴 글 select
     @Test
     public void findMyBoardTest(){
-        memberRepository.findMyBoard(1l).stream().map(Board::getBoardTitle).forEach(log::info);
+        memberRepository.findMyBoard(1l).stream().map(BoardDTO::getBoardTitle).forEach(log::info);
     }
 
 
