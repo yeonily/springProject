@@ -100,33 +100,6 @@ public class MentoController {
         /*로그인 세션에 따른 읽지 않은 메세지 개수 가져오기*/
         model.addAttribute("alarmCnt", cs.chatAlarm(sessionId)); // 메세지 개수의 경우 이후 세션으로 등록 필요(모든 페이지에서 쓰기 위함)
     }
-
-    /*채팅방 선택 시 대화 이력 불러오기*/
-    @MessageMapping(value = "/chatting/enter")
-    public void enter(ChatDTO message) {
-        List<ChatDTO> chatList = cs.chatList(message.getRoomId()); // 매개변수로 받은 객체에 저장된 대화목록
-
-        /*대화방 유무에 따른 메세지 처리*/
-        if (!chatList.isEmpty()) {
-            for (ChatDTO chatDTO : chatList) {
-                if (message.getMemberId().equals(chatDTO.getMember().getMemberId())) {
-                    cs.readChange(chatDTO.getChatRoom().getChatRoomId(), chatDTO.getMember().getMemberId());
-                }
-                template.convertAndSend("/sub/mento/chatting" + chatDTO.getChatRoom().getChatRoomId(), chatDTO);
-            }
-        }
-    }
-
-
-    /*메세지 보냄*/
-    @MessageMapping(value = "/chatting/message")
-    public void message(ChatDTO message) {
-        LocalDateTime now = LocalDateTime.now();
-        message.setChatDate(now);
-        System.out.println("결과 : " + message.getChatDate());
-        template.convertAndSend("/sub/mento/chatting" + message.getRoomId(), message);
-        cs.sendMessage(message); // 입력한 메세지를 DB로 보냄
-    }
 }
 
 
