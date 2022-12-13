@@ -64,7 +64,6 @@
                             </div>
                             <!------------------------>
                         </div>
-
                         <div id="paging">
                             <ul>
                                 <li class="sidePageNum prev">
@@ -80,7 +79,6 @@
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -106,6 +104,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
+<script src="/js/myPage/myPageRest.js"></script>
 <script src="/js/myPage/list.js"></script>
 <script th:inline="javascript">
     $("div.menu-a").removeClass('menu-select');
@@ -127,19 +126,22 @@
         location.href = "/alba/detail?albaId=" + albaId;
     }
 
-
-    myPageService.getAbList({albas: albas}, getList);
+    let memberId = [[${member.memberId}]];
+    $(document).ready(function () {
+        myPageService.getAbList({
+            memberId: memberId
+        }, getList);
+    })
 
     function getList(albas){
         let text = "";
 
         if(albas.length == 0){
-            text += "<div id='content-wrap'>";
             text += "<div class='n-c-wrap'>";
             text += "너와농부싶어와 함께하는 아르바이트를 확인해보세요!";
-            text += "<button class='sendPage-btn' onclick='/alba/list'>아르바이트 보러 가기</button>";
+            text += `<button class='sendPage-btn' onclick="location.href='/alba/list'">아르바이트 보러 가기</button>`;
             text += "</div>";
-            text += "</div>";
+            $("div#content-wrap").html(text);
             return;
         }
 
@@ -150,12 +152,9 @@
             startDate = new Date(nowDateDTO1);
             endDate = new Date(nowDateDTO2);
 
-            text += '<div class="alba-lists-wrap" th:object="${albaDTO}">'
             text += '<div class="alba-list" th:object="${albaDTO}">'
             var number = albaDTO.albaId;
-            text += '<div class="commu c-link" onclick="javascript:viewDetail("'
-            text += number
-            text += '")>"'
+            text += '<div class="commu c-link" onclick="javascript:viewDetail("'+number+')>'
             text += '<div class="c-top-wrap">'
             text += '<div class="t-s-wrap">'
             let date = new Date(albaDTO.albaWorkDate);
@@ -185,8 +184,8 @@
             text += '</div>'
             text += '</div>'
             text += '</div>'
-            text += '</div>'
         })
+        $("div#alba-list").html(text);
     }
 </script>
 </html>

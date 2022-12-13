@@ -11,11 +11,13 @@ import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.QBoard;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.QMemberProgram;
 import com.codefarm.codefarmer.entity.program.QProgram;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.type.MemberType;
 import com.codefarm.codefarmer.type.Status;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -48,6 +50,8 @@ import static org.assertj.core.api.Assertions.*;
 public class MemberTest {
         @Autowired
         private MemberRepository memberRepository;
+        @Autowired
+        private MentorRepository mentorRepository;
         @Autowired
         private JPAQueryFactory jpaQueryFactory;
 
@@ -206,6 +210,19 @@ public class MemberTest {
         Long albaApplyId = 1l;
         Status status = Status.CONFIRM;
         memberRepository.updateAlbaStatues(albaApplyId, status);
+
+    }
+
+    @Test
+    public void saveMentorTest(){
+        Optional<Member> findMember = memberRepository.findById(1L);
+        MentorDTO mentorDTO = new MentorDTO();
+        mentorDTO.setMemberId(findMember.get());
+        mentorDTO.setMentorCrop("옥수수");
+        mentorDTO.setMentorYear("3~5년차");
+        Mentor mentor = mentorDTO.toEntity();
+        mentor.changeMember(mentorDTO.getMemberId());
+        mentorRepository.save(mentor);
 
     }
 

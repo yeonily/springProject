@@ -1,6 +1,8 @@
 package com.codefarm.codefarmer.repository.member;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.board.BoardDTO;
+import com.codefarm.codefarmer.domain.inquire.InquireDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.MemberAlba;
@@ -27,9 +29,9 @@ public interface MemberCustomRepository {
     //내가 등록한 프로그램목록
     public List<ProgramDTO> findMyProgram(Long memberId);
     //내가 등록한 게시글
-    public List<Board> findMyBoard(Long memberId);
+    public List<BoardDTO> findMyBoard(Long memberId);
     //내가 문의한 목록
-    public List<Inquire> findMyInquire(Long memberId);
+    public List<InquireDTO> findMyInquire(Long memberId);
 
 
 }

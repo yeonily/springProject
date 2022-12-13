@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.controller.myPage;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.board.Board;
@@ -72,19 +73,16 @@ public class MyPageController {
 
     @GetMapping("/community")
     public void communityPage(HttpSession session, Model model){
-        List<Board> boards = memberService.registerMyBoard((Long)session.getAttribute("memberId"));
         Member member= memberService.select((Long)session.getAttribute("memberId"));
-        model.addAttribute("boards", boards);
         model.addAttribute("member", member);
     }
 
-//    @GetMapping("/program")
-//    public void programPage(HttpSession session, Model model){
-//        List<Program> programs = memberService.registerMyProgram((Long)session.getAttribute("memberId"));
-//        Member member= memberService.select((Long)session.getAttribute("memberId"));
-//        model.addAttribute("programs", programs);
-//        model.addAttribute("member", member);
-//    }
+    @GetMapping("/program")
+    public String programPage(HttpSession session, Model model){
+        Member member= memberService.select((Long)session.getAttribute("memberId"));
+        model.addAttribute("member", member);
+        return "myPage/program";
+    }
 
     @GetMapping("/program/apply")
     public String programApplyPage(Model model, HttpSession session){
@@ -100,13 +98,11 @@ public class MyPageController {
         return "/myPage/applyCancel";
     }
 
-//    @GetMapping("/alba")
-//    public void albaPage(HttpSession session,Model model){
-//        List<AlbaDTO> albas = memberService.registerMyAlba((Long)session.getAttribute("memberId"));
-//        Member member= memberService.select((Long)session.getAttribute("memberId"));
-//        model.addAttribute("albas", albas);
-//        model.addAttribute("member", member);
-//    }
+    @GetMapping("/alba")
+    public void albaPage(HttpSession session,Model model){
+        Member member= memberService.select((Long)session.getAttribute("memberId"));
+        model.addAttribute("member", member);
+    }
 
     @GetMapping("/alba/apply")
     public String albaApplyPage(Model model, HttpSession session){
@@ -118,9 +114,7 @@ public class MyPageController {
     @GetMapping("/inquire")
     public void inquirePage(Model model, HttpSession session){
         Member member= memberService.select((Long)session.getAttribute("memberId"));
-        List<Inquire> inquires = memberService.registerMyInquire((Long)session.getAttribute("memberId"));
         model.addAttribute("member", member);
-        model.addAttribute("inquires", inquires);
 
     }
 
