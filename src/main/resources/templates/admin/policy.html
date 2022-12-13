@@ -97,6 +97,9 @@
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/policy/delete}">
                                     <input type="hidden" name="policyId" th:value="*{policyId}">
+                                    <input type="hidden" name="page" th:value="${criteria.page}">
+                                    <input type="hidden" name="searchText" th:value="${criteria.searchText}">
+                                    <input type="hidden" name="keyword" th:value="${criteria.keyword}">
                                     <input type="button" value="삭제" class="deleteBtn">
                                 </form>
                             </td>
@@ -107,7 +110,7 @@
                     </tr>
                 </table>
                 <div id="write" style="float: right;">
-                    <input type="button" th:onclick="'location.href=\''+ @{/admin/policy/register} + '\''" value="작성">
+                    <input type="button" onclick="javascript:goPage()" value="작성">
                 </div>
 
                 <!-- 페이징 -->
@@ -137,20 +140,19 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
     let content = "";
     const urlParams = new URL(location.href).searchParams;
-
-    const page = urlParams.get('page');
     const keyword = urlParams.get('keyword');
-    const searchText = urlParams.get('searchText');
 
-    let pageUrl = page!="" && page!=null?("page=" + page +"&"):"";
-    let keywordUrl = keyword!="" && keyword!=null?("keyword=" + keyword +"&"):"";
-    let searchTextUrl = searchText!="" && searchText!=null?("&searchText=" + searchText +"&"):"";
 
+    // 등록 페이지 이동
+    function goPage() {
+        location.href='/admin/policy/register' + queryString;
+    }
     // 수정 페이지 이동
     function goUpdate(policyId) {
-        location.href='/admin/policy/update?' + pageUrl + keywordUrl + searchTextUrl + 'policyId=' + policyId;
+        location.href='/admin/policy/update' + queryString + '&policyId=' + policyId;
     }
 
     // 검색 옵션

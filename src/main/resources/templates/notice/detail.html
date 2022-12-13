@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div id="list-btn">
-                <button type="button" class="back-list" onclick="history.back();">목록</button>
+                <button type="button" class="back-list" onclick="backList();">목록</button>
             </div>
         </div>
     </div>
@@ -50,7 +50,11 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/community/link.js"></script>
-<script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.noticeQueryString}]];
+    function backList() {
+        location.href='/notice' + queryString;
+    }
 
     // 헤더 검색창 없애기
     $(".search_form").css("visibility", "hidden");

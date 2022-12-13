@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
 import com.codefarm.codefarmer.repository.admin.CropRepository;
 import com.codefarm.codefarmer.repository.admin.PolicyRepository;
+import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class InformationServiceTest {
     private PolicyRepository policyRepository;
     @Autowired
     private CropRepository cropRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
 
 //    정책 등록
     @Test
@@ -101,4 +104,9 @@ public class InformationServiceTest {
     public void cropSelectOneTest(){
         log.info("" + informationService.cropShowOne(69L));
     }
+
+
+//    댓글 수 리스트
+//    @Test
+//    public void replyCountByBoardIdTest() { log.info("댓글 수 : " + replyRepository.countReplyByBoardId(1L)); }
 }
