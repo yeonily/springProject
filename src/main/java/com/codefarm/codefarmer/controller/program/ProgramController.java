@@ -133,13 +133,11 @@ public class ProgramController {
     }
 
     @PostMapping("/register")
-    public RedirectView registerFin(ProgramDTO programDTO, ProgramFileDTO programFileDTO, HttpSession session ,String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString , String programTypeString, String programLevelString) throws DateTimeParseException {
+    public RedirectView registerFin(ProgramDTO programDTO,  HttpSession session ,String programWorkDateString, String programWorkStartTimeString, String programWorkEndTimeString, String programApplyStartDateString, String programApplyEndDateString , String programTypeString, String programLevelString) throws DateTimeParseException {
         log.info("리스폰스바디 컨트롤러 들어옴");
-        log.info("programTypeString: " + programTypeString);
-        log.info("programLevelString: " + programLevelString);
         Long sessionId = (Long)session.getAttribute("memberId");
 
-        log.info("fileDTO:" + programFileDTO.toString());
+//        log.info("fileDTO:" + programFileDTO.toString());
 
 //       세션에 memberId 넣기
         programDTO.setMemberId(sessionId);
@@ -160,14 +158,6 @@ public class ProgramController {
             programDTO.setProgramLevel(ProgramLevel.MASTER);
         }
 
-//        log.info("files: " + programDTO.getFiles());
-//        programDTO.getFiles().stream().map(t -> programFileDTO.setFileName(t.getFileName()));
-//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileName());
-//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileUploadPath());
-//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileUuid());
-//        log.info("file[0].fileName:"+ programDTO.getFiles().get(0).getFileSize());
-
-//      태관 참고
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         DateTimeFormatter formatter1 = new DateTimeFormatterBuilder()
@@ -175,33 +165,19 @@ public class ProgramController {
                 .parseDefaulting(ChronoField.EPOCH_DAY, 0)
                 .toFormatter();
 
-//        태관 참고
         LocalDateTime programWorkDateTest = LocalDate.parse(programWorkDateString, formatter).atStartOfDay();
-
         LocalDateTime programWorkStartTimeTest = LocalDateTime.parse(programWorkStartTimeString, formatter1);
         LocalDateTime programWorkEndTimeTest = LocalDateTime.parse(programWorkEndTimeString, formatter1);
         LocalDateTime programApplyStartDateTest = LocalDate.parse(programApplyStartDateString, formatter).atStartOfDay();
         LocalDateTime programApplyEndDateTest = LocalDate.parse(programApplyEndDateString, formatter).atStartOfDay();
 
-//        태관 참고
         programDTO.setProgramWorkDate(programWorkDateTest);
         programDTO.setProgramWorkStartTime(programWorkStartTimeTest);
         programDTO.setProgramWorkEndTime(programWorkEndTimeTest);
         programDTO.setProgramApplyStartDate(programApplyStartDateTest);
         programDTO.setProgramApplyEndDate(programApplyEndDateTest);
 
-        /*Program program = null;
-        program.changeFiles(programDTO.getFiles());*/
-
-//        태관 참고
         programRegisterService.saveAll(programDTO);
-
-//        programDTO.getFiles().stream().map(t -> programFileRepository.saveAll(t));
-
-
-//        programFileRepository.save(programDTO.getFiles())
-
-//        redirectAttributes.addFlashAttribute("boardNumber", boardVO.getBoardNumber());
         return new RedirectView("list");
     }
 

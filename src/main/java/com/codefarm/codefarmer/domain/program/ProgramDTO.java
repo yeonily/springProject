@@ -42,8 +42,6 @@ public class ProgramDTO {
     private String programInfoContent3;
     private String programInfoTitle4;
     private String programInfoContent4;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd'T'hh:mm:ss.", timezone = "Asia/Seoul")
     private LocalDateTime programWorkDate;
     private LocalDateTime programWorkStartTime;
     private LocalDateTime programWorkEndTime;

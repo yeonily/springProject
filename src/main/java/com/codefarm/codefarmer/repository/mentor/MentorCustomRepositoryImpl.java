@@ -57,7 +57,8 @@ public class MentorCustomRepositoryImpl implements MentorCustomRepository{
                         mentorBoard.mentorExCareer, mentorBoard.mentorStrongTitle1, mentorBoard.mentorStrongContent1, mentorBoard.mentorStrongTitle2, mentorBoard.mentorStrongContent2,
                         mentorBoard.mentorStrongTitle3, mentorBoard.mentorStrongContent3, mentorBoard.mentorTitle, mentorBoard.mentorTitleSub, mentorBoard.mentorTextTitle,
                         mentorBoard.mentorTextContent,
-                        mentorBoard.mentor.mentorCrop)).from(mentorBoard)
+                        mentorBoard.mentor.mentorCrop
+                )).from(mentorBoard)
                 .orderBy(mentorBoard.updatedDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1)
