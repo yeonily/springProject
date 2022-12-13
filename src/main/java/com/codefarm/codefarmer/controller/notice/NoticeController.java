@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.controller.notice;
 
+import com.codefarm.codefarmer.entity.admin.Criteria;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.service.notice.NoticeService;
@@ -22,8 +23,11 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping("")
-    public String noticePage(Model model, @PageableDefault(size = 10, sort = "NoticeId", direction = Sort.Direction.DESC) Pageable pageable){
+    public String noticePage(Model model, Criteria criteria, @PageableDefault(size = 10, sort = "NoticeId", direction = Sort.Direction.DESC) Pageable pageable){
         Page<Notice> noticeLists = noticeService.showAll(pageable);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber());
+        }
 
         model.addAttribute("noticeLists", noticeLists);
         model.addAttribute("maxPage", 5);
@@ -31,7 +35,7 @@ public class NoticeController {
     }
 
     @GetMapping("/detail")
-    public void detailPage(Long noticeId, Model model){
+    public void detailPage(Criteria criteria, Long noticeId, Model model){
         noticeService.updateViewCount(noticeId);
         model.addAttribute("notice", noticeService.showOne(noticeId));
     }
