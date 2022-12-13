@@ -1,7 +1,12 @@
 package com.codefarm.codefarmer.repository.member;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.alba.QAlbaDTO;
+import com.codefarm.codefarmer.domain.board.BoardDTO;
+import com.codefarm.codefarmer.domain.board.QBoardDTO;
+import com.codefarm.codefarmer.domain.inquire.InquireDTO;
+import com.codefarm.codefarmer.domain.inquire.QInquireDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
@@ -12,6 +17,7 @@ import com.codefarm.codefarmer.entity.alba.MemberAlba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.entity.alba.QMemberAlba;
 import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.board.QBoard;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.inquire.QInquire;
 import com.codefarm.codefarmer.entity.member.Member;
@@ -153,19 +159,26 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public List<Board> findMyBoard(Long memberId) {
-        return jpaQueryFactory.select(board)
-                .from(board).join(board.member)
-                .where(board.member.memberId.eq(memberId))
-                .fetchJoin().fetch();
+    public List<BoardDTO> findMyBoard(Long memberId) {
+        return jpaQueryFactory.select(new QBoardDTO(
+                board.boardId,
+                board.boardTitle,
+                board.boardContent,
+                board.boardViewCount,
+                board.member.memberId
+        )).from(board).where(board.member.memberId.eq(memberId)).fetch();
     }
 
     @Override
-    public List<Inquire> findMyInquire(Long memberId) {
-        return jpaQueryFactory.select(inquire)
-                .from(inquire).join(inquire.member)
-                .where(inquire.member.memberId.eq(memberId))
-                .fetchJoin().fetch();
+    public List<InquireDTO> findMyInquire(Long memberId) {
+        return jpaQueryFactory.select(new QInquireDTO(
+                inquire.inquireId,
+                inquire.inquireQTitle,
+                inquire.inquireQContent,
+                inquire.inquireStatus,
+                inquire.member.memberId,
+                inquire.createdDate
+        )).from(inquire).where(inquire.member.memberId.eq(memberId)).fetch();
     }
 
 }

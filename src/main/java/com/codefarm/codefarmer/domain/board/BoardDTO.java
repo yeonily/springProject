@@ -38,6 +38,14 @@ public class BoardDTO {
         this.updatedDate = updatedDate;
     }
 
+    @QueryProjection
+    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, Long memberId) {
+        this.boardId = boardId;
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.boardViewCount = boardViewCount;
+        this.memberId = memberId;
+    }
 
     public Board toEntity(){
         return Board.builder()

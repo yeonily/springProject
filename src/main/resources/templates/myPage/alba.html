@@ -139,7 +139,7 @@
         if(albas.length == 0){
             text += "<div class='n-c-wrap'>";
             text += "너와농부싶어와 함께하는 아르바이트를 확인해보세요!";
-            text += "<button class='sendPage-btn' onclick='/alba/list'>아르바이트 보러 가기</button>";
+            text += `<button class='sendPage-btn' onclick="location.href='/alba/list'">아르바이트 보러 가기</button>`;
             text += "</div>";
             $("div#content-wrap").html(text);
             return;

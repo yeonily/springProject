@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @NoArgsConstructor
 @Data
@@ -17,14 +19,17 @@ public class InquireDTO {
     private String inquireQContent;
     private Status inquireStatus;
     private Member member;
+    private Long memberId;
+    private LocalDateTime createdDate;
 
     @QueryProjection
-    public InquireDTO(Long inquireId, String inquireQTitle, String inquireQContent, Status inquireStatus, Member member) {
+    public InquireDTO(Long inquireId, String inquireQTitle, String inquireQContent, Status inquireStatus, Long memberId, LocalDateTime createdDate) {
         this.inquireId = inquireId;
         this.inquireQTitle = inquireQTitle;
         this.inquireQContent = inquireQContent;
         this.inquireStatus = inquireStatus;
-        this.member = member;
+        this.memberId = memberId;
+        this.createdDate = createdDate;
     }
 
     public Inquire toEntity(){

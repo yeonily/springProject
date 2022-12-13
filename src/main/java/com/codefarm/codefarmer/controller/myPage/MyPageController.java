@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.controller.myPage;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.board.Board;
@@ -72,9 +73,7 @@ public class MyPageController {
 
     @GetMapping("/community")
     public void communityPage(HttpSession session, Model model){
-        List<Board> boards = memberService.registerMyBoard((Long)session.getAttribute("memberId"));
         Member member= memberService.select((Long)session.getAttribute("memberId"));
-        model.addAttribute("boards", boards);
         model.addAttribute("member", member);
     }
 
@@ -115,9 +114,7 @@ public class MyPageController {
     @GetMapping("/inquire")
     public void inquirePage(Model model, HttpSession session){
         Member member= memberService.select((Long)session.getAttribute("memberId"));
-        List<Inquire> inquires = memberService.registerMyInquire((Long)session.getAttribute("memberId"));
         model.addAttribute("member", member);
-        model.addAttribute("inquires", inquires);
 
     }
 

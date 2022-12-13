@@ -1,7 +1,9 @@
 package com.codefarm.codefarmer.controller.myPage;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
+import com.codefarm.codefarmer.domain.inquire.InquireDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
@@ -11,6 +13,7 @@ import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.service.admin.InquireService;
+import com.codefarm.codefarmer.service.board.ReplyService;
 import com.codefarm.codefarmer.service.member.MemberService;
 import com.codefarm.codefarmer.service.program.ProgramListService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,7 @@ public class MyPageRestController {
     private final MemberService memberService;
     private final InquireService inquireService;
     private final ProgramListService programListService;
+    private final ReplyService replyService;
 
     //닉네임수정
     @PutMapping("/settingnick")
@@ -70,5 +74,33 @@ public class MyPageRestController {
         Long memberId = (Long)session.getAttribute("memberId");
         memberService.saveMentor(mentorDTO);
         return "insert success";
+    }
+
+    //게시글 목록
+    @GetMapping("/boardlist")
+    public List<BoardDTO> showAllBoList(HttpSession session) {
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("아이디 : "+ memberId);
+        List<BoardDTO> boards = memberService.registerMyBoard(memberId);
+        return boards;
+    }
+
+    //게시글 목록
+    @PostMapping("/boardlist")
+    public Long showAllReply(HttpSession session) {
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("아이디 : "+ memberId);
+        Long replyCount = replyService.showReplyAllCount(memberId);
+        return replyCount;
+    }
+
+
+    //문의글 목록
+    @GetMapping("/inquirelist")
+    public List<InquireDTO> showAllIqList(HttpSession session) {
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("아이디 : "+ memberId);
+        List<InquireDTO> inquires = memberService.registerMyInquire(memberId);
+        return inquires;
     }
 }

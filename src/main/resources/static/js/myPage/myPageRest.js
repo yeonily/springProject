@@ -78,5 +78,59 @@ let myPageService = (function () {
             }
         });
     }
-    return {getPgList: getPgList, getAbList: getAbList}
+
+    function getBoList(memberId, callback, error) {
+        $.ajax({
+            url: "/mypage/boardlist",
+            type: "get",
+            success: function (boards, status, xhr) {
+                console.log("getBoList - "+ boards);
+                if (callback) {
+                    callback(boards);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function getBoReply(memberId, callback, error) {
+        $.ajax({
+            url: "/mypage/boardlist",
+            type: "post",
+            success: function (replyCount, status, xhr) {
+                console.log("getBoList - "+ replyCount);
+                if (callback) {
+                    callback(replyCount);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function getIqList(memberId, callback, error) {
+        $.ajax({
+            url: "/mypage/inquirelist",
+            type: "get",
+            success: function (inquires, status, xhr) {
+                console.log("getIqList - "+ inquires);
+                if (callback) {
+                    callback(inquires);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getPgList: getPgList, getAbList: getAbList, getBoList:getBoList, getIqList:getIqList, getBoReply:getBoReply}
 })();
