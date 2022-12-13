@@ -334,7 +334,8 @@
                         </div>
                     </div>
                 </div>
-                <ul style="margin-top: 28px!important; list-style: none;">
+
+                <ul id="review-wrap" style="margin-top: 28px!important; list-style: none;">
                     <div class="main_reply_inner12">
                         <li>
                             <div class="main_reply_inner13">
@@ -480,63 +481,68 @@
                             </div>
                         </li>
                     </div>
+                </ul>
                     <div style="margin-top: 30px;">
                         <form>
-                            <div id="main_reply_write">
-                                <textarea placeholder="200자 이내로 후기를 작성해주세요." id="main_reply_textarea"></textarea>
-                                <p id="main_reply_textarea_p_count">0</p><p id="main_reply_textarea_p">/200</p>
-                            </div>
-                            <span id="textarea_alert"></span>
-                            <div id="main_reply_textarea_stars">
-                                <div id="main_reply_textarea_stars_inner1">
-                                    <p class="main_reply_textarea_inner2">평점</p>
-                                    <div style="margin-left: 30px;" class="main_reply_textarea_inner2">
-                                        <div style="position: relative" id="star_count_check">
-                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
-                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                            </svg>
-                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
-                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                            </svg>
-                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
-                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                            </svg>
-                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
-                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                            </svg>
-                                            <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
-                                                <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                            </svg>
-                                            <!--<span class="star_check" style="margin-left: 0px;"></span>
-                                            <span class="star_check"></span>
-                                            <span class="star_check"></span>
-                                            <span class="star_check"></span>
-                                            <span class="star_check"></span>-->
+                            <div id="write-review" >
+                                <div id="main_reply_write">
+                                    <textarea name="reviewContent" placeholder="200자 이내로 후기를 작성해주세요." id="main_reply_textarea"></textarea>
+                                    <p id="main_reply_textarea_p_count">0</p><p id="main_reply_textarea_p">/200</p>
+                                </div>
+                                <span id="textarea_alert"></span>
+                                <div id="main_reply_textarea_stars">
+                                    <div id="main_reply_textarea_stars_inner1">
+                                        <p class="main_reply_textarea_inner2">평점</p>
+                                        <div style="margin-left: 30px;" class="main_reply_textarea_inner2">
+                                            <div style="position: relative" id="star_count_check">
+                                                <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                    <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                                </svg>
+                                                <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                    <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                                </svg>
+                                                <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                    <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                                </svg>
+                                                <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                    <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                                </svg>
+                                                <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check">
+                                                    <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
+                                                </svg>
+                                                <!--<span class="star_check" style="margin-left: 0px;"></span>
+                                                <span class="star_check"></span>
+                                                <span class="star_check"></span>
+                                                <span class="star_check"></span>
+                                                <span class="star_check"></span>-->
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div style="float: right">
+                                        <button class="review-btn">
+                                            <input type="button" id="main_reply_button" disabled value="후기 작성">
+                                        </button>
+                                    </div>
                                 </div>
-                                <div style="float: right">
-                                    <input type="button" id="main_reply_button" disabled value="후기 작성">
+
+                                <!--페이징 처리-->
+                                <div id="paging">
+                                    <ul>
+                                        <li class="sidePageNum prev">
+                                            <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                                        </li>
+                                        <li><a href="" class="page selectPage">1</a></li>
+                                        <li><a href="" class="page">2</a></li>
+                                        <li><a href="" class="page">3</a></li>
+                                        <li><a href="" class="page">4</a></li>
+                                        <li><a href="" class="page">5</a></li>
+                                        <li class="sidePageNum next">
+                                            <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-
-                            <!--페이징 처리-->
-                            <div id="paging">
-                                <ul>
-                                    <li class="sidePageNum prev">
-                                        <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                                    </li>
-                                    <li><a href="" class="page selectPage">1</a></li>
-                                    <li><a href="" class="page">2</a></li>
-                                    <li><a href="" class="page">3</a></li>
-                                    <li><a href="" class="page">4</a></li>
-                                    <li><a href="" class="page">5</a></li>
-                                    <li class="sidePageNum next">
-                                        <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                                    </li>
-                                </ul>
-                            </div>
-
                         </form>
                     </div>
                 </ul>
@@ -592,10 +598,14 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/mento/detail.js"></script>
+<script src="/js/mento/review.js"></script>
 <script>
     console.log("세션 아이디 : " + $("#sessionId").val());
     console.log("작성자 아이디 : " + $("#mentorId").val());
 
+    let result;
+
+    reviewAdd();
     function mentorIdSend() {
 
 
@@ -607,4 +617,102 @@
         }
     }
 </script>
+
+<script th:inline="javascript">
+
+    let mentorBoardId = [[${list.mentorBoardId}]];
+
+
+    show();
+
+    $(".review-btn").on("click", function(){
+        console.log("들어옴1");
+        reviewService.reviewAdd({
+            reviewContent: $("textarea[name=reviewContent]").val(),
+            mentorBoardId: mentorBoardId
+        }, function () {
+            show();
+            // reviewService.getTotal(mentorBoardId, get)
+        });
+        $("textarea[name=reviewContent]").val("");
+    })
+
+
+
+
+    function show(){
+        reviewService.getList(mentorBoardId, getList);
+
+    }
+
+    function reviewAdd(){
+        let text = "";
+        alert("z");
+        // result(review =>{
+            text += `<div id="main_reply_write"><grammarly-extension data-grammarly-shadow-root="true" style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT">`
+            text += `</grammarly-extension><grammarly-extension data-grammarly-shadow-root="true" style="mix-blend-mode: darken; position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT"></grammarly-extension>`
+            text += `<textarea name="reviewContent" placeholder="200자 이내로 후기를 작성해주세요!" id="main_reply_textarea" spellcheck="false"></textarea>`
+            text += `<p id="main_reply_textarea_p_count">0</p><p id="main_reply_textarea_p">/200</p>`
+            text += `</div>`
+            text += `<span id="textarea_alert"></span>`
+            text += `<div id="main_reply_textarea_stars">`
+            text += `<div id="main_reply_textarea_stars_inner1">`
+            text += `<p class="main_reply_textarea_inner2">평점</p>`
+            text += `<div style="margin-left: 30px;" class="main_reply_textarea_inner2">`
+            text += `<div style="position: relative" id="star_count_check">`
+            text += ` <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += ` <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += ` <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += ` <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += ` <svg width="24" height="24" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += `</div>`
+            text += `</div>`
+            text += `</div>`
+            text += `<div style="float: right">`
+            text += `<button class="review-btn">`
+            text += `<input type="button" id="main_reply_button" disabled="" value="후기 작성">`
+            text += `</button>`
+            text += `</div>`
+            text += `</div>`
+        // })
+        $("#write-review").html(text);
+    }
+    reviewAdd();
+
+
+    function getList(reviewDTO) {
+        let text = "";
+        // text += `<ul margin-top: 28px!important; list-style: none;">`
+        reviewDTO.forEach(review => {
+            text += `<div class="main_reply_inner12">`
+            text += `<li>`
+            text += `<div class="main_reply_inner13">`
+            text += `<div style="display: flex!important;" class="star_count">`
+            text += `<svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += `<svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += `<svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += `<svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_check"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += `<svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="star_uncheck"><path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path></svg>`
+            text += `<span class="main_reply_gray">매우 추천해요!</span>`
+            text += `</div>`
+            text += `</p>`
+            text += `</div>`
+            text += ` <p class="main_reply_coment">`+ review.reviewContent +`</p>`
+            text += `<div class="main_reply_name">`
+            text += ` `+ review.memberNickName +` <span class="main_reply_name2">|</span>`+ reviewService.timeForToday(review.updateDate) +``
+            text += `</div>`
+            text += `</li>`
+            text += `</div>`
+        })
+        // text += `</ul>`
+
+        $("#review-wrap").html(text);
+    }
+
+
+
+
+</script>
+
+
 </html>
