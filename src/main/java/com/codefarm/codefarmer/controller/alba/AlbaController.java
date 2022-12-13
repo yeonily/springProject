@@ -2,12 +2,12 @@ package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
-import com.codefarm.codefarmer.domain.program.ProgramDTO;
-import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.alba.AlbaListService;
+import com.codefarm.codefarmer.service.member.MemberService;
+import com.codefarm.codefarmer.type.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -62,12 +63,38 @@ public class AlbaController {
     }
 
     @PostMapping("/apply")
-    public RedirectView albaApply(MemberAlbaDTO memberAlbaDTO) throws Exception{
-        log.info("memberAlbaDTO : " + memberAlbaDTO.toString());
+    public RedirectView albaApply(HttpSession session , MemberAlbaDTO memberAlbaDTO) throws Exception{
+        Long memberId = (Long)session.getAttribute("memberId");
+
+        log.info("어플라이 알바아이디 : " + memberAlbaDTO.getAlbaId().toString());
+        log.info("memberId : " + memberId);
+
+        memberAlbaDTO.setMemberStatus(Status.WAITING);
+        memberAlbaDTO.setMemberId(memberId);
+        memberAlbaDTO.setAlbaId(memberAlbaDTO.getAlbaId());
+
         albaDetailService.albaApply(memberAlbaDTO);
+
         return new RedirectView("/alba/list");
     }
 
+    @GetMapping("/applyCancel")
+    public RedirectView albaApplyCancel(HttpSession session,MemberAlbaDTO memberAlbaDTO, Long albaApplyId, Model model) throws Exception{
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("sessionMemberId : " + memberId);
+
+        memberAlbaDTO.getAlbaApplyId().toString();
+
+        log.info("삭제 어플라이 아이디 : " + memberAlbaDTO.getAlbaApplyId().toString());
+        log.info("albaApplyId : " + albaApplyId);
+
+//        model.addAttribute("albaApplyId", albaDetailService.albaApplyCancel(albaApplyId));
+
+        albaDetailService.albaApplyCancel(albaApplyId);
+
+
+        return new RedirectView("/alba/list");
+    }
 
     @GetMapping("/write")
     public void albaWrite(Model model) {
@@ -132,8 +159,7 @@ public class AlbaController {
 
     @GetMapping("/delete")
     public RedirectView albaDelete(Long albaId){
-        log.info("albaId : " + albaId);
-        log.info("게시글 삭제 되니?");
+        log.info("albaId(delete) : " + albaId);
         albaDetailService.removeAlbaId(albaId);
         return new RedirectView("/alba/list");
     }
@@ -155,30 +181,30 @@ public class AlbaController {
         log.info("몇 번째일까요? : " + albaDTO.getAlbaId());
         String path = "/Users/yeontaegwan/Desktop/project/image";
         String uploadFileName = null;
-//        String dbFile = albaDetailService.showByAlbaId(albaDTO.getAlbaId()).getAlbaImage();
+        String dbFile = albaDetailService.showByAlbaId(albaDTO.getAlbaId()).getAlbaImage();
 
         if (!image.isEmpty()){
             UUID uuid = UUID.randomUUID();
             String fileName = image.getOriginalFilename();
             uploadFileName = uuid.toString() + "_" + fileName;
 
-//            if (uploadFileName != dbFile && dbFile != null){
-//                File file = new File(path, dbFile);
-//                log.info("파일 있니? -> " + file);
-//                if(file.exists()){
-//                    file.delete();
-//                }
-//            }
+            if (uploadFileName != dbFile && dbFile != null){
+                File file = new File(path, dbFile);
+                log.info("파일 있니? -> " + file);
+                if(file.exists()){
+                    file.delete();
+                }
+            }
 
             File saveFile = new File(path, uploadFileName);
             image.transferTo(saveFile);
             albaDTO.setAlbaImage(uploadFileName);
 
-//        } else if (dbFile != null) {
-//            File file = new File(path, dbFile);
-//            if(file.exists()){
-//                file.delete();
-//            }
+        } else if (dbFile != null) {
+            File file = new File(path, dbFile);
+            if(file.exists()){
+                file.delete();
+            }
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

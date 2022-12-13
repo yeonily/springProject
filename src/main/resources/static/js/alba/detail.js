@@ -44,12 +44,12 @@ $("#modal .cancel").on("click", function(){
 });
 
 /*메일전송 완료 버튼 클릭 시*/
-$("#modal button.applyBtn").on("click", function(){
-    $("#modalSuccess .m-title").text("아르바이트에 지원해주셔서 감사합니다!");
-    $("#modalSuccess .m-c-title").text("빠른 시일 내에 지원결과를 알려드리도록 하겠습니다.");
-    $("#modal").hide();
-    $("#modalSuccess").show();
-});
+// $("#modal button.applyBtn").on("click", function(){
+//     $("#modalSuccess .m-title").text("아르바이트에 지원해주셔서 감사합니다!");
+//     $("#modalSuccess .m-c-title").text("빠른 시일 내에 지원결과를 알려드리도록 하겠습니다.");
+//     $("#modal").hide();
+//     $("#modalSuccess").show();
+// });
 
 
 
@@ -64,13 +64,13 @@ $("#cancelModal .cancel").on("click", function(){
 });
 
 /*예 버튼 클릭 시*/
-$("#cancelModal button.applyBtn").on("click", function(){
-    $("#cancelModal").hide();
-    $("#modalSuccess .m-title").css("text-align", "center");
-    $("#modalSuccess .m-title").text("아르바이트 지원을 정상적으로 취소하였습니다.");
-    $("#modalSuccess .m-c-title").text("기회가 되면 다시 지원해주세요.");
-    $("#modalSuccess").show();
-});
+// $("#cancelModal button.applyBtn").on("click", function(){
+//     $("#cancelModal").hide();
+//     $("#modalSuccess .m-title").css("text-align", "center");
+//     $("#modalSuccess .m-title").text("아르바이트 지원을 정상적으로 취소하였습니다.");
+//     $("#modalSuccess .m-c-title").text("기회가 되면 다시 지원해주세요.");
+//     $("#modalSuccess").show();
+// });
 
 
 /*-----------------------------------------------------------*/

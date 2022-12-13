@@ -185,7 +185,7 @@
         <div class="c-modal">
             <div class="m-wrap">
                 <div class="m-title">아르바이트 지원하기</div>
-                <form method="post" th:action="@{/alba/apply}">
+                <form method="post" th:action="@{/alba/apply(albaId=*{albaId})}" th:object="${list}" id="applyWrite">
                     <div class="m-c-wrap">
                         <div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>
                         <p>mesudal@naver.com</p>
@@ -205,7 +205,7 @@
         <div class="c-modal">
             <div class="m-wrap">
                 <div class="m-title">아르바이트에 지원해주셔서 감사합니다!</div>
-                <form action="">
+                <form method="post">
                     <div class="m-c-wrap">
                         <div class="m-c-title">빠른 시일 내에 지원결과를 알려드리도록 하겠습니다.</div>
                     </div>
@@ -224,16 +224,14 @@
     <div id="modalCancel-overlay">
         <div class="c-modal">
             <div class="m-wrap">
-                <div class="m-title">아르바이트 지원 취소</div>
-                <form action="">
+                <div class="m-title" >아르바이트 지원 취소</div>
                     <div class="m-c-wrap">
-                        <div class="m-c-title">신청한 아르바이트를 신청하시겠습니까?</div>
+                        <div class="m-c-title">신청한 아르바이트를 취소하시겠습니까?</div>
                     </div>
                     <div class="applyBtnWrap">
-                        <button type="button" class="applyBtn">예</button>
+                        <button type="submit" class="applyBtn" th:onclick="|location.href='@{/alba/applyCancel(albaApplyId=${albaApplyId})'|">예</button>
                         <button type="button" class="cancel">아니오</button>
                     </div>
-                </form>
             </div>
         </div>
     </div>

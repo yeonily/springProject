@@ -15,18 +15,21 @@ import org.springframework.stereotype.Component;
 public class MemberAlbaDTO {
     private Long albaApplyId;
     private Alba alba;
-    private Member memberId;
+    private Member member;
+    private Long albaId;
+    private Long memberId;
     private Status memberStatus;
 
     public MemberAlba toEntity(){
         return MemberAlba.builder()
+
                 .memberStatus(memberStatus)
                 .build();
     }
 
 @QueryProjection
-    public MemberAlbaDTO(Alba alba, Member memberId, Status memberStatus) {
-        this.alba = alba;
+    public MemberAlbaDTO(Long albaId, Long memberId, Status memberStatus) {
+        this.albaId = albaId;
         this.memberId = memberId;
         this.memberStatus = memberStatus;
     }
