@@ -263,25 +263,24 @@
 
     function replyAdd(result) {
         let text = "";
-        result(reply =>{
-            text += `<section class="detail-wrap gray">`
-            text += `<div class="max">`
-            text += `<div class="w-wrap white-wrap margin32">`
-            text += `<div id="re-before">`
-            text += `<div class="reply-input">`
-            // text += `댓글을 입력하시겠습니까?`
-            text += `</div>`
-            text += `<button class="r-input">댓글 입력하기</button>`
-            text += `</div>`
-            text += `<div id="re-after" style="display: none;">`
-            text += `<div id="reply-form">`
-            text += ` <textarea name="replyContent" id="re-register" class="reply-input" placeholder="댓글을 입력하시겠습니까?"></textarea>`
-            text += `</div>`
-            text += `<button class="reply-btn reply-register">댓글 추가하기</button>`
-            text += `</div>`
-            text += `</div>`
-            text += `</div>`
-            text += `</section>`
+        result(reply => {
+                text += `<section class="detail-wrap gray">`
+                text += `<div class="max">`
+                text += `<div class="w-wrap white-wrap margin32">`
+                text += `<div id="re-before">`
+                text += `<div class="reply-input">`
+                text += `</div>`
+                text += `<button class="r-input">댓글 입력하기</button>`
+                text += `</div>`
+                text += `<div id="re-after" style="display: none;">`
+                text += `<div id="reply-form">`
+                text += ` <textarea name="replyContent" id="re-register" class="reply-input" placeholder="댓글을 입력하시겠습니까?"></textarea>`
+                text += `</div>`
+                text += `<button class="reply-btn reply-register">댓글 추가하기</button>`
+                text += `</div>`
+                text += `</div>`
+                text += `</div>`
+                text += `</section>`
         })
         $("#write-reply").html(text);
     }
@@ -366,7 +365,6 @@
     function refreshPage() {
     window.location.reload();
 }
-
 
 
 
