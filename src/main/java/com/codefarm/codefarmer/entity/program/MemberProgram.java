@@ -67,7 +67,7 @@ public class MemberProgram extends Period {
     }*/
 
     @Builder
-    public MemberProgram(ProgramStatus programStatus, int programApplyCount, int programPayment, String programApplyName, String programApplyPhoneNum, String programApplyEmail, String programApplyLocation, LocalDateTime programApplyBirth) {
+    public MemberProgram(ProgramStatus programStatus, int programApplyCount, int programPayment, String programApplyName, String programApplyPhoneNum, String programApplyEmail, String programApplyLocation, LocalDateTime programApplyBirth,Member member , Program program) {
         this.programStatus = programStatus;
         this.programApplyCount = programApplyCount;
         this.programPayment = programPayment;
@@ -76,5 +76,7 @@ public class MemberProgram extends Period {
         this.programApplyEmail = programApplyEmail;
         this.programApplyLocation = programApplyLocation;
         this.programApplyBirth = programApplyBirth;
+        this.member = member;
+        this.program = program;
     }
 }

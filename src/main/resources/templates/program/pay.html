@@ -141,7 +141,7 @@
                             <li class="payment-type-list a">
                                 <input id="inicis" name="pay" value="inicis" checked="checked" type="radio"
                                        class="payment-radio">
-                                <label class="clearfix commoncss">
+                                <label class="clearfix commoncss" id="kcp">
                                     <div class="payment-type-item-wrapper">
                                         <div class="payment-type-item">
                                             <img class="logo-pg" src="https://comento.kr/images/logo/logo_kginicis.svg">
@@ -152,7 +152,7 @@
                             </li>
                             <li class="payment-type-list b">
                                 <input id="kakaopay" name="pay" value="kakaopay" type="radio" class="payment-radio">
-                                <label class="nofix commoncss">
+                                <label class="nofix commoncss" id="kakao">
                                     <div class="payment-type-item-wrapper">
                                         <div class="payment-type-item">
                                             <img class="logo-pg"
@@ -182,6 +182,7 @@
                         </div>
                         <div class="pay-agree">위 내용을 확인하였으며, 결제에 동의합니다.</div>
                     <!-- 결제버튼 -->
+                    <input type="hidden" id="programId" th:value="${programId}">
                     <div class="button-wrapper">
                     <button type="button" class="pay-button" id="pay">
                         <div class="button-icon" id="pay_button">결제하기</div></button>
@@ -196,23 +197,48 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script src="/js/header/header.js"></script>
-<script src="/js/program/pay.js"></script>
-<script src="https://js.bootpay.co.kr/bootpay-4.2.6.min.js" type="application/javascript"></script>
 <script>
-    let payProgramName = $("#programName").val();
-    let payEmail = $("#useremail").val();
-    let payPhone = $("#userphone").val();
-    let payLocation = $("#memberLocation").val();
-    let payPrice = $("#programPrice").text();
-    let payMemberName = $("#username").val();
-    let programApplyCount = $("#programApplyCount").val();
-    let programTotalPrice = $("#totalPrice").text();
-    let programApplyBirth = $("#programApplyBirth").val();
+
 
 
 
     $("#pay").on("click", function () {
+
+        if ($('input[id=inicis]:checked').val() == 'inicis') {
+            console.log("kcp들어옴");
+            kcp();
+        }
+        else if($('input[id=kakaopay]:checked').val() == 'kakaopay'){
+            console.log("카카오들어옴");
+            kakao();
+        }
+        //
+        // $("li.a").on("click", function(){
+        //     $("#inicis").prop("checked", true);
+        //     $("#kakaopay").prop("checked", false);
+        // });
+        //
+        // $("li.a").on("click", function () {
+        //     kcp();
+        // })
+        //
+        // $("li.b").on("click", function () {
+        //     kakao();
+        // })
+
+
+
+
+        let payProgramName = $("#programName").val();
+        let payEmail = $("#useremail").val();
+        let payPhone = $("#userphone").val();
+        let payLocation = $("#memberLocation").val();
+        let payPrice = $("#programPrice").text();
+        let payMemberName = $("#username").val();
+        let programApplyCount = $("#programApplyCount").val();
+        let programTotalPrice = $("#totalPrice").text();
+        let programApplyBirth = $("#programApplyBirth").val();
+
         console.log(payProgramName);
         console.log(payEmail);
         console.log(payPhone);
@@ -221,34 +247,35 @@
         console.log(payMemberName);
         console.log(programApplyCount);
         console.log(programTotalPrice);
-        test();
+
     })
 
-    async function test() {
+    /*결제 kcp 클릭 시*/
+    async function kcp() {
 
         const response = await Bootpay.requestPayment({
             "application_id": "6396e2d3d01c7e001bfeb95a",
             // "price": programTotalPrice,
-            "price": 1000,
-            "order_name": payMemberName,
+            "price": $("#totalPrice").text(),
+            "order_name": $("#username").val(),
             "order_id": "order_id_" + new Date().getTime(),
             "pg": "케이씨피",
             "method": "카드",
             "tax_free": 0,
             "user": {
                 // "id": "회원아이디",
-                "username": payMemberName,
-                // "phone": payPhone,
-                // "email": payEmail
+                "username": $("#username").val(),
+                "phone": $("#userphone").val(),
+                "email": $("#useremail").val()
             },
             "items": [
                 {
                     "id": "item_id_" + new Date().getTime(),
-                    "name": payProgramName,
+                    "name": $("#programName").val(),
                     // "qty": programApplyCount,
-                    "qty": 1,
+                    "qty": $("#programApplyCount").val(),
                     // "price": payPrice
-                    "price": 1000
+                    "price": $("#programPrice").text()
                 }
             ],
             "extra": {
@@ -259,128 +286,152 @@
             }
         })
 
+        // let programApplyCount = $("#programName").val();
+        let payEmail = $("#useremail").val();
+        let payPhone = $("#userphone").val();
+        let payLocation = $("#memberLocation").val();
+        let payPrice = $("#programPrice").text();
+        let payMemberName = $("#username").val();
+        let programApplyCount = $("#programApplyCount").val();
+        let programTotalPrice = $("#totalPrice").text();
+        let programApplyBirth = $("#programApplyBirth").val();
+
         switch (response.event) {
+
             case 'done':
                 alert("성공!");
                 // 결제 완료 처리
-                giveMoneyCash({
-
-                    // programApplyBirth : programApplyBirth,
-                    programApplyCount : programApplyCount,
-                    // programApplyEmail : payEmail,
-                    programApplyLocation : payLocation,
-                    programApplyName : payMemberName,
-                    // programApplyPhone : payProgramName,
-                    programPayment: response.data.price
-
-
-                    // applyBirth :
-
-                    // userId: $('#userId').val()
+                $.ajax({
+                    url: "/applypay/applyfin?programId=" + $("#programId").val(),
+                    type : "post",
+                    data : JSON.stringify({
+                        "programApplyBirth" : $("#programApplyBirth").val(),
+                        "programApplyCount": $("#programApplyCount").val(),
+                        "programApplyEmail": $("#useremail").val(),
+                        "programApplyLocation":$("#memberLocation").val(),
+                        "programApplyName":$("#username").val(),
+                        "programApplyPhoneNum":$("#userphone").val(),
+                        "programPayment":$("#totalPrice").text(),
+                        "programId" : $("#programId").val()
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    success : function(data){
+                        console.log("성공!")
+                    }
                 });
-                break
+                break;
 
             case 'error':
                 alert("에러 발생");
                 break;
         }
 
-        // var param = {"programApplyBirth" : programApplyBirth,
-        //     "programApplyCount" : programApplyCount,
-        //     "programApplyEmail" : payEmail,
-        //     "programApplyLocation" : payLocation,
-        //     "programApplyName" : payMemberName,
-        //     "programApplyPhone" : payProgramName,
-        //     "programPayment": response.data.price}
 
-        function giveMoneyCash(programApplyCount,programApplyLocation,programApplyName,programPayment) {
+        function giveMoneyCash(pay, callback) {
             $.ajax({
-                url: "/program/applyfin",
+                url: "/applypay/applyfin?",
                 type : "post",
-                data : {
-                    // programApplyBirth : programApplyBirth,
-                    programApplyCount : programApplyCount,
-                    // programApplyEmail : payEmail,
-                    programApplyLocation : payLocation,
-                    programApplyName : payMemberName,
-                    // programApplyPhone : payProgramName,
-                    programPayment: programPayment
-                },
+                data : JSON.stringify(pay),
+                contentType: "application/json; charset=utf-8",
                 success : function(data){
-                    if(data == 0){
-                        console.log("성공");
-                        $("#n-message1").css("display", "block");
-                        $("#n-message2").css("display", "none");
-                        nickCheck = true;
-                    }else{
-                        console.log("씰패");
-                        $("#n-message1").css("display", "none");
-                        $("#n-message2").css("display", "block");
-                        nickCheck = false;
-                    }
-                }
 
+                }
             });
         }
-        // function giveMoneyCash(programApplyBirth,programApplyCount,programApplyEmail,programApplyLocation,programApplyName,programApplyPhone,programPayment) {
-        //     $.ajax({
-        //         url: "/program/applyfin",
-        //         type : "post",
-        //         data : {
-        //             programApplyBirth : programApplyBirth,
-        //             programApplyCount : programApplyCount,
-        //             programApplyEmail : payEmail,
-        //             programApplyLocation : payLocation,
-        //             programApplyName : payMemberName,
-        //             programApplyPhone : payProgramName,
-        //             programPayment: programPayment
-        //         },
-        //         success : function(data){
-        //             if(data == 0){
-        //                 console.log("성공");
-        //                 $("#n-message1").css("display", "block");
-        //                 $("#n-message2").css("display", "none");
-        //                 nickCheck = true;
-        //             }else{
-        //                 console.log("씰패");
-        //                 $("#n-message1").css("display", "none");
-        //                 $("#n-message2").css("display", "block");
-        //                 nickCheck = false;
-        //             }
-        //         }
-        //
-        //     });
-        // }
+
+    }
+    /*결제 카카오 클릭 시*/
+    async function kakao() {
+
+        const response = await Bootpay.requestPayment({
+            "application_id": "6396e2d3d01c7e001bfeb95a",
+            // "price": programTotalPrice,
+            "price": $("#totalPrice").text(),
+            "order_name": $("#username").val(),
+            "order_id": "order_id_" + new Date().getTime(),
+            "pg": "카카오페이",
+            "method": "카카오페이",
+            "tax_free": 0,
+            "user": {
+                // "id": "회원아이디",
+                "username": $("#username").val(),
+                "phone": $("#userphone").val(),
+                "email": $("#useremail").val()
+            },
+            "items": [
+                {
+                    "id": "item_id_" + new Date().getTime(),
+                    "name": $("#programName").val(),
+                    // "qty": programApplyCount,
+                    "qty": $("#programApplyCount").val(),
+                    // "price": payPrice
+                    "price": $("#programPrice").text()
+                }
+            ],
+            "extra": {
+                "open_type": "iframe",
+                "card_quota": "0,2,3",
+                "escrow": false,
+                "seller_name": "너와농부싶어"
+            }
+        })
+
+        // let programApplyCount = $("#programName").val();
+        let payEmail = $("#useremail").val();
+        let payPhone = $("#userphone").val();
+        let payLocation = $("#memberLocation").val();
+        let payPrice = $("#programPrice").text();
+        let payMemberName = $("#username").val();
+        let programApplyCount = $("#programApplyCount").val();
+        let programTotalPrice = $("#totalPrice").text();
+        let programApplyBirth = $("#programApplyBirth").val();
+
+        switch (response.event) {
+
+            case 'done':
+                alert("성공!");
+                // 결제 완료 처리
+                $.ajax({
+                    url: "/applypay/applyfin?programId=" + $("#programId").val(),
+                    type : "post",
+                    data : JSON.stringify({
+                        "programApplyBirth" : $("#programApplyBirth").val(),
+                        "programApplyCount": $("#programApplyCount").val(),
+                        "programApplyEmail": $("#useremail").val(),
+                        "programApplyLocation":$("#memberLocation").val(),
+                        "programApplyName":$("#username").val(),
+                        "programApplyPhoneNum":$("#userphone").val(),
+                        "programPayment":$("#totalPrice").text(),
+                        "programId" : $("#programId").val()
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    success : function(data){
+                        console.log("성공!")
+                    }
+                });
+                break;
+
+            case 'error':
+                alert("에러 발생");
+                break;
+        }
 
 
-        // const response = await Bootpay.requestPayment({
-        //     "application_id": "6396e2d3d01c7e001bfeb95a",
-        //     "price": payPrice,
-        //     "order_name": payProgramName,
-        //     "order_id": "order_id_" + new Date().getTime(),
-        //     "pg": "KCP",
-        //     "method": "카드",
-        //     "tax_free": 0,
-        //     "user": {
-        //         // "id": "회원아이디",
-        //         "username": payMemberName,
-        //         "phone": payPhone,
-        //         "email": payEmail
-        //     },
-        //     "items": [
-        //         {
-        //             "id": "item_id_" + new Date().getTime(),
-        //             "name": payProgramName,
-        //             "qty": programApplyCount,
-        //             "price": programTotalPrice
-        //         }
-        //     ],
-        //     "extra": {
-        //         "open_type": "iframe",
-        //         "card_quota": "0,2,3",
-        //         "escrow": false
-        //     }
-        // })
+        function giveMoneyCash(pay, callback) {
+            $.ajax({
+                url: "/applypay/applyfin?",
+                type : "post",
+                data : JSON.stringify(pay),
+                contentType: "application/json; charset=utf-8",
+                success : function(data){
+
+                }
+            });
+        }
+
     }
 </script>
+<script src="/js/header/header.js"></script>
+<script src="/js/program/pay.js"></script>
+<script src="https://js.bootpay.co.kr/bootpay-4.2.6.min.js" type="application/javascript"></script>
 </html>

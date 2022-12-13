@@ -34,7 +34,7 @@ $(document).ready(function () {
 
                 console.log(nowDate > startDate);
 
-                text += '<div class="list-container" th:object="${list}">'
+                text += '<div class="list-container">'
                 var number = list.programId;
                 text += '<a href="/program/detail?programId='
                 text += number
