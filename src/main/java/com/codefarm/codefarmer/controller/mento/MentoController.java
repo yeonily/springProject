@@ -48,6 +48,7 @@ public class MentoController {
     @GetMapping("/list")
     public void list(Model model, HttpSession session){
         Long memberId = (Long)session.getAttribute("memberId");
+        model.addAttribute("sessionMemberId", memberId);
     }
 
     @GetMapping("/write")

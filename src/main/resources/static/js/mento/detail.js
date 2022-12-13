@@ -26,7 +26,16 @@ window.addEventListener('scroll', function(){
 });
 
 //멘토 후기 별 체크
-$("#star_count_check>.star_check").on("click" , function () {
+// $("#star_count_check>.star_check").on("click" , function () {
+//     console.log($(this));
+//     if($(this).hasClass("star_check") === true){
+//         $(this).nextAll().attr('class','star_uncheck');
+//     }else{
+//         $(this).prevAll().attr('class','star_check');
+//         $(this).attr('class','star_check');
+//     }
+// })
+$("#write-review").on("click" , "#star_count_check>.star_check", function () {
     console.log($(this));
     if($(this).hasClass("star_check") === true){
         $(this).nextAll().attr('class','star_uncheck');
