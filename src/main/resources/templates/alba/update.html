@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="wrap">
-    <form method="post" th:action="@{/alba/update}" id="writeForm" th:object="${updateAlba}" enctype="multipart/form-data">
+    <form method="post" th:action="@{/alba/update(albaId=*{albaId})}" id="writeForm" th:object="${updateAlba}" enctype="multipart/form-data">
         <!--헤더 영역-->
         <div id="header">
             <div class="header-inner">

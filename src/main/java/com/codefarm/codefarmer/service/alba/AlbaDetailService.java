@@ -7,14 +7,18 @@ import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.domain.program.QProgramDTO;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.alba.MemberAlba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.type.Status;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,12 +28,14 @@ import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AlbaDetailService {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final AlbaRepository albaRepository;
     private final MemberAlbaRepository memberAlbaRepository;
+    private final MemberRepository memberRepository;
 
     public List<AlbaDTO> showAll(){
         return jpaQueryFactory.select(new QAlbaDTO(
@@ -105,7 +111,6 @@ public class AlbaDetailService {
     public void albaUpdate(AlbaDTO albaDTO) {
         Alba alba = albaDTO.toEntity();
         alba.update(albaDTO);
-        albaRepository.deleteById(alba.getAlbaId());
         albaRepository.save(alba);
     }
 
@@ -117,7 +122,14 @@ public class AlbaDetailService {
 
     // 지원 신청하기
     public void albaApply(MemberAlbaDTO memberAlbaDTO){
-        memberAlbaRepository.save(memberAlbaDTO.toEntity());
+        MemberAlba memberAlba = memberAlbaDTO.toEntity();
+        memberAlba.changeMember(memberRepository.findById(memberAlbaDTO.getMemberId()).get());
+        memberAlba.changeAlba(albaRepository.findById(memberAlbaDTO.getAlbaId()).get());
+        memberAlbaRepository.save(memberAlba);
+    }
 
+    public Long albaApplyCancel(Long albaApplyId){
+        memberAlbaRepository.deleteById(albaApplyId);
+        return albaApplyId;
     }
 }

@@ -35,19 +35,19 @@ public class MemberAlbaTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @Test
-    public void saveTest(){
-        MemberAlbaDTO memberAlbaDTO = new MemberAlbaDTO();
-        Optional<Member> findUser = memberRepository.findById(131L);
-        Optional<Alba> findAlba = albaRepository.findById(132L);
-        memberAlbaDTO.setMemberStatus(Status.CONFIRM);
-        memberAlbaDTO.setMemberId(findUser.get());
-        memberAlbaDTO.setAlba(findAlba.get());
-        MemberAlba memberAlba = memberAlbaDTO.toEntity();
-        memberAlba.changeMember(memberAlbaDTO.getMemberId());
-        memberAlba.changeAlba(memberAlbaDTO.getAlba());
-        memberAlbaRepository.save(memberAlba);
-    }
+//    @Test
+//    public void saveTest(){
+//        MemberAlbaDTO memberAlbaDTO = new MemberAlbaDTO();
+//        Optional<Member> findUser = memberRepository.findById(131L);
+//        Optional<Alba> findAlba = albaRepository.findById(132L);
+//        memberAlbaDTO.setMemberStatus(Status.CONFIRM);
+//        memberAlbaDTO.setMemberId(findUser.get());
+//        memberAlbaDTO.setAlbaId(findAlba.get());
+//        MemberAlba memberAlba = memberAlbaDTO.toEntity();
+//        memberAlba.changeMember(memberAlbaDTO.getMemberId());
+//        memberAlba.changeAlba(memberAlbaDTO.getAlbaId());
+//        memberAlbaRepository.save(memberAlba);
+//    }
 
     @Test
     public void findAllTest(){
