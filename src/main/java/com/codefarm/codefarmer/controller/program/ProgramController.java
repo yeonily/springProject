@@ -82,17 +82,7 @@ public class ProgramController {
         model.addAttribute("programId" , programId);
     }
 
-    @ResponseBody
-    @PostMapping("/applyfin")
-    public void applyfin(@RequestParam Long programApplyCount, @RequestParam String programApplyLocation, @RequestParam String programApplyName, @RequestParam int programPayment)throws Exception{
-        log.info("결제 applyfin 들어옴");
-        log.info("programApplyCount:" + programApplyCount);
-        log.info("programApplyLocation:" + programApplyLocation);
-        log.info("programApplyName:"+ programApplyName);
-        log.info("programPayment:"+programPayment);
 
-
-    }
 
     @PostMapping("/pay")
     public void pay(HttpSession session, @RequestParam Long programId,Model model ,MemberProgramDTO memberProgramDTO,String programApplyBirthString){
@@ -122,6 +112,7 @@ public class ProgramController {
         model.addAttribute("memberPhone", memberPhone);
         model.addAttribute("memberLocation", memberLocation);
         model.addAttribute("programApplyBirthString",programApplyBirthString);
+        model.addAttribute("programId", programId);
 
 //        model.addAttribute("programTotalPrice" , programDTO.getProgramPrice() * )
 
@@ -147,6 +138,8 @@ public class ProgramController {
         log.info("programTypeString: " + programTypeString);
         log.info("programLevelString: " + programLevelString);
         Long sessionId = (Long)session.getAttribute("memberId");
+
+        log.info("fileDTO:" + programFileDTO.toString());
 
 //       세션에 memberId 넣기
         programDTO.setMemberId(sessionId);
