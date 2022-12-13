@@ -11,12 +11,13 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    // endpoint를 /stomp로 하고, allowedOrigins를 "*"로 하면 페이지에서 Get /info 404 Error가 발생한다.
-    // 그래서 아래와 같이 2개의 계층으로 분리하고 origins를 개발 도메인으로 변경하니 잘 동작.
+    // endpoint를 /stomp로 하고, allowedOrigins를 "*"로 하면 페이지에서 Get /info 404 Error가 발생
+    // 아래와 같이 2개의 계층으로 분리하니 잘 동작.
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+        // StompEndpointRegistry : 핸드셰이크를 하기 위해 endpoint 지정, 해당 경로가 true인 경우 웹소켓 연결
         registry.addEndpoint("/stomp/chat")
-                .setAllowedOrigins("http://localhost:w5555")
+                .setAllowedOrigins("http://localhost:5555")
                 .withSockJS();
     }
 

@@ -21,18 +21,17 @@ public class StompController {
     public void enter(ChatDTO message) {
         List<ChatDTO> chatList = cs.chatList(message.getRoomId()); // 매개변수로 받은 객체에 저장된 대화목록을 DB에서 가져옴
 
+
+
+
         /*대화방 유무에 따른 메세지 처리*/
         if (!chatList.isEmpty()) {
             for (ChatDTO chatDTO : chatList) {
-
                 System.out.println("채팅내용 : " + chatDTO.toString());
-                // /chatting으로 채팅방의 대화내역(DB)을 보냄
+                chatDTO.setRoomId(message.getRoomId());
+                // /chatting으로 방번호에 따라 채팅방의 대화내역(DB)을 보냄
                 template.convertAndSend("/sub/mento/chatting/" + chatDTO.getChatRoom().getChatRoomId(), chatDTO);
             }
-//            message.setChatMessage("환영합니다!");
-//            System.out.println("결과 : " + message.toString());
-//
-//            template.convertAndSend("/sub/mento/chatting" + message.getRoomId(), message);
         }
     }
 
