@@ -163,90 +163,86 @@
                 <!--커뮤니티 슬라이더-->
                 <div class="swiper mySwiper3">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-slide-inner">
-                                <div class="slideContent">
-                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>
-                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>
-                                    <p class="communityContent">
-                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.
-                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한
-                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !
-                                    </p>
-                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>
-                                    <hr>
-                                    <div class="communityComment">
-                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>
-                                        <div class="nickName"><strong>캐빈코치</strong></div>
-                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>
-                                    </div>
-                                    <div class="communityComment">
-                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>
-                                        <div class="nickName"><strong>으어사고오</strong></div>
-                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>
-                                    </div>
-                                    <div class="moreBtn">
-                                        <button type="button">+ 더보기</button>
+                        <th:block th:each="board:${boards}">
+                            <div class="swiper-slide">
+                                <div class="swiper-slide-inner">
+                                    <div class="slideContent" th:object="${board}">
+                                        <span class="viewTopIcon"><p>최신순</p></span>
+                                        <h2 class="communityTitle" th:text="*{boardTitle}"></h2>
+                                        <p class="communityContent" th:text="*{boardContent}">
+
+                                        </p>
+                                        <span class="replyIcon"><img src="/image/main/reply.png" th:text="*{boardViewCount}"></span>
+                                        <hr>
+                                        <div th:each="reply:${replies}" th:if="${reply.boardId == board.boardId} and ${replyStat.current} "  class="communityComment">
+                                                <div class="nickNameCircle" style="background-color: #F0D780;">1</div>
+                                                <div class="nickName"><strong th:text="${reply.memberNickName}"></strong></div>
+                                                <div class="communityReply" th:text="${reply.replyContent}"></div>
+                                        </div>
+
+                                            <div class="moreBtn" onclick="location.href='/community/community'">
+                                                <button type="button">+ 더보기</button>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-slide-inner">
-                                <div class="slideContent">
-                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>
-                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>
-                                    <p class="communityContent">
-                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.
-                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한
-                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !
-                                    </p>
-                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>
-                                    <hr>
-                                    <div class="communityComment">
-                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>
-                                        <div class="nickName"><strong>캐빈코치</strong></div>
-                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>
-                                    </div>
-                                    <div class="communityComment">
-                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>
-                                        <div class="nickName"><strong>으어사고오</strong></div>
-                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>
-                                    </div>
-                                    <div class="moreBtn">
-                                        <button type="button">+ 더보기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-slide-inner">
-                                <div class="slideContent">
-                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>
-                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>
-                                    <p class="communityContent">
-                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.
-                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한
-                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !
-                                    </p>
-                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>
-                                    <hr>
-                                    <div class="communityComment">
-                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>
-                                        <div class="nickName"><strong>캐빈코치</strong></div>
-                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>
-                                    </div>
-                                    <div class="communityComment">
-                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>
-                                        <div class="nickName"><strong>으어사고오</strong></div>
-                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>
-                                    </div>
-                                    <div class="moreBtn">
-                                        <button type="button">+ 더보기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </th:block>
+<!--                        <div class="swiper-slide">-->
+<!--                            <div class="swiper-slide-inner">-->
+<!--                                <div class="slideContent">-->
+<!--                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>-->
+<!--                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>-->
+<!--                                    <p class="communityContent">-->
+<!--                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.-->
+<!--                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한-->
+<!--                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !-->
+<!--                                    </p>-->
+<!--                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>-->
+<!--                                    <hr>-->
+<!--                                    <div class="communityComment">-->
+<!--                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>-->
+<!--                                        <div class="nickName"><strong>캐빈코치</strong></div>-->
+<!--                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="communityComment">-->
+<!--                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>-->
+<!--                                        <div class="nickName"><strong>으어사고오</strong></div>-->
+<!--                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="moreBtn">-->
+<!--                                        <button type="button">+ 더보기</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="swiper-slide">-->
+<!--                            <div class="swiper-slide-inner">-->
+<!--                                <div class="slideContent">-->
+<!--                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>-->
+<!--                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>-->
+<!--                                    <p class="communityContent">-->
+<!--                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.-->
+<!--                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한-->
+<!--                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !-->
+<!--                                    </p>-->
+<!--                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>-->
+<!--                                    <hr>-->
+<!--                                    <div class="communityComment">-->
+<!--                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>-->
+<!--                                        <div class="nickName"><strong>캐빈코치</strong></div>-->
+<!--                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="communityComment">-->
+<!--                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>-->
+<!--                                        <div class="nickName"><strong>으어사고오</strong></div>-->
+<!--                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="moreBtn">-->
+<!--                                        <button type="button">+ 더보기</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="swiper-button next3"></div>

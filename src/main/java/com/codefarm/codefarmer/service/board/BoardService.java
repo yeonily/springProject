@@ -156,6 +156,7 @@ public class BoardService {
                  board.updatedDate
                  )).from(board)
                  .orderBy(board.updatedDate.desc())
+                 .limit(5)
                  .fetch();
     }
 

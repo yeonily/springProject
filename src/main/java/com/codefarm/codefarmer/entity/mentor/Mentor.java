@@ -3,12 +3,14 @@ package com.codefarm.codefarmer.entity.mentor;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "TBL_MENTOR")

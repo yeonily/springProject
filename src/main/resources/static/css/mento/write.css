@@ -962,6 +962,9 @@
     transition: all .5s;
 }
 
-
+.uploadResult ul li span {
+    position: absolute;
+    cursor: pointer;
+}
 
 

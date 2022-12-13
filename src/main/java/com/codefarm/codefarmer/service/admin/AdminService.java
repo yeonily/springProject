@@ -1,11 +1,13 @@
 package com.codefarm.codefarmer.service.admin;
 
 import com.codefarm.codefarmer.entity.admin.Banner;
-import com.codefarm.codefarmer.entity.admin.Criteria;
 import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.admin.BannerRepository;
 import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
+import com.codefarm.codefarmer.repository.member.MemberCustomRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.type.BannerStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ public class AdminService {
 //    공지
     private final BoardRepository boardRepository;
     private final BoardCustomRepository boardCustomRepository;
+//    멤버
+    private final MemberRepository memberRepository;
 
 //    공지 목록
     public Page<Board> boardShowAll(Pageable pageable, String keyword, String boardTitle, String boardContent, String memeberNickname){
@@ -43,7 +47,6 @@ public class AdminService {
         } else if (keyword.equals("c")){
             return boardRepository.findByBoardContentContaining(boardContent, pageable);
         } else if (keyword.equals("w")){
-            log.info("끝 : " + end);
             return new PageImpl<>(boards.subList(start, end), pageable, boards.size());
         } else {
             return boardRepository.findByBoardTitleContainingOrBoardContentContaining(boardTitle, boardContent, pageable);
@@ -102,4 +105,23 @@ public class AdminService {
 
 //    배너 글 개수
     public int countByBanner() { return bannerRepository.countByBanner(); }
+
+//    회원 목록
+//    @Transactional(readOnly = true)
+//    public Page<Member> memberShowAll(Pageable pageable, String keyword, String searchText){
+//        if (keyword.equals("nn")){
+//            return memberRepository.findMemberByMemberNicknameContaining(pageable, searchText);
+//        } else if (keyword.equals("n")) {
+//            return memberRepository.findMemberByMemberNameContaining(pageable, searchText);
+//        } else {
+//            return memberRepository.findMemberByMemberPhoneContaining(pageable, searchText);
+//        }
+//    }
+
+//    회원 삭제
+    public void memberRemove(Long memberId) { memberRepository.delete(memberRepository.findById(memberId).get()); }
+
+//    회원 총 수
+//    public int countByMember() { return memberRepository.countByMember(); }
+
 }

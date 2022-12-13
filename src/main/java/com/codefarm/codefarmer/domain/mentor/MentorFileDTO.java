@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.domain.mentor;
 
 import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.mentor.MentorFile;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,5 +28,15 @@ public class MentorFileDTO {
                 .fileSize(fileSize)
                 .fileImageCheck(fileImageCheck)
                 .build();
+    }
+
+    @QueryProjection
+    public MentorFileDTO(Long fileId, String fileName, String fileUploadPath, String fileUuid, Long fileSize, boolean fileImageCheck) {
+        this.fileId = fileId;
+        this.fileName = fileName;
+        this.fileUploadPath = fileUploadPath;
+        this.fileUuid = fileUuid;
+        this.fileSize = fileSize;
+        this.fileImageCheck = fileImageCheck;
     }
 }

@@ -35,7 +35,7 @@
         <header>
             <span id="admin-header-title">배너 수정</span>
             <span id="admin-mode">관리자 모드</span>
-            <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
+            <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
         <div id="wrapContents">
             <!-- 메인화면 컨텐츠 -->
@@ -51,6 +51,9 @@
                             <th>배너번호</th>
                             <td>
                                 <div class="title">
+                                    <input type="hidden" name="page" th:value="${criteria.page}">
+                                    <input type="hidden" name="searchText" th:value="${criteria.searchText}">
+                                    <input type="hidden" name="keyword" th:value="${criteria.keyword}">
                                     <input th:field="*{bannerId}" class="bannerNumber" autocomplete="off" readonly>
                                 </div>
                             </td>
@@ -128,7 +131,18 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/admin/bannerFile.js"></script>
 <script src="/js/admin/write.js"></script>
-<script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
+    var msg = "글을 저장하지 않고 나가시겠습니까?";
+
+    function bBackList() {
+        var flag = confirm(msg);
+
+        if (flag) {
+            location.href="/admin/banner" + queryString;
+        }
+    }
+
     $(document).ready(function () {
         let $statusVal = $('select.status').attr('data-status');
         let status = $statusVal == "USING" ? "statusOk" : "statusNo";

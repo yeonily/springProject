@@ -19,7 +19,7 @@
             <section class="notice-title">공지사항</section>
             <section class="notice-contents">
                 <div class="n-c-wrap" th:each="notice:${noticeLists}">
-                    <ul class="notice-content" th:object="${notice}" th:onclick="'location.href=\''+ @{/notice/detail(noticeId=*{noticeId})} + '\''">
+                    <ul class="notice-content" th:object="${notice}"  th:onclick="|javascript:goPage('*{noticeId}')|">
                         <li>
                             <div>
                                 <div class="n-c-num" th:text="*{noticeId}"></div>
@@ -63,7 +63,13 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/community/link.js"></script>
-<script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.noticeQueryString}]];
+
+    // 답변 페이지로 이동
+    function goPage (noticeId) {
+        location.href='/notice/detail' + queryString + '&noticeId=' + noticeId;
+    }
 
     // 헤더 검색창 없애기
     $(".search_form").css("visibility", "hidden");

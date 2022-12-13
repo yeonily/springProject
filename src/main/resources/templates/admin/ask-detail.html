@@ -33,7 +33,7 @@
         <header>
             <span id="admin-header-title">문의하기 답변 작성</span>
             <span id="admin-mode">관리자 모드</span>
-            <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
+            <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
 
         <!-- 메인화면 컨텐츠 -->
@@ -98,6 +98,9 @@
                         <td>
                             <div class="ask_reply" th:object="${inquireAnswer}">
                                 <input type="hidden" th:field="${inquire.inquireId}">
+                                <input type="hidden" name="page" th:value="${criteria.page}">
+                                <input type="hidden" name="searchText" th:value="${criteria.searchText}">
+                                <input type="hidden" name="keyword" th:value="${criteria.keyword}">
                                 <textarea th:field="*{inquireAnswer}" rows="6" class="summernote_ask"></textarea>
                             </div>
                         </td>
@@ -121,6 +124,9 @@
                         <td>
                             <div class="ask_reply" th:object="${inquireAnswerUpdate}">
                                 <input type="hidden" th:field="*{inquireAnswerId}">
+                                <input type="hidden" name="page" th:value="${criteria.page}">
+                                <input type="hidden" name="searchText" th:value="${criteria.searchText}">
+                                <input type="hidden" name="keyword" th:value="${criteria.keyword}">
                                 <textarea th:field="*{inquireAnswer}" rows="6" class="summernote_ask"></textarea>
                             </div>
                         </td>
@@ -141,23 +147,6 @@
 <script th:inline="javascript">
     let queryString = [[${criteria.queryString}]];
     var msg = "글을 저장하지 않고 나가시겠습니까?";
-
-    //답변 등록
-    $(".a-submit").on("click", function (){
-        if(!(askForm.inquireAnswer.value)){
-            alert("답변을 등록해 주세요.");
-            return;
-        }
-        askForm.submit();
-    });
-    //답변 수정
-    $(".au-submit").on("click", function (){
-        if(!(askUpdateForm.inquireAnswer.value)){
-            alert("답변을 등록해 주세요.");
-            return;
-        }
-        askUpdateForm.submit();
-    });
 
     //문의 목록으로 돌아가기기
    function aBackList() {

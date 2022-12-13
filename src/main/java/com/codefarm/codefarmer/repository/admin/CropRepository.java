@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CropRepository extends JpaRepository<Crop, Long> {
-//    (제목+내용) + 페이징
+//    검색(제목+내용) + 페이징
     public Page<Crop> findByCropTitleContainingOrCropContentContaining(String cropTitle, String cropContent, Pageable pageable);
 //    검색(제목) + 페이징
     public Page<Crop> findByCropTitleContaining(String cropTitle, Pageable pageable);

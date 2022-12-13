@@ -14,28 +14,28 @@ public class Criteria {
     private String searchText;
     private String keyword;
 
-
-    public void createCriteria(){
-        createCriteria(1, 10);
+    public void createCriteria(int page){
+        this.page = page;
     }
 
-    public void createCriteria(int page, int amount){
+    public void createCriteria(int page, String searchText, String keyword){
         this.page = page;
-        this.amount = amount;
+        this.searchText = searchText;
+        this.keyword = keyword;
     }
 
     public String getQueryString(){
         UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
                 .queryParam("page", this.page)
-                .queryParam("amount", this.amount);
-//                .queryParam("searchText", this.searchText)
-//                .queryParam("keyword", this.keyword);
-        log.info("Criteria.. → " + builder.toUriString());
+                .queryParam("searchText", this.searchText)
+                .queryParam("keyword", this.keyword);
         return builder.toUriString();
     }
 
-    public String[] getKeyword() {
-        return keyword != null ? keyword.split("") : new String[] {};
+    public String getNoticeQueryString(){
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
+                .queryParam("page", this.page);
+        return builder.toUriString();
     }
 
 }

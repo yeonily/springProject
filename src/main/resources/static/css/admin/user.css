@@ -18,10 +18,10 @@ div#lineChart {
 th.num { width: 6%; }
 th.id { width: 12%; }
 th.email { width: 13%; }
-th.phone { width: 10%; }
+th.phone { width: 12%; }
 th.name { width: 7%; }
 th.birth { width: 10%; }
-th.address { width: 26%; }
+th.address { width: 24%; }
 th.program-count { width: 5%; }
 th.part-count { width: 5%; }
 th.delete { width: 6%; }
