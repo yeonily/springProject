@@ -155,6 +155,7 @@
             <img src="/image/main/middle-banner2.png">
         </div>
 
+        <input type="hidden" class="boardCount" th:each="boardReply:${boardReplys}"  th:value="${boardReply}">
 
         <!--커뮤니티 슬라이더-->
         <div id="communitySlide">
@@ -163,31 +164,27 @@
                 <!--커뮤니티 슬라이더-->
                 <div class="swiper mySwiper3">
                     <div class="swiper-wrapper">
-                        <th:block th:each="board:${boards}">
-                            <th:block th:each="boardReply:${boardReplys}">
-                            <div class="swiper-slide">
+                        <th:block th:each=" board:${boards}">
+                            <div class="swiper-slide" >
                                 <div class="swiper-slide-inner">
                                     <div class="slideContent" th:object="${board}">
                                         <span class="viewTopIcon"><p>최신순</p></span>
                                         <h2 class="communityTitle" th:text="*{boardTitle}"></h2>
-                                        <p class="communityContent" th:text="*{boardContent}">
-
-                                        </p>
-                                        <span class="replyIcon"><img src="/image/main/reply.png" th:text="${boardReply}"></span>
+                                        <p class="communityContent" th:text="*{boardContent}"></p>
+                                        <div><span class="replyIcon" ><img src="/image/main/reply.png"><span class="resultReplyCount"></span></span></div>
                                         <hr>
-                                        <div th:each="reply:${replies}" th:if="${reply.boardId == board.boardId} and ${replyStat.current} "  class="communityComment">
-                                                <div class="nickNameCircle" style="background-color: #F0D780;">1</div>
+                                        <div th:each="reply:${replies}" th:if="${reply.boardId == board.boardId} and ${replyStat.current}"  class="communityComment">
+                                                <input type="hidden" class="nicknameValue" th:value="${reply.memberNickName}">
+                                                <div class="nickNameCircle nicknameFirst" style="background-color: #F0D780;"></div>
                                                 <div class="nickName"><strong th:text="${reply.memberNickName}"></strong></div>
                                                 <div class="communityReply" th:text="${reply.replyContent}"></div>
                                         </div>
-
                                             <div class="moreBtn" onclick="location.href='/community/community'">
                                                 <button type="button">+ 더보기</button>
                                             </div>
                                     </div>
                                 </div>
                             </div>
-                            </th:block>
                         </th:block>
 <!--                        <div class="swiper-slide">-->
 <!--                            <div class="swiper-slide-inner">-->
@@ -280,11 +277,11 @@
             <div id="programMenu-inner">
                 <h1>지금 가장 인기있는 프로그램이에요</h1>
                 <!--슬라이드 배너-->
-                <div class="swiper mySwiper4">
+                <div class="swiper mySwiper4">  
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" th:each="program:${programs}">
-                            <div class="imgDiv" style="background-image: url('https://www.gyeongju.go.kr/upload//board/board_1334/bod_205588//3B50701C9E75472EA3A6563371CA15C7.jpg');">
-<!--                                <img th:src="@{/file/display/fileName=} + ${program.files[0].fileUploadPath + /s_} +  ${program.files[0].fileUuid + _} + ${program.files[0].fileName}" >-->
+                            <div class="imgDiv" >
+                                <img th:src="@{/file/display/fileName=} + *{program.files[0].fileUploadPath} + '/s_'+ *{program.files[0].fileUuid}  + '_' + *{program.files[0].fileName}" >
                                 <div><p>멘티전용</p></div>
                             </div>
                             <div class="textDiv">
