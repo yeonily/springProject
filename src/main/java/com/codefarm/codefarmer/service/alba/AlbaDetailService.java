@@ -3,29 +3,20 @@ package com.codefarm.codefarmer.service.alba;
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.alba.QAlbaDTO;
-import com.codefarm.codefarmer.domain.program.ProgramDTO;
-import com.codefarm.codefarmer.domain.program.QProgramDTO;
-import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.MemberAlba;
-import com.codefarm.codefarmer.entity.alba.QAlba;
-import com.codefarm.codefarmer.entity.inquire.Inquire;
-import com.codefarm.codefarmer.entity.mentor.MentorBoard;
-import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
-import com.codefarm.codefarmer.type.Status;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
-import static com.codefarm.codefarmer.entity.program.QProgram.program;
+import static com.codefarm.codefarmer.entity.alba.QMemberAlba.memberAlba;
 
 @Service
 @Slf4j
@@ -110,6 +101,7 @@ public class AlbaDetailService {
     // 알바 게시글 수정
     public void albaUpdate(AlbaDTO albaDTO) {
         Alba alba = albaDTO.toEntity();
+        alba.changeMember(memberRepository.findById(albaDTO.getMemberId()).get());
         alba.update(albaDTO);
         albaRepository.save(alba);
     }
@@ -128,6 +120,15 @@ public class AlbaDetailService {
         memberAlbaRepository.save(memberAlba);
     }
 
+    // 멤버ID와 알바 게시글ID를 비교해서 지원하기ID를 조회하기
+    public Long albaSelect(Long albaId, Long memberId){
+        return jpaQueryFactory.select(memberAlba.albaApplyId)
+                .from(memberAlba)
+                .where(memberAlba.member.memberId.eq(memberId).and(memberAlba.alba.albaId.eq(albaId)))
+                .fetchOne();
+    }
+
+    // 지원 취소하기
     public Long albaApplyCancel(Long albaApplyId){
         memberAlbaRepository.deleteById(albaApplyId);
         return albaApplyId;

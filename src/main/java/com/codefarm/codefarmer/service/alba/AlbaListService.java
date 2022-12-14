@@ -2,9 +2,11 @@ package com.codefarm.codefarmer.service.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.QAlbaDTO;
+import com.codefarm.codefarmer.entity.admin.Criteria;
 import com.codefarm.codefarmer.entity.alba.Alba;
-import com.codefarm.codefarmer.entity.alba.QAlba;
+import com.codefarm.codefarmer.repository.alba.AlbaCustomRepositoryImpl;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ public class AlbaListService {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final AlbaRepository albaRepository;
+    private final MemberRepository memberRepository;
 
     //알바 목록
     @Transactional(readOnly = true)
@@ -165,7 +168,9 @@ public class AlbaListService {
 
     //    알바게시글 작성
     public void saveAll(AlbaDTO albaDTO) {
-       albaRepository.save(albaDTO.toEntity());}
+        Alba alba = albaDTO.toEntity();
+        alba.changeMember(memberRepository.findById(albaDTO.getMemberId()).get());
+       albaRepository.save(alba);}
 
     // 최신순
     public List<AlbaDTO> showByRecent(Pageable pageable) {
