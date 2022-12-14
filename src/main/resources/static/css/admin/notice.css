@@ -11,10 +11,13 @@ div#container .chart-no {
 th.num { width: 6%; }
 th.title { width: 23%; }
 th.content { width: 29%; }
-th.id { width: 7%; }
+th.id { width: 12%; }
 th.file-check { width: 7%; }
-th.date { width: 9%; }
+th.hourCost { width: 10%; }
+th.work-date { width: 10%; }
+th.date { width: 10%; }
 th.hits { width:  7%; }
+th.statusOk { width:  7%; }
 th.revise, th.delete { width: 6%; }
 
 td.revise, td.delete { padding: 0 0.3vw; }
