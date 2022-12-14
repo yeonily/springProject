@@ -2,12 +2,13 @@ package com.codefarm.codefarmer.service.admin;
 
 import com.codefarm.codefarmer.entity.admin.Banner;
 import com.codefarm.codefarmer.entity.board.Board;
-import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.admin.BannerRepository;
 import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
-import com.codefarm.codefarmer.repository.member.MemberCustomRepository;
+import com.codefarm.codefarmer.repository.board.ReplyCustomRepository;
+import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.ReviewRepository;
 import com.codefarm.codefarmer.type.BannerStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,11 @@ public class AdminService {
 //    공지
     private final BoardRepository boardRepository;
     private final BoardCustomRepository boardCustomRepository;
+//    댓글
+    private final ReplyRepository replyRepository;
+    private final ReplyCustomRepository replyCustomRepository;
+//    후기
+    private final ReviewRepository reviewRepository;
 //    멤버
     private final MemberRepository memberRepository;
 
@@ -52,14 +58,57 @@ public class AdminService {
             return boardRepository.findByBoardTitleContainingOrBoardContentContaining(boardTitle, boardContent, pageable);
         }
     }
-//    공지 글 개수
+
+//    커뮤니티 글 개수
     public int countByBoard() { return boardRepository.countByBoard(); }
 
-//    공지 - 작성자로 검색했을 때 글 개수
+//    커뮤니티 - 작성자로 검색했을 때 글 개수
     public int countByBoardNickname(String memeberNickname) {
         int total = boardCustomRepository.countByMemberNickname(memeberNickname);
         return total % 10 == 0 ? (total / 10) : ((total / 10) + 1);
     }
+
+////    댓글 목록
+//    public Page<Reply> replyShowAll(Pageable pageable, String keyword, String searchText){
+//        List<Reply> replies = replyCustomRepository.findByNickname(searchText, pageable);
+//        final int total = replyCustomRepository.countByMemberNickname(searchText);
+//        final int start = (int)pageable.getOffset();
+//        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
+//
+//        if (keyword.equals("w")){
+//            return new PageImpl<>(replies.subList(start, end), pageable, replies.size());
+//        } else {
+//            return replyRepository.findByReplyContentContaining(searchText, pageable);
+//        }
+//    }
+////    작성자로 검색했을 때 개수
+//    public int countByReplyNickname (String memeberNickname){
+//        int total = replyCustomRepository.countByMemberNickname(memeberNickname);
+//        return total%10 == 0 ? (total/10) : ((total/10) + 1);
+//    }
+////    댓글 개수
+//    public int countByReply(){return replyRepository.countByReply();}
+//
+////    후기 목록
+//    public Page<Review> reviewShowAll(Pageable pageable, String keyword, String searchText){
+//        List<Review> reviews = reviewCustomRepository.findByNickname(searchText, pageable);
+//        final int total = reviewCustomRepository.countByMemberNickname(searchText);
+//        final int start = (int)pageable.getOffset();
+//        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
+//
+//        if (keyword.equals("w")){
+//            return new PageImpl<>(reviews.subList(start, end), pageable, reviews.size());
+//        } else {
+//            return reviewRepository.findByReviewContentContaining(searchText, pageable);
+//        }
+//    }
+////    작성자로 검색했을 때 개수
+//    public int countByReviewNickname (String memeberNickname){
+//        int total = reviewCustomRepository.countByMemberNickname(memeberNickname);
+//        return total%10 == 0 ? (total/10) : ((total/10) + 1);
+//    }
+////    댓글 개수
+//    public int countByReview(){return reviewRepository.countByReview();}
 
 //    배너 목록
     @Transactional(readOnly = true)

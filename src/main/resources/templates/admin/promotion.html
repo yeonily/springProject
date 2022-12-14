@@ -16,8 +16,6 @@
     <!-- 사이드 메뉴 -->
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="/js/admin/side_menu.js"></script>
-    <!-- 버튼 클릭 시 확인 알림창 -->
-    <script src="/js/admin/check.js"></script>
     <title>관리자-멘토홍보 글 관리</title>
 </head>
 
@@ -35,110 +33,116 @@
             <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
         <div id="wrapContents">
-        <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents chart-no">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents chart-no">
 
-            <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
-                <div class="search-form">
+                <!-- 검색어 입력 폼 -->
+                <form th:action="@{/admin/mentor/promotion}" name="searchForm">
+                    <div class="search-form">
                         <span class="s-form">
-                            <select name="searchSelect">
-                                <option value="title">제목</option>
-                                <option value="nickName">작성자</option>
-                                <option value="maincrop">주요작물</option>
-                                <option value="region">지역</option>
+                            <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                <option value="t">제목</option>
+                                <option value="n">작성자</option>
+                                <option value="c">주요작물</option>
+                                <option value="r">지역</option>
                             </select>
                         </span>
-                    <span class="s-f-input">
+                        <span class="s-f-input">
                             <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                                <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
                             </span>
                         </span>
-                    <button type="button" class="">
-                        <img src="/image/admin/search.png">
-                    </button>
-                </div>
-            </form>
+                        <button type="submit" class="searchBtn">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
 
-        </div>
+            </div>
 
-        <!-- 프로그램 리스트 출력 틀 -->
-        <div class="p-contents contents-bottom">
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
                 <span class="list-count">총
-                    <span>2476</span>건
+                    <span th:text="${promotionCounts}"></span>건
                 </span>
 
-            <table>
-                <tr class="title">
-                    <th class="num">글번호</th>
-                    <th class="title">제목</th>
-                    <th class="id">작성자</th>
-                    <th class="maincrop">주요작물</th>
-                    <th class="region">지역</th>
-                    <th class="file-check">첨부파일</th>
-                    <th class="date">작성날짜</th>
-                    <th class="hits">조회수</th>
-                    <th class="delete"></th>
-                </tr>
+                <table>
+                    <tr class="title">
+                        <th class="num">글번호</th>
+                        <th class="title">제목</th>
+                        <th class="id">작성자</th>
+                        <th class="maincrop">주요작물</th>
+                        <th class="region">지역</th>
+                        <th class="file-check">첨부파일</th>
+                        <th class="date">작성날짜</th>
+                        <th class="hits">조회수</th>
+                        <th class="delete"></th>
+                    </tr>
 
-                <!-- ↓ 데이터 출력 -->
-                <tr class="title">
-                    <td class="num">123</td>
-                    <td class="title" onclick="location.href='/mento/detail'">첫 번째 멘토홍보</td>
-                    <td class="id">herd</td>
-                    <td class="maincrop">딸기</td>
-                    <td class="region">충청도</td>
-                    <td class="file-check"><img src="/image/admin/fileImage.png"></td>
-                    <td class="date">2022-11-14 10:00</td>
-                    <td class="hits">70</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr class="title">
-                    <td class="num">124</td>
-                    <td class="title" onclick="location.href='/mento/detail'">두 번째 멘토홍보</td>
-                    <td class="id">xogwan</td>
-                    <td class="maincrop">포도</td>
-                    <td class="region">경상도</td>
-                    <td class="file-check"><img src="/image/admin/fileImage.png"></td>
-                    <td class="date">2022-11-15 10:00</td>
-                    <td class="hits">7</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-                <tr class="title">
-                    <td class="num">125</td>
-                    <td class="title" onclick="location.href='/mento/detail'">세 번째 멘토홍보</td>
-                    <td class="id">xorhks</td>
-                    <td class="maincrop">수박</td>
-                    <td class="region">제주도</td>
-                    <td class="file-check"><img src="/image/admin/fileImage.png"></td>
-                    <td class="date">2022-11-21 10:00</td>
-                    <td class="hits">17</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-            </table>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="mentor:${mentors}">
+                        <tr class="title" th:object="${mentor}">
+                            <td class="num" th:text="*{mentorId}">123</td>
+                            <td class="title" onclick="location.href='/mento/detail'">첫 번째 멘토홍보</td>
+                            <td class="id">herd</td>
+                            <td class="maincrop">딸기</td>
+                            <td class="region">충청도</td>
+                            <td class="file-check"><img src="/image/admin/fileImage.png"></td>
+                            <td class="date">2022-11-14 10:00</td>
+                            <td class="hits">70</td>
+                            <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
+                        </tr>
+                    </th:block>
+                </table>
 
-            <!-- 페이징 -->
-            <div id="page">
-                <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
+                <!-- 페이징 -->
+                <div id="page">
+                    <div class="page_nation">
+                        <a class="arrow pprev" href="#"></a>
+                        <a class="arrow prev" href="#"></a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                        <a href="#">10</a>
+                        <a class="arrow next" href="#"></a>
+                        <a class="arrow nnext" href="#"></a>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
+
+    const urlParams = new URL(location.href).searchParams;
+    const keyword = urlParams.get('keyword');
+
+    // 검색 옵션
+    if(keyword == null || keyword == "") {
+        $(".keywords").val('w').prop("selected", true);
+    } else {
+        $(".keywords").val(keyword).prop("selected", true);
+    }
+
+    // 삭제 확인 알람
+    var msg = "이 홍보글을 삭제 하시겠습니까?";
+
+    $(".deleteBtn").on("click", function () {
+        var flag = confirm(msg);
+
+        if(flag){
+            $(this).parent("form.deleteForm").submit();
+        }
+    });
+</script>
 </body>
 <html>

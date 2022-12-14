@@ -96,7 +96,7 @@
                             </td>
                             <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
                             <td th:text="*{boardViewCount}"></td>
-                            <td th:text="${replyCount[]}"></td>
+                            <td>댓글 수</td>
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/community/delete}">
                                     <input type="text" hidden name="boardId" th:value="*{boardId}">

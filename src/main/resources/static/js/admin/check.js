@@ -8,14 +8,6 @@ function deleteWriteCheck() {
     if (flag) alert('삭제 완료');
 }
 
-// 댓글 삭제
-function deleteReplyCheck(){
-    var msg = "댓글을 삭제 하시겠습니까?";
-    var flag = confirm(msg);
-
-    if(flag) alert('삭제 완료');
-}
-
 // 배너 삭제
 function deleteBannerCheck() {
     var msg = "배너를 삭제 하시겠습니까?";
