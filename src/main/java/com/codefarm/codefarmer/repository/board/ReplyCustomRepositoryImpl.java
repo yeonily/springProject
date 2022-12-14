@@ -9,6 +9,7 @@ import com.codefarm.codefarmer.entity.member.QMember;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,7 +48,22 @@ public class ReplyCustomRepositoryImpl implements ReplyCustomRepository{
                 .fetch();
     }
 
-
-
+    //	닉네임으로 검색
+    @Override
+    public List<Reply> findByNickname(String memberNickname, Pageable pageable) {
+        return jpaQueryFactory.select(reply)
+                .from(reply)
+                .where(reply.member.memberNickname.contains(memberNickname))
+                .orderBy(reply.replyId.desc())
+                .fetch();
+    }
+    //	닉네임으로 검색했을 때 카운트
+    @Override
+    public Integer countByMemberNickname(String memberNickname) {
+        return Math.toIntExact(jpaQueryFactory.select(reply.count())
+                .from(reply)
+                .where(reply.member.memberNickname.contains(memberNickname))
+                .fetchOne());
+    }
 
 }

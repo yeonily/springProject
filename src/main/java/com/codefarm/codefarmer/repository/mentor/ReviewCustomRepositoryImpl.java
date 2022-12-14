@@ -8,6 +8,7 @@ import com.codefarm.codefarmer.entity.mentor.Review;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,5 +43,23 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository{
                 .where(review.mentorBoard.mentorBoardId.eq(mentorBoardId))
                 .orderBy(review.updatedDate.desc())
                 .fetch();
+    }
+
+
+    @Override
+    public List<Review> findByNickname(String memberNickname, Pageable pageable) {
+        return jpaQueryFactory.select(review)
+                .from(review)
+                .where(review.member.memberNickname.contains(memberNickname))
+                .orderBy(review.reviewId.desc())
+                .fetch();
+    }
+
+    @Override
+    public Integer countByMemberNickname(String memberNickname) {
+        return Math.toIntExact(jpaQueryFactory.select(review.count())
+                .from(review)
+                .where(review.member.memberNickname.contains(memberNickname))
+                .fetchOne());
     }
 }
