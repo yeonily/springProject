@@ -32,7 +32,7 @@
         <header>
             <span id="admin-header-title" class="short">배너 관리</span>
             <span id="admin-mode">관리자 모드</span>
-            <span id="userCount">가입된 회원 수 총 <strong> 21343 </strong>명</span>
+            <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
         <div id="wrapContents">
             <!-- 컨텐츠 검색 부분 -->
@@ -92,6 +92,9 @@
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/banner/delete}">
                                     <input type="hidden" name="bannerId" th:value="*{bannerId}">
+                                    <input type="hidden" name="page" th:value="${criteria.page}">
+                                    <input type="hidden" name="searchText" th:value="${criteria.searchText}">
+                                    <input type="hidden" name="keyword" th:value="${criteria.keyword}">
                                     <input type="button" value="삭제" class="deleteBtn">
                                 </form>
                             </td>
@@ -102,7 +105,7 @@
                     </tr>
                 </table>
                 <div id="write" style="float: right;">
-                    <input type="button" onclick="location.href='/admin/banner/register'" value="배너 등록">
+                    <input type="button" onclick="javascript:goPage()" value="배너 등록">
                 </div>
 
                 <!-- 페이징 -->
@@ -131,9 +134,19 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
     const urlParams = new URL(location.href).searchParams;
     const keyword = urlParams.get('keyword');
+
+    // 등록 페이지 이동
+    function goPage() {
+        location.href='/admin/banner/register' + queryString;
+    }
+    // 수정 페이지 이동
+    function goUpdate(bannerId) {
+        location.href='/admin/banner/update' + queryString + '&bannerId=' + bannerId;
+    }
 
     // 검색 옵션
     if(keyword == null || keyword == "") {
@@ -152,11 +165,6 @@
             }
         })
     });
-
-    // 수정 페이지 이동
-    function goUpdate(bannerId) {
-        location.href='/admin/banner/update?bannerId=' + bannerId;
-    }
 
     // 삭제 확인 알람
     var msg = "삭제 하시겠습니까?";

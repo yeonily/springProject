@@ -1,13 +1,5 @@
 //  확인 = true, 취소 = false값 flag에 담기
 
-// 유저 관리 탈퇴
-function outCheck(){
-    var msg = "사용자를 탈퇴시키겠습니까?";
-    var flag = confirm(msg);
-
-    if(flag) alert('탈퇴 완료');
-}
-
 // 글 삭제
 function deleteWriteCheck() {
     var msg = "게시글을 삭제 하시겠습니까?";

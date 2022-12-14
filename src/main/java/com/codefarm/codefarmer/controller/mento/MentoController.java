@@ -48,6 +48,7 @@ public class MentoController {
     @GetMapping("/list")
     public void list(Model model, HttpSession session){
         Long memberId = (Long)session.getAttribute("memberId");
+        model.addAttribute("sessionMemberId", memberId);
     }
 
     @GetMapping("/write")
@@ -57,9 +58,10 @@ public class MentoController {
 
     @PostMapping("/write")
     public RedirectView writeFin(MentorBoardDTO mentorBoardDTO, RedirectAttributes redirectAttributes, HttpSession session){
+        log.info("mentorBoardDTO는:" + mentorBoardDTO.toString());
         Long sessionId = (Long)session.getAttribute("memberId");
         mentorBoardDTO.setMemberId(sessionId);
-        mentorBoardDTO.setMentorId(293L);
+        mentorBoardDTO.setMentorId(115L);
         mentorService.mentorBoardAdd(mentorBoardDTO);
         redirectAttributes.addFlashAttribute("mentorBoardId", mentorBoardDTO.getMentorBoardId());
 

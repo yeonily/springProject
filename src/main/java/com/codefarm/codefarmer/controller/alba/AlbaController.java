@@ -2,11 +2,13 @@ package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
+import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
+import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.alba.AlbaListService;
-import com.codefarm.codefarmer.service.member.MemberService;
+import com.codefarm.codefarmer.type.MemberType;
 import com.codefarm.codefarmer.type.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,16 +43,20 @@ public class AlbaController {
     private final AlbaListService albaListService;
     private final AlbaDetailService albaDetailService;
     private final AlbaRepository albaRepository;
+    private final MemberAlbaRepository memberAlbaRepository;
 
+    // 알바메인페이지 리스트
     @GetMapping("/list")
-    public String albaList(Model model, @PageableDefault( size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String albaList(Model model, MemberDTO memberDTO, @PageableDefault( size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) {
 
         log.info("들어옴1");
 
-        log.info("테스트 : " + albaListService.showListByRecentEndDate().size());
+        MemberType memberType = memberDTO.getMemberType();
+
         model.addAttribute("lists", albaListService.showListByRecentEndDate());
         model.addAttribute("counts", albaListService.showCount());
-        model.addAttribute("recents", albaListService.showByRecent(pageable));
+//        model.addAttribute("recents", albaListService.showByRecent(pageable));
+        model.addAttribute("memberType", memberType);
 
         Page<Alba> albas = albaRepository.findAll(pageable);
 
@@ -59,50 +65,20 @@ public class AlbaController {
         log.info("진짜?");
 
         return "/alba/list";
-
     }
 
-    @PostMapping("/apply")
-    public RedirectView albaApply(HttpSession session , MemberAlbaDTO memberAlbaDTO) throws Exception{
-        Long memberId = (Long)session.getAttribute("memberId");
-
-        log.info("어플라이 알바아이디 : " + memberAlbaDTO.getAlbaId().toString());
-        log.info("memberId : " + memberId);
-
-        memberAlbaDTO.setMemberStatus(Status.WAITING);
-        memberAlbaDTO.setMemberId(memberId);
-        memberAlbaDTO.setAlbaId(memberAlbaDTO.getAlbaId());
-
-        albaDetailService.albaApply(memberAlbaDTO);
-
-        return new RedirectView("/alba/list");
-    }
-
-    @GetMapping("/applyCancel")
-    public RedirectView albaApplyCancel(HttpSession session,MemberAlbaDTO memberAlbaDTO, Long albaApplyId, Model model) throws Exception{
-        Long memberId = (Long)session.getAttribute("memberId");
-        log.info("sessionMemberId : " + memberId);
-
-        memberAlbaDTO.getAlbaApplyId().toString();
-
-        log.info("삭제 어플라이 아이디 : " + memberAlbaDTO.getAlbaApplyId().toString());
-        log.info("albaApplyId : " + albaApplyId);
-
-//        model.addAttribute("albaApplyId", albaDetailService.albaApplyCancel(albaApplyId));
-
-        albaDetailService.albaApplyCancel(albaApplyId);
-
-
-        return new RedirectView("/alba/list");
-    }
-
+    // 알바 글 등록
     @GetMapping("/write")
     public void albaWrite(Model model) {
-            model.addAttribute("alba", new AlbaDTO());
-        }
+        model.addAttribute("alba", new AlbaDTO());
+    }
 
+    // 알바 글 등록
     @PostMapping("/write")
-    public RedirectView albaWrite(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image) throws Exception {
+    public RedirectView albaWrite(AlbaDTO albaDTO, HttpSession session, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image) throws Exception {
+
+        // 알바 글쓰기 세션 아이디 저장
+        Long memberId = (Long)session.getAttribute("memberId");
 
         String path = "/Users/yeontaegwan/Desktop/project/image";
         String uploadFileName = null;
@@ -142,12 +118,14 @@ public class AlbaController {
         albaDTO.setAlbaApplyStartDate(albaApplyStartDateTest);
         albaDTO.setAlbaApplyEndDate(albaApplyEndDateTest);
         albaDTO.setAlbaWorkDate(albaWorkDateTest);
+        albaDTO.setMemberId(memberId);
 
         albaListService.saveAll(albaDTO);
 
         return new RedirectView("/alba/list");
     }
 
+    // 알바 상세정보 불러오기
     @GetMapping("/detail")
     public void albaDetail(Model model, @RequestParam Long albaId) throws Exception {
         log.info("디테일 들어옴");
@@ -157,6 +135,7 @@ public class AlbaController {
         model.addAttribute("list",list);
     }
 
+    // 알바 게시글 삭제
     @GetMapping("/delete")
     public RedirectView albaDelete(Long albaId){
         log.info("albaId(delete) : " + albaId);
@@ -164,7 +143,7 @@ public class AlbaController {
         return new RedirectView("/alba/list");
     }
 
-    //    알바 게시글 수정
+    // 알바 게시글 수정
     @GetMapping("/update")
     public String albaUpdate(Long albaId, Model model) throws IOException {
         AlbaDTO updateAlba = albaDetailService.showByAlbaId(albaId);
@@ -175,9 +154,12 @@ public class AlbaController {
         return "/alba/update";
     }
 
+    // 알바 게시글 수정
     @PostMapping("/update")
-    public RedirectView albaUpdate(AlbaDTO albaDTO, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image, RedirectAttributes redirectAttributes) throws Exception {
-        log.info("들어오긴 하니?");
+    public RedirectView albaUpdate(AlbaDTO albaDTO,HttpSession session, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image, RedirectAttributes redirectAttributes) throws Exception {
+
+        Long memberId = (Long)session.getAttribute("memberId");
+
         log.info("몇 번째일까요? : " + albaDTO.getAlbaId());
         String path = "/Users/yeontaegwan/Desktop/project/image";
         String uploadFileName = null;
@@ -226,19 +208,55 @@ public class AlbaController {
         albaDTO.setAlbaApplyStartDate(albaApplyStartDateTest);
         albaDTO.setAlbaApplyEndDate(albaApplyEndDateTest);
         albaDTO.setAlbaWorkDate(albaWorkDateTest);
+        albaDTO.setMemberId(memberId);
 
         log.info("entering???");
         albaDetailService.albaUpdate(albaDTO);
         return new RedirectView("/alba/list");
     }
 
-    // 보기
+    // 이미지 보기
     @GetMapping("/display")
     @ResponseBody
     public byte[] display(String fileName) throws IOException{
         File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
 
         return FileCopyUtils.copyToByteArray(file);
+    }
+
+    // 알바 지원하기
+    @PostMapping("/apply")
+    public RedirectView albaApply(HttpSession session , MemberAlbaDTO memberAlbaDTO) throws Exception{
+        Long memberId = (Long)session.getAttribute("memberId");
+
+        log.info("어플라이 알바아이디 : " + memberAlbaDTO.getAlbaId().toString());
+        log.info("memberId : " + memberId);
+
+        memberAlbaDTO.setMemberStatus(Status.WAITING);
+        memberAlbaDTO.setMemberId(memberId);
+        memberAlbaDTO.setAlbaId(memberAlbaDTO.getAlbaId());
+
+        albaDetailService.albaApply(memberAlbaDTO);
+
+        return new RedirectView("/alba/list");
+    }
+
+    // 지원 취소하기
+    @GetMapping("/applyCancel")
+    public RedirectView albaApplyCancel(HttpSession session, Long albaId) throws Exception{
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("sessionMemberId : " + memberId);
+        log.info("albaID : " + albaId);
+
+        log.info("select : " + albaDetailService.albaSelect(albaId, memberId));
+//        log.info("albaApplyId : " + albaApplyId);
+
+//        model.addAttribute("albaApplyId", albaDetailService.albaApplyCancel(albaApplyId));
+        Long applyCancelId = albaDetailService.albaSelect(albaId, memberId);
+
+        albaDetailService.albaApplyCancel(applyCancelId);
+
+        return new RedirectView("/alba/list");
     }
 
 

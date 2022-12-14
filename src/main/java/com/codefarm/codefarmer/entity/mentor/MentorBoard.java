@@ -1,8 +1,11 @@
 package com.codefarm.codefarmer.entity.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorFileDTO;
+import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -10,6 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TBL_MENTOR_BOARD")
@@ -54,8 +58,13 @@ public class MentorBoard extends Period {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Mentor mentor;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorBoard")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorBoard" ,cascade = CascadeType.ALL)
     private List<MentorFile> mentorFiles;
+    public void changeFiles(List<MentorFileDTO> files){
+        List<MentorFile> fileEntities = files.stream().map(file -> file.toEntity()).collect(Collectors.toList());
+        fileEntities.stream().forEach(file -> file.changeMentor(this));
+        this.mentorFiles = fileEntities;
+    }
 
     public void update(MentorBoardDTO mentorBoardDTO){
         this.mentorCareer = mentorBoardDTO.getMentorCareer();

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
@@ -96,11 +97,8 @@ public class ChatRoomTest {
         log.info("결과 : " + chatRoomService.chatAlarm(1L));
     }
 
-    /*가장 마지막에 보낸 메세지*/
-//    @Test
-//    public void lastChatList() {
-//        log.info("결과 : " + chatRoomService.lastChatSelectAll());
-//    }
+
+
 }
 
 

@@ -70,8 +70,11 @@
                                     </div>
                                     <form action="/mento/write">
                                         <div id="mentor_text_2">
+                                            <input type="hidden" th:value="${sessionMemberId}" name="session" id="sessionMember">
                                             너와농부싶어에서 검증된 현직자 멘토를 만나보세요.
-                                            <input type="submit" value="홍보 글 작성" id="mentor_write_button">
+                                            <div class="write-wrap">
+                                                <input type="submit" value="홍보 글 작성" id="mentor_write_button">
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -115,6 +118,8 @@
 <!--                                            </a>-->
 <!--                                            </th:block>-->
 <!--                                </div>-->
+                                    </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -157,13 +162,14 @@
             $("div.more-btn").remove();
         }
         $(result.content).each((i,mentorBoard) => {
-            text += `<div class="mentor_info">`
+                text += `<div class="mentor_info">`
                 text += `<a href="/mento/detail?mentorBoardId=`+ mentorBoard.mentorBoardId +`">`
                 text += `<article class="mentor_info_inner1">`
                 text += `<div class="mentor_info_inner2">`
                 text += `<picture class="mentor_info_image">`
-                text += `<source srcset="https://cdn.comento.kr/images/vod/lecture/braze.png?s=518x600&amp;q=75" type="image/webp">`
-                text += `<img src="https://cdn.comento.kr/images/vod/lecture/braze.png" alt="" width="259" height="300"></picture></div>`
+                // text += `<source srcset="https://cdn.comento.kr/images/vod/lecture/braze.png?s=518x600&amp;q=75" type="image/webp">`
+                //<img src="https://cdn.comento.kr/images/vod/lecture/braze.png" alt="" width="259" height="300">
+                text += `<img src="/mentofile/display?fileName=` + mentorBoard.files[0].fileUploadPath + `/s_` + mentorBoard.files[0].fileUuid + `_` + mentorBoard.files[0].fileName + `"` + `width="259" height="300" ></picture></div>`
                 text += `<div class="mentor_info_inner3">`
                 text += `<div class="mentor_info_subTitle">`
                 text += `<div class="mentor_info_subTitle2">`+ mentorBoard.mentorCrop +`</div></div>`
@@ -186,4 +192,10 @@
             mentorBoardList();
         }
     });
+
+    if($("#sessionMember").val()){
+        $(".write-wrap").show();
+    }else{
+        $(".write-wrap").hide();
+    }
 </script>

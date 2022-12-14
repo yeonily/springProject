@@ -23,16 +23,14 @@ public class StompController {
 
         /*대화방 유무에 따른 메세지 처리*/
         if (!chatList.isEmpty()) {
-            for (ChatDTO chatDTO : chatList) {
-
-                System.out.println("채팅내용 : " + chatDTO.toString());
-                // /chatting으로 채팅방의 대화내역(DB)을 보냄
-                template.convertAndSend("/sub/mento/chatting/" + chatDTO.getChatRoom().getChatRoomId(), chatDTO);
+            for(int i = 0; i < chatList.size(); i++) {
+                if(i == chatList.size() - 1) {
+                    System.out.println("채팅내용 : " + chatList.get(i).toString());
+                    chatList.get(i).setRoomId(message.getRoomId());
+                    // /chatting으로 방번호에 따라 채팅방의 대화내역(DB)을 보냄
+//                    template.convertAndSend("/sub/mento/chatting/" + chatList.get(i).getChatRoom().getChatRoomId(), chatList.get(i));
+                }
             }
-//            message.setChatMessage("환영합니다!");
-//            System.out.println("결과 : " + message.toString());
-//
-//            template.convertAndSend("/sub/mento/chatting" + message.getRoomId(), message);
         }
     }
 

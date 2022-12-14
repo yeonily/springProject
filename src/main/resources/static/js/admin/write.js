@@ -1,5 +1,5 @@
 /*
-* admin/policy - write, update
+* admin/ - write, update
 * */
 
 var msg = "글을 저장하지 않고 나가시겠습니까?";
@@ -22,13 +22,6 @@ $(".p-submit").on("click", function (){
     policyForm.submit();
 });
 
-function pBackList() {
-    var flag = confirm(msg);
-
-    if (flag) {
-        location.href="/admin/policy";
-    }
-}
 
 // 농업정보
 $(".c-submit").on("click", function (){
@@ -48,36 +41,8 @@ $(".c-submit").on("click", function (){
     cropForm.submit();
 });
 
-function cBackList() {
-    var flag = confirm(msg);
 
-    if (flag) {
-        location.href="/admin/crop";
-    }
-}
-
-// 문의 글
-
-
-// function aBackList() {
-//     if(askForm.inquireAnswer.value){
-//         var flag = confirm(msg);
-//         if (flag) {
-//             location.href="/admin/help";
-//         }
-//     } else {
-//         location.href="/admin/help";
-//     }
-// }
-
-// 공지 목록 돌아가기
-function nBackList() {
-    var flag = confirm(msg);
-    if (flag) {
-        location.href="/admin/notice";
-    }
-}
-
+// 공지 등록
 $(".n-submit").on("click", function(){
     let text = "";
     if(!(noticeForm.noticeTitle.value)){
@@ -95,11 +60,6 @@ $(".n-submit").on("click", function(){
         let fileUuid = $(li).data("file-uuid");
         let fileSize = $(li).data("file-size");
         let fileImageCheck = $(li).data("file-image-check");
-        console.log(fileName);
-        console.log(fileUploadPath);
-        console.log(fileUuid);
-        console.log(fileSize);
-        console.log(fileImageCheck);
         text += `<input type="hidden" name="noticeFiles[` + i + `].fileName" value="` + fileName + `">`;
         text += `<input type="hidden" name="noticeFiles[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
         text += `<input type="hidden" name="noticeFiles[` + i + `].fileUuid" value="` + fileUuid + `">`;
@@ -108,6 +68,7 @@ $(".n-submit").on("click", function(){
     });
     $("form#noticeWriteForm").append(text).submit();
 });
+
 
 // 배너
 $(".b-submit").on("click", function (){
@@ -127,10 +88,21 @@ $(".b-submit").on("click", function (){
     bannerForm.submit();
 });
 
-function bBackList() {
-    var flag = confirm(msg);
 
-    if (flag) {
-        location.href="/admin/banner";
+// 문의사항
+// 답변 등록
+$(".a-submit").on("click", function (){
+    if(!(askForm.inquireAnswer.value)){
+        alert("답변을 등록해 주세요.");
+        return;
     }
-}
+    askForm.submit();
+});
+// 답변 수정
+$(".au-submit").on("click", function (){
+    if(!(askUpdateForm.inquireAnswer.value)){
+        alert("답변을 등록해 주세요.");
+        return;
+    }
+    askUpdateForm.submit();
+});

@@ -15,23 +15,29 @@ import java.time.LocalDateTime;
 @Data
 public class ReviewDTO {
     private Long reviewId;
-    private Member memberId;
-    private MentorBoard mentorBoardId;
+    private Long memberId;
+    private Long mentorBoardId;
+    private String memberNickName;
     private String reviewContent;
     private int reviewStar;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 
     @QueryProjection
-    public ReviewDTO(Long reviewId, Member member, MentorBoard mentorBoard, String reviewContent, int reviewStar, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public ReviewDTO(Long reviewId, Long memberId, Long mentorBoardId, String memberNickName, String reviewContent, int reviewStar, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.reviewId = reviewId;
-        this.memberId = member;
-        this.mentorBoardId = mentorBoard;
+        this.memberId = memberId;
+        this.mentorBoardId = mentorBoardId;
+        this.memberNickName = memberNickName;
         this.reviewContent = reviewContent;
         this.reviewStar = reviewStar;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
     }
+
+
+
+
 
     public Review toEntity(){
         return Review.builder()

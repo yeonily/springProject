@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @NoArgsConstructor
 @Data
@@ -27,6 +29,7 @@ public class MentorBoardDTO {
     private String mentorCrop;
     private Long memberId;
     private Long mentorId;
+    private List<MentorFileDTO> files;
 
     @QueryProjection
     public MentorBoardDTO(Long mentorBoardId, String mentorCareer, String mentorExCareer, String mentorStrongTitle1, String mentorStrongContent1, String mentorStrongTitle2, String mentorStrongContent2, String mentorStrongTitle3, String mentorStrongContent3, String mentorTitle, String mentorTitleSub, String mentorTextTitle, String mentorTextContent, String mentorCrop) {
@@ -45,8 +48,6 @@ public class MentorBoardDTO {
         this.mentorTextContent = mentorTextContent;
         this.mentorCrop = mentorCrop;
     }
-
-
 
 
 

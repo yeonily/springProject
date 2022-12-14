@@ -34,18 +34,18 @@ public class ReviewTest {
     @Test
     public void saveReviewTest(){
         ReviewDTO reviewDTO = new ReviewDTO();
-        Optional<Member> findUser = memberRepository.findById(15L);
-        Optional<MentorBoard> findMentorBoard = mentorBoardRepository.findById(6L);
+        Optional<Member> findUser = memberRepository.findById(112L);
+        Optional<MentorBoard> findMentorBoard = mentorBoardRepository.findById(294L);
 
         if(findUser.get().getMemberType().equals(MemberType.MENTEE)){
             reviewDTO.setReviewContent("멘토님 짱!");
-            reviewDTO.setMentorBoardId(findMentorBoard.get());
-            reviewDTO.setMemberId(findUser.get());
+            reviewDTO.setMentorBoardId(findMentorBoard.get().getMentorBoardId());
+            reviewDTO.setMemberId(findUser.get().getMemberId());
         }
 
         Review review = reviewDTO.toEntity();
-        review.changeMember(reviewDTO.getMemberId());
-        review.changeMentorBoard(reviewDTO.getMentorBoardId());
+//        review.changeMember(reviewDTO.getMemberId());
+//        review.changeMentorBoard(reviewDTO.getMentorBoardId());
         reviewRepository.save(review);
     }
 
