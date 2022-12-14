@@ -61,7 +61,7 @@ public class MentoController {
         log.info("mentorBoardDTO는:" + mentorBoardDTO.toString());
         Long sessionId = (Long)session.getAttribute("memberId");
         mentorBoardDTO.setMemberId(sessionId);
-        mentorBoardDTO.setMentorId(115L);
+        mentorBoardDTO.setMentorId(293L);
         mentorService.mentorBoardAdd(mentorBoardDTO);
         redirectAttributes.addFlashAttribute("mentorBoardId", mentorBoardDTO.getMentorBoardId());
 
