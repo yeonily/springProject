@@ -10,6 +10,7 @@ import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.Reply;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.inquire.InquireAnswer;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Review;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
@@ -80,7 +81,7 @@ public class AdminController {
             model.addAttribute("resultCount", inquires.getTotalPages());
         }
         model.addAttribute("data", inquires.isEmpty());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/ask";
     }
 
@@ -94,7 +95,7 @@ public class AdminController {
         model.addAttribute("inquireAnswerUpdate", inquireAnswer);
         model.addAttribute("answerCheck", answerCheck);
         model.addAttribute("inquire", inquireService.showInquireOne(inquireId));
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
 
         return "/admin/ask-detail";
     }
@@ -136,7 +137,7 @@ public class AdminController {
         model.addAttribute("maxPage", 10); // 페이징
         model.addAttribute("bannerCounts", adminService.countByBanner()); // 배너 글 개수
         model.addAttribute("data", banners.isEmpty());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/banner";
     }
 
@@ -182,7 +183,7 @@ public class AdminController {
         model.addAttribute("banner", banner);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/banner-update";
     }
 
@@ -263,7 +264,7 @@ public class AdminController {
         }
         model.addAttribute("page", pageable);
         model.addAttribute("data", boards.isEmpty());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/board";
     }
 
@@ -288,7 +289,7 @@ public class AdminController {
         model.addAttribute("maxPage", 10); // 페이징
         model.addAttribute("cropCounts", informationService.countByCrop()); // 정책 글 개수
         model.addAttribute("data", crops.isEmpty());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/cropInformation";
     }
 
@@ -296,7 +297,7 @@ public class AdminController {
     @GetMapping("/crop/register")
     public String cropWrite(Criteria criteria, Model model) {
         model.addAttribute("crop", new Crop());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/cropInformation-write";
     }
 
@@ -328,7 +329,7 @@ public class AdminController {
     @GetMapping("/crop/update")
     public String cropUpdate(Criteria criteria, Long cropId, Model model) {
         model.addAttribute("crop", informationService.cropShowOne(cropId));
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/cropInformation-update";
     }
 
@@ -399,33 +400,33 @@ public class AdminController {
     // 알바 관리
     @GetMapping("/job")
     public String adminJob(Model model) {
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/job";
     }
 
     @GetMapping("/job/participant")
     public String adminJobParticipant(Model model) {
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/job-participant";
     }
 
     // 메인 관리
     @GetMapping("/main")
     public String adminMain(Model model) {
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/main";
     }
 
     // 멘토 관리
     @GetMapping("/mentor")
     public String adminMentorMentor(Model model) {
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/mentor";
     }
 
     @GetMapping("/mentor/promotion")
     public String adminMentorPromotion(Model model){
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/promotion";
     }
 
@@ -440,7 +441,7 @@ public class AdminController {
         model.addAttribute("maxPage", 10);
         model.addAttribute("noticeCount", noticeService.countByNotice());
         model.addAttribute("data", noticeLists.isEmpty());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/notice";
     }
 
@@ -448,7 +449,7 @@ public class AdminController {
     @GetMapping("/notice/register")
     public String noticeWrite(Criteria criteria, Model model) {
         model.addAttribute("notice", new NoticeDTO());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/notice-write";
     }
 
@@ -462,7 +463,7 @@ public class AdminController {
     @GetMapping("/notice/update")
     public String noticeUpdate(Criteria criteria, Long noticeId, Model model) {
         model.addAttribute("notice", noticeService.showOne(noticeId));
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/notice-update";
     }
 
@@ -495,7 +496,7 @@ public class AdminController {
         model.addAttribute("maxPage", 10); // 페이징
         model.addAttribute("policyCounts", informationService.countByPolicy()); // 정책 글 개수
         model.addAttribute("data", policies.isEmpty());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/policy";
     }
 
@@ -503,14 +504,13 @@ public class AdminController {
     @GetMapping("/policy/register")
     public String policyWrite(Criteria criteria, Model model) {
         model.addAttribute("policy", new Policy());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/policy-write";
     }
 
     @PostMapping("/policy/register")
     public RedirectView policyWrite(Policy policy) {
         informationService.policyAdd(policy);
-//        redirectAttributes.addFlashAttribute("policyId", policy.getPolicyId());
         return new RedirectView("/admin/policy");
     }
 
@@ -518,7 +518,7 @@ public class AdminController {
     @GetMapping("/policy/update")
     public String policyUpdate(Criteria criteria, Long policyId, Model model) {
         model.addAttribute("policy", informationService.policyShowOne(policyId));
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/policy-update";
     }
 
@@ -545,19 +545,19 @@ public class AdminController {
     // 프로그램 관리
     @GetMapping("/program/participant")
     public String adminProgramParticipant(Model model) {
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/program-participant";
     }
 
     @GetMapping("/program")
     public String adminProgramList(Model model){
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/program-list";
     }
 
     @GetMapping("/program/pay")
     public String adminPay(Model model){
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/program-pay";
     }
 
@@ -626,12 +626,12 @@ public class AdminController {
     // 사용자 관리
     @GetMapping("/user")
     public String adminUser(Criteria criteria, Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "MemberId", direction = Sort.Direction.DESC) Pageable pageable) {
-//        Page<Member> members = adminService.memberShowAll(pageable, keyword, searchText);
-//
-//        model.addAttribute("members", members);
-//        model.addAttribute("maxPage", 10); // 페이징
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
-//        model.addAttribute("data", members.isEmpty());
+        Page<Member> members = adminService.memberShowAll(pageable, keyword, searchText);
+
+        model.addAttribute("members", members);
+        model.addAttribute("maxPage", 10); // 페이징
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        model.addAttribute("data", members.isEmpty());
         return "/admin/user";
     }
 

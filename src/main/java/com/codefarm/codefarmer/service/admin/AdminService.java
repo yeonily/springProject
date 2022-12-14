@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.service.admin;
 
 import com.codefarm.codefarmer.entity.admin.Banner;
 import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.admin.BannerRepository;
 import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
@@ -156,21 +157,21 @@ public class AdminService {
     public int countByBanner() { return bannerRepository.countByBanner(); }
 
 //    회원 목록
-//    @Transactional(readOnly = true)
-//    public Page<Member> memberShowAll(Pageable pageable, String keyword, String searchText){
-//        if (keyword.equals("nn")){
-//            return memberRepository.findMemberByMemberNicknameContaining(pageable, searchText);
-//        } else if (keyword.equals("n")) {
-//            return memberRepository.findMemberByMemberNameContaining(pageable, searchText);
-//        } else {
-//            return memberRepository.findMemberByMemberPhoneContaining(pageable, searchText);
-//        }
-//    }
+    @Transactional(readOnly = true)
+    public Page<Member> memberShowAll(Pageable pageable, String keyword, String searchText){
+        if (keyword.equals("nn")){
+            return memberRepository.findMemberByMemberNicknameContaining(pageable, searchText);
+        } else if (keyword.equals("n")) {
+            return memberRepository.findMemberByMemberNameContaining(pageable, searchText);
+        } else {
+            return memberRepository.findMemberByMemberPhoneContaining(pageable, searchText);
+        }
+    }
 
 //    회원 삭제
     public void memberRemove(Long memberId) { memberRepository.delete(memberRepository.findById(memberId).get()); }
 
 //    회원 총 수
-//    public int countByMember() { return memberRepository.countByMember(); }
+    public int countByMember() { return memberRepository.countByMember(); }
 
 }
