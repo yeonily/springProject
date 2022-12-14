@@ -27,7 +27,7 @@ public class MentorDTO {
     }
 
     @QueryProjection
-    public MentorDTO(Long mentorId, Member memberId, Member farmerType, String mentorCrop, String mentorYear) {
+    public MentorDTO(Long mentorId, Long memberId, Member farmerType, String mentorCrop, String mentorYear) {
         this.mentorId = mentorId;
         this.memberId = memberId;
         this.farmerType = farmerType;
