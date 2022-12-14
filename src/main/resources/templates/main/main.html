@@ -164,6 +164,7 @@
                 <div class="swiper mySwiper3">
                     <div class="swiper-wrapper">
                         <th:block th:each="board:${boards}">
+                            <th:block th:each="boardReply:${boardReplys}">
                             <div class="swiper-slide">
                                 <div class="swiper-slide-inner">
                                     <div class="slideContent" th:object="${board}">
@@ -172,7 +173,7 @@
                                         <p class="communityContent" th:text="*{boardContent}">
 
                                         </p>
-                                        <span class="replyIcon"><img src="/image/main/reply.png" th:text="*{boardViewCount}"></span>
+                                        <span class="replyIcon"><img src="/image/main/reply.png" th:text="${boardReply}"></span>
                                         <hr>
                                         <div th:each="reply:${replies}" th:if="${reply.boardId == board.boardId} and ${replyStat.current} "  class="communityComment">
                                                 <div class="nickNameCircle" style="background-color: #F0D780;">1</div>
@@ -186,6 +187,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </th:block>
                         </th:block>
 <!--                        <div class="swiper-slide">-->
 <!--                            <div class="swiper-slide-inner">-->
@@ -282,6 +284,7 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" th:each="program:${programs}">
                             <div class="imgDiv" style="background-image: url('https://www.gyeongju.go.kr/upload//board/board_1334/bod_205588//3B50701C9E75472EA3A6563371CA15C7.jpg');">
+<!--                                <img th:src="@{/file/display/fileName=} + ${program.files[0].fileUploadPath + /s_} +  ${program.files[0].fileUuid + _} + ${program.files[0].fileName}" >-->
                                 <div><p>멘티전용</p></div>
                             </div>
                             <div class="textDiv">
