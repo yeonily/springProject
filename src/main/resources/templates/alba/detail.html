@@ -229,7 +229,7 @@
                         <div class="m-c-title">신청한 아르바이트를 취소하시겠습니까?</div>
                     </div>
                     <div class="applyBtnWrap">
-                        <button type="submit" class="applyBtn" th:onclick="|location.href='@{/alba/applyCancel(albaApplyId=${albaApplyId})'|">예</button>
+                        <button type="submit" class="applyBtn" th:onclick="|location.href='@{/alba/applyCancel(albaId=${param.albaId})}'|">예</button>
                         <button type="button" class="cancel">아니오</button>
                     </div>
             </div>

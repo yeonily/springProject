@@ -35,15 +35,12 @@
                                 <!------------------------>
 
                                 <div class="payment">
-                                    <div class="p-date">
-                                        2022.11.13
-                                    </div>
-                                    <div class="program-name">
-                                        [실무 PT] 백엔드 개발자도 서버 · 인프라 관리를 할 수 있는 DevOps 실무
-                                    </div>
-                                    <div class="p-price">
-                                        244,000 원
-                                    </div>
+                                    <div class="p-date" th:text="${payPayment}"></div>
+                                    <div class="program-name" th:text="${payDate}"></div>
+                                    <div class="p-price" th:text="${payName}"></div>
+                                    <input type="hidden" th:value="${payPayment}">
+                                    <input type="hidden" th:value="${payDate}">
+                                    <input type="hidden" th:value="${payName}">
                                 </div>
 
                             </div>
