@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class MentorDTO {
     private Long mentorId;
-    private Member memberId;
+    private Long memberId;
     private Member farmerType;
     private String mentorCrop;
     private String mentorYear;

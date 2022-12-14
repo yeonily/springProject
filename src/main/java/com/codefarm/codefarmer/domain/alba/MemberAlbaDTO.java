@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @NoArgsConstructor
 @Data
@@ -19,6 +21,14 @@ public class MemberAlbaDTO {
     private Long albaId;
     private Long memberId;
     private Status memberStatus;
+
+    private String memberName;
+    private String memberEmail;
+
+    private LocalDateTime albaWorkDate;
+    private String albaMainTitle;
+    private int albaPrice;
+    private String albaAddress;
 
     public MemberAlba toEntity(){
         return MemberAlba.builder()
@@ -32,5 +42,25 @@ public class MemberAlbaDTO {
         this.albaId = albaId;
         this.memberId = memberId;
         this.memberStatus = memberStatus;
+    }
+
+    @QueryProjection
+    public MemberAlbaDTO(Long albaApplyId, Long memberId, Status memberStatus, String memberName, String memberEmail) {
+        this.albaApplyId = albaApplyId;
+        this.memberId = memberId;
+        this.memberStatus = memberStatus;
+        this.memberName = memberName;
+        this.memberEmail = memberEmail;
+    }
+
+    @QueryProjection
+    public MemberAlbaDTO(Long albaApplyId, Long albaId, Status memberStatus, LocalDateTime albaWorkDate, String albaMainTitle, int albaPrice, String albaAddress) {
+        this.albaApplyId = albaApplyId;
+        this.albaId = albaId;
+        this.memberStatus = memberStatus;
+        this.albaWorkDate = albaWorkDate;
+        this.albaMainTitle = albaMainTitle;
+        this.albaPrice = albaPrice;
+        this.albaAddress = albaAddress;
     }
 }

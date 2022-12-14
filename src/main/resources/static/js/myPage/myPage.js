@@ -124,6 +124,7 @@ function nickCheck (){ /* 중복 체크 */
                 console.log("씰패");
                 $("#n-message1").css("display", "none");
                 $("#n-message2").css("display", "block");
+                $("button.nick-save").attr("disabled", true);
             }
         }
 
@@ -134,94 +135,81 @@ function nickCheck (){ /* 중복 체크 */
 
 // let memberId = [[${member.memberId}]];
 function nickSave() { /* 저장 */
-
-    $.ajax({
-        url: "/mypage/settingnick",
-        type : "put",
-        data : JSON.stringify({memberId : memberId,
-                memberNickname: memberNickname}),
-        contentType: "application/json; charset=utf-8",
-        success : function(){
-            console.log("??"+memberNickname);
-            $("div.nick").text(memberNickname);
-        }
-
-    });
-
+    nickForm.submit();
 }
-
 $("button.nick-save").on("click", nickSave);
 
 /*------------- 개인 정보 수정 -------------*/
 function myInfoSave() {
-    if(!myInfoForm.phone.value || myInfoForm.phone.value.length != 13) {
-        myInfoForm.phone.focus();
+    if(!myInfoForm.memberPhone.value || myInfoForm.memberPhone.value.length != 13) {
+        myInfoForm.memberPhone.focus();
         return;
     }
-    if(!myInfoForm.address.value) {
-        myInfoForm.address.focus();
+    if(!myInfoForm.memberLocation.value) {
+        myInfoForm.memberLocation.focus();
         return;
     }
 
     myInfoForm.submit();
 }
+
+$("button#infoBtn").on("click", myInfoSave);
 
 
 /*------------- new 멘토 정보 입력 -------------*/
 function newMentorSave (){ /* 중복 체크 */
-    if(!newMentorForm.newMainCrops.value) {
-        newMentorForm.newMainCrops.focus();
+    if(!newMentorForm.mentorCrop.value) {
+        newMentorForm.mentorCrop.focus();
         return;
     }
-    if(newMentorForm.newYears.value == "0") {
-        newMentorForm.newYears.focus();
+    if(newMentorForm.mentorYear.value == "0") {
+        newMentorForm.mentorYear.focus();
         return;
     }
 
-    // newMentorForm.submit();
+    newMentorForm.submit();
 
-
-    let crops = newMentorForm.newMainCrops.value;
-    let years = newMentorForm.newYears.value;
-
-    myPageService.saveMentor({mentor: mentor}, saveMentor);
-    // $.ajax({
-    //     url: "/mypage/settingMentor",
-    //     type : "put",
-    //     data : JSON.stringify({crops : crops,
-    //         years: years}),
-    //     contentType: "application/json; charset=utf-8",
-    //     success : function(){
-    //     //    저장
-    //     //    멘토타입으로 변경
-    //
-    //     }
-    //
-    // });
-    function saveMentor(mentor) {
-
-    }
 }
 
+$("button#mentorBtn").on("click", newMentorSave);
 
+
+/*------------- 멘토 정보 년도 수정 -------------*/
+$(document).ready(function(){
+    let yearsVal = $('select.selectedyear').attr('data-status');
+    if(yearsVal =="1~3년차"){
+        $('select.selectedyear option[value="1~3년차"]').attr("selected", true);
+    }else if(yearsVal =="3~5년차"){
+        $('select.selectedyear option[value="3~5년차"]').attr("selected", true);
+    }else if(yearsVal =="5~7년차"){
+        $('select.selectedyear option[value="5~7년차"]').attr("selected", true);
+    }else if(yearsVal =="7~10년차"){
+        $('select.selectedyear option[value="7~10년차"]').attr("selected", true);
+    }else if(yearsVal =="10년차 이상"){
+        $('select.selectedyear option[value="10년차 이상"]').attr("selected", true);
+    }
+
+
+})
 /*------------- 멘토 정보 수정 -------------*/
 function mentorSave (){ /* 중복 체크 */
-    if(!mentorForm.mainCrops.value) {
-        mentorForm.mainCrops.focus();
+    if(!mentorForm.mentorCrop.value) {
+        mentorForm.mentorCrop.focus();
         return;
     }
-    if(mentorForm.years.value == "0") {
-        mentorForm.years.focus();
+   /* if(mentorForm.mentorYear.value == "0") {
+        mentorForm.mentorYear.focus();
         return;
-    }
+    }*/
 
     mentorForm.submit();
 }
 
+$("button#mentorUpdateBtn").on("click", mentorSave);
 
 /*------------- 회원 탈퇴 -------------*/
 function quitBtn (){ /* 중복 체크 */
 
-    myInfoForm.submit();
+    quitForm.submit();
 
 }

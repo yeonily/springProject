@@ -113,16 +113,16 @@ public void saveUserTest(){
 //    멘토 신청하기(농작물, 경력) 작성
     @Test
     public void MentorSaveTest(){
-        MentorDTO mentorDTO = new MentorDTO();
-        Optional<Member> findFarmer = memberRepository.findById(112l);
-
-        mentorDTO.setMentorCrop("오렌지");
-        mentorDTO.setMentorYear("3~5년차");
-        mentorDTO.setMemberId(findFarmer.get());
-
-        Mentor mentor = mentorDTO.toEntity();
-        mentor.changeMember(mentorDTO.getMemberId());
-        mentorRepository.save(mentor);
+//        MentorDTO mentorDTO = new MentorDTO();
+//        Optional<Member> findFarmer = memberRepository.findById(112l);
+//
+//        mentorDTO.setMentorCrop("오렌지");
+//        mentorDTO.setMentorYear("3~5년차");
+//        mentorDTO.setMemberId(findFarmer.get());
+//
+//        Mentor mentor = mentorDTO.toEntity();
+//        mentor.changeMember(mentorDTO.getMemberId());
+//        mentorRepository.save(mentor);
     }
 
 

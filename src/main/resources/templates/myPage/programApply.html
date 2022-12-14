@@ -22,32 +22,34 @@
                 <!--컨텐츠 시작-->
                 <div class="contents">
                     <div class="c-header">
-                        <div class="c-title">
+                        <div class="c-title" th:object="${memberProgram}">
                             <div><img src="/image/myPage/backBtn.png" onclick="history.back();" class="back">프로그램 신청자 목록</div>
                         </div>
-                        <div class="content">
+                        <div class="content" >
                             <!-- 신청자가 없을 때 -->
-<!--                            <div id="content-wrap">-->
-<!--                                <div class="n-c-wrap" style="line-height: 25px;">-->
-<!--                                    신청자가 아직 없습니다.-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div id="content-wrap" th:if="${memberProgram}">
+                                <div class="n-c-wrap" style="line-height: 25px;">
+                                    신청자가 아직 없습니다.
+                                </div>
+                            </div>
                             <!------------------->
 
                             <!-- 신청자가 있을 때 -->
+
                             <div id="c-w-wrap">
                                 <div id="ls-wrap" class="f-column apply-Lists-wrap">
                                     <!---->
+                                    <th:block th:each="memberProgram:${memberPrograms}">
                                     <div class="apply-wrap">
                                         <div class="apply-list">
                                             <div class="a-group">
-                                                <div class="a-name">박수현</div>
-                                                <div class="a-phone a-txt">java123@gmail.com</div>
+                                                <div class="a-name" th:text="*{memberProgram.programApplyName}">박수현</div>
+                                                <div class="a-phone a-txt" th:text="*{memberProgram.programApplyEmail}">java123@gmail.com</div>
                                             </div>
 
                                             <div class="a-group">
                                                 <!-- 프로그램 신청날짜 -->
-                                                <div class="a-date a-txt">2022.11.24</div>
+                                                <!--<div class="a-date a-txt" th:text="*{createdDate}">2022.11.24</div>-->
                                                 <div class="a-more">
                                                     더보기
                                                     <svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>
@@ -57,24 +59,25 @@
                                         <div class="apply-info">
                                             <div class="a-w-group">
                                                 <div class="a-title">휴대폰 번호</div>
-                                                <div class="f-column f-section a-content">010-1234-1234</div>
+                                                <div class="f-column f-section a-content" th:text="*{memberProgram.programApplyPhoneNum}">010-1234-1234</div>
                                             </div>
                                             <div class="a-w-group marginT5">
                                                 <div class="a-title">거주지</div>
-                                                <div class="f-column f-section a-content">서울시 송파구 거여동 123-12</div>
+                                                <div class="f-column f-section a-content" th:text="*{memberProgram.programApplyLocation}">서울시 송파구 거여동 123-12</div>
                                             </div>
                                             <div class="a-w-group marginT5">
                                                 <div class="a-title">생년월일</div>
-                                                <div class="f-column f-section a-content">1999.01.01</div>
+                                                <div class="f-column f-section a-content" th:text="*{#temporals.format(memberProgram.programApplyBirth, 'yyyy.MM.dd')}">1999.01.01</div>
                                             </div>
                                             <div class="a-w-group marginT5">
                                                 <div class="a-title">신청인원</div>
-                                                <div class="f-column f-section a-content">3명</div>
+                                                <div class="f-column f-section a-content" th:text="*{memberProgram.programApplyCount}"></div>
                                             </div>
                                         </div>
                                     </div>
+                                    </th:block>
                                     <!---->
-                                    <div class="apply-wrap">
+                                    <!--<div class="apply-wrap">
                                         <div class="apply-list">
                                             <div class="a-group">
                                                 <div class="a-name">박수현</div>
@@ -82,7 +85,7 @@
                                             </div>
 
                                             <div class="a-group">
-                                                <!-- 프로그램 신청날짜 -->
+                                                &lt;!&ndash; 프로그램 신청날짜 &ndash;&gt;
                                                 <div class="a-date a-txt">2022.11.24</div>
                                                 <div class="a-more">
                                                     더보기
@@ -110,7 +113,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <!------------------->
                         </div>
                     </div>

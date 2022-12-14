@@ -56,7 +56,7 @@ public class LoginController {
     @GetMapping("/quitkakao")
     public RedirectView kakaoQuit(HttpSession session){
         log.info("quit");
-        memberService.delete((Long)session.getAttribute("memberId"));
+        memberService.secession((Long)session.getAttribute("memberId"));
         kakaoService.quitKakao((String)session.getAttribute("token"));
         session.invalidate();
 

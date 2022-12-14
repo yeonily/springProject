@@ -60,7 +60,7 @@
                             <!------------------------>
                         </div>
 
-                        <div id="paging" style="margin-bottom: 100px;">
+                        <div id="paging" style="margin-bottom: 100px; display: none" >
                             <ul>
                                 <li class="sidePageNum prev">
                                     <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
@@ -102,6 +102,11 @@
         location.href = "/mypage/inquire/question?inquireId=" + inquireId;
     }
 
+    $("#c-w").on("click", "div.commu", function(){
+        var n = $('input[name=iqId]').val();
+        console.log("ok"+n);
+        viewAnswer(n);
+    })
 //    -------------------------------------------------
     let memberId = [[${member.memberId}]];
     $(document).ready(function () {
@@ -128,7 +133,8 @@
         inquires.forEach(function (inquireDTO) {
             text += '<div id="c-w-wrap" class="f-column" th:each="inquire : ${inquires}">'
             var number = inquireDTO.inquireId;
-            text += '<div class="commu c-link" th:onclick="javascript:viewAnswer("'+number+')>'
+            text += '<div class="commu c-link" >'
+            text +='<input type="hidden" name="iqId" value="'+number+'">'
             text += '<div class="c-top-wrap">'
             let date = new Date(inquireDTO.createdDate);
             console.log(inquireDTO.inquireStatus);

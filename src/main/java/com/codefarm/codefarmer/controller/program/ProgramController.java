@@ -70,11 +70,11 @@ public class ProgramController {
     public void apply(HttpSession session ,@RequestParam Long programId , Model model){
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("memberId:" + memberId);
-        Member member = memberService.select(memberId);
+        Member member = memberService.find(memberId);
         String memberName = member.getMemberName();
         ProgramDTO programDTO = programDetailService.showByProgramId(programId);
         log.info("프로그램DTO:" + programDTO.toString());
-        String farmerName = memberService.select(programDTO.getMemberId()).getMemberName();
+        String farmerName = memberService.find(programDTO.getMemberId()).getMemberName();
         String programName = programDTO.getProgramTitle();
         model.addAttribute("memberName" , memberName);
         model.addAttribute("farmerName" , farmerName);
@@ -98,19 +98,19 @@ public class ProgramController {
     public void pay(HttpSession session, @RequestParam Long programId,Model model ,MemberProgramDTO memberProgramDTO,String programApplyBirthString){
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("memberId:" + memberId);
-        Member member = memberService.select(memberId);
+        Member member = memberService.find(memberId);
         String memberName = member.getMemberName();
         ProgramDTO programDTO = programDetailService.showByProgramId(programId);
         log.info("프로그램DTO:" + programDTO.toString());
-        String farmerName = memberService.select(programDTO.getMemberId()).getMemberName();
+        String farmerName = memberService.find(programDTO.getMemberId()).getMemberName();
         int programPrice = programDTO.getProgramPrice();
         int programApplyCount = memberProgramDTO.getProgramApplyCount();
         int programApplyTotalCount = programDTO.getProgramApplyTotalCount();
         int programTotalPrice = programPrice * programApplyCount;
         String programName = programDTO.getProgramTitle();
-        String memberEmail = memberService.select(programDTO.getMemberId()).getMemberEmail();
-        String memberPhone = memberService.select(programDTO.getMemberId()).getMemberPhone();
-        String memberLocation = memberService.select(programDTO.getMemberId()).getMemberLocation();
+        String memberEmail = memberService.find(programDTO.getMemberId()).getMemberEmail();
+        String memberPhone = memberService.find(programDTO.getMemberId()).getMemberPhone();
+        String memberLocation = memberService.find(programDTO.getMemberId()).getMemberLocation();
         model.addAttribute("memberName" , memberName);
         model.addAttribute("farmerName" , farmerName);
         model.addAttribute("programApplyCount" , programApplyCount);
@@ -301,10 +301,10 @@ public class ProgramController {
     }
 
     @PostMapping("/delete")
-    public String delete(String programIdString){
+    public String delete(@RequestParam String programIdString){
         log.info("delete컨트롤러 들어옴" );
         log.info("programId:" + programIdString);
-        Long programId = Long.valueOf(programIdString);
+        Long programId = Long.parseLong(programIdString);
 //        File file = new File("C:/upload", uploadPath + "/" + fileName);
 //        if(file.exists()){
 //            file.delete();
