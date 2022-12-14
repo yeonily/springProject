@@ -593,25 +593,25 @@ public class AdminController {
 //    }
 
     //    댓글 관리
-    @GetMapping("/reply")
-    public String adminBoardReply(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "ReplyId", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Reply> replies = adminService.replyShowAll(pageable, keyword, searchText);
-        if(criteria.getPage() == 0) {
-            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
-        }
-
-        model.addAttribute("replyCounts", adminService.countByReply());
-        model.addAttribute("maxPage", 10);
-        model.addAttribute("replies", replies);
-        if(keyword.equals("w")) {
-            model.addAttribute("resultCount", adminService.countByReplyNickname(searchText));
-        } else {
-            model.addAttribute("resultCount", replies.getTotalPages());
-        }
-        model.addAttribute("data", replies.isEmpty());
-//        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
-        return "/admin/board-reply";
-    }
+//    @GetMapping("/reply")
+//    public String adminBoardReply(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "ReplyId", direction = Sort.Direction.DESC) Pageable pageable) {
+//        Page<Reply> replies = adminService.replyShowAll(pageable, keyword, searchText);
+//        if(criteria.getPage() == 0) {
+//            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+//        }
+//
+//        model.addAttribute("replyCounts", adminService.countByReply());
+//        model.addAttribute("maxPage", 10);
+//        model.addAttribute("replies", replies);
+//        if(keyword.equals("w")) {
+//            model.addAttribute("resultCount", adminService.countByReplyNickname(searchText));
+//        } else {
+//            model.addAttribute("resultCount", replies.getTotalPages());
+//        }
+//        model.addAttribute("data", replies.isEmpty());
+////        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+//        return "/admin/board-reply";
+//    }
 
 //    댓글 삭제
     @PostMapping("/reply/delete")
