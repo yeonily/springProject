@@ -24,6 +24,7 @@
 <div id="main_grid">
     <div id="main_grid_inner1">
         <div id="main_grid_inner2" th:object="${list}">
+            <input type="hidden" th:value="${mentorDTO}" name="mentorInfo" id="mentorInfo">
             <section id="main_banner">
                 <div id="main_banner_inner1">
                     <div id="main_banner_inner2">
@@ -53,7 +54,7 @@
                                     <div>
                                         <article id="main_fixed_inner1">
                                             <div id="main_fixed_inner2">
-                                                <div id="main_fixed_category">멘토 이름</div>
+                                                <div id="main_fixed_category" th:text="${mentorDTO.memberNickName}"></div>
                                                 <div id="main_fixed_title" th:text="*{mentorTitle}"></div>
                                                 <div>
                                                     <div>
@@ -69,15 +70,15 @@
                                                     <dl>
                                                         <div class="main_fixed_dl">
                                                             <dt class="main_fixed_dl_dt">주요 작물</dt>
-                                                            <dd class="main_fixed_dl_dd" th:text="*{mentorCrop}"></dd>
+                                                            <dd class="main_fixed_dl_dd" th:text="${mentorDTO.mentorCrop}"></dd>
                                                         </div>
                                                         <div class="main_fixed_dl">
                                                             <dt class="main_fixed_dl_dt">경력</dt>
-                                                            <dd class="main_fixed_dl_dd" th:text="*{mentorCareer}"></dd>
+                                                            <dd class="main_fixed_dl_dd" th:text="${mentorDTO.mentorYear}"></dd>
                                                         </div>
                                                         <div class="main_fixed_dl">
                                                             <dt class="main_fixed_dl_dt">지역</dt>
-                                                            <dd class="main_fixed_dl_dd">충청북도 영동</dd>
+                                                            <dd class="main_fixed_dl_dd" th:text="${mentorDTO.memberLocation}"></dd>
                                                         </div>
                                                     </dl>
                                                 </div>
@@ -92,16 +93,21 @@
                                                         1:1 채팅하기
                                                         <div style="display: flex!important;"></div>
                                                     </button>
-                                                    <button class="main_fixed_button" id="mento_update" onclick="location.href='/mento/write'">
-                                                        <div style="display: flex!important;"></div>
-                                                        홍보글 수정
-                                                        <div style="display: flex!important;"></div>
+                                                    <button class="main_fixed_button" id="mento_update">
+                                                        <a th:href="@{/mento/update(mentorBoardId=${param.mentorBoardId})}">
+                                                            <div style="display: flex!important;"></div>
+                                                            홍보글 수정
+                                                            <div style="display: flex!important;"></div>
+                                                        </a>
                                                     </button>
-                                                    <button class="main_fixed_button" id="mento_delete">
-                                                        <div style="display: flex!important;"></div>
-                                                        홍보글 삭제
-                                                        <div style="display: flex!important;"></div>
-                                                    </button>
+                                                        <button class="main_fixed_button" id="mento_delete">
+                                                            <a th:href="@{/mento/delete(mentorBoardId=${param.mentorBoardId})}">
+                                                                <div style="display: flex!important;"></div>
+                                                                홍보글 삭제
+                                                                <div style="display: flex!important;"></div>
+                                                            </a>
+                                                        </button>
+
                                                 </div>
                                                 <div style="margin-top: 16px;">
                                                     <button id="move_list" onclick="location.href='/mento/list'">
@@ -156,20 +162,20 @@
                                                 <!--<img data-v-884eb42c=""
                                                      src="https://cdn.comento.kr/images/pt/tmp/prefix_laH12sIOyU.png"
                                                      alt="" id="main_intro_image1">-->
-                                                <p id="main_intro_text1" th:text="*{mentorExCareer}"></p>
-                                                <p id="main_intro_text2"><strong id="main_intro_strong" th:text="${memberNickName}"></strong>멘토님
+                                                <p id="main_intro_text1" th:text="${mentorDTO.mentorYear}"></p>
+                                                <p id="main_intro_text2"><strong id="main_intro_strong" th:text="${mentorDTO.memberNickName}"></strong>멘토님
                                                 </p>
                                             </div>
                                         </dt>
                                         <dd style="width: calc(100% - 152px);margin-top: 0;">
                                             <div id="main_intro_dd_inner1">
                                                 <p id="main_intro_dd_inner2">
-                                                <p><strong class="dd_strong">멘토님에게 얻을 수 있는 것들!</strong></p>
+                                                <p><strong class="dd_strong" th:text="*{mentorCareer}"></strong></p>
                                                 <p><br></p>
-                                                <p><strong class="dd_strong">1) 귀농귀촌에 대한 해박한 지식!</strong>
+                                                <p><strong class="dd_strong" th:text="*{mentorExCareer}"></strong>
                                                 </p>
-                                                <p><strong class="dd_strong">2) 원하는 작물에 대한 정보!</strong></p>
-                                                <p><strong class="dd_strong">3) 리뷰와 멘토와의 1대1채팅을 통한 다양한 지식 교환!</strong></p>
+<!--                                                <p><strong class="dd_strong">2) 원하는 작물에 대한 정보!</strong></p>-->
+<!--                                                <p><strong class="dd_strong">3) 리뷰와 멘토와의 1대1채팅을 통한 다양한 지식 교환!</strong></p>-->
                                                 </p>
                                             </div>
                                         </dd>
@@ -603,6 +609,13 @@
     console.log("세션 아이디 : " + $("#sessionId").val());
     console.log("작성자 아이디 : " + $("#mentorId").val());
 
+    if($("#sessionId").val() ==  $("#mentorId").val()){
+        $("#mento_submit").hide();
+        $("#mento_update").show();
+        $("#chatting_submit").hide();
+        $("#mento_delete").show();
+    }
+
     let result;
 
     reviewAdd();
@@ -647,7 +660,6 @@
 
     function reviewAdd(){
         let text = "";
-        alert("z");
         // result(review =>{
             text += `<div id="main_reply_write"><grammarly-extension data-grammarly-shadow-root="true" style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT">`
             text += `</grammarly-extension><grammarly-extension data-grammarly-shadow-root="true" style="mix-blend-mode: darken; position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT"></grammarly-extension>`

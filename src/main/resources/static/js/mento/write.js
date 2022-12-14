@@ -188,6 +188,103 @@
         $("#second_title").show();
     }
 
+let arrayFile = [];
+/*$("a.list").on("click", function(e){
+    e.preventDefault();
+    location.href = "/board/list" + queryString;
+});*/
+
+/*파일이 넣어졌을 때*/
+$("input[type='file']").on("change", function(){
+    let formData = new FormData();
+    let $inputFile = $("input[name='upload']");
+    let files = $inputFile[0].files;
+
+    console.log(Array.from(files));
+
+    Array.from(files).forEach(file => arrayFile.push(file));
+    const dataTransfer = new DataTransfer();
+    arrayFile.forEach(file => dataTransfer.items.add(file));
+    $(this)[0].files = dataTransfer.files;
+
+    console.log($(this)[0].files);
+
+    $(files).each(function(i, file){
+        formData.append("upload", file);
+    });
+
+    $.ajax({
+        url: "/mentofile/upload",
+        type: "post",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: showUploadResult
+    });
+});
+
+/*파일 선택 시 미리보기*/
+function showUploadResult(files){
+    let text = "";
+    $(files).each(function(i, file){
+        text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+        text += `<span>X</span>`;
+        if(!file.fileImageCheck){
+            text += `<img src="/image/program/count.gif" width="100">`;
+        }else{
+            text += `<img src="/mentofile/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+        }
+        text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+        text += `</li>`;
+    });
+    $(".uploadResult ul").append(text);
+}
+
+/*미리보기 삭제*/
+$(".uploadResult ul").on("click", "span", function(){
+    const $li = $(this).closest("li");
+    let i = $(".uploadResult ul span").index($(this));
+    let uploadPath = $li.data("file-upload-path");
+    let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
+    $.ajax({
+        url: "/mentofile/delete",
+        type: "post",
+        data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
+        success: function(){
+            $li.remove();
+            arrayFile.splice(i, 1);
+            const dataTransfer = new DataTransfer();
+            arrayFile.forEach(file => dataTransfer.items.add(file));
+            $("input[name='upload']")[0].files = dataTransfer.files;
+        }
+    });
+});
+
+//클릭 시
+$("button.okay").on("click", function(e){
+    e.preventDefault();
+    let text = "";
+    $.each($(".uploadResult ul li"), function(i, li){
+        let fileName = $(li).data("file-name");
+        let fileUploadPath = $(li).data("file-upload-path");
+        let fileUuid = $(li).data("file-uuid");
+        let fileSize = $(li).data("file-size");
+        let fileImageCheck = $(li).data("file-image-check");
+        console.log(fileName);
+        console.log(fileUploadPath);
+        console.log(fileUuid);
+        console.log(fileSize);
+        console.log(fileImageCheck);
+
+        text += `<input type="hidden" name="files[` + i + `].fileName" value="` + fileName + `">`;
+        text += `<input type="hidden" name="files[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
+        text += `<input type="hidden" name="files[` + i + `].fileUuid" value="` + fileUuid + `">`;
+        text += `<input type="hidden" name="files[` + i + `].fileSize" value="` + fileSize + `">`;
+        text += `<input type="hidden" name="files[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
+    });
+    console.log(text);
+    $("form#writeForm").append(text);
+});
 
     /*제출하기 버튼 클릭 시 유효성 검사*/
     $(".submitBtn").on("click" , function () {
@@ -220,11 +317,10 @@
 
         if(!check) {
             alert("입력하지 않은 값이 있습니다.");
-            return;
+        } else {
+            alert("글이 정상적으로 등록되었습니다.");
+            $("form#writeForm").submit();
         }
-
-        alert("글이 정상적으로 등록되었습니다.");
-        location.href='/mento/list';
     })
 
 

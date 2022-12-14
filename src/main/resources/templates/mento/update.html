@@ -12,8 +12,10 @@
 <div id="main_grid">
     <div id="main_grid_inner1">
         <div id="main_grid_inner2">
-            <form name="mentorBoardForm" method="post" id="writeForm" action="/mento/write" th:object="${mentorBoard}">
-            <span>
+            <form name="mentorBoardForm" method="post" id="writeForm" action="/mento/update" th:object="${updateRegister}">
+                <input type="hidden" th:field="*{mentorBoardId}">
+                <input type="hidden" th:field="*{mentorId}">
+                <span>
                 <div>
                     <!--멘토 소개 페이지 헤더-->
                     <div id="write_header">
@@ -22,7 +24,7 @@
                                 <div>
                                     <div id="write_header_inner3">
                                         <div id="header_left">
-                                            <div id="header_left_text">멘토 글 등록</div>
+                                            <div id="header_left_text">멘토 글 수정</div>
                                             <!--<hr id="header_left_hr">
                                             <div id="header_left_image">
                                                 <img src="https://cdn.comento.kr/images/emojis/emoji-rocket.svg" alt=""
@@ -236,9 +238,9 @@
                                         <!--파일 첨부 버튼 아이콘-->
                                         <div class="align-items-center field">
 <!--                                            <label style="cursor: pointer">-->
-<!--                                                <img style="width: 20px; height: 20px; border: 1px solid #e1e4e6" id="preview-image" src="/image/program/upload.gif">-->
-<!--                                                <input type="file" name="upload" multiple class="input-div-input" id="input_file" style="display: none;">-->
-<!--                                            </label>-->
+                                            <!--                                                <img style="width: 20px; height: 20px; border: 1px solid #e1e4e6" id="preview-image" src="/image/program/upload.gif">-->
+                                            <!--                                                <input type="file" name="upload" multiple class="input-div-input" id="input_file" style="display: none;">-->
+                                            <!--                                            </label>-->
                                              <input type="file" id="file-input" name="upload" style="display: none;" required accept="image/*" multiple>
                                              <label for="file-input"><img class="upload" src="/image/program/upload.gif"></label>
                                         </div>
@@ -470,88 +472,88 @@
 <script type="text/javascript" src="/js/comm.js"></script>
 <script type="text/javascript">
 
-   /* let arrayFile = [];
+    /* let arrayFile = [];
 
-    $("input[type='file']").on("change", function(){
-        let formData = new FormData();
-        let $inputFile = $("input[name='upload']");
-        let files = $inputFile[0].files;
+     $("input[type='file']").on("change", function(){
+         let formData = new FormData();
+         let $inputFile = $("input[name='upload']");
+         let files = $inputFile[0].files;
 
-        console.log(Array.from(files));
+         console.log(Array.from(files));
 
-        Array.from(files).forEach(file => arrayFile.push(file));
-        const dataTransfer = new DataTransfer();
-        arrayFile.forEach(file => dataTransfer.items.add(file));
-        $(this)[0].files = dataTransfer.files;
+         Array.from(files).forEach(file => arrayFile.push(file));
+         const dataTransfer = new DataTransfer();
+         arrayFile.forEach(file => dataTransfer.items.add(file));
+         $(this)[0].files = dataTransfer.files;
 
-        console.log($(this)[0].files);
+         console.log($(this)[0].files);
 
-        $(files).each(function(i, file){
-            formData.append("upload", file);
-        });
+         $(files).each(function(i, file){
+             formData.append("upload", file);
+         });
 
-        let text = "";
-        console.log("들어옴1" + text);
-        $(files).each(function(i, file){
-            text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
-            text += `<span>X</span>`;
-            if(!file.fileImageCheck){
-                text += `<img src="/static/image/mento1.jpg" width="100">`;
-            }else{
-                text += `<img src="/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
-            }
-            text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
-            text += `</li>`;
-        });
+         let text = "";
+         console.log("들어옴1" + text);
+         $(files).each(function(i, file){
+             text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+             text += `<span>X</span>`;
+             if(!file.fileImageCheck){
+                 text += `<img src="/static/image/mento1.jpg" width="100">`;
+             }else{
+                 text += `<img src="/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+             }
+             text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+             text += `</li>`;
+         });
 
-        $(".imgs_wrap ul").append(text);
-        $(".imgs_wrap").show();
+         $(".imgs_wrap ul").append(text);
+         $(".imgs_wrap").show();
 
-        /!*$.ajax({
-            url: "/file/upload",
-            type: "post",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: showUploadResult
-        });*!/
-    });
+         /!*$.ajax({
+             url: "/file/upload",
+             type: "post",
+             data: formData,
+             contentType: false,
+             processData: false,
+             success: showUploadResult
+         });*!/
+     });
 
-    function showUploadResult(files){
-        let text = "";
-        $(files).each(function(i, file){
-            text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
-            text += `<span>X</span>`;
-            if(!file.fileImageCheck){
-                text += `<img src="/images/attach.png" width="100">`;
-            }else{
-                text += `<img src="/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
-            }
-            text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
-            text += `</li>`;
-        });
-        $(".imgs_wrap ul").append(text);
-        $(".imgs_wrap").show();
-    }
+     function showUploadResult(files){
+         let text = "";
+         $(files).each(function(i, file){
+             text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+             text += `<span>X</span>`;
+             if(!file.fileImageCheck){
+                 text += `<img src="/images/attach.png" width="100">`;
+             }else{
+                 text += `<img src="/file/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+             }
+             text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+             text += `</li>`;
+         });
+         $(".imgs_wrap ul").append(text);
+         $(".imgs_wrap").show();
+     }
 
-    $(".imgs_wrap ul").on("click", "span", function(){
-        const $li = $(this).closest("li");
-        let i = $(".imgs_wrap ul span").index($(this));
-        let uploadPath = $li.data("file-upload-path");
-        let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
-        $.ajax({
-            url: "/file/delete",
-            type: "post",
-            data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
-            success: function(){
-                $li.remove();
-                arrayFile.splice(i, 1);
-                const dataTransfer = new DataTransfer();
-                arrayFile.forEach(file => dataTransfer.items.add(file));
-                $("input[name='upload']")[0].files = dataTransfer.files;
-            }
-        });
-    });*/
+     $(".imgs_wrap ul").on("click", "span", function(){
+         const $li = $(this).closest("li");
+         let i = $(".imgs_wrap ul span").index($(this));
+         let uploadPath = $li.data("file-upload-path");
+         let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
+         $.ajax({
+             url: "/file/delete",
+             type: "post",
+             data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
+             success: function(){
+                 $li.remove();
+                 arrayFile.splice(i, 1);
+                 const dataTransfer = new DataTransfer();
+                 arrayFile.forEach(file => dataTransfer.items.add(file));
+                 $("input[name='upload']")[0].files = dataTransfer.files;
+             }
+         });
+     });*/
 
 
     var sel_files = [];
@@ -603,101 +605,101 @@
 
     /*파일 첨부 부분*/
 
-   // let arrayFile = [];
-   // /*$("a.list").on("click", function(e){
-   //     e.preventDefault();
-   //     location.href = "/board/list" + queryString;
-   // });*/
-   //
-   // /*파일이 넣어졌을 때*/
-   // $("input[type='file']").on("change", function(){
-   //     let formData = new FormData();
-   //     let $inputFile = $("input[name='upload']");
-   //     let files = $inputFile[0].files;
-   //
-   //     console.log(Array.from(files));
-   //
-   //     Array.from(files).forEach(file => arrayFile.push(file));
-   //     const dataTransfer = new DataTransfer();
-   //     arrayFile.forEach(file => dataTransfer.items.add(file));
-   //     $(this)[0].files = dataTransfer.files;
-   //
-   //     console.log($(this)[0].files);
-   //
-   //     $(files).each(function(i, file){
-   //         formData.append("upload", file);
-   //     });
-   //
-   //     $.ajax({
-   //         url: "/mentofile/upload",
-   //         type: "post",
-   //         data: formData,
-   //         contentType: false,
-   //         processData: false,
-   //         success: showUploadResult
-   //     });
-   // });
-   //
-   // /*파일 선택 시 미리보기*/
-   // function showUploadResult(files){
-   //     let text = "";
-   //     $(files).each(function(i, file){
-   //         text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
-   //         text += `<span>X</span>`;
-   //         if(!file.fileImageCheck){
-   //             text += `<img src="/image/program/count.gif" width="100">`;
-   //         }else{
-   //             text += `<img src="/mentofile/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
-   //         }
-   //         text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
-   //         text += `</li>`;
-   //     });
-   //     $(".uploadResult ul").append(text);
-   // }
-   //
-   // /*미리보기 삭제*/
-   // $(".uploadResult ul").on("click", "span", function(){
-   //     const $li = $(this).closest("li");
-   //     let i = $(".uploadResult ul span").index($(this));
-   //     let uploadPath = $li.data("file-upload-path");
-   //     let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
-   //     $.ajax({
-   //         url: "/mentofile/delete",
-   //         type: "post",
-   //         data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
-   //         success: function(){
-   //             $li.remove();
-   //             arrayFile.splice(i, 1);
-   //             const dataTransfer = new DataTransfer();
-   //             arrayFile.forEach(file => dataTransfer.items.add(file));
-   //             $("input[name='upload']")[0].files = dataTransfer.files;
-   //         }
-   //     });
-   // });
-   //
-   // //클릭 시
-   // $("button.okay").on("click", function(e){
-   //     e.preventDefault();
-   //     let text = "";
-   //     $.each($(".uploadResult ul li"), function(i, li){
-   //         let fileName = $(li).data("file-name");
-   //         let fileUploadPath = $(li).data("file-upload-path");
-   //         let fileUuid = $(li).data("file-uuid");
-   //         let fileSize = $(li).data("file-size");
-   //         let fileImageCheck = $(li).data("file-image-check");
-   //         console.log(fileName);
-   //         console.log(fileUploadPath);
-   //         console.log(fileUuid);
-   //         console.log(fileSize);
-   //         console.log(fileImageCheck);
-   //
-   //         text += `<input type="hidden" name="files[` + i + `].fileName" value="` + fileName + `">`;
-   //         text += `<input type="hidden" name="files[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
-   //         text += `<input type="hidden" name="files[` + i + `].fileUuid" value="` + fileUuid + `">`;
-   //         text += `<input type="hidden" name="files[` + i + `].fileSize" value="` + fileSize + `">`;
-   //         text += `<input type="hidden" name="files[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
-   //     });
-   //     console.log(text);
-   //     $("form#writeForm").append(text);
-   // });
+    // let arrayFile = [];
+    // /*$("a.list").on("click", function(e){
+    //     e.preventDefault();
+    //     location.href = "/board/list" + queryString;
+    // });*/
+    //
+    // /*파일이 넣어졌을 때*/
+    // $("input[type='file']").on("change", function(){
+    //     let formData = new FormData();
+    //     let $inputFile = $("input[name='upload']");
+    //     let files = $inputFile[0].files;
+    //
+    //     console.log(Array.from(files));
+    //
+    //     Array.from(files).forEach(file => arrayFile.push(file));
+    //     const dataTransfer = new DataTransfer();
+    //     arrayFile.forEach(file => dataTransfer.items.add(file));
+    //     $(this)[0].files = dataTransfer.files;
+    //
+    //     console.log($(this)[0].files);
+    //
+    //     $(files).each(function(i, file){
+    //         formData.append("upload", file);
+    //     });
+    //
+    //     $.ajax({
+    //         url: "/mentofile/upload",
+    //         type: "post",
+    //         data: formData,
+    //         contentType: false,
+    //         processData: false,
+    //         success: showUploadResult
+    //     });
+    // });
+    //
+    // /*파일 선택 시 미리보기*/
+    // function showUploadResult(files){
+    //     let text = "";
+    //     $(files).each(function(i, file){
+    //         text += `<li data-file-size="` + file.fileSize + `" data-file-name="` + file.fileName + `" data-file-upload-path="` + file.fileUploadPath + `" data-file-uuid="` + file.fileUuid + `" data-file-image-check="` + file.fileImageCheck + `">`;
+    //         text += `<span>X</span>`;
+    //         if(!file.fileImageCheck){
+    //             text += `<img src="/image/program/count.gif" width="100">`;
+    //         }else{
+    //             text += `<img src="/mentofile/display?fileName=` + file.fileUploadPath + `/s_` + file.fileUuid + "_" + file.fileName + `">`;
+    //         }
+    //         text += `<p>` + file.fileName +`(` + parseInt(file.fileSize / 1024) + `KB)</p>`
+    //         text += `</li>`;
+    //     });
+    //     $(".uploadResult ul").append(text);
+    // }
+    //
+    // /*미리보기 삭제*/
+    // $(".uploadResult ul").on("click", "span", function(){
+    //     const $li = $(this).closest("li");
+    //     let i = $(".uploadResult ul span").index($(this));
+    //     let uploadPath = $li.data("file-upload-path");
+    //     let fileName = $li.data("file-uuid") + "_" + $li.data("file-name");
+    //     $.ajax({
+    //         url: "/mentofile/delete",
+    //         type: "post",
+    //         data: {uploadPath: uploadPath, fileName: fileName, fileImageCheck: $li.data("file-image-check")},
+    //         success: function(){
+    //             $li.remove();
+    //             arrayFile.splice(i, 1);
+    //             const dataTransfer = new DataTransfer();
+    //             arrayFile.forEach(file => dataTransfer.items.add(file));
+    //             $("input[name='upload']")[0].files = dataTransfer.files;
+    //         }
+    //     });
+    // });
+    //
+    // //클릭 시
+    // $("button.okay").on("click", function(e){
+    //     e.preventDefault();
+    //     let text = "";
+    //     $.each($(".uploadResult ul li"), function(i, li){
+    //         let fileName = $(li).data("file-name");
+    //         let fileUploadPath = $(li).data("file-upload-path");
+    //         let fileUuid = $(li).data("file-uuid");
+    //         let fileSize = $(li).data("file-size");
+    //         let fileImageCheck = $(li).data("file-image-check");
+    //         console.log(fileName);
+    //         console.log(fileUploadPath);
+    //         console.log(fileUuid);
+    //         console.log(fileSize);
+    //         console.log(fileImageCheck);
+    //
+    //         text += `<input type="hidden" name="files[` + i + `].fileName" value="` + fileName + `">`;
+    //         text += `<input type="hidden" name="files[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
+    //         text += `<input type="hidden" name="files[` + i + `].fileUuid" value="` + fileUuid + `">`;
+    //         text += `<input type="hidden" name="files[` + i + `].fileSize" value="` + fileSize + `">`;
+    //         text += `<input type="hidden" name="files[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
+    //     });
+    //     console.log(text);
+    //     $("form#writeForm").append(text);
+    // });
 </script>
