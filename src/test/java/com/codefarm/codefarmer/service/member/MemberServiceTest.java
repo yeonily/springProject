@@ -29,4 +29,10 @@ public class MemberServiceTest {
 
         memberService.join(memberDTO);
     }
+
+    @Test
+    public void getCountOfReplyTest(){
+        log.info("결과"+memberService.getCountOfReply(5l,1l));
+
+    }
 }

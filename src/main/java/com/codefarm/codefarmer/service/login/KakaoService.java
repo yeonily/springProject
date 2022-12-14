@@ -267,11 +267,11 @@ public class KakaoService {
 
 
 
-    public Integer checkOauth(String oauthId){return memberRepository.checkOauth(oauthId);}
+    public Integer checkOauth(String oauthId){return memberRepository.duplicateOauth(oauthId);}
 
-    public Long selectId(String oauthId){return memberRepository.findMemberId(oauthId);}
+    public Long selectId(String oauthId){return memberRepository.selectMemberId(oauthId);}
 
-    public String selectType(String oauthId){return memberRepository.findMemberType(oauthId);}
+    public String selectType(String oauthId){return memberRepository.selectMemberType(oauthId);}
 
 
 }

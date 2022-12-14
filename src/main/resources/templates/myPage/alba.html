@@ -27,7 +27,7 @@
                         <div class="c-title">
                             <div>내 아르바이트</div>
                             <!-- 농장주일 때 -->
-                            <button class="s-button l-writeBtn" th:onclick="'location.href=\''+ @{/alba/write} + '\''">
+                            <button class="s-button l-writeBtn" th:onclick="'location.href=\''+ @{/alba/write} + '\''" th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
                                 <svg data-v-bd9f2bcc="" data-v-79e0399f="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="c-application c-icon" data-v-ace7c8aa="" style="fill: rgb(255, 255, 255);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V2.5C7.5 2.22386 7.72386 2 8 2Z"></path><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M14 8C14 8.27614 13.7761 8.5 13.5 8.5L2.5 8.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5L13.5 7.5C13.7761 7.5 14 7.72386 14 8Z"></path></svg>
                                 아르바이트 만들기
                             </button>
@@ -35,6 +35,7 @@
                         </div>
                         <div class="content">
                             <!-- 농장주 - 아르바이트 내역 없을 경우 -->
+                            <div id="empty"></div>
 <!--                            <div id="content-wrap">-->
 <!--                                <div class="n-c-wrap">-->
 <!--                                    너와농부싶어와 함께하는 아르바이트를 확인해보세요!-->
@@ -64,7 +65,7 @@
                             </div>
                             <!------------------------>
                         </div>
-                        <div id="paging">
+                        <div id="paging" style="display: none">
                             <ul>
                                 <li class="sidePageNum prev">
                                     <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
@@ -91,11 +92,14 @@
 <div class="overlay-l alam-wrap" style="display: none">
     <div id="alam">
         <p>정말 삭제하시겠어요?</p>
-        <p>한번 삭제된 공고 글은 복구할 수 없습니다.</p>
-        <div id="alam-btn-group">
-            <button class="a-ok">확인</button>
-            <button type="button" class="a-no">취소</button>
-        </div>
+        <p>한번 삭제된 아르바이트 공고 글은 복구할 수 없습니다.</p>
+        <form action="/mypage/alba/delete" method="post" id="delete-Alba">
+            <div id="alam-btn-group">
+                <button class="a-ok" id="alba-delete-btn">확인</button>
+                <button type="button" class="a-no">취소</button>
+                <input hidden name="albaIdString" id="albaIdString">
+            </div>
+        </form>
     </div>
 </div>
 
@@ -111,37 +115,63 @@
     $("#alba").addClass('menu-select');
 
     // 농장주일 때 글 삭제 모달 알람
-    function removeCheck(){
+    function removeCheck(albaId){
         event.stopImmediatePropagation();
+        $("#albaIdString").attr("value",albaId);
         $(".alam-wrap").show();
     };
 
+    // 알바 삭제 버튼 클릭 시
+    $("#alba-delete-btn").on("click" , function () {
+
+        $("#delete-Alba").submit();
+    })
+
+    //삭제 취소 시 모달 사라짐
     $(".a-no").on("click", function(){
         $(".alam-wrap").hide();
     });
 
 
     function viewDetail(albaId) {
-        console.log("??");
+        console.log("??"+albaId);
         location.href = "/alba/detail?albaId=" + albaId;
     }
 
-    let memberId = [[${member.memberId}]];
-    $(document).ready(function () {
-        myPageService.getAbList({
-            memberId: memberId
-        }, getList);
+    $("#c-w-wrap").on("click", ".commu", function(){
+        var n = $('input[name=abId]').val();
+        viewDetail(n);
     })
+//----------------------------------------
+    let memberId = [[${member.memberId}]];
+    let memberType = [[${member.memberType}]];
 
+    if(memberType == 'FARMER' || memberType == 'MENTOR'){
+        $(document).ready(function () {
+            myPageService.getAbList({
+                memberId: memberId
+            }, getList);
+        })
+    }else{
+        $(document).ready(function () {
+            myPageService.getApplyAbList({
+                memberId: memberId
+            }, getApplyList);
+        })
+    }
+
+//내가 등록한 알바 목록
     function getList(albas){
         let text = "";
 
         if(albas.length == 0){
-            text += "<div class='n-c-wrap'>";
-            text += "너와농부싶어와 함께하는 아르바이트를 확인해보세요!";
-            text += `<button class='sendPage-btn' onclick="location.href='/alba/list'">아르바이트 보러 가기</button>`;
-            text += "</div>";
-            $("div#content-wrap").html(text);
+            text += '<div id="content-wrap">'
+            text += '<div class="n-c-wrap" style="line-height: 25px;">'
+            text += '아르바이트 목록이 없어요.<br>'
+            text += '지금 아르바이트를 개설해 보세요!'
+            text += '</div>'
+            text += '</div>'
+            $("div#empty").html(text);
             return;
         }
 
@@ -154,7 +184,8 @@
 
             text += '<div class="alba-list" th:object="${albaDTO}">'
             var number = albaDTO.albaId;
-            text += '<div class="commu c-link" onclick="javascript:viewDetail("'+number+')>'
+            text += '<div class="commu c-link">'
+            text += '<input type="hidden" name="abId" value="'+number+'">'
             text += '<div class="c-top-wrap">'
             text += '<div class="t-s-wrap">'
             let date = new Date(albaDTO.albaWorkDate);
@@ -163,12 +194,12 @@
             let day = date.getDate();
             text += '<div class="c-address">'+ year + '.' + month + '.' + day +'</div><div class="c-address>">・</div>'
             text += '<div class="c-address">' + albaDTO.albaAddress +'</div><div class="c-address>">・</div>'
-            text += '<div class="c-pay">시급' + albaDTO.albaPrice +'원</div>'
+            text += '<div class="c-pay">시급 ' + albaDTO.albaPrice +'원</div>'
             text += '</div>'
             text += '<div class="applied-cancel a-c-color">'
-            text += '<a href="#"><div class="a-c-btn2" style="margin-bottom: 1px;">수정하기</div></a>'
-            text += '<a href="javascript:void(0);" onclick="javascript:removeCheck();"><div class="a-c-btn2">삭제하기</div></a>'
-            text += '<a href="/mypage/alba/apply"><div class="a-c-btn2">신청자 목록</div></a>'
+            text += '<a href="/alba/update?albaId='+number+'"><div class="a-c-btn2" style="margin-bottom: 1px;">수정하기</div></a>'
+            text += '<a href="javascript:void(0);" onclick="javascript:removeCheck('+number+');"><div class="a-c-btn2">삭제하기</div></a>'
+            text += '<a href="/mypage/alba/apply?albaId='+number+'"><div class="a-c-btn2">신청자 목록</div></a>'
             text += '</div>'
             text += '<img src="/image/myPage/option.png" class="l-menuBtn l-m-btn">'
             text += '</div>'
@@ -186,6 +217,55 @@
             text += '</div>'
         })
         $("div#alba-list").html(text);
+    }
+
+//내가 신청한 알바 목록
+    function getApplyList(albas){
+        let text = "";
+
+        if(albas.length == 0){
+            text += '<div id="content-wrap">'
+            text += "<div class='n-c-wrap'>";
+            text += "너와농부싶어와 함께하는 아르바이트를 확인해보세요!";
+            text += `<button class='sendPage-btn' onclick="location.href='/alba/list'">아르바이트 보러 가기</button>`;
+            text += "</div>";
+            text += "</div>";
+            $("div#empty").html(text);
+            return;
+        }
+
+        albas.forEach(function (albaDTO) {
+            text += '<div class="alba-list" th:object="${albaDTO}">'
+            var number = albaDTO.albaId;
+            text += '<div class="commu c-link">'
+            text += '<input type="hidden" name="abId" value="'+number+'">'
+            text += '<div class="c-top-wrap">'
+            text += '<div class="t-s-wrap">'
+            let date = new Date(albaDTO.albaWorkDate);
+            let year = date.getFullYear();
+            let month = date.getMonth()+1;
+            let day = date.getDate();
+            text += '<div class="c-address">'+ year + '.' + month + '.' + day +'</div><div class="c-address>">・</div>'
+            text += '<div class="c-address">' + albaDTO.albaAddress +'</div><div class="c-address>">・</div>'
+            text += '<div class="c-pay">시급 ' + albaDTO.albaPrice +'원</div>'
+            text += '</div>'
+            text += '</div>'
+            text += '<div class="c-group">'
+            text += '<div class="c-g-title">' + albaDTO.albaMainTitle +'</div>'
+            text += '</div>'
+            text += '<div class="commu-group">'
+            if(albaDTO.memberStatus == 'WAITING'){
+                text += '<div class="c-status c-wait">대기</div>'
+            }else if(albaDTO.memberStatus == 'CONFIRM'){
+                text += '<div class="c-status c-accept">수락</div>'
+            }else{
+                text += '<div class="c-status c-refuse">거절</div>'
+            }
+            text += '</div>'
+            text += '</div>'
+            text += '</div>'
+        })
+        $("div#alba-apply-list").html(text);
     }
 </script>
 </html>

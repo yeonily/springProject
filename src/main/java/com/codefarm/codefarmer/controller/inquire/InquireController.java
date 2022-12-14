@@ -34,7 +34,7 @@ public class InquireController {
 
     @PostMapping
     public RedirectView inquireWrite(InquireDTO inquireDTO, HttpSession session, RedirectAttributes redirectAttributes){
-        Member member= memberService.select((Long)session.getAttribute("memberId"));
+        Member member= memberService.find((Long)session.getAttribute("memberId"));
 
         inquireDTO.setMember(member);
         inquireService.inquireAdd(inquireDTO);

@@ -94,7 +94,7 @@
                                 <div class="section-nickname">
                                     <div class="nickname-t">닉네임 변경</div>
                                     <div class="nickname-c">
-                                        <form action="" name="nickForm" class="nick-c-group">
+                                        <form action="/mypage/settingNick" name="nickForm" class="nick-c-group" method="post">
                                             <div class="nickname-input">
                                                 <input class="nicknameValue" type="text" value="닉네임" th:field="*{memberNickname}" th:value="*{memberNickname}">
                                             </div>
@@ -120,7 +120,7 @@
                                 <div id="myInfo" class="section-title marginT">정보 수정</div>
                                 <div class="section-wrap">
                                     <section>
-                                        <form action="" name="myInfoForm">
+                                        <form action="/mypage/settingInfo" name="myInfoForm" method="post">
                                             <div class="s-form-input">
                                                 <p class="form-title">구분</p>
                                                 <div class="flex f-section flex user-type">
@@ -145,29 +145,28 @@
                                             <div class="s-form-input f-m-top">
                                                 <p class="form-title">휴대폰번호</p>
                                                 <div class="f-column f-section">
-                                                    <input type="text" name="phone" th:value="*{memberPhone}" class="form-input" oninput="autoHyphen(this)" maxlength="13">
+                                                    <input type="text" name="memberPhone" th:value="*{memberPhone}" class="form-input" oninput="autoHyphen(this)" maxlength="13">
                                                 </div>
                                             </div>
                                             <div class="s-form-input f-m-top">
                                                 <p class="form-title">지역</p>
                                                 <div class="flex f-column f-section">
-                                                    <input type="text" name="address" th:value="*{memberLocation}" class="form-input">
+                                                    <input type="text" name="memberLocation" th:value="*{memberLocation}" class="form-input">
                                                 </div>
                                             </div>
                                             <div class="form-save">
-                                                <button type="button" class="s-button s-save saveHover" onclick="myInfoSave()">저장</button>
+                                                <button type="button" id="infoBtn" class="s-button s-save saveHover" onclick="myInfoSave()">저장</button>
                                             </div>
                                         </form>
                                     </section>
                                 </div>
                                 <!-- 농장주 일 경우 -->
-                                <div th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}">
-                                <hr class="section-line marginT">
-                                <div id="mentorInfo" class="section-title marginT">멘토 정보</div>
+                                <hr class="section-line marginT" >
+                                <div id="mentorInfo" class="section-title marginT" th:if="${session.memberType == 'FARMER' or session.memberType == 'MENTOR'}"                                                          >멘토 정보</div>
                                 <div class="section-wrap">
                                     <section>
                                         <!-- 멘토 소개글이 없을 경우 = 멘토가 아닐 경우 -->
-                                        <div id="mentor-none">
+                                        <div id="mentor-none" th:if="${session.memberType == 'FARMER'}">
                                             <div class="mentor-no">
                                                 <div class="mentor-txt">
                                                     멘토 소개를 작성하면 멘토로 활동할 수 있습니다.
@@ -178,59 +177,56 @@
                                         <!---->
 
                                         <!-- 멘토가 아닐 경우 → 소개글 입력 폼 -->
-                                        <form action="" name="newMentorForm" class="newMentorForm" style="display: none;" >
+                                        <form th:action="@{/mypage/settingSave}" name="newMentorForm" class="newMentorForm" style="display: none;" method="post" th:object="${mentorAdd}">
                                             <div class="s-form-input">
                                                 <p class="form-title">주요 작물</p>
                                                 <div class="flex f-column f-section">
-                                                    <input type="text" name="newMainCrops" class="form-input" placeholder="주요 작물을 입력하세요.">
+                                                    <input type="text" th:field="*{mentorCrop}" class="form-input" placeholder="주요 작물을 입력하세요.">
                                                 </div>
                                             </div>
                                             <div class="s-form-input f-m-top">
                                                 <p class="form-title">연차</p>
                                                 <div class="flex f-column f-section">
-                                                    <select name="newYears" class="years-select">
+                                                    <select th:field="*{mentorYear}" class="years-select">
                                                         <option value="0" selected>선택해주세요.</option>
                                                         <option value="1~3년차">1~3년차</option>
                                                         <option value="3~5년차">3~5년차</option>
                                                         <option value="5~7년차">5~7년차</option>
                                                         <option value="7~10년차">7~10년차</option>
-                                                        <option value="10 년차 이상">10 년차 이상</option>
+                                                        <option value="10년차 이상">10년차 이상</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-save">
-                                                <button type="button" class="s-button s-save saveHover" onclick="newMentorSave()">저장</button>
+                                                <button type="button" id="mentorBtn" class="s-button s-save saveHover" onclick="newMentorSave()">저장</button>
                                                 <button type="button" class="s-button s-cancel cancelHover" id="mentorCancel">취소</button>
                                             </div>
                                         </form>
                                         <!------------------>
-
                                         <!-- 멘토 수정 폼 -->
-<!--                                        <form action="" name="mentorForm">-->
-<!--                                            <div class="s-form-input">-->
-<!--                                                <p class="form-title">주요 작물</p>-->
-<!--                                                <div class="flex f-column f-section">-->
-<!--                                                    <input type="text" name="mainCrops" class="form-input" placeholder="주요 작물을 입력하세요.">-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="s-form-input f-m-top">-->
-<!--                                                <p class="form-title">연차</p>-->
-<!--                                                <div class="flex f-column f-section">-->
-<!--                                                    <select name="years" class="years-select">-->
-<!--                                                        <option value="0" selected>선택해주세요.</option>-->
-<!--                                                        <option value="1~3년차">1~3년차</option>-->
-<!--                                                        <option value="3~5년차">3~5년차</option>-->
-<!--                                                        <option value="5~7년차">5~7년차</option>-->
-<!--                                                        <option value="7~10년차">7~10년차</option>-->
-<!--                                                        <option value="10 년차 이상">10 년차 이상</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="form-save">-->
-<!--                                                <button type="button" class="s-button s-save saveHover" onclick="mentorSave()">저장</button>-->
-<!--                                                <button type="button" class="s-button s-cancel cancelHover" id="mentorCancel">취소</button>-->
-<!--                                            </div>-->
-<!--                                        </form>-->
+                                        <form action="/mypage/settingUpdate" name="mentorForm" th:if="${session.memberType == 'MENTOR'}" th:object="${mentor}" method="post">
+                                            <div class="s-form-input" >
+                                                <p class="form-title">주요 작물</p>
+                                                <div class="flex f-column f-section">
+                                                    <input type="text" th:field="*{mentorCrop}" class="form-input" >
+                                                </div>
+                                            </div>
+                                            <div class="s-form-input f-m-top">
+                                                <p class="form-title">연차</p>
+                                                <div class="flex f-column f-section">
+                                                    <select th:data-status="*{mentorYear}" th:field="*{mentorYear}" name="mentorYear" class="years-select selectedyear">
+                                                        <option value="1~3년차">1~3년차</option>
+                                                        <option value="3~5년차">3~5년차</option>
+                                                        <option value="5~7년차">5~7년차</option>
+                                                        <option value="7~10년차">7~10년차</option>
+                                                        <option value="10년차 이상">10년차 이상</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-save">
+                                                <button type="button" id="mentorUpdateBtn" class="s-button s-save saveHover" onclick="mentorSave()">저장</button>
+                                            </div>
+                                        </form>
                                         <!------------------>
                                     </section>
                                 </div>

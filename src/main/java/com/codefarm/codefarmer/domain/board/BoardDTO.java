@@ -23,9 +23,9 @@ public class BoardDTO {
     private String memberNickName;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private int replyCount;
 
     private List<ReplyDTO> replies;
-
 
     @QueryProjection
     public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, String memberNickName, LocalDateTime createdDate, LocalDateTime updatedDate) {
@@ -39,12 +39,13 @@ public class BoardDTO {
     }
 
     @QueryProjection
-    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, Long memberId) {
+    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, LocalDateTime createdDate, int replyCount) {
         this.boardId = boardId;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;
-        this.memberId = memberId;
+        this.createdDate = createdDate;
+        this.replyCount = replyCount;
     }
 
     public Board toEntity(){

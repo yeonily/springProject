@@ -113,6 +113,7 @@ public void saveUserTest(){
 //    멘토 신청하기(농작물, 경력) 작성
     @Test
     public void MentorSaveTest(){
+
         MentorDTO mentorDTO = new MentorDTO();
         Optional<Member> findFarmer = memberRepository.findById(61L);
 
@@ -123,6 +124,7 @@ public void saveUserTest(){
         Mentor mentor = mentorDTO.toEntity();
         mentor.changeMember(mentorDTO.getMemberId());
         mentorRepository.save(mentor);
+
     }
 
 

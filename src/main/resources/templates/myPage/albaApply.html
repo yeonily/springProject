@@ -22,39 +22,41 @@
                 <!--컨텐츠 시작-->
                 <div class="contents">
                     <div class="c-header">
-                        <div class="c-title">
+                        <div class="c-title" th:object="${memberProgram}">
                             <div><img src="/image/myPage/backBtn.png" onclick="history.back();" class="back">아르바이트 신청자 목록</div>
                         </div>
                         <div class="content">
                             <!-- 신청자가 없을 때 -->
-<!--                            <div id="content-wrap">-->
-<!--                                <div class="n-c-wrap" style="line-height: 25px;">-->
-<!--                                    신청자가 아직 없습니다.-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div id="content-wrap" th:if="${memberAlba}">
+                                <div class="n-c-wrap" style="line-height: 25px;">
+                                    신청자가 아직 없습니다.
+                                </div>
+                            </div>
                             <!------------------->
 
                             <!-- 신청자가 있을 때 -->
                             <div id="c-w-wrap">
                                 <div id="ls-wrap" class="f-column apply-Lists-wrap">
                                     <!---->
+                                    <th:block th:each="memberAlba:${memberAlbas}">
                                     <div class="apply-wrap">
                                         <div class="apply-list">
                                             <div class="a-group">
-                                                <div class="a-name">박수현</div>
-                                                <div class="a-phone a-txt">java123@gmail.com</div>
+                                                <div class="a-name" th:text="${memberAlba.memberName}">박수현</div>
+                                                <div class="a-phone a-txt" th:text="${memberAlba.memberEmail}">java123@gmail.com</div>
                                             </div>
 
                                             <div class="a-group">
                                                 <!-- 프로그램 신청날짜 -->
-                                                <div class="a-date a-txt">2022.11.24</div>
+                                                <!--<div class="a-date a-txt">2022.11.24</div>-->
                                                 <div class="a-btn-group">
-                                                    <button class="a-accept" onclick="alam();">수락</button>
+                                                    <button class="a-accept"> <!--onclick="alam();"-->수락</button>
                                                     <button class="a-refuse">거절</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    </th:block>
                                 </div>
                             </div>
                             <!------------------->

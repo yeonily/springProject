@@ -1,11 +1,13 @@
 package com.codefarm.codefarmer.controller.myPage;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.domain.inquire.InquireDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.board.Board;
@@ -26,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -34,23 +37,15 @@ import java.util.Optional;
 public class MyPageRestController {
 
     private final MemberService memberService;
-    private final InquireService inquireService;
     private final ProgramListService programListService;
-    private final ReplyService replyService;
 
-    //닉네임수정
-    @PutMapping("/settingnick")
-    public String updateNick(@RequestBody MemberDTO memberDTO){
-        memberService.updateNick(memberDTO);
-        return "update success";
-    }
 
-    //프로그램 목록
+    //프로그램 목록(farmer)
     @GetMapping("/programlist")
     public List<ProgramDTO> showAllPgList(HttpSession session) {
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("아이디 : "+ memberId);
-        List<ProgramDTO> programs = memberService.registerMyProgram(memberId);
+        List<ProgramDTO> programs = memberService.findMyProgramRegister(memberId);
         for (ProgramDTO program : programs){
             program.setFiles(programListService.showFiles(program.getProgramId()));
         }
@@ -59,12 +54,12 @@ public class MyPageRestController {
         return programs;
     }
 
-    //알바 목록
+    //알바 목록(farmer)
     @GetMapping("/albalist")
     public List<AlbaDTO> showAllAbList(HttpSession session) {
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("아이디 : "+ memberId);
-        List<AlbaDTO> albas = memberService.registerMyAlba(memberId);
+        List<AlbaDTO> albas = memberService.findMyAlbaRegister(memberId);
         return albas;
     }
 
@@ -81,18 +76,11 @@ public class MyPageRestController {
     public List<BoardDTO> showAllBoList(HttpSession session) {
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("아이디 : "+ memberId);
-        List<BoardDTO> boards = memberService.registerMyBoard(memberId);
-        return boards;
+        List<BoardDTO> boards = memberService.findMyBoard(memberId);
+        List<BoardDTO> setboards = boards.stream().distinct().collect(Collectors.toList());
+        return setboards;
     }
 
-    //게시글 목록
-    @PostMapping("/boardlist")
-    public Long showAllReply(HttpSession session) {
-        Long memberId = (Long)session.getAttribute("memberId");
-        log.info("아이디 : "+ memberId);
-        Long replyCount = replyService.showReplyAllCount(memberId);
-        return replyCount;
-    }
 
 
     //문의글 목록
@@ -100,7 +88,31 @@ public class MyPageRestController {
     public List<InquireDTO> showAllIqList(HttpSession session) {
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("아이디 : "+ memberId);
-        List<InquireDTO> inquires = memberService.registerMyInquire(memberId);
+        List<InquireDTO> inquires = memberService.findMyInquire(memberId);
         return inquires;
+    }
+
+    /*----------------------------*/
+    //프로그램 목록(user)
+    @GetMapping("/program/applylist")
+    public List<MemberProgramDTO> showApplyPgList(HttpSession session) {
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("아이디 : "+ memberId);
+        List<MemberProgramDTO> programs = memberService.findMyProgramApply(memberId);
+//        for (MemberProgramDTO program : programs){
+//            program.setFiles(programListService.showFiles(program.getProgramId()));
+//        }
+        log.info("전체 : "  + programs.toString());
+
+        return programs;
+    }
+
+    //알바 목록(user)
+    @GetMapping("/alba/applylist")
+    public List<MemberAlbaDTO> showApplyAbList(HttpSession session) {
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("아이디 : "+ memberId);
+        List<MemberAlbaDTO> albas = memberService.findMyAlbaApply(memberId);
+        return albas;
     }
 }

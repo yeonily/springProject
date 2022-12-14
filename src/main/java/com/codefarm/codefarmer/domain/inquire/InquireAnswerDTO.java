@@ -22,6 +22,7 @@ public class InquireAnswerDTO {
         this.inquire = inquire;
     }
 
+
     public InquireAnswer toEntity(){
         return InquireAnswer.builder()
                 .inquireAnswer(inquireAnswer)

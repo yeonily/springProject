@@ -139,20 +139,20 @@ public class MemberTest {
     //내가 등록한 알바 select
     @Test
     public void findMyAlbaTest(){
-            memberRepository.findMyAlba(1l).stream().map(AlbaDTO::getAlbaTitle).forEach(log::info);
+            memberRepository.selectMyAlba(1l).stream().map(AlbaDTO::getAlbaTitle).forEach(log::info);
     }
 
 
     //내가 등록한 프로그램 select
     @Test
     public void findMyProgramTest(){
-            memberRepository.findMyProgram(1l).stream().map(ProgramDTO::toString).forEach(log::info);
+            memberRepository.selectMyProgram(1l).stream().map(ProgramDTO::toString).forEach(log::info);
     }
 
     //내가 쓴 글 select
     @Test
     public void findMyBoardTest(){
-        memberRepository.findMyBoard(1l).stream().map(BoardDTO::getBoardTitle).forEach(log::info);
+        memberRepository.selectMyBoard(1l).stream().map(BoardDTO::toString).forEach(log::info);
     }
 
 
@@ -189,21 +189,21 @@ public class MemberTest {
 //    //닉네임 중복검사
     @Test
     public void checkUserNickTest(){
-        Assertions.assertThat(memberRepository.checkNick("러너")).isEqualTo(0);
+        Assertions.assertThat(memberRepository.duplicateNick("러너")).isEqualTo(0);
     }
 
     //내가 쓴 문의글 select
     @Test
     public void findMyInquireTest(){
             Long memberId = 1l;
-            log.info("결과 : "+memberRepository.findMyInquire(1l).size());
+            log.info("결과 : "+memberRepository.selectMyInquire(1l).size());
     }
 
 
     @Test
     public void findMyProgramApplyersTest(){
-        Long memberId = 1l;
-        memberRepository.findMyProgramApplyers(memberId).stream().map(memberProgram->memberProgram.getProgramApplyName()).forEach(log::info);
+//        Long memberId = 1l;
+//        memberRepository.findMyProgramApplyers(memberId).stream().map(memberProgram->memberProgram.getProgramApplyName()).forEach(log::info);
     }
 
     @Test
@@ -216,15 +216,24 @@ public class MemberTest {
 
     @Test
     public void saveMentorTest(){
-        Optional<Member> findMember = memberRepository.findById(1L);
-        MentorDTO mentorDTO = new MentorDTO();
-        mentorDTO.setMemberId(findMember.get());
-        mentorDTO.setMentorCrop("옥수수");
-        mentorDTO.setMentorYear("3~5년차");
-        Mentor mentor = mentorDTO.toEntity();
-        mentor.changeMember(mentorDTO.getMemberId());
-        mentorRepository.save(mentor);
+//        Optional<Member> findMember = memberRepository.findById(1L);
+//        MentorDTO mentorDTO = new MentorDTO();
+//        mentorDTO.setMemberId(findMember.get());
+//        mentorDTO.setMentorCrop("옥수수");
+//        mentorDTO.setMentorYear("3~5년차");
+//        Mentor mentor = mentorDTO.toEntity();
+//        mentor.changeMember(mentorDTO.getMemberId());
+//        mentorRepository.save(mentor);
 
     }
 
+    @Test
+    public void updateNickTest(){
+            memberRepository.updateNick(1l, "나");
+    }
+
+    @Test
+    public void updateInfoTest(){
+            memberRepository.updateInfo(1l, "010-0000-0000", "서울시");
+    }
 }

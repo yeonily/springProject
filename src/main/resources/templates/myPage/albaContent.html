@@ -6,8 +6,8 @@
 </head>
 <body>
 <!-- 일반 유저 - 신청한 아르바이트 -->
-<div class="alba-lists-wrap" th:fragment="userAlbas" >
-    <div class="alba-list" >
+<div class="alba-lists-wrap" th:fragment="userAlbas" id="alba-apply-list">
+    <div class="alba-list" th:each="alba : ${albas}">
         <!---->
         <div class="commu c-link" th:onclick="'location.href=\''+ @{/alba/detail} + '\''">
             <div class="c-top-wrap">

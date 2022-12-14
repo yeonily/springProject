@@ -27,6 +27,7 @@ public class MemberProgramDTO {
     private String programApplyLocation;
     private LocalDateTime programApplyBirth;
 
+
     public MemberProgram toEntity(){
         return MemberProgram.builder()
                 .programApplyCount(programApplyCount)
@@ -54,4 +55,19 @@ public class MemberProgramDTO {
         this.programApplyLocation = programApplyLocation;
         this.programApplyBirth = programApplyBirth;
     }
+
+    @QueryProjection
+    public MemberProgramDTO(Long programApplyId, ProgramStatus programStatus, int programApplyCount, int programPayment, String programApplyName, String programApplyPhoneNum, String programApplyEmail, String programApplyLocation, LocalDateTime programApplyBirth) {
+        this.programApplyId = programApplyId;
+        this.programStatus = programStatus;
+        this.programApplyCount = programApplyCount;
+        this.programPayment = programPayment;
+        this.programApplyName = programApplyName;
+        this.programApplyPhoneNum = programApplyPhoneNum;
+        this.programApplyEmail = programApplyEmail;
+        this.programApplyLocation = programApplyLocation;
+        this.programApplyBirth = programApplyBirth;
+    }
+
+
 }
