@@ -15,6 +15,7 @@ import com.codefarm.codefarmer.entity.inquire.InquireAnswer;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Review;
 import com.codefarm.codefarmer.entity.notice.Notice;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.service.admin.AdminService;
@@ -377,6 +378,14 @@ public class AdminController {
         return FileCopyUtils.copyToByteArray(file);
     }
 
+    @GetMapping("/banner/display") // 보기
+    @ResponseBody
+    public byte[] displays(String fileName) throws IOException{
+        File file = new File("C:/upload/banner", fileName);
+
+        return FileCopyUtils.copyToByteArray(file);
+    }
+
     //    농업정보 삭제
     @PostMapping("/crop/delete")
     public RedirectView cropDelete(Criteria criteria, RedirectAttributes redirectAttributes, Long cropId){
@@ -436,7 +445,7 @@ public class AdminController {
         if(criteria.getPage() == 0) {
             criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
         }
-        model.addAttribute("memberAlbaCounts", adminService.countByMemberAlba()); // 정책 글 개수
+        model.addAttribute("memberProgramCounts", adminService.countByMemberAlba()); // 정책 글 개수
         model.addAttribute("maxPage", 10); // 페이징
         model.addAttribute("memberAlbas", memberAlbas);
         model.addAttribute("resultCount", adminService.countByMemberAlbaSearch(keyword, searchText));
@@ -604,17 +613,27 @@ public class AdminController {
         return new RedirectView("/admin/program");
     }
 
+    @GetMapping("/program/participant")
+    public String adminProgramParticipant(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "ProgramApplyId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<MemberProgram> memberPrograms = adminService.memberProgramShowAll(pageable, keyword, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+        }
+        model.addAttribute("memberProgramCounts", adminService.countByMemberProgram()); // 글 개수
+        model.addAttribute("maxPage", 10); // 페이징
+        model.addAttribute("memberPrograms", memberPrograms);
+        model.addAttribute("resultCount", adminService.countByMemberProgramSearch(keyword, searchText));
+        model.addAttribute("data", memberPrograms.isEmpty());
+
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        return "/admin/program-participant";
+    }
+
     @GetMapping("/program/pay")
     public String adminPay(Model model){
 
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/program-pay";
-    }
-
-    @GetMapping("/program/participant")
-    public String adminProgramParticipant(Model model) {
-        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
-        return "/admin/program-participant";
     }
 
     // 후기 관리

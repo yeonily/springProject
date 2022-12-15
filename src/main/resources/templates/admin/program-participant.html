@@ -36,114 +36,138 @@
             <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
         <div id="wrapContents">
-        <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents">
 
-            <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
-                <div class="search-form">
+                <!-- 검색어 입력 폼 -->
+                <form th:action="@{/admin/program/participant}" name="searchForm">
+                    <div class="search-form">
                         <span class="s-form">
-                            <select name="searchSelect" class="val">
-                                <option value="programName">프로그램명</option>
-                                <option value="name">지원자</option>
-                                <option value="nickName">닉네임</option>
-                                <option value="crop">농작물</option>
-                                <option value="address">위치</option>
+                            <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                <option value="p">프로그램명</option>
+                                <option value="n">지원자</option>
+                                <option value="l">위치</option>
                             </select>
                         </span>
-                    <span class="s-f-input">
+                        <span class="s-f-input">
                             <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                                <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
                             </span>
                         </span>
-                    <button type="button" class="">
-                        <img src="/image/admin/search.png">
-                    </button>
-                </div>
-            </form>
+                        <button type="submit">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
 
-        </div>
-
-        <!-- 프로그램 리스트 출력 틀 -->
-        <div class="p-contents contents-bottom">
-
-                <span class="list-count">총
-                    <span>2476</span>건
-                </span>
-
-            <table>
-                <tr class="title">
-                    <th class="num">번호</th>
-                    <th class="name">지원자</th>
-                    <th class="nickName">닉네임</th>
-                    <th class="title">프로그램명</th>
-                    <th class="work-date">진행날짜</th>
-                    <th class="work-time">진행시간</th>
-                    <th class="crop">농작물</th>
-                    <th class="address">위치</th>
-                    <th class="date">지원날짜</th>
-                </tr>
-                <!-- ↓ 데이터 출력 -->
-                <tr>
-                    <td>1</td>
-                    <td class="name">연태관</td>
-                    <td class="nickName">herd</td>
-                    <td class="title" onclick="location.href='/program/detail'">잡초 뽑기</td>
-                    <td>2022-10-11</td>
-                    <td>5h</td>
-                    <td>잡초</td>
-                    <td>서울</td>
-                    <td>2022-10-01</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="name">연태관</td>
-                    <td class="nickName">xogwan</td>
-                    <td class="title" onclick="location.href='/program/detail'">잡초 뽑기</td>
-                    <td>2022-11-11</td>
-                    <td>4h</td>
-                    <td>벼</td>
-                    <td>경기</td>
-                    <td>2022-11-01</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="name">연태관</td>
-                    <td class="nickName">xorhks</td>
-                    <td class="title" onclick="location.href='/program/detail'">잡초 뽑기</td>
-                    <td>2022-12-11</td>
-                    <td>7h</td>
-                    <td>사과 재배</td>
-                    <td>강원</td>
-                    <td>2022-11-01</td>
-                </tr>
-            </table>
-
-            <!-- 페이징 -->
-            <div id="page">
-                <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
-                </div>
             </div>
 
-        </div>
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
+                <span class="list-count">총
+                    <span th:text="${memberProgramCounts}"></span>건
+                </span>
+
+                <table>
+                    <tr class="title">
+                        <th class="num" style="width: 6%;">번호</th>
+                        <th class="name" style="width: 6%;">지원자</th>
+                        <th class="title">프로그램명</th>
+                        <th class="nickName" style="width: 10%;">전화번호</th>
+                        <th class="work-date" style="width: 8%;">생년월일</th>
+                        <th class="address" style="width: 17%;">위치</th>
+                        <th class="work-time" style="width: 8%;">결제금액</th>
+                        <th class="date" style="width: 9%;">지원날짜</th>
+                        <th class="crop" style="width: 7%;">진행상황</th>
+                    </tr>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="memberProgram :${memberPrograms}">
+                        <tr th:object="${memberProgram}">
+                            <td th:text="*{programApplyId}"></td>
+                            <td class="name" th:text="*{member.getMemberName}"></td>
+                            <td class="title" th:text="*{program.getProgramTitle}" th:onclick="|javascript:goPage('*{program.getProgramId}')|"></td>
+                            <td class="nickName" th:text="*{programApplyPhoneNum}"></td>
+                            <td th:text="*{#temporals.format(programApplyBirth, 'yyyy.MM.dd')}"></td>
+                            <td th:text="*{programApplyLocation}"></td>
+                            <td class="payment">
+                                <input type="hidden" class="pay" th:value="*{programPayment * programApplyCount}">
+                            </td>
+                            <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                            <td class="status">
+                                <input type="hidden" class="programStatus" th:value="*{programStatus}">
+                                <div class="statusText"></div>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="9" style="height: 180px;">검색 결과가 없습니다.</td>
+                    </tr>
+                </table>
+
+                <!-- 페이징 -->
+                <div id="page" th:if="${!data}">
+                    <div class="page_nation">
+                        <th:block th:with="start=${(memberPrograms.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">
+                            <th:block th:if="${memberPrograms.pageable.pageNumber > 0}">
+                                <a class="arrow pprev" th:href="@{/admin/program/participant(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow prev" th:href="@{/admin/program/participant(page=${((memberPrograms.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block >
+                            <th:block th:each="i: ${#numbers.sequence(start, end)}">
+                                <a th:href="@{/admin/program/participant(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == memberPrograms.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                            </th:block>
+
+                            <th:block th:if="${end < resultCount}">
+                                <a class="arrow next" th:href="@{/admin/program/participant(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/program/participant(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
+    const urlParams = new URL(location.href).searchParams;
+    const keyword = urlParams.get('keyword');
 
+    $(document).ready(function() {
+        $(".pay").each(function(index, item){
+            let $status = $(this).parent().siblings("td.status");
+            let $statusText = $status.children(".statusText");
+            let $programStatus = $status.children("input").val();
+
+            console.log($(this).val());
+            $(this).parent().html(($(this).val() > 0 ? $(this).val() : "무료"));
+            if ($programStatus == "PAY_SUCCEED"){
+                $statusText.html("신청 완료");
+            } else {
+                $statusText.html("신청 취소");
+                $statusText.css("color", "red");
+            }
+
+            // if ($(this).next().html() == "결제 취소"){
+            //     $(this).next().css("color", "red");
+            // }
+        });
+    });
+
+
+    // 알바 디테일 페이지로 이동
+    function goPage (programId) {
+        location.href='/program/detail?programId=' + programId;
+    }
+
+    // 검색 옵션
+    if(keyword == null || keyword == "") {
+        $(".keywords").val('p').prop("selected", true);
+    } else {
+        $(".keywords").val(keyword).prop("selected", true);
+    }
+</script>
 </body>
 <html>

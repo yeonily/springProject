@@ -84,7 +84,7 @@
                         <tr th:object="${banner}">
                             <td class="num" th:text="*{bannerId}"></td>
                             <td class="title" th:text="*{bannerTitle}"></td>
-                            <td class="content" th:text="*{bannerInfo}"></td>
+                            <td class="content" th:utext="*{bannerInfo}"></td>
                             <td class="nickName">관리자</td>
                             <td class="status" th:text="*{bannerStatus}"></td>
                             <td class="registrationDate" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
@@ -135,6 +135,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script th:inline="javascript">
+    let content = "";
     let queryString = [[${criteria.queryString}]];
     const urlParams = new URL(location.href).searchParams;
     const keyword = urlParams.get('keyword');
@@ -147,6 +148,12 @@
     function goUpdate(bannerId) {
         location.href='/admin/banner/update' + queryString + '&bannerId=' + bannerId;
     }
+
+    $("td.content").each(function (i, e) {
+        content = $(this).html().replace(/<br>/ig, "&nbsp;");
+        content = content.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+        $(this).html(content);
+    });
 
     // 검색 옵션
     if(keyword == null || keyword == "") {

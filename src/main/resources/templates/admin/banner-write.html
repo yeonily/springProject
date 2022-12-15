@@ -58,8 +58,8 @@
                     <tr style="background: #ffffff;">
                         <th>베너텍스트</th>
                         <td>
-                            <div class="title">
-                                <input th:field="*{bannerInfo}" class="bannerContent" placeholder="베너텍스트를 입력하세요." autocomplete="off">
+                            <div id="editor">
+                                <textarea th:field="*{bannerInfo}" class="summernote" placeholder="배너 내용을 입력하세요."></textarea>
                             </div>
                         </td>
                     </tr>
@@ -115,9 +115,10 @@
 
 </body>
 <!-- 썸머노트 -->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>-->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="/js/admin/summerNoteBanner.js"></script>
 <script src="/js/admin/bannerFile.js"></script>
 <script src="/js/admin/write.js"></script>
 <script th:inline="javascript">
