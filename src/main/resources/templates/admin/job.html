@@ -35,87 +35,164 @@
             <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
         <div id="wrapContents">
-        <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents chart-no">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents chart-no">
 
-            <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
-                <div class="search-form">
+                <!-- 검색어 입력 폼 -->
+                <form th:action="@{/admin/job}" name="searchForm">
+                    <div class="search-form">
                         <span class="s-form">
-                            <select name="searchSelect">
-                                <option value="title">아르바이트명</option>
-                                <option value="nickName">작성자</option>
-                                <option value="status">상태</option>
+                            <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                <option value="t">아르바이트명</option>
+                                <option value="n">작성자</option>
+                                <option value="s">상태</option>
                             </select>
                         </span>
                     <span class="s-f-input">
-                            <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
-                            </span>
+                        <span class="search-input">
+                            <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
                         </span>
-                    <button type="button" class="">
+                    </span>
+                    <button type="submit">
                         <img src="/image/admin/search.png">
                     </button>
-                </div>
-            </form>
+                    </div>
+                </form>
 
-        </div>
+            </div>
 
-        <!-- 프로그램 리스트 출력 틀 -->
-        <div class="p-contents contents-bottom">
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
                 <span class="list-count">총
-                    <span>2476</span>건
+                    <span th:text="${albaCounts}"></span>건
                 </span>
 
-            <table>
-                <tr class="title">
-                    <th class="num">글번호</th>
-                    <th class="title">아르바이트명</th>
-                    <th class="id">작성자</th>
-                    <th class="hourCost">시급</th>
-                    <th class="work-date">작업날짜</th>
-                    <th class="date">작성날짜</th>
-                    <th class="hits">조회수</th>
-                    <th class="status">상태</th>
-                    <th class="delete"></th>
-                </tr>
+                <table>
+                    <tr class="title">
+                        <th class="num">글번호</th>
+                        <th class="title">아르바이트명</th>
+                        <th class="id" style="width: 11%">작성자</th>
+                        <th class="hourCost">시급</th>
+                        <th class="work-date" style="width: 9%">작업날짜</th>
+                        <th class="date">작성날짜</th>
+                        <th class="status" style="width: 8%">상태</th>
+                        <th class="delete"></th>
+                    </tr>
 
-                <!-- ↓ 데이터 출력 -->
-                <tr class="title">
-                    <td class="num">123</td>
-                    <td class="title" onclick="location.href='/alba/detail'">첫 번째 아르바이트</td>
-                    <td class="id">herd</td>
-                    <td class="hourCost">10,200</td>
-                    <td class="work-date">2022-12-01</td>
-                    <td class="date">2022-11-14 10:00</td>
-                    <td class="hits">70</td>
-                    <td class="statusOk">모집중</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-            </table>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="alba :${albas}">
+                        <tr class="title" th:object="${alba}">
+                            <td class="num" th:text="*{albaId}"></td>
+                            <td class="title" th:text="*{albaTitle}" th:onclick="|javascript:goPage('*{albaId}')|"></td>
+                            <td class="id" th:text="*{member.getMemberName}"></td>
+                            <td class="hourCost" th:text="*{albaPrice}"></td>
+                            <td class="work-date" th:text="*{#temporals.format(albaWorkDate, 'yyyy.MM.dd')}"></td>
+                            <td class="date">
+                                <th:block th:text="*{#temporals.format(albaApplyStartDate, 'yyyy.MM.dd HH:mm')}"/>
+                                <input type="text" th:value="*{#temporals.format(albaApplyEndDate, 'yyyy-MM-dd')}" class="applyEndDate">
+                            </td>
+                            <td class="status" style="color: #4a4a4a;"></td>
+                            <td class="delete">
+                                <form method="post" class="deleteForm" th:action="@{/admin/job/delete}">
+                                    <input type="hidden" name="albaId" th:value="*{albaId}">
+                                    <input type="hidden" name="page" th:value="${criteria.page}">
+                                    <input type="hidden" name="searchText" th:value="${criteria.searchText}">
+                                    <input type="hidden" name="keyword" th:value="${criteria.keyword}">
+                                    <input type="button" value="삭제" class="deleteBtn">
+                                </form>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="8" style="height: 180px;">검색 결과가 없습니다.</td>
+                    </tr>
+                </table>
 
-            <!-- 페이징 -->
-            <div id="page">
-                <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
+                <!-- 페이징 -->
+                <div id="page" th:if="${!data}">
+                    <div class="page_nation">
+                        <th:block th:with="start=${(albas.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">
+                            <th:block th:if="${albas.pageable.pageNumber > 0}">
+                                <a class="arrow pprev" th:href="@{/admin/job(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow prev" th:href="@{/admin/job(page=${((albas.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block >
+                            <th:block th:each="i: ${#numbers.sequence(start, end)}">
+                                <a th:href="@{/admin/job(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == albas.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                            </th:block>
+
+                            <th:block th:if="${end < resultCount}">
+                                <a class="arrow next" th:href="@{/admin/job(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/job(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block>
+                        </th:block>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    let queryString = [[${criteria.queryString}]];
+    const urlParams = new URL(location.href).searchParams;
+    const keyword = urlParams.get('keyword');
+
+    var now = new Date(); // 현재
+    var year = now.getFullYear();   // 연도
+    var month = now.getMonth()+1;   // 월
+    var day = now.getDate();        // 일
+    var today = new Date(year, month, day);
+
+    $(document).ready(function() {
+        $("input.applyEndDate").each(function(index, item){
+            var date = $(this).val().split("-");
+            var endDate = new Date(date[0], date[1], date[2]);
+
+            var minus = today.getTime() - endDate.getTime() ;
+            var result = minus / (1000*60*60*24) ;
+
+            if (result > 0){
+                $(this).parent().next().html("마감");
+                $(this).parent().next().css("color", "red");
+            } else if (result < 0) {
+                $(this).parent().next().html("모집 중");
+                $(this).parent().next().css("color", "green");
+            } else if (result == 0) {
+                $(this).parent().next().html("오늘 마감");
+            }
+        });
+    });
+
+    // 알바 디테일 페이지로 이동
+    function goPage (albaId) {
+        location.href='/alba/detail?albaId=' + albaId;
+    }
+
+    // 검색 옵션
+    if(keyword == null || keyword == "") {
+        $(".keywords").val('t').prop("selected", true);
+    } else {
+        $(".keywords").val(keyword).prop("selected", true);
+    }
+
+    $(document).ready(function(){
+        $(".askStatus").each(function(i, item) {
+            if($(this).html() == "CONFIRM"){
+                $(this).css("color", "green");
+            }
+        })
+    });
+
+    // 글 삭제
+    var msg = "이 공고를 삭제 하시겠습니까?";
+
+    $(".deleteBtn").on("click", function () {
+        var flag = confirm(msg);
+        if(flag){
+            $(this).parents("form.deleteForm").submit();
+        }
+    });
+</script>
 </body>
 <html>

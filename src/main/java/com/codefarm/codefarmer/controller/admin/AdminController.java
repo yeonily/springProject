@@ -1,26 +1,31 @@
 package com.codefarm.codefarmer.controller.admin;
 
+import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.inquire.InquireAnswerDTO;
 import com.codefarm.codefarmer.domain.notice.NoticeDTO;
 import com.codefarm.codefarmer.entity.admin.Banner;
 import com.codefarm.codefarmer.entity.admin.Criteria;
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.admin.Policy;
-import com.codefarm.codefarmer.entity.board.Board;
+import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.alba.MemberAlba;
 import com.codefarm.codefarmer.entity.board.Reply;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.inquire.InquireAnswer;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Review;
 import com.codefarm.codefarmer.entity.notice.Notice;
+import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.service.admin.AdminService;
 import com.codefarm.codefarmer.service.admin.InformationService;
 import com.codefarm.codefarmer.service.admin.InquireService;
+import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.board.BoardService;
 import com.codefarm.codefarmer.service.board.ReplyService;
 import com.codefarm.codefarmer.service.mentor.ReviewService;
 import com.codefarm.codefarmer.service.notice.NoticeService;
+import com.codefarm.codefarmer.service.program.ProgramDeleteService;
 import com.codefarm.codefarmer.type.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +45,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -53,6 +56,10 @@ public class AdminController {
 //    커뮤니티
     private final BoardService boardService;
     private final BoardRepository boardRepository;
+//    알바
+    private final AlbaDetailService albaDetailService;
+//    프로그램
+    private final ProgramDeleteService programDeleteService;
 //    댓글
     private final ReplyService replyService;
 //    후기
@@ -245,11 +252,8 @@ public class AdminController {
 
     // 커뮤니티 (게시판)
     @GetMapping("/board")
-    public String adminBoard(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "BoardId", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Board> boards = adminService.boardShowAll(pageable, keyword, searchText, searchText, searchText);
-        List<Integer> replyCount = new ArrayList<>();
-        int count = 0;
-
+    public String adminBoard(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable) {
+        Page<BoardDTO> boards = adminService.boardShowAll(pageable, keyword, searchText);
         if(criteria.getPage() == 0) {
             criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
         }
@@ -257,11 +261,7 @@ public class AdminController {
         model.addAttribute("boardCounts", adminService.countByBoard());
         model.addAttribute("maxPage", 10);
         model.addAttribute("boards", boards);
-        if(keyword.equals("w")) {
-            model.addAttribute("resultCount", adminService.countByBoardNickname(searchText));
-        } else {
-            model.addAttribute("resultCount", boards.getTotalPages());
-        }
+        model.addAttribute("resultCount", adminService.searchCountByBoard(keyword, searchText));
         model.addAttribute("page", pageable);
         model.addAttribute("data", boards.isEmpty());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
@@ -399,13 +399,48 @@ public class AdminController {
 
     // 알바 관리
     @GetMapping("/job")
-    public String adminJob(Model model) {
+    public String job(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Alba> albas = adminService.albaShowAll(pageable, keyword, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+        }
+
+        model.addAttribute("albaCounts", adminService.countByAlba()); // 정책 글 개수
+        model.addAttribute("maxPage", 10); // 페이징
+        model.addAttribute("albas", albas);
+
+        if(keyword.equals("w")) {
+            model.addAttribute("resultCount", adminService.countByAlbaNickname(searchText));
+        } else {
+            model.addAttribute("resultCount", albas.getTotalPages());
+        }
+        model.addAttribute("data", albas.isEmpty());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/job";
     }
+//    알바 삭제
+    @PostMapping("/job/delete")
+    public RedirectView albaDelete(Criteria criteria, RedirectAttributes redirectAttributes, Long albaId){
+        redirectAttributes.addAttribute("page", criteria.getPage());
+        redirectAttributes.addAttribute("searchText", criteria.getSearchText());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
 
+        albaDetailService.removeAlbaId(albaId);
+        return new RedirectView("/admin/job");
+    }
+
+//    알바 신청자 목록
     @GetMapping("/job/participant")
-    public String adminJobParticipant(Model model) {
+    public String albaMember (Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "AlbaApplyId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<MemberAlba> memberAlbas = adminService.memberAlbaalbaShowAll(pageable, keyword, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+        }
+        model.addAttribute("memberAlbaCounts", adminService.countByMemberAlba()); // 정책 글 개수
+        model.addAttribute("maxPage", 10); // 페이징
+        model.addAttribute("memberAlbas", memberAlbas);
+        model.addAttribute("resultCount", adminService.countByMemberAlbaSearch(keyword, searchText));
+        model.addAttribute("data", memberAlbas.isEmpty());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/job-participant";
     }
@@ -543,75 +578,96 @@ public class AdminController {
     }
 
     // 프로그램 관리
+    @GetMapping("/program")
+    public String adminProgramList(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable){
+        Page<Program> programs = adminService.programShowAll(pageable, keyword, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+        }
+        model.addAttribute("programCounts", adminService.countByProgram()); // 정책 글 개수
+        model.addAttribute("maxPage", 10); // 페이징
+        model.addAttribute("programs", programs);
+        model.addAttribute("resultCount", adminService.countByProgramSearch(keyword, searchText));
+        model.addAttribute("data", programs.isEmpty());
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        return "/admin/program-list";
+    }
+
+//    프로그램 삭제
+    @PostMapping("/program/delete")
+    public RedirectView programDelete(Criteria criteria, RedirectAttributes redirectAttributes, Long programId){
+        redirectAttributes.addAttribute("page", criteria.getPage());
+        redirectAttributes.addAttribute("searchText", criteria.getSearchText());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
+
+        programDeleteService.programDelete(programId);
+        return new RedirectView("/admin/program");
+    }
+
+    @GetMapping("/program/pay")
+    public String adminPay(Model model){
+
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        return "/admin/program-pay";
+    }
+
     @GetMapping("/program/participant")
     public String adminProgramParticipant(Model model) {
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/program-participant";
     }
 
-    @GetMapping("/program")
-    public String adminProgramList(Model model){
+    // 후기 관리
+    @GetMapping("/review")
+    public String adminMentorReply(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "ReviewId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Review> reviews = adminService.reviewShowAll(pageable, keyword, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+        }
+
+        model.addAttribute("reviewCounts", adminService.countByReview());
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("reviews", reviews);
+        if(keyword.equals("w")) {
+            model.addAttribute("resultCount", adminService.countByReviewNickname(searchText));
+        } else {
+            model.addAttribute("resultCount", reviews.getTotalPages());
+        }
+        model.addAttribute("data", reviews.isEmpty());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
-        return "/admin/program-list";
+        return "/admin/mentor-review";
     }
 
-    @GetMapping("/program/pay")
-    public String adminPay(Model model){
-        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
-        return "/admin/program-pay";
+//    후기 삭제
+    @PostMapping("/review/delete")
+    public RedirectView reviewDelete(Criteria criteria, Long reviewId, RedirectAttributes redirectAttributes){
+//        reviewService.removeReview(reviewId);
+        redirectAttributes.addAttribute("page", criteria.getPage());
+        redirectAttributes.addAttribute("searchText", criteria.getSearchText());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
+        return new RedirectView("/admin/review");
     }
 
-//    //    후기 관리
-//    @GetMapping("/review")
-//    public String adminMentorReply(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "ReviewId", direction = Sort.Direction.DESC) Pageable pageable) {
-//        Page<Review> reviews = adminService.reviewShowAll(pageable, keyword, searchText);
-//        if(criteria.getPage() == 0) {
-//            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
-//        }
-//
-//        model.addAttribute("reviewCounts", adminService.countByReview());
-//        model.addAttribute("maxPage", 10);
-//        model.addAttribute("reviews", reviews);
-//        if(keyword.equals("w")) {
-//            model.addAttribute("resultCount", adminService.countByReviewNickname(searchText));
-//        } else {
-//            model.addAttribute("resultCount", reviews.getTotalPages());
-//        }
-//        model.addAttribute("data", reviews.isEmpty());
-////        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
-//        return "/admin/mentor-review";
-//    }
-//
-//    //    후기 삭제
-//    @PostMapping("/review/delete")
-//    public RedirectView reviewDelete(Criteria criteria, Long reviewId, RedirectAttributes redirectAttributes){
-////        reviewService.removeReview(reviewId);
-//        redirectAttributes.addAttribute("page", criteria.getPage());
-//        redirectAttributes.addAttribute("searchText", criteria.getSearchText());
-//        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
-//        return new RedirectView("/admin/reply");
-//    }
+//        댓글 관리
+    @GetMapping("/reply")
+    public String adminBoardReply(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "ReplyId", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Reply> replies = adminService.replyShowAll(pageable, keyword, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+        }
 
-    //    댓글 관리
-//    @GetMapping("/reply")
-//    public String adminBoardReply(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "ReplyId", direction = Sort.Direction.DESC) Pageable pageable) {
-//        Page<Reply> replies = adminService.replyShowAll(pageable, keyword, searchText);
-//        if(criteria.getPage() == 0) {
-//            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
-//        }
-//
-//        model.addAttribute("replyCounts", adminService.countByReply());
-//        model.addAttribute("maxPage", 10);
-//        model.addAttribute("replies", replies);
-//        if(keyword.equals("w")) {
-//            model.addAttribute("resultCount", adminService.countByReplyNickname(searchText));
-//        } else {
-//            model.addAttribute("resultCount", replies.getTotalPages());
-//        }
-//        model.addAttribute("data", replies.isEmpty());
-////        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
-//        return "/admin/board-reply";
-//    }
+        model.addAttribute("replyCounts", adminService.countByReply());
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("replies", replies);
+        if(keyword.equals("w")) {
+            model.addAttribute("resultCount", adminService.countByReplyNickname(searchText));
+        } else {
+            model.addAttribute("resultCount", replies.getTotalPages());
+        }
+        model.addAttribute("data", replies.isEmpty());
+        model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
+        return "/admin/board-reply";
+    }
 
 //    댓글 삭제
     @PostMapping("/reply/delete")

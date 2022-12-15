@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface InquireCustomRepository {
 //    검색(작성자) + 페이징
-    public List<Inquire> findByInquireLikeMemberNickname(String memberNickname, Pageable pageable);
+    public List<Inquire> findByInquireLikeMemberNickname(String memberNickname);
 
 //    작성자 검색했을 시 개수
     public Integer countByMemberNickname(String memberNickname);
