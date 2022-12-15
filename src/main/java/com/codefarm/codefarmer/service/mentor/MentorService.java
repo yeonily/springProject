@@ -211,4 +211,15 @@ public List<MentorFileDTO> showFiles(Long mentorBoardId){
                 .fetchOne();
     }
 
+    //    마이페이지 메인 8개 불러오기
+    public List<MentorBoardDTO> findMainList(){
+        return jpaQueryFactory.select(new QMentorBoardDTO(
+                mentorBoard.mentorBoardId,
+                mentorBoard.mentorTitle,
+                mentorBoard.member.memberNickname
+        )).from(mentorBoard)
+                .orderBy(mentorBoard.updatedDate.desc())
+                .limit(8).fetch();
+    }
+
 }
