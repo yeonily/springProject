@@ -139,6 +139,8 @@ public MentorDTO findBymentoId(Long mentorId){
 //    멘토보드 삭제하기
     public void removeMentorBoard(Long mentorBoardId){
 
+
+
         List<MentorFile> mentorFiles = mentorFileRepository.findByMentorBoard_MentorBoardId(mentorBoardId);
 
         mentorFiles.forEach(t -> mentorFileRepository.delete(t));
@@ -202,5 +204,11 @@ public List<MentorFileDTO> showFiles(Long mentorBoardId){
         mentorBoardRepository.save(mentorBoard);
     }
 
+    //멤버 아이디로 멘토아이디 찾기
+    public Long findByMemberId(Long memberId){
+        return jpaQueryFactory.select(mentor.mentorId).from(mentor)
+                .where(mentor.member.memberId.eq(memberId))
+                .fetchOne();
+    }
 
 }
