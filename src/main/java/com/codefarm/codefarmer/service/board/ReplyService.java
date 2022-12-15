@@ -79,7 +79,22 @@ public class ReplyService {
         return replyRepository.countAllByBoardBoardId(boardId);
     }
 
-
+//   해당 게시글의 댓글
+    public List<ReplyDTO> getReplyByBoardId(Long boardId){
+        return jpaQueryFactory.select(new QReplyDTO(
+                reply.replyId,
+                reply.board.boardId,
+                reply.member.memberId,
+                reply.member.memberNickname,
+                reply.replyContent,
+                reply.createdDate,
+                reply.updatedDate
+        )).from(reply)
+          .where(reply.board.boardId.eq(boardId))
+          .orderBy(reply.updatedDate.desc())
+          .limit(3)
+          .fetch();
+    }
 
 
 

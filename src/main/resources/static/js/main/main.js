@@ -118,4 +118,36 @@ if(bodySize[0] < 768) {
     });
 }
 
+//게시판 댓글 총 개수 넣기
+// var boardCount = $(".slideContent").length;
+// console.log(boardCount);
+function replyCountResult(){
+    var ret = []
+    $('.boardCount').each(function(index,item){
+        ret.push($(this).val())
+    });
+    $('.resultReplyCount').each(function (index,item) {
+        $(this).text(ret[index]);
+    })
+    console.log(ret);
+    return ret;
 
+};
+
+replyCountResult();
+
+//댓글 단 사람 닉네임 첫번째 글자 출력
+function nicknameFirst() {
+    var ret = []
+    $('.nicknameValue').each(function () {
+        var result = $(this).val().substr(0,1);
+        ret.push(result);
+        console.log(ret);
+    })
+
+    $('.nicknameFirst').each(function (index, item) {
+        $(this).text(ret[index]);
+    })
+
+}
+nicknameFirst();

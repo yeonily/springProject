@@ -78,7 +78,8 @@ public class AlbaController {
         // 알바 글쓰기 세션 아이디 저장
         Long memberId = (Long)session.getAttribute("memberId");
 
-        String path = "/Users/yeontaegwan/Desktop/project/image";
+//        String path = "/Users/yeontaegwan/Desktop/project/image";
+        String path = "C:/upload";
         String uploadFileName = null;
 
         File uploadPath = new File(path);
@@ -217,7 +218,8 @@ public class AlbaController {
     @GetMapping("/display")
     @ResponseBody
     public byte[] display(String fileName) throws IOException{
-        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
+//        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
+        File file = new File("C:/upload", fileName);
 
         return FileCopyUtils.copyToByteArray(file);
     }
