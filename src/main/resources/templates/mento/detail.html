@@ -563,13 +563,13 @@
         <div class="c-modal">
             <div class="m-wrap">
                 <div class="m-title">멘토 신청하기</div>
-                <form action="">
+                <form th:action="@{/mento/apply}" name="mentorApplyForm" method="post" th:object="${mentorMenteeDTO}">
                     <div class="m-c-wrap">
                         <div class="m-c-title">자신을 어필할 수있는 한줄평을 써주세요!</div>
-                        <input type="text" placeholder="멘토님께 소개할 한줄평 작성해주세요" class="modal_input">
+                        <input type="text" placeholder="멘토님께 소개할 한줄평 작성해주세요" class="modal_input" th:text="${menteeComment}">
                     </div>
                     <div class="applyBtnWrap">
-                        <button type="button" class="applyBtn">멘토 신청</button>
+                        <button type="button" class="applyBtn" onclick="apply()">멘토 신청</button>
                         <button type="button" class="cancel">취소</button>
                     </div>
                 </form>
@@ -811,6 +811,14 @@
         text += `</div>`
 
         $("#review-wrap").append(text);
+    }
+
+    function apply() {
+        if($(".applyBtn") == null) {
+            alert("한줄평을 입력해주세요.");
+        }else{
+            $(".applyBtn").submit();
+        }
     }
 
 </script>
