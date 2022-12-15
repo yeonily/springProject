@@ -71,6 +71,7 @@
                                     <form action="/mento/write">
                                         <div id="mentor_text_2">
                                             <input type="hidden" th:value="${sessionMemberId}" name="session" id="sessionMember">
+                                            <input type="hidden" th:value="${sessionMemberType}" name="session" id="sessionMemberType">
                                             너와농부싶어에서 검증된 현직자 멘토를 만나보세요.
                                             <div class="write-wrap">
                                                 <input type="submit" value="홍보 글 작성" id="mentor_write_button">
@@ -193,7 +194,7 @@
         }
     });
 
-    if($("#sessionMember").val()){
+    if($("#sessionMemberType").val() == 'MENTOR'){
         $(".write-wrap").show();
     }else{
         $(".write-wrap").hide();
