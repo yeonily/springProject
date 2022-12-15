@@ -92,7 +92,8 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         memberAlba.getMember().getMemberId(),
                         memberAlba.getMemberStatus(),
                         memberAlba.getMember().getMemberName(),
-                        memberAlba.getMember().getMemberEmail()))
+                        memberAlba.getMember().getMemberEmail(),
+                        memberAlba.getAlba().getAlbaId()))
                 .collect(Collectors.toList());
     }
 
@@ -242,30 +243,6 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramApplyId()).collect(Collectors.toList())
                 )).collect(Collectors.toList());
 
-//                jpaQueryFactory.selectFrom(program).innerJoin(program, programFile.program)
-//                .leftJoin(program, memberProgram.program)
-//                .where(program.member.memberId.eq(memberId)).fetch()
-//                .stream()
-//                .map(program -> new ProgramDTO(
-//                        program.getProgramId(),
-//                        program.getProgramType(),
-//                        program.getProgramTitle(),
-//                        program.getProgramWorkDate(),
-//                        program.getProgramApplyStartDate(),
-//                        program.getProgramLocation(),
-//                        program.getProgramFiles(),
-//                        program.get
-//                )).collect(Collectors.toList());
-
-//        this.programId = programId;
-//        this.programType = programType;
-//        this.programTitle = programTitle;
-//        this.programWorkDate = programWorkDate;
-//        this.programApplyStartDate = programApplyStartDate;
-//        this.programLocation = programLocation;
-//        this.files = files;
-//        this.programStatus = programStatus;
-//        this.programApplyId = programApplyId;
     }
 
     @Override
@@ -281,6 +258,28 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         memberProgram.getProgram().getProgramTitle()
                 )).collect(Collectors.toList());
     }
+
+    @Override
+    public MemberProgramDTO selectApplyInfo(Long programApplyId, Long memberId) {
+        return jpaQueryFactory.select(new QMemberProgramDTO(
+                memberProgram.programApplyId,
+                memberProgram.programStatus,
+                memberProgram.programApplyCount,
+                memberProgram.programPayment,
+                memberProgram.programApplyName,
+                memberProgram.programApplyPhoneNum,
+                memberProgram.programApplyEmail,
+                memberProgram.programApplyLocation,
+                memberProgram.programApplyBirth,
+                memberProgram.program.programTitle,
+                memberProgram.program.programType,
+                memberProgram.program.programId,
+                memberProgram.program.programPrice
+        )).from(memberProgram).join(memberProgram.program, program)
+                .where(memberProgram.programApplyId.eq(programApplyId).and(memberProgram.member.memberId.eq(memberId))).fetchOne();
+
+    }
+
 
 
 }

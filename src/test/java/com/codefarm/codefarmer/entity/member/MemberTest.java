@@ -265,4 +265,18 @@ public class MemberTest {
         memberRepository.selectMyProgramApply(memberId);
     }
 
+    @Test
+    public void selectApplyInfoTest(){
+            Long programApplyId = 1l;
+            Long memberId = 1l;
+            log.info("?"+memberRepository.selectApplyInfo(programApplyId, memberId));
+
+    }
+
+    @Test
+    public void updateAlbaCountTest(){
+            Long albaId = 2l;
+            memberRepository.updateAlbaCount(albaId);
+    }
+
 }

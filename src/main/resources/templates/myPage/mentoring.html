@@ -25,14 +25,14 @@
                     <div class="c-header">
                         <div class="c-title">
                             <!-- 멘티일 때-->
-                            <div th:if="${session.memberType == 'USER' or session.memberType == 'MENTEE'}">멘토 목록</div>
+                            <div th:if="${session.memberType == 'MENTEE'}">멘토 목록</div>
                             <!-- 멘토일 때 -->
                             <div th:if="${session.memberType == 'MENTOR'}">멘티 관리</div>
                             <!----------->
                         </div>
 
                         <!-- 멘티일 때 -->
-                        <th:block th:if="${session.memberType == 'USER' or session.memberType == 'MENTEE'}">
+                        <th:block th:if="${session.memberType == 'MENTEE'}">
                         <div th:replace="/myPage/mentoringContent.html :: mentoringMentee"></div>
                         </th:block>
                         <!----------->
@@ -52,16 +52,34 @@
 <!-- 푸터 -->
 <div th:replace="/footer/footer.html :: footer" class="footer"/>
 
+
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
-<script>
+<script src="/js/myPage/myPageRest.js"></script>
+<script th:inline="javascript">
     /*멘티일 때 멘토 삭제*/
-    function mentorDelete(){
-        event.stopImmediatePropagation();
-    }
+    $("div#mentorList").on("click", "button.refuse", function(){
+        console.log("들어오니?")
+        const mentorMenteeId = $("input[name=mentorMenteeId]").val();
 
+        mentorDelete(mentorMenteeId, this);
+        console.log(this)
+    });
+
+    function mentorDelete(mentorMenteeId, btn){
+        $.ajax({
+            url: "/mypage/mentor/delete",
+            type : "post",
+            data : {mentorMenteeId: mentorMenteeId},
+            success : function () {
+                $(btn).parent().parent().parent("div.delete").css("display", "none");
+
+            }
+        });
+    }
+//---------------------------------------------
     /*멘토일 때 멘티 삭제*/
     function menteeDelete(){
         event.stopImmediatePropagation();
@@ -80,5 +98,133 @@
         $('.content-m-wrap').hide();
         $("#" + tab).show();
     };
+
+
+
+    //--------------------------------------------
+    //멘티일 때 멘토리스트
+    let memberId = [[${member.memberId}]];
+    let memberType = [[${member.memberType}]];
+
+    if(memberType == 'MENTEE'){
+        $(document).ready(function () {
+            myPageService.getMentorList({
+                memberId: memberId
+            }, getList);
+        })
+    }else{
+        $(document).ready(function () {
+            myPageService.getMenteeList({
+                memberId: memberId
+            }, getMenteeList);
+        })
+    }
+
+
+    globalThis.page = 1;
+
+    function getList(mentors){
+        console.log(mentors)
+        let text = "";
+
+        if(mentors.length == 0){
+            console.log("여기잇니?");
+            text += '<div class="m-none">매칭된 멘토가 없습니다.</div>';
+            $("div#mentorList").html(text);
+            return;
+        }
+
+        mentors.forEach(function (mentorDTO) {
+            if(mentorDTO.menteeStatus == 'CONFIRM'){
+                console.log(mentorDTO)
+                text += `<div class="m-l-wrap m-l-link delete" >`
+                text += '<div class="m-l">'
+                text += '<div class="name" >'
+                text += '<span>멘토</span>' + mentorDTO.mentorNickName + '</div>'
+                text += '<div class="m-l-side">'
+                let date = new Date(mentorDTO.updateDate);
+                console.log(mentorDTO.updateDate);
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                text += '<div class="m-s-date">' + year + "." + month + "." + day + '</div>'
+                var number = mentorDTO.mentorMenteeId;
+                console.log(number);
+                text += '<input type="hidden" name="mentorMenteeId" value="'+number+'">'
+                text += '<button type="button" class="refuse" onclick="location.href=\'/mento/chatting\'">채팅</button>'
+                text += '<button type="button" class="refuse" th:id="mentorMenteeId" th:data-mentorMenteeId="${mentorDTO.mentorMenteeId}">삭제</button>'
+                text += '</div>'
+                text += '</div>'
+                text += '</div>'
+            }
+
+        })
+        $("div#mentorList").html(text);
+    }
+
+
+    function getMenteeList(mentees){
+        console.log(mentees)
+        let text = "";
+
+        if(mentees.length == 0){
+            console.log("여기잇니?");
+            text += '<div class="m-none m-or-none">신청한 멘티가 없습니다.</div>'
+            $("div#mentee-apply").html(text);
+            return;
+        }
+
+        mentees.forEach(function (menteeDTO) {
+            if(menteeDTO.menteeStatus == 'WAITING'){
+                console.log(menteeDTO)
+
+                text += '<div class="m-l-wrap">'
+                text += '<div class="m-l">'
+                text += '<div class="name">' + menteeDTO.menteeNickName + '</div>'
+                text += '<div class="m-l-side">'
+                text += '<button class="infoBtn">한 줄 소개'
+                text += '<svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>'
+                text += '</button>'
+                text += '<button class="accept">수락</button>'
+                text += '<button type="button" class="refuse">거절</button>'
+                text += '</div>'
+                text += '</div>'
+                text += '<div class="myInfo">' + menteeDTO.menteeComment + '</div>'
+                text += '</div>'
+            }
+
+        })
+        $("div#mentee-apply").html(text);
+
+        mentees.forEach(function (menteeDTO) {
+            if(menteeDTO.menteeStatus == 'CONFIRM'){
+                console.log(menteeDTO)
+
+                text += '<div class="m-l-wrap m-l-link" >'
+                text += '<div class="m-l">'
+                text += '<div class="name"><span>멘티</span>' + menteeDTO.menteeNickName + '</div>'
+                text += '<div class="m-l-side">'
+                let date = new Date(menteeDTO.updateDate);
+                console.log(menteeDTO.updateDate);
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                text += '<div class="m-s-date">' + year + "." + month + "." + day + '</div>'
+                var number = mentorDTO.mentorMenteeId;
+                text += '<input type="hidden" name="mentorMenteeId" value="'+number+'">'
+                text += '<button type="button" class="refuse" onclick="location.href=\'/mento/chatting\'">채팅</button>'
+                text += '<button type="button" class="refuse" th:id="mentorMenteeId" th:data-mentorMenteeId="${mentorDTO.mentorMenteeId}">삭제</button>'
+                text += '</div>'
+                text += '</div>'
+                text += '</div>'
+            }
+
+        })
+        $("div#mentee-list").html(text);
+
+    }
+
+
+
 </script>
 </html>
