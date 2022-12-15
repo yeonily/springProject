@@ -31,6 +31,7 @@
                             <li class="left_lists" th:object="${room}">
                                 <a href="javascript:void(0);" class="left_lists_a">
                                     <div>
+                                        <span class="red-circle"></span>
                                         <!--로그인 세션에 따라 멘토인지, 멘티인지 구분하고 대화 상대의 닉네임 출력하는 부분 수정해야 함-->
                                         <div class="list_name">
                                             <p class="list_name_p1" th:if="${sessionId} == *{mentee.memberId}" th:text="*{mentor.memberNickname}"></p>

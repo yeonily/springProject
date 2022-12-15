@@ -97,6 +97,13 @@ $(document).ready(function() {
         url: "/getChat/alarm",
         type: "post",
         success: function (alarms) {
+            /*알림이 없는 경우*/
+            if(alarms.length > 0) {
+                $(".alarm-red").css("display", "inline-block");
+            } else {
+                $(".alarm-red").css("display", "none");
+            }
+
             let text = "";
             alarms.forEach(function(alarm) {
                 chatDate = new Date(alarm.chatDate);
@@ -111,7 +118,7 @@ $(document).ready(function() {
                 text += `</div>`
                 text +=  `</div>`
                 text += `</div>`
-                console.log(alarm);
+                console.log("알람 : " + alarm);
             })
             $(".alarm .alarm-div").html(text);
         }, error: function () {
