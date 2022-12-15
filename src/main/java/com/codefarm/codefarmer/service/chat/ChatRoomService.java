@@ -158,35 +158,35 @@ public class ChatRoomService {
     }
 
 
+    /*안 읽은 메세지 중 가장 마지막 메세지를 저장(해당 방 번호, 로그인 세션)*/
+    public ChatDTO returnChat(Long roomId, Long memberId) {
+        List<ChatDTO> chatList = chatList(roomId);
+        ChatDTO chat = new ChatDTO();
+
+        for (ChatDTO chatDTO : chatList) {
+            // 상대가 보낸 메세지 중에서 읽지 않은 메세지를 저장
+            if(!chatDTO.getMemberId().equals(memberId) && chatDTO.getChatStatus() == UNREAD) {
+                // 닉네임을 저장
+                chatDTO.setNickName(memberRepository.findById(chatDTO.getMemberId()).get().getMemberNickname());
+                chatDTO.setRoomId(roomId);
+                chat = chatDTO;
+            }
+        }
+        return chat;
+    }
+
 
     /*-----------------------------------------------*/
           /*로그인 세션 기준 읽지 않은 메세지 있는지 확인*/
     /*-----------------------------------------------*/
     public List<ChatDTO> chatAlarm(Long memberId) {
         List<ChatRoomDTO> chatRooms = chatRoomSelectAll(memberId); // 현재 회원이 참여한 채팅방 모두 저장
-        List<ChatDTO> chats = new ArrayList<>();
-        ChatDTO chat = new ChatDTO();
         List<ChatDTO> result = new ArrayList<>();
 
         for(ChatRoomDTO chatRoomDTO : chatRooms) {
-            chatList(chatRoomDTO.getChatRoomId()).stream().filter(v -> v.getMember().getMemberId() != memberId).forEach(v -> {
-                v.setRoomId(chatRoomDTO.getChatRoomId());
-                chats.add(v);
-            });
-        }
-
-        for (int i = 0; i < chats.size(); i++) {
-            if (chat != null && !(chats.get(i).getMemberId()).equals(chat.getMemberId()) && chats.get(i).getChatStatus() == UNREAD) {
-                /*채팅방들 중 읽지않은 메세지의 회원 정보를 배열에 저장*/
-                if(!chats.get(i).getMemberId().equals(memberId)) {
-                    Long memId = chats.get(i).getMemberId();
-                    Long roomId = chats.get(i).getRoomId();
-                    chats.get(i).setNickName(memberRepository.findById(memId).get().getMemberNickname());
-                    chats.get(i).setRoomId(chatRoomRepository.findById(roomId).get().getChatRoomId());
-                    result.add(chats.get(i));
-                }
+            if(returnChat(chatRoomDTO.getChatRoomId(), memberId).getMemberId() != null) {
+                result.add(returnChat(chatRoomDTO.getChatRoomId(), memberId));
             }
-            chat = chats.get(i);
         }
         return result;
     }

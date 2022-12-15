@@ -45,11 +45,15 @@ $(".left_lists").on("click", function () {
 
             chats.forEach(function (chat) {
                 let chatStatus = chat.chatStatus == 'READ' ? true : false; // 채팅 읽음 상태 저장
+                chatDate = new Date(chat.chatDate);
+
+                console.log(chatDate.getDate());
+
                 if (sessionId == chat.memberId) {
                     const status = chatStatus == true ? `` : `1&nbsp&nbsp`;
                     text += `<div class="chatting_inner">`;
                     text += `<div class="chatting_inner_right">`;
-                    text += `<p class="chatting_date_right"><span class="no_read_chat">` + status + `</span>` + chat.chatDate + `</p>`;
+                    text += `<p class="chatting_date_right"><span class="no_read_chat">` + status + `</span>` + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" + `</p>`;
                     text += `<ul class="chatting_ul">`;
                     text += `<li class="chatting_text">` + chat.chatMessage + `</li>`;
                     text += `</ul>`;
@@ -59,7 +63,7 @@ $(".left_lists").on("click", function () {
                     const status = chatStatus == true ? `` : `&nbsp&nbsp1`;
                     text += `<div class="chatting_inner">`;
                     text += `<div class="chatting_inner_left">`;
-                    text += `<p class="chatting_date_left">` + chat.chatDate + `<span class="no_read_chat">` + status + `</span></p>`;
+                    text += `<p class="chatting_date_left">` + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" + `<span class="no_read_chat">` + status + `</span></p>`;
                     text += `<ul class="chatting_ul">`;
                     text += `<li class="chatting_text">` + chat.chatMessage + `</li>`;
                     text += `</ul>`;
@@ -74,6 +78,13 @@ $(".left_lists").on("click", function () {
                 url: "/getChat/alarm",
                 type: "post",
                 success: function (alarms) {
+                    /*알림이 없는 경우*/
+                    if(alarms.length == 0) {
+                        $(".alarm-red").css("display", "none");
+                    } else {
+                        $(".alarm-red").css("display", "inline-block");
+                    }
+
                     let text2 = "";
                     alarms.forEach(function(alarm) {
                         chatDate = new Date(alarm.chatDate);
