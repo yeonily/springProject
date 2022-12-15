@@ -90,3 +90,32 @@ if($('.pg-detail-banner-chip').text() == '정책'){
     $(btnList[3]).attr("class", "on");
 }
 
+
+/*페이지를 이동할 때마다 알림을 확인함(실시간 아님..)*/
+$(document).ready(function() {
+    $.ajax({
+        url: "/getChat/alarm",
+        type: "post",
+        success: function (alarms) {
+            let text = "";
+            alarms.forEach(function(alarm) {
+                chatDate = new Date(alarm.chatDate);
+
+                text += `<div class="alarmList" onclick="location.href='/mento/chatting'">`
+                text += `<div class="alarmDetail">`
+                text += `<div class="img-icon"><img src="/image/header/alarm-icon.png"></div>`
+                text += `<div class="alarmContent">`
+                text += `<span>`+ alarm.nickName +`님으로부터 아직 확인하지 않은 메세지가 있습니다!</span>`
+                text += `<p>`+ chatDate.getFullYear() + "년 " + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" +`</p>`
+                text += `<input type="hidden" id="roomId" value=`+ alarm.roomId +`>`
+                text += `</div>`
+                text +=  `</div>`
+                text += `</div>`
+                console.log(alarm);
+            })
+            $(".alarm .alarm-div").html(text);
+        }, error: function () {
+            console.log("로그인 해야함");
+        }
+    });
+})
