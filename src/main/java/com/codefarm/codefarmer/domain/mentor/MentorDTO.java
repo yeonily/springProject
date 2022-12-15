@@ -18,6 +18,8 @@ public class MentorDTO {
     private Member farmerType;
     private String mentorCrop;
     private String mentorYear;
+    private String memberLocation;
+    private String memberNickName;
 
     public Mentor toEntity(){
         return Mentor.builder()
@@ -34,4 +36,14 @@ public class MentorDTO {
         this.mentorCrop = mentorCrop;
         this.mentorYear = mentorYear;
     }
+
+    @QueryProjection
+    public MentorDTO(String mentorCrop, String mentorYear, String memberLocation, String memberNickName) {
+        this.mentorCrop = mentorCrop;
+        this.mentorYear = mentorYear;
+        this.memberLocation = memberLocation;
+        this.memberNickName = memberNickName;
+    }
+
+
 }
