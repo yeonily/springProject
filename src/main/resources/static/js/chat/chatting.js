@@ -4,7 +4,6 @@
 var sessionId = Number($("#sessionId").text()); // 현재 로그인된 세션 아이디
 var roomId;
 var check = false;
-var tempRoomId;
 var text = "";
 let sockJs;
 let stomp;/*실행 순서 첫 번째*/
@@ -45,9 +44,6 @@ $(".left_lists").on("click", function () {
             let text = "";
 
             chats.forEach(function (chat) {
-                nowDate = new Date();
-                console.log(chat);
-
                 let chatStatus = chat.chatStatus == 'READ' ? true : false; // 채팅 읽음 상태 저장
                 if (sessionId == chat.memberId) {
                     const status = chatStatus == true ? `` : `1&nbsp&nbsp`;
@@ -72,6 +68,34 @@ $(".left_lists").on("click", function () {
                 }
                 $("#chat-foreach").html(text);
             })
+
+            /*만약 알림에 있는 채팅을 읽었을 경우 다시 알림을 조회하여 알림창 없애줌*/
+            $.ajax({
+                url: "/getChat/alarm",
+                type: "post",
+                success: function (alarms) {
+                    let text2 = "";
+                    alarms.forEach(function(alarm) {
+                        chatDate = new Date(alarm.chatDate);
+
+                        text2 += `<div class="alarmList" onclick="location.href='/mento/chatting'">`
+                        text2 += `<div class="alarmDetail">`
+                        text2 += `<div class="img-icon"><img src="/image/header/alarm-icon.png"></div>`
+                        text2 += `<div class="alarmContent">`
+                        text2 += `<span>`+ alarm.nickName +`님으로부터 아직 확인하지 않은 메세지가 있습니다!</span>`
+                        text2 += `<p>`+ chatDate.getFullYear() + "년 " + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" +`</p>`
+                        text2 += `<input type="hidden" id="roomId" value=`+ alarm.roomId +`>`
+                        text2 += `</div>`
+                        text2 +=  `</div>`
+                        text2 += `</div>`
+                        console.log(alarm);
+                    })
+                    console.log("확인해봐 : " + text2);
+                    $(".alarm .alarm-div").html(text2);
+                }, error: function () {
+                    console.log("로그인 해야함");
+                }
+            });
         }
     });
 
@@ -162,6 +186,4 @@ $(".left_lists").on("click", function () {
         }));
         $("#message").val('');
     }
-
-
 });

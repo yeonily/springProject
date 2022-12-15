@@ -26,6 +26,7 @@ public class MemberProgram extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROGRAM_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Program program;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -79,4 +80,5 @@ public class MemberProgram extends Period {
         this.member = member;
         this.program = program;
     }
+
 }

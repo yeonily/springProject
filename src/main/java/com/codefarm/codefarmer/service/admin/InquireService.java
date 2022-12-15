@@ -37,7 +37,7 @@ public class InquireService {
 
 //    문의 목록
     public Page<Inquire> inquireShowAll(Pageable pageable, String keyword, String inquireQTitle, String inquireQContent, String memeberNickname){
-        List<Inquire> inquires = inquireCustomRepository.findByInquireLikeMemberNickname(memeberNickname, pageable);
+        List<Inquire> inquires = inquireCustomRepository.findByInquireLikeMemberNickname(memeberNickname);
         final int total = inquireCustomRepository.countByMemberNickname(memeberNickname);
         final int start = (int)pageable.getOffset();
         final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;

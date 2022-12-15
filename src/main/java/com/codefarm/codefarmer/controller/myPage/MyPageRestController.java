@@ -13,6 +13,7 @@ import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.service.admin.InquireService;
 import com.codefarm.codefarmer.service.board.ReplyService;
@@ -92,16 +93,18 @@ public class MyPageRestController {
         return inquires;
     }
 
+
+
     /*----------------------------*/
     //프로그램 목록(user)
     @GetMapping("/program/applylist")
-    public List<MemberProgramDTO> showApplyPgList(HttpSession session) {
+    public List<ProgramDTO> showApplyPgList(HttpSession session) {
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("아이디 : "+ memberId);
-        List<MemberProgramDTO> programs = memberService.findMyProgramApply(memberId);
-//        for (MemberProgramDTO program : programs){
-//            program.setFiles(programListService.showFiles(program.getProgramId()));
-//        }
+        List<ProgramDTO> programs = memberService.findMyProgramApply(memberId);
+        for (ProgramDTO program : programs){
+            program.setFiles(programListService.showFiles(program.getProgramId()));
+        }
         log.info("전체 : "  + programs.toString());
 
         return programs;
@@ -114,5 +117,14 @@ public class MyPageRestController {
         log.info("아이디 : "+ memberId);
         List<MemberAlbaDTO> albas = memberService.findMyAlbaApply(memberId);
         return albas;
+    }
+
+    //결제내역 목록(user)
+    @GetMapping("/paylist")
+    public List<MemberProgramDTO> showAllPayList(HttpSession session) {
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("아이디 : "+ memberId);
+        List<MemberProgramDTO> memberPrograms = memberService.findMyPay(memberId);
+        return memberPrograms;
     }
 }

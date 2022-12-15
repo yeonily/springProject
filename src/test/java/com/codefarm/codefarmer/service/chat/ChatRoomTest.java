@@ -45,14 +45,14 @@ public class ChatRoomTest {
     @Test
     public void checkChatRoom() {
         // 14번 멘티(일반회원이) 13번 멘토에게 채팅 요청
-        log.info("결과 : " + chatRoomService.checkChatRoom(131L, 86L));
+        log.info("결과 : " + chatRoomService.checkChatRoom(86L, 83L));
     }
 
 
     /*채팅방 유무에 따라 채팅방 만들기*/
     @Test
     public void createChatRoom() {
-        chatRoomService.createChatRoom(131L, 86L);
+        chatRoomService.createChatRoom(86L, 83L);
     }
 
     /*채팅방 대화내역 불러오기*/
@@ -65,7 +65,8 @@ public class ChatRoomTest {
     /*안 읽은 메세지 읽음으로 변경*/
     @Test
     public void changeChatStatus() {
-//        chatRoomService.readChange(12L);
+        // 현재 로그인 한 세션 735L 회원 메세지를 제외하고는 모두 읽음 처리
+        chatRoomService.readChange(1982L, 735L);
     }
 
 
@@ -81,11 +82,13 @@ public class ChatRoomTest {
     public void sendChatTest() {
         ChatDTO chatDTO = new ChatDTO();
 
-        chatDTO.setChatRoom(chatRoomRepository.findById(87L).get()); // 87번 채팅방
-        chatDTO.setChatMessage("테스트 문자");
+        chatDTO.setRoomId(2232L);
+        chatDTO.setChatRoom(chatRoomRepository.findById(2232L).get()); // 87번 채팅방
+        chatDTO.setChatMessage("테스트 문자555 마지막");
         chatDTO.setChatStatus(ChatStatus.UNREAD);
-        chatDTO.setMember(chatRoomService.findByMemberId(1L).get());
-        chatDTO.setMemberId(1L);
+        chatDTO.setMember(chatRoomService.findByMemberId(83L).get());
+        chatDTO.setMemberId(83L);
+        chatDTO.setNickName(chatRoomService.findByMemberId(83L).get().getMemberNickname());
 
         System.out.println("결과 : " + chatDTO.toString());
         chatRoomService.sendMessage(chatDTO);
@@ -94,11 +97,8 @@ public class ChatRoomTest {
     /*채팅 알림*/
     @Test
     public void chatAlarm() {
-        log.info("결과 : " + chatRoomService.chatAlarm(1L));
+        log.info("결과 : " + chatRoomService.chatAlarm(86L));
     }
-
-
-
 }
 
 

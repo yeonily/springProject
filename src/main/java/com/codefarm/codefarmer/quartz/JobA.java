@@ -14,6 +14,6 @@ public class JobA extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        log.info("매 시간 실행 될 작업 작성 공간");
+//        log.info("여기에 반복 실행될 메소드를 추가해야함");
     }
 }

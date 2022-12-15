@@ -5,7 +5,6 @@ import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
-import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.alba.AlbaListService;
 import com.codefarm.codefarmer.type.MemberType;
@@ -43,7 +42,6 @@ public class AlbaController {
     private final AlbaListService albaListService;
     private final AlbaDetailService albaDetailService;
     private final AlbaRepository albaRepository;
-    private final MemberAlbaRepository memberAlbaRepository;
 
     // 알바메인페이지 리스트
     @GetMapping("/list")

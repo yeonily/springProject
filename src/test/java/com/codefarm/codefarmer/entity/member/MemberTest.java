@@ -5,6 +5,7 @@ import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
@@ -13,10 +14,7 @@ import com.codefarm.codefarmer.entity.board.QBoard;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
-import com.codefarm.codefarmer.entity.program.MemberProgram;
-import com.codefarm.codefarmer.entity.program.Program;
-import com.codefarm.codefarmer.entity.program.QMemberProgram;
-import com.codefarm.codefarmer.entity.program.QProgram;
+import com.codefarm.codefarmer.entity.program.*;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.type.MemberType;
@@ -42,6 +40,7 @@ import static com.codefarm.codefarmer.entity.program.QMemberProgram.*;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
 import static com.codefarm.codefarmer.entity.program.QProgram.*;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
+import static com.codefarm.codefarmer.entity.program.QProgramFile.programFile;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -236,4 +235,34 @@ public class MemberTest {
     public void updateInfoTest(){
             memberRepository.updateInfo(1l, "010-0000-0000", "서울시");
     }
+
+    @Test
+    public void selectMyPayTest(){
+            memberRepository.selectMyPay(11l).stream().map(memberProgramDTO -> memberProgramDTO.toString()).forEach(log::info);
+    }
+
+    @Test
+    public void selectMyProgramApplyTest() {
+        Long memberId = 11l;
+//        List<Program> programs = jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))).fetch();
+//        programs.stream().forEach(v->{
+//            log.info("파일개수"+v.getProgramFiles().size());
+//        });
+//        programs.stream().forEach(v->{
+//            log.info("멤버프로그램"+v.getMemberPrograms().get(2).getProgramApplyName());
+//        });
+
+
+//        List<Program> programs1 = jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
+//                    .and(memberProgram.member.memberId.eq(memberId))).fetch();
+//        programs1.stream().forEach(v->{
+//            log.info("왜?! " + v.getMemberPrograms().size());
+//        });
+
+//            jpaQueryFactory.selectFrom(QProgram.program).leftJoin(programFile).fetchJoin().leftJoin(memberProgram).fetchJoin().distinct().fetch();
+
+
+        memberRepository.selectMyProgramApply(memberId);
+    }
+
 }

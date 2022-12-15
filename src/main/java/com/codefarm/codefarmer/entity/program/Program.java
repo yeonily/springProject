@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.entity.program;
 
+import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.entity.member.Member;
@@ -100,10 +101,19 @@ public class Program extends Period {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "program",cascade = CascadeType.ALL)
     private List<ProgramFile> programFiles;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "program",cascade = CascadeType.ALL)
+    private List<MemberProgram> memberPrograms;
+
     public void changeFiles(List<ProgramFileDTO> files){
         List<ProgramFile> fileEntities = files.stream().map(file -> file.toEntity()).collect(Collectors.toList());
         fileEntities.stream().forEach(file -> file.changeProgram(this));
         this.programFiles = fileEntities;
+    }
+
+    public void changeMemberPrograms(List<MemberProgramDTO> memberPrograms){
+        List<MemberProgram> memberProgramEntities = memberPrograms.stream().map(memberProgram -> memberProgram.toEntity()).collect(Collectors.toList());
+        memberProgramEntities.stream().forEach(memberProgram -> memberProgram.changeProgram(this));
+        this.memberPrograms = memberProgramEntities;
     }
 
     public void changeMember(Member member){ this.member = member; }

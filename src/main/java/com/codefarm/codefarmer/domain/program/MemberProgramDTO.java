@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.type.ProgramStatus;
+import com.codefarm.codefarmer.type.ProgramType;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,14 @@ public class MemberProgramDTO {
     private String programApplyEmail;
     private String programApplyLocation;
     private LocalDateTime programApplyBirth;
+    private LocalDateTime updateDate;
+    private String programTitle;
+
+    private Long programId;
+    private ProgramType programType;
+    private String programLocation;
+    private LocalDateTime programWorkDate;
+    private LocalDateTime programApplyStartDate;
 
 
     public MemberProgram toEntity(){
@@ -62,6 +71,8 @@ public class MemberProgramDTO {
         this.programStatus = programStatus;
         this.programApplyCount = programApplyCount;
         this.programPayment = programPayment;
+        this.programPayment = programPayment;
+        this.programPayment = programPayment;
         this.programApplyName = programApplyName;
         this.programApplyPhoneNum = programApplyPhoneNum;
         this.programApplyEmail = programApplyEmail;
@@ -69,5 +80,24 @@ public class MemberProgramDTO {
         this.programApplyBirth = programApplyBirth;
     }
 
+    @QueryProjection
+    public MemberProgramDTO(Long programApplyId, ProgramStatus programStatus, int programPayment, LocalDateTime updateDate, String programTitle) {
+        this.programApplyId = programApplyId;
+        this.programStatus = programStatus;
+        this.programPayment = programPayment;
+        this.updateDate = updateDate;
+        this.programTitle = programTitle;
+    }
 
+//    @QueryProjection
+//    public MemberProgramDTO(Long programApplyId, Long programId, ProgramStatus programStatus, String programTitle, ProgramType programType, String programLocation, LocalDateTime programWorkDate, LocalDateTime programApplyStartDate) {
+//        this.programApplyId = programApplyId;
+//        this.programId = programId;
+//        this.programStatus = programStatus;
+//        this.programTitle = programTitle;
+//        this.programType = programType;
+//        this.programLocation = programLocation;
+//        this.programWorkDate = programWorkDate;
+//        this.programApplyStartDate = programApplyStartDate;
+//    }
 }

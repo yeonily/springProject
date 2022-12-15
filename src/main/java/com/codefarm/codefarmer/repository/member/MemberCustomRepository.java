@@ -40,7 +40,8 @@ public interface MemberCustomRepository {
     //알바 신청 목록
     public List<MemberAlbaDTO> selectMyAlbaApply(Long memberId);
     //프로그램 신청 목록
-    public List<MemberProgramDTO> selectMyProgramApply(Long memberId);
-
+    public List<ProgramDTO> selectMyProgramApply(Long memberId);
+    //결제내역 목록
+    public List<MemberProgramDTO> selectMyPay(Long memberId);
 
 }

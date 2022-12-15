@@ -6,6 +6,8 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -29,6 +31,7 @@ public class ProgramFile extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROGRAM_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Program program;
 
     public void changeProgram(Program program){
