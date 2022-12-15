@@ -134,5 +134,41 @@ let myPageService = (function () {
         });
     }
 
-    return {getPgList: getPgList, getAbList: getAbList, getBoList:getBoList, getIqList:getIqList, getApplyPgList:getApplyPgList, getApplyAbList:getApplyAbList, getApplyPayList:getApplyPayList}
+    function getMentorList(memberId, callback, error) {
+        $.ajax({
+            url: "/mypage/mentorlist",
+            type: "get",
+            success: function (mentors, status, xhr) {
+                console.log("getMentorList - "+ mentors);
+                if (callback) {
+                    callback(mentors);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function getMenteeList(memberId, callback, error) {
+        $.ajax({
+            url: "/mypage/menteelist",
+            type: "get",
+            success: function (mentees, status, xhr) {
+                console.log("getMenteeList - "+ mentees);
+                if (callback) {
+                    callback(mentees);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+
+    return {getPgList: getPgList, getAbList: getAbList, getBoList:getBoList, getIqList:getIqList, getApplyPgList:getApplyPgList, getApplyAbList:getApplyAbList, getApplyPayList:getApplyPayList, getMentorList:getMentorList, getMenteeList:getMenteeList}
 })();

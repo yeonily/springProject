@@ -76,4 +76,10 @@ public class MemberProgramTest {
 //        MemberProgramDTO List<memberProgramDTO> =  memberProgramRepository.findAll();
     }
 
+    @Test
+    public void findByIdTest(){
+        Long programApplyId = 1l;
+        log.info("결과"+memberProgramRepository.findById(programApplyId));
+    }
+
 }
