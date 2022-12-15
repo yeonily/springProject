@@ -27,6 +27,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -168,10 +169,22 @@ public class MyPageController {
 
     //프로그램 신청 취소
     @GetMapping("/program/cancel")
-    public String programCancelPage(Model model, HttpSession session){
+    public String programCancelPage(Model model, HttpSession session, @RequestParam Long programApplyId){
         Member member= memberService.find((Long)session.getAttribute("memberId"));
         model.addAttribute("member", member);
+        MemberProgramDTO applyInfo = memberService.findMyApplyInfo(programApplyId, (Long)session.getAttribute("memberId"));
+        model.addAttribute("applyInfo", applyInfo);
         return "/myPage/applyCancel";
+    }
+
+    //프로그램 신청 취소 완료
+    @PostMapping("/program/cancelOk")
+    public RedirectView programCancelOk(@RequestParam String memberProgramIdString){
+        log.info("신청취소완료 컨트롤러 들어옴");
+        log.info("memberProgramIdString"+memberProgramIdString);
+        Long memberProgramId = Long.parseLong(memberProgramIdString);
+        memberService.changeMemberStatus(memberProgramId);
+        return new RedirectView("/mypage/program");
     }
 
     //아르바이트 페이지 이동
@@ -233,4 +246,6 @@ public class MyPageController {
         Member member= memberService.find((Long)session.getAttribute("memberId"));
         model.addAttribute("member", member);
     }
+
+
 }

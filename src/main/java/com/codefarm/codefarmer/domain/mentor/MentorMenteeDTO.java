@@ -15,22 +15,36 @@ import java.time.LocalDateTime;
 @Data
 public class MentorMenteeDTO {
     private Long mentorMenteeId;
-    private Member mentorId;
-    private Member menteeId;
+    private Long mentorId;
+    private Long menteeId;
     private Status menteeStatus;
     private String menteeComment;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
+    private String mentorNickName;
+    private String menteeNickName;
 
     @QueryProjection
-    public MentorMenteeDTO(Long mentorMenteeId, Member mentor, Member mentee, Status menteeStatus, String menteeComment, LocalDateTime createdDate, LocalDateTime updateDate) {
+    public MentorMenteeDTO(Long mentorMenteeId, Long mentorId, Long menteeId, Status menteeStatus, String menteeComment, LocalDateTime createdDate, LocalDateTime updateDate) {
         this.mentorMenteeId = mentorMenteeId;
-        this.mentorId = mentor;
-        this.menteeId = mentee;
+        this.mentorId = mentorId;
+        this.menteeId = menteeId;
         this.menteeStatus = menteeStatus;
         this.menteeComment = menteeComment;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
+    }
+
+    @QueryProjection
+    public MentorMenteeDTO(Long mentorMenteeId, Long mentorId, Long menteeId, Status menteeStatus, LocalDateTime updateDate, String mentorNickName, String menteeNickName, String menteeComment) {
+        this.mentorMenteeId = mentorMenteeId;
+        this.mentorId = mentorId;
+        this.menteeId = menteeId;
+        this.menteeStatus = menteeStatus;
+        this.updateDate = updateDate;
+        this.mentorNickName = mentorNickName;
+        this.menteeNickName = menteeNickName;
+        this.menteeComment = menteeComment;
     }
 
     public MentorMentee toEntity(){

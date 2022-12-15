@@ -84,7 +84,7 @@ function alam() {
 }
 
 // mentoring.html - 한 줄 소개 보기
-$("button.infoBtn").on("click", function(){
+$("div.contents").on("click", "button.infoBtn", function(){
     let $info = $(this).parents('div.m-l').next();
     let $moreSVG = $(this).children('svg');
 

@@ -27,18 +27,22 @@ public class MentorMenteeTest {
 //    한줄 소개 작성하기
     @Test
     public void applyMenteeTest(){
-        MentorMenteeDTO mentorMenteeDTO = new MentorMenteeDTO();
-        Optional<Member> findMentor = memberRepository.findById(1L);
-
-        mentorMenteeDTO.setMenteeComment("당신한테 배우고 싶습니다. 멘티 신청합니다!");
-        mentorMenteeDTO.setMentorId(findMentor.get());
-
-        MentorMentee mentorMentee = mentorMenteeDTO.toEntity();
-        mentorMentee.changeMentor(mentorMenteeDTO.getMentorId());
-        mentorMentee.changeMentee(mentorMenteeDTO.getMenteeId());
-        mentorMenteeRepository.save(mentorMentee);
+//        MentorMenteeDTO mentorMenteeDTO = new MentorMenteeDTO();
+//        Optional<Member> findMentor = memberRepository.findById(1L);
+//
+//        mentorMenteeDTO.setMenteeComment("당신한테 배우고 싶습니다. 멘티 신청합니다!");
+//        mentorMenteeDTO.setMentorId(findMentor.get());
+//
+//        MentorMentee mentorMentee = mentorMenteeDTO.toEntity();
+//        mentorMentee.changeMentor(mentorMenteeDTO.getMentorId());
+//        mentorMentee.changeMentee(mentorMenteeDTO.getMenteeId());
+//        mentorMenteeRepository.save(mentorMentee);
     }
 
+    @Test
+    public void deleteByIdTest(){
+        mentorMenteeRepository.deleteById(1l);
+    }
 
 
 }

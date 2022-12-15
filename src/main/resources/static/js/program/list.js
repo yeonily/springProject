@@ -44,7 +44,7 @@ $(document).ready(function () {
                 text += '<div class="list-point">'
                 text += '<div>'
                 if(list.programType == 'ONLY_MENTEE'){
-                    text += '<span class="list-point-m">멘토 전용</span>'
+                    text += '<span class="list-point-m">멘티 전용</span>'
                 }
                 text += '</div>'
                 text += '</div>'

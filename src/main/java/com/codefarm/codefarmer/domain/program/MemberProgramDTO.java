@@ -32,9 +32,7 @@ public class MemberProgramDTO {
 
     private Long programId;
     private ProgramType programType;
-    private String programLocation;
-    private LocalDateTime programWorkDate;
-    private LocalDateTime programApplyStartDate;
+    private int programPrice;
 
 
     public MemberProgram toEntity(){
@@ -71,8 +69,6 @@ public class MemberProgramDTO {
         this.programStatus = programStatus;
         this.programApplyCount = programApplyCount;
         this.programPayment = programPayment;
-        this.programPayment = programPayment;
-        this.programPayment = programPayment;
         this.programApplyName = programApplyName;
         this.programApplyPhoneNum = programApplyPhoneNum;
         this.programApplyEmail = programApplyEmail;
@@ -89,15 +85,20 @@ public class MemberProgramDTO {
         this.programTitle = programTitle;
     }
 
-//    @QueryProjection
-//    public MemberProgramDTO(Long programApplyId, Long programId, ProgramStatus programStatus, String programTitle, ProgramType programType, String programLocation, LocalDateTime programWorkDate, LocalDateTime programApplyStartDate) {
-//        this.programApplyId = programApplyId;
-//        this.programId = programId;
-//        this.programStatus = programStatus;
-//        this.programTitle = programTitle;
-//        this.programType = programType;
-//        this.programLocation = programLocation;
-//        this.programWorkDate = programWorkDate;
-//        this.programApplyStartDate = programApplyStartDate;
-//    }
+    @QueryProjection
+    public MemberProgramDTO(Long programApplyId, ProgramStatus programStatus, int programApplyCount, int programPayment, String programApplyName, String programApplyPhoneNum, String programApplyEmail, String programApplyLocation, LocalDateTime programApplyBirth, String programTitle, ProgramType programType, Long programId, int programPrice) {
+        this.programApplyId = programApplyId;
+        this.programStatus = programStatus;
+        this.programApplyCount = programApplyCount;
+        this.programPayment = programPayment;
+        this.programApplyName = programApplyName;
+        this.programApplyPhoneNum = programApplyPhoneNum;
+        this.programApplyEmail = programApplyEmail;
+        this.programApplyLocation = programApplyLocation;
+        this.programApplyBirth = programApplyBirth;
+        this.programTitle = programTitle;
+        this.programType = programType;
+        this.programId = programId;
+        this.programPrice = programPrice;
+    }
 }

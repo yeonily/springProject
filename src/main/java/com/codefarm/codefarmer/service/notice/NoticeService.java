@@ -1,9 +1,13 @@
 package com.codefarm.codefarmer.service.notice;
 
 import com.codefarm.codefarmer.domain.notice.NoticeDTO;
+import com.codefarm.codefarmer.domain.notice.QNoticeDTO;
+import com.codefarm.codefarmer.domain.notice.QNoticeFileDTO;
 import com.codefarm.codefarmer.entity.notice.Notice;
+import com.codefarm.codefarmer.entity.notice.QNotice;
 import com.codefarm.codefarmer.repository.notice.NoticeFileRepository;
 import com.codefarm.codefarmer.repository.notice.NoticeRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -13,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.codefarm.codefarmer.entity.mentor.QMentorBoard.mentorBoard;
+import static com.codefarm.codefarmer.entity.notice.QNotice.notice;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -20,6 +27,7 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final NoticeFileRepository noticeFileRepository;
     private final NoticeFileService noticeFileService;
+    private final JPAQueryFactory jpaQueryFactory;
 
 //    공지 글 작성
     public void register(NoticeDTO noticeDTO){
@@ -83,4 +91,18 @@ public class NoticeService {
 
 //    공지 글 개수
     public int countByNotice() {return noticeRepository.countByNotice();}
+
+    public List<NoticeDTO> showNoticeByRecentThree(){
+        return jpaQueryFactory.select(new QNoticeDTO(
+                notice.noticeId,
+                notice.noticeTitle,
+                notice.noticeContent,
+                notice.noticeViewCount,
+                notice.createdDate,
+                notice.updatedDate
+        )).from(notice)
+          .orderBy(notice.updatedDate.desc())
+          .limit(3)
+          .fetch();
+    }
 }

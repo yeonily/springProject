@@ -94,10 +94,12 @@ public class BoardService {
          return board.getBoardViewCount();
     }
 
-//  해당 보드 댓글 총 수 갖고오기
+//  해당 게시판 총 댓글아이디 수 갖고오기
     public Long showBoardReplyCount(Long boardId){
         return replyRepository.countByBoard_BoardId(boardId);
     }
+
+//  해당 게시판 댓글 닉네임,내용,댓글 총 개수 가져오기
 
 //  현재 로그인 되어있는 사람 닉넴 갖고오기(농장주)
     public String showNickName(Long memberId){

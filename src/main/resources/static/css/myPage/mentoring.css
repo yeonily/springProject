@@ -22,7 +22,7 @@ div.m-none {
 .m-or-none {min-height: 200px}
 
 div.m-l-wrap {
-    display: flex!important;
+    display: flex;
     flex-direction: column;
     width: 100%;
     margin-right: 16px!important;
@@ -31,7 +31,6 @@ div.m-l-wrap {
 div.m-l-link:hover {
     background: #f6f6f6;
     border-radius: 8px;
-    cursor: pointer;
 }
 
 div.m-l {

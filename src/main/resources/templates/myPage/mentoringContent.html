@@ -11,7 +11,7 @@
     <div class="content">
         <div class="wrapper-s">
             <!-- 멘토 목록 -->
-            <div class="content-m-wrap mentee">
+            <div class="content-m-wrap mentee" id="mentorList">
 
                 <!---->
                 <div class="m-l-wrap m-l-link" th:onclick="'location.href=\''+ @{/mento/chatting} + '\''">
@@ -58,22 +58,22 @@
 
     <div class="content">
         <div class="wrapper-s">
-            <!-- 멘토 목록 -->
+            <!-- 멘티 목록 -->
             <div id="mentee-list" class="content-m-wrap">
                 <!---->
-                <div class="m-l-wrap m-l-link" th:onclick="'location.href=\''+ @{/mento/chatting} + '\''">
-                    <div class="m-l">
-                        <div class="name">
-                            <span>멘티</span>
-                            박수현
-                        </div>
-                        <div class="m-l-side">
-                            <!-- 멘토 관계가 성립된 날짜 -->
-                            <div class="m-s-date">2022.11.23</div>
-                            <button type="button" class="refuse" onclick="menteeDelete();">삭제</button>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="m-l-wrap m-l-link" th:onclick="'location.href=\''+ @{/mento/chatting} + '\''">-->
+<!--                    <div class="m-l">-->
+<!--                        <div class="name">-->
+<!--                            <span>멘티</span>-->
+<!--                            박수현-->
+<!--                        </div>-->
+<!--                        <div class="m-l-side">-->
+<!--                            &lt;!&ndash; 멘토 관계가 성립된 날짜 &ndash;&gt;-->
+<!--                            <div class="m-s-date">2022.11.23</div>-->
+<!--                            <button type="button" class="refuse" onclick="menteeDelete();">삭제</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <!-- 멘티가 없다면 -->
@@ -84,8 +84,8 @@
             </div>
             <!---->
 
-            <!-- 멘토 신청 -->
-            <div id="mentee-apply" class="content-m-wrap" style="display: none;">
+            <!-- 멘티 신청 -->
+            <div id="mentee-apply" class="content-m-wrap" >
                 <!---->
                 <div class="m-l-wrap">
                     <div class="m-l">

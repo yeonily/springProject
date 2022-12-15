@@ -45,12 +45,13 @@ public class MemberAlbaDTO {
     }
 
     @QueryProjection
-    public MemberAlbaDTO(Long albaApplyId, Long memberId, Status memberStatus, String memberName, String memberEmail) {
+    public MemberAlbaDTO(Long albaApplyId, Long memberId, Status memberStatus, String memberName, String memberEmail, Long albaId) {
         this.albaApplyId = albaApplyId;
         this.memberId = memberId;
         this.memberStatus = memberStatus;
         this.memberName = memberName;
         this.memberEmail = memberEmail;
+        this.albaId = albaId;
     }
 
     @QueryProjection
