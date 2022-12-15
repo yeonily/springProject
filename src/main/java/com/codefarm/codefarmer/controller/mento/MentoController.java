@@ -6,8 +6,10 @@ import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.service.chat.ChatRoomService;
 import com.codefarm.codefarmer.service.mentor.MentorService;
+import com.codefarm.codefarmer.type.MemberType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -33,13 +35,15 @@ public class MentoController {
     private final ChatRepository chatRepository;
     private final SimpMessagingTemplate template;
     private final MentorService mentorService;
+    private final MentorRepository mentorRepository;
 
-    public MentoController(ChatRoomService cs, MentorService ms, ChatRepository chatRepository, SimpMessagingTemplate template, MentorService mentorService) {
+    public MentoController(ChatRoomService cs, MentorService ms, ChatRepository chatRepository, SimpMessagingTemplate template, MentorService mentorService, MentorRepository mentorRepository) {
         this.cs = cs;
         this.ms = ms;
         this.chatRepository = chatRepository;
         this.template = template;
         this.mentorService = mentorService;
+        this.mentorRepository = mentorRepository;
     }
 
 
@@ -52,20 +56,22 @@ public class MentoController {
     @GetMapping("/list")
     public void list(Model model, HttpSession session){
         Long memberId = (Long)session.getAttribute("memberId");
+        Object memberType = (Object)session.getAttribute("memberType");
+        model.addAttribute("sessionMemberType", memberType);
         model.addAttribute("sessionMemberId", memberId);
     }
 
     @GetMapping("/write")
-    public void write(Model model){
+    public void write(Model model, HttpSession session){
+        Long sessionId = (Long)session.getAttribute("memberId");
         model.addAttribute("mentorBoard", new MentorBoardDTO());
     }
 
     @PostMapping("/write")
     public RedirectView writeFin(MentorBoardDTO mentorBoardDTO, RedirectAttributes redirectAttributes, HttpSession session){
-        log.info("mentorBoardDTO는:" + mentorBoardDTO.toString());
         Long sessionId = (Long)session.getAttribute("memberId");
         mentorBoardDTO.setMemberId(sessionId);
-        mentorBoardDTO.setMentorId(2L);
+        mentorBoardDTO.setMentorId(mentorService.findByMemberId(sessionId));
         mentorService.mentorBoardAdd(mentorBoardDTO);
         redirectAttributes.addFlashAttribute("mentorBoardId", mentorBoardDTO.getMentorBoardId());
 

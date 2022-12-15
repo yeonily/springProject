@@ -35,12 +35,12 @@ window.addEventListener('scroll', function(){
 //         $(this).attr('class','star_check');
 //     }
 // })
-$("#write-review").on("click" , "#star_count_check>.star_check", function () {
+$("#write-review").on("click" , "#star_count_check>.starCheck", function () {
     console.log($(this));
     if($(this).hasClass("star_check") === true){
-        $(this).nextAll().attr('class','star_uncheck');
+        $(this).nextAll().attr('class','starCheck star_uncheck');
     }else{
-        $(this).prevAll().attr('class','star_check');
+        $(this).prevAll().attr('class','starCheck star_check');
         $(this).attr('class','star_check');
     }
 })
@@ -57,20 +57,20 @@ let starText = "";
 counts.each(function (i, item) {
     starScore = $(item).children('.star_check').length;
     switch (starScore) {
-            case 5 :
-                starText = "매우 추천해요!";
+        case 5 :
+            starText = "매우 추천해요!";
             break
-            case 4 :
-                starText = "추천해요!";
+        case 4 :
+            starText = "추천해요!";
             break
-            case 3 :
-                starText = "보통이에요!";
+        case 3 :
+            starText = "보통이에요!";
             break
-            case 2 :
-                starText = "비추천해요!";
+        case 2 :
+            starText = "비추천해요!";
             break
-            case 1 :
-                starText = "매우 비추천해요!";
+        case 1 :
+            starText = "매우 비추천해요!";
             break
     }
     console.log(starText);
@@ -99,16 +99,20 @@ $("button.applyBtn").on("click", function(){
     $("#modalSuccess").show();
 });
 
-
-
 /*글자 수 세는 이벤트*/
-$('#main_reply_textarea').keyup(function () {
+$("#write-review").on("keyup", '#main_reply_textarea', function() {
     let $content = $(this).val();
 
+    $("#main_reply_textarea_p_count").html($content.length);
+
     if($content.length == 0 ){
+        $("#main_reply_button").css("background-color", "#d1d9e1");
+        $("#main_reply_button").attr("disabled", true);
+
         return;
     }
     else{
+        $("#main_reply_button").attr("disabled", false);
         $("#main_reply_button").css("background-color","#47c880");
 
         $("#main_reply_button").hover(function () {
@@ -120,8 +124,6 @@ $('#main_reply_textarea').keyup(function () {
         });
     }
 
-    $("#main_reply_textarea_p_count").html($content.length);
-
     // 글자수 제한
     if ($content.length > 200) {
         // 200자 부터는 타이핑 되지 않도록
@@ -129,4 +131,26 @@ $('#main_reply_textarea').keyup(function () {
         // 200자 넘으면 알림창 뜨도록
         alert('글자수는 200자까지 입력 가능합니다.');
     };
+
 });
+
+
+// 댓글 작성 후 후기 작성 버튼 눌렀을 때
+$("#write-review").on("click", "#main_reply_button", function(e){
+    e.preventDefault();
+    // 글자가 적혀있지 않을 때
+    if($("#main_reply_textarea").length == 0 ){
+        alert("수기가 입력되지 않았습니다.");
+        return;
+    }
+
+    reviewService.reviewAdd({
+        reviewContent: $("textarea[name=reviewContent]").val(),
+        mentorBoardId: mentorBoardId,
+        reviewStar: $("#star_count_check .star_check").length
+    }, function () {
+        show();
+        // reviewService.getTotal(mentorBoardId, get)
+    });
+    $("textarea[name=reviewContent]").val("");
+})

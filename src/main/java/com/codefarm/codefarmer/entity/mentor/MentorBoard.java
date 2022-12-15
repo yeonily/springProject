@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.entity.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorFileDTO;
+import com.codefarm.codefarmer.domain.mentor.ReviewDTO;
 import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.entity.member.Member;
@@ -58,6 +59,8 @@ public class MentorBoard extends Period {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Mentor mentor;
 
+
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorBoard" ,cascade = CascadeType.ALL)
     private List<MentorFile> mentorFiles;
     public void changeFiles(List<MentorFileDTO> files){
@@ -65,6 +68,15 @@ public class MentorBoard extends Period {
         fileEntities.stream().forEach(file -> file.changeMentor(this));
         this.mentorFiles = fileEntities;
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorBoard",cascade = CascadeType.ALL)
+    private List<Review> reviews;
+    public void changeReviews(List<ReviewDTO> reviews){
+        List<Review> reviewsEntities = reviews.stream().map(review -> review.toEntity()).collect(Collectors.toList());
+        this.reviews = reviewsEntities;
+    }
+
+
 
     public void update(MentorBoardDTO mentorBoardDTO){
         this.mentorCareer = mentorBoardDTO.getMentorCareer();

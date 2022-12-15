@@ -73,5 +73,18 @@ public class MentorCustomRepositoryImpl implements MentorCustomRepository{
         return new SliceImpl<>(content,pageable,hasNext);
     }
 
+//   멤버에게 멘토 아이디가 있으면 홍보글을 작성 할수 있는 권한이 생김.
+//    public void findMentorId(Long MentorId){
+//        List<MentorBoardDTO> mentorBoardDTOList = jpaQueryFactory.select(
+//                new QMentorBoardDTO(mentorBoard.mentorBoardId, mentorBoard.mentorCareer,
+//                        mentorBoard.mentorExCareer, mentorBoard.mentorStrongTitle1, mentorBoard.mentorStrongContent1, mentorBoard.mentorStrongTitle2, mentorBoard.mentorStrongContent2,
+//                        mentorBoard.mentorStrongTitle3, mentorBoard.mentorStrongContent3, mentorBoard.mentorTitle, mentorBoard.mentorTitleSub, mentorBoard.mentorTextTitle,
+//                        mentorBoard.mentorTextContent,
+//                        mentorBoard.mentor.mentorCrop
+//                        )).from(mentorBoard)
+//                        .where(mentorBoard.mentor.mentorId.eq(MentorId))
+//                        .fetch();
+//        }
+
 //.join(QMentor.mentor).fetchJoin()
 }

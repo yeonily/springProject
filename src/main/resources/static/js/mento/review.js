@@ -23,7 +23,7 @@ let reviewService = (function () {
 
     function getList(param, callback, error) {
         $.ajax({
-            url: "/review/list/" + param,
+            url: encodeURI("/review/list/" + param.mentorBoardId + "/" + (param.page || 0) + "/"+ param.keyword),
             type: "get",
             success: function (reviewDTO, status, xhr) {
                 if(callback){
