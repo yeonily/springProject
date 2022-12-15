@@ -21,276 +21,125 @@ for(var i = 0; i < $status.length; i++) {
 }
 
 /*-----------------------------------------------------------*/
-                    //알바 곧 마감돼요 REST
+                        // REST
 /*-----------------------------------------------------------*/
 
-$(document).ready(function () {
+let albaService = (function(){
 
-    $.ajax({
-        url: "/kind/main",
-        type: "post",
-        success: function (lists) {
-            console.log("들어옴?");
-            let text = "";
-
-            lists.forEach(function (list) {
-                text += '<div class="alba_div"><a href="/alba/detail?albaId=' + list.albaId + '">'
-                if(list.albaImage != null) {
-                    console.log(list.albaImage);
-                    text += '<img src="' + '/alba/display?fileName=' + list.albaImage + '">'
+    /* 알바 8개 리스트 */
+    function mainList(main, callback, error){
+        $.ajax({
+            url: "/alba/list/main",
+            type: "post",
+            success: function (code,status,xhr){
+                if (callback){
+                    callback(code);
                 }
-                text += '<div>' + list.albaApplyCount + '/' + list.albaApplyTotalCount + '명' + '・' + '<span>' + list.albaPrice + '원' +'</span></div>'
-                text += '<p class="alba_title" style="color: black">' + list.albaTitle + '</p>'
-                text += '</a>'
-                text += '</div>'
-                $("#albaList").html(text);
-            });
+            },
+            error: function (xhr,status,err){
+                if (error){
+                    error(err);
+                }
             }
         });
-    });
-
-/*-----------------------------------------------------------*/
-                        //알바 게시글 개수 REST
-/*-----------------------------------------------------------*/
-
-$(document).ready(function () {
-
-    $.ajax({
-        url: "/kind/count",
-        type: "post",
-        success: function (counts) {
-            let text = '총' + '<span>' + counts + '</span>' + '건'
-            $("#countText").html(text);
-        }
-    });
-})
-
-/*-----------------------------------------------------------*/
-                        //알바 리스트 REST
-/*-----------------------------------------------------------*/
-
-$(document).ready(function () {
-
-    $.ajax({
-        url: "/kind/newList",
-        type: "post",
-        success: function (recents) {
-            console.log("기본 리스트 들어옴?");
-            let text = "";
-
-            recents.forEach(function (recent) {
-                text += '<div class="list_td">'
-                text += '<div class="location"><p>' + recent.albaAddress + '</p></div>'
-                text += '<div class="title"><a href="/alba/detail?albaId=' + recent.albaId + '">' + recent.albaTitle + '</a></div>'
-
-                let albaWorkDate = new Date(recent.albaWorkDate);
-                let albaWorkYear = albaWorkDate.getFullYear();
-                let albaWorkMonth = albaWorkDate.getMonth() + 1;
-                let albaWorkDay = albaWorkDate.getDate();
-
-                text += '<div class="workDay">' + albaWorkYear + '년' + albaWorkMonth + '월' + albaWorkDay + '일' + '</div>'
-                text += '<div class="pay">'
-                text += '<p class="miniText">시급</p>'
-                text += '<div>' + recent.albaPrice + '</div>'
-                text += '</div>'
-
-                let albaStartDate = new Date(recent.albaApplyStartDate);
-                let albaStartYear = albaStartDate.getFullYear();
-                let albaStartMonth = albaStartDate.getMonth() + 1;
-                let albaStartDay = albaStartDate.getDate();
-
-                text += '<div class="registerDay">' + albaStartYear + '년' + albaStartMonth + '월' + albaStartDay + '일' + '</div>'
-                text += '</div>'
-                $("#list-foreach").html(text);
-
-
-            });
+    }
+    /* 알바 게시글 수 */
+    function countList(list, callback, error){
+        $.ajax({
+            url: "/alba/list/count",
+            type: "post",
+            success: function (count,status,xhr){
+                if(callback){
+                    callback(count);
+                }
+            },
+            error:function (xhr, status, err){
+                console.log(xhr, status, err);
+                if(error){
+                    error(err);
+                }
             }
-            });
-    });
-
-
-
-// let letter = "";
-//
-// letter += '<div id = "paging" style = "margin-bottom: 100px;">'
-// letter += '<ul th:with= "start=${(albas.number/maxPage)*maxPage + 1}, end=(${(albas.totalPages == 0) ? 1 : (start + (maxPage - 1) < albas.totalPages ? start + (maxPage - 1) : albas.totalPages)})">'
-// if(albas.pageable.pageNumber>0){
-//     letter += '<li class = "sidePageNum prev">'
-//     letter += '<a href="/alba/list?page=' + (albas.pageable.pageNumber/5)*5 - 1 + '" class = "page">'
-//     letter += '<svg width = "16" height = "16" class = "sidePageDisabled" viewBox = "0 0 16 16" fill = "black" xmlns = "http://www.w3.org/2000/svg" style = "transform:rotate(270deg);" data - v - bd9f2bcc = "" data - v - 30 c80689 = "">'
-//     letter += '<path fill - rule = "evenodd" clip - rule = "evenodd" d = "M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data - v - bd9f2bcc = "" >'
-//     letter += '</path>'
-//     letter += '</svg>'
-//     letter += '</a>'
-//     letter += '</li>'
-// }
-//
-// letter += '<th:block  th:each="i: ${#numbers.sequence(start, end)}">'
-// letter += '<li>'
-// letter += '<a class="page" th:href="@{/alba/list(page=${i - 1})}" th:classappend="${i == albas.pageable.pageNumber + 1} ?' + 'selectPage' + ':' + '' + '"th:text="${i}">1</a>'
-// letter += '</li>'
-// letter += '</th:block >'
-// letter += '<li class="sidePageNum next" th:if="${end < albas.totalPages}">'
-// letter += '<a th:href="@{/alba/list(page=${end})}" class="page">'
-// letter += '<svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>'
-// letter += '</li>'
-// letter += '</ul>'
-// letter += '</div>'
-// $("#paging").html(letter);
-
-
-            /*-----------------------------------------------------------*/
-            //클릭 시 체크 확인 플레그
-            /*-----------------------------------------------------------*/
-
-            let check = false;
-
-            /*-----------------------------------------------------------*/
-            //최신순 정렬 클릭 시
-            /*-----------------------------------------------------------*/
-
-            $("#recent-btn").on("click", function () {
-                // if(check == true){
-                //     check = false;
-                //     location.href = "/alba/list";
-                //     return;
-                // }
-                console.log("최신순 들어옴");
-
-                $.ajax({
-                    url: "/kind/newList",
-                    type: "post",
-                    success: function (recents) {
-                        let text = "";
-                        recents.forEach(function (recent) {
-                            text += '<div class="list_td">'
-                            text += '<div class="location"><p>' + recent.albaAddress + '</p></div>'
-                            text += '<div class="title">'
-                            text += '<a href="/alba/detail?albaId=' + recent.albaId + '">' + recent.albaTitle + '</a></div>'
-
-                            let albaWorkDate = new Date(recent.albaWorkDate);
-                            let albaWorkYear = albaWorkDate.getFullYear();
-                            let albaWorkMonth = albaWorkDate.getMonth() + 1;
-                            let albaWorkDay = albaWorkDate.getDate();
-
-                            text += '<div class="workDay">' + albaWorkYear + '년' + albaWorkMonth + '월' + albaWorkDay + '일' + '</div>'
-                            text += '<div class="pay">'
-                            text += '<p class="miniText">시급</p>'
-                            text += '<div>' + recent.albaPrice + '</div>'
-                            text += '</div>'
-
-                            let albaStartDate = new Date(recent.albaApplyStartDate);
-                            let albaStartYear = albaStartDate.getFullYear();
-                            let albaStartMonth = albaStartDate.getMonth() + 1;
-                            let albaStartDay = albaStartDate.getDate();
-
-                            text += '<div class="registerDay">' + albaStartYear + '년' + albaStartMonth + '월' + albaStartDay + '일' + '</div>'
-                            text += '</div>'
-                            $("#list-foreach").html(text);
-                        })
-                    }
-            });
-check = true;
-})
-
-
-
-            /*-----------------------------------------------------------*/
-            //시급순 정렬 클릭 시
-            /*-----------------------------------------------------------*/
-
-
-    $("#pay-btn").on("click", function () {
-
-     console.log("마감순 들어옴");
-
-     $.ajax({
-        url: "/kind/payList",
-        type: "post",
-        success: function (lists) {
-            console.log(lists);
-            let text = "";
-
-            lists.forEach(function (list) {
-                text += '<div class="list_td" th:object="${list}">'
-                text += '<div class="location"><p>' + list.albaAddress + '</p></div>'
-                text += '<div class="title">'
-                text += '<a href= "/alba/detail?albaId=' + list.albaId + '">' + list.albaTitle + '</a></div>'
-
-                let albaWorkDate = new Date(list.albaWorkDate);
-                let albaWorkYear = albaWorkDate.getFullYear();
-                let albaWorkMonth = albaWorkDate.getMonth() + 1;
-                let albaWorkDay = albaWorkDate.getDate();
-
-                text += '<div class="workDay">' + albaWorkYear + '년' + albaWorkMonth + '월' + albaWorkDay + '일' + '</div>'
-                text += '<div class="pay">'
-                text += '<p class="miniText">시급</p>'
-                text += '<div>' + list.albaPrice + '</div>'
-                text += '</div>'
-
-                let albaStartDate = new Date(list.albaApplyStartDate);
-                let albaStartYear = albaStartDate.getFullYear();
-                let albaStartMonth = albaStartDate.getMonth() + 1;
-                let albaStartDay = albaStartDate.getDate();
-
-                text += '<div class="registerDay">' + albaStartYear + '년' + albaStartMonth + '월' + albaStartDay + '일' + '</div>'
-                text += '</div>'
-                $("#list-foreach").html(text);
-            })
-        }
-    });
-    check = true;
-})
-
-            /*-----------------------------------------------------------*/
-            //마감 정렬 클릭 시
-            /*-----------------------------------------------------------*/
-
-            $("#deadline-btn").on("click", function () {
-
-                console.log("마감순 들어옴");
-
-                $.ajax({
-                    url: "/kind/collectList",
-                    type: "post",
-                    success: function (lists) {
-                        console.log(lists);
-                        let text = "";
-
-                        lists.forEach(function (list) {
-                            text += '<div class="list_td" th:object="${list}">'
-                            text += '<div class="location"><p>' + list.albaAddress + '</p></div>'
-                            text += '<div class="title">'
-                            text += '<a href= "/alba/detail?albaId=' + list.albaId + '">' + list.albaTitle + '</a></div>'
-
-                            let albaWorkDate = new Date(list.albaWorkDate);
-                            let albaWorkYear = albaWorkDate.getFullYear();
-                            let albaWorkMonth = albaWorkDate.getMonth() + 1;
-                            let albaWorkDay = albaWorkDate.getDate();
-
-                            text += '<div class="workDay">' + albaWorkYear + '년' + albaWorkMonth + '월' + albaWorkDay + '일' + '</div>'
-                            text += '<div class="pay">'
-                            text += '<p class="miniText">시급</p>'
-                            text += '<div>' + list.albaPrice + '</div>'
-                            text += '</div>'
-
-                            let albaStartDate = new Date(list.albaApplyStartDate);
-                            let albaStartYear = albaStartDate.getFullYear();
-                            let albaStartMonth = albaStartDate.getMonth() + 1;
-                            let albaStartDay = albaStartDate.getDate();
-
-                            text += '<div class="registerDay">' + albaStartYear + '년' + albaStartMonth + '월' + albaStartDay + '일' + '</div>'
-                            text += '</div>'
-                            $("#list-foreach").html(text);
-                        })
-                    }
-                });
-                check = true;
-            })
-
-
-
-
-
-
+        });
+    }
+    /* 최신순 */
+    function mainNewList(param, callback, error){
+        $.ajax({
+            url: "/alba/list/newlist/" + (param.page || 0),
+            type: "get",
+            success: function (alba, status, xhr){
+                console.log("alba : " + alba);
+                if(callback){
+                    callback(alba);
+                }
+            },
+            error: function (xhr, status, err){
+                console.log(xhr, status, err);
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    /* 최신순 */
+    function newList(param, callback, error){
+        $.ajax({
+            url: "/alba/list/newlist/" + (param.page || 0),
+            type: "get",
+            success: function (result, status, xhr){
+                console.log("result : " + result);
+                if(callback){
+                    callback(result);
+                }
+            },
+            error: function (xhr, status, err){
+                console.log(xhr, status, err);
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    /* 시급순 */
+    function payList(param, callback, error){
+        $.ajax({
+            url: "/alba/list/paylist/" + (param.page || 0),
+            type: "get",
+            success: function (albaDTO, status, xhr){
+                console.log("albaDTO : " + albaDTO);
+                console.log(status);
+                console.log(xhr);
+                if(callback){
+                    callback(albaDTO);
+                }
+            },
+            error: function (xhr, status, err){
+                console.log(xhr, status, err);
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    /* 마감순 */
+    function endList(param, callback, error){
+        $.ajax({
+            url: "/alba/list/endlist/" + (param.page || 0),
+            type: "get",
+            success: function (list, status, xhr){
+                console.log("list : " + list);
+                console.log(status);
+                console.log(xhr);
+                if(callback){
+                    callback(list);
+                }
+            },
+            error: function (xhr, status, err){
+                console.log(xhr, status, err);
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {mainList : mainList, countList : countList, mainNewList : mainNewList, newList : newList, payList: payList, endList : endList}
+})();
