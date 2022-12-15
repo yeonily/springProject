@@ -16,6 +16,7 @@ import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
@@ -116,8 +117,13 @@ public class MemberService {
                 return memberRepository.selectMyAlbaApply(memberId);
         }
         //내가 신청한 프로그램 목록
-        public List<MemberProgramDTO> findMyProgramApply(Long memberId){
-                return memberRepository.selectMyProgramApply(memberId);
+        public List<ProgramDTO> findMyProgramApply(Long memberId){
+               return memberRepository.selectMyProgramApply(memberId);
+        }
+
+        //결제내역 목록
+        public List<MemberProgramDTO> findMyPay(Long memberId){
+                return memberRepository.selectMyPay(memberId);
         }
 
 }

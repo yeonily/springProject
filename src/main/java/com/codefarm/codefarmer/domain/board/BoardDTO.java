@@ -48,6 +48,18 @@ public class BoardDTO {
         this.replyCount = replyCount;
     }
 
+    @QueryProjection
+    public BoardDTO(Long boardId, String boardTitle, String boardContent, int boardViewCount, String memberNickName, LocalDateTime createdDate, LocalDateTime updatedDate, int replyCount) {
+        this.boardId = boardId;
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.boardViewCount = boardViewCount;
+        this.memberNickName = memberNickName;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+        this.replyCount = replyCount;
+    }
+
     public Board toEntity(){
         return Board.builder()
                 .boardContent(boardContent)

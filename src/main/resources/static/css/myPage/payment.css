@@ -50,3 +50,7 @@ div.p-price {
     font-weight: 400;
     letter-spacing: .02em;
 }
+
+div.line{
+    text-decoration:line-through;
+}

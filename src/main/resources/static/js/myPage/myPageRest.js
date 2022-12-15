@@ -116,5 +116,23 @@ let myPageService = (function () {
         });
     }
 
-    return {getPgList: getPgList, getAbList: getAbList, getBoList:getBoList, getIqList:getIqList, getApplyPgList:getApplyPgList, getApplyAbList:getApplyAbList}
+    function getApplyPayList(memberId, callback, error) {
+        $.ajax({
+            url: "/mypage/paylist",
+            type: "get",
+            success: function (memberPrograms, status, xhr) {
+                console.log("getApplyPayList - "+ memberPrograms);
+                if (callback) {
+                    callback(memberPrograms);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+
+    return {getPgList: getPgList, getAbList: getAbList, getBoList:getBoList, getIqList:getIqList, getApplyPgList:getApplyPgList, getApplyAbList:getApplyAbList, getApplyPayList:getApplyPayList}
 })();

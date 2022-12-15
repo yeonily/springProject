@@ -82,4 +82,5 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
     //    멤버 총 명수
     @Query("select count(m) from Member m")
     public int countByMember();
+
 }
