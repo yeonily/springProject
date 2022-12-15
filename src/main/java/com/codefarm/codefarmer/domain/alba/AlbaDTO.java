@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 @NoArgsConstructor
@@ -41,6 +42,8 @@ public class AlbaDTO {
     private String albaProfileContent2;
     private Member member;
     private Long memberId;
+    private int EndPage;
+    private List groupList;
 
 
     public Alba toEntity() {

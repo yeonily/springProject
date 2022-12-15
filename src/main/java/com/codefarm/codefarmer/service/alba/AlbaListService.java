@@ -27,6 +27,8 @@ public class AlbaListService {
     private final JPAQueryFactory jpaQueryFactory;
     private final AlbaRepository albaRepository;
     private final MemberRepository memberRepository;
+//    private final AlbaCustomRepository albaCustomRepository;
+    private final AlbaCustomRepositoryImpl albaCustomRepository;
 
     //알바 목록
     @Transactional(readOnly = true)
@@ -252,4 +254,18 @@ public class AlbaListService {
                 .fetch();
     }
 
+    //최신순
+    public Page<AlbaDTO> showAlbaNew(Pageable pageable){
+        return albaCustomRepository.findByAlbaNewList(pageable);
+    }
+
+    // 시급순
+    public Page<AlbaDTO> showAlbaPay(Pageable pageable){
+        return albaCustomRepository.findByAlbaPayList(pageable);
+    }
+
+    // 마감순
+    public Page<AlbaDTO> showAlbaEnd(Pageable pageable){
+        return albaCustomRepository.findByAlbaEndList(pageable);
+    }
 }
