@@ -4,10 +4,12 @@ package com.codefarm.codefarmer.controller.mento;
 import com.codefarm.codefarmer.domain.chat.ChatDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.service.chat.ChatRoomService;
+import com.codefarm.codefarmer.service.mentor.MentorMenteeApplyService;
 import com.codefarm.codefarmer.service.mentor.MentorService;
 import com.codefarm.codefarmer.type.MemberType;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +38,16 @@ public class MentoController {
     private final SimpMessagingTemplate template;
     private final MentorService mentorService;
     private final MentorRepository mentorRepository;
+    private final MentorMenteeApplyService mentorMenteeApplyService;
 
-    public MentoController(ChatRoomService cs, MentorService ms, ChatRepository chatRepository, SimpMessagingTemplate template, MentorService mentorService, MentorRepository mentorRepository) {
+    public MentoController(ChatRoomService cs, MentorService ms, ChatRepository chatRepository, SimpMessagingTemplate template, MentorService mentorService, MentorRepository mentorRepository, MentorMenteeApplyService mentorMenteeApplyService) {
         this.cs = cs;
         this.ms = ms;
         this.chatRepository = chatRepository;
         this.template = template;
         this.mentorService = mentorService;
         this.mentorRepository = mentorRepository;
+        this.mentorMenteeApplyService = mentorMenteeApplyService;
     }
 
 
@@ -119,10 +123,28 @@ public class MentoController {
         return new RedirectView("list");
     }
 
+//    멘토 보드 삭제
     @GetMapping("/delete")
     public RedirectView delete(@RequestParam Long mentorBoardId){
 
         mentorService.removeMentorBoard(mentorBoardId);
+        return new RedirectView("/mento/list");
+    }
+
+//    멘토한테 멘티 신청 시(Type이 USER랑 MENTEE 둘다 멘토한테 신청 가능)
+    @PostMapping("/apply")
+    public RedirectView apply(MentorMenteeDTO mentorMenteeDTO,@RequestParam Long mentorId ,HttpSession session){
+        Long sessionId = (Long)session.getAttribute("memberId");
+        MemberType sessionType = (MemberType)session.getAttribute("memberType");
+
+        if(sessionType == MemberType.USER || sessionType == MemberType.MENTEE){
+
+            mentorMenteeDTO.setMenteeId(sessionId);
+
+            mentorMenteeDTO.setMentorId(mentorId);
+
+            mentorMenteeApplyService.saveMenteeApply(mentorMenteeDTO);
+        }
         return new RedirectView("/mento/list");
     }
 
