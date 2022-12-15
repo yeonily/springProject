@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.repository.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -13,4 +14,7 @@ public interface MentorCustomRepository {
     public Slice<MentorBoard> findAllSlice(Pageable pageable);
 
     public Slice<MentorBoardDTO> findAllSliceDTO(Pageable pageable);
+
+    public List<MentorDTO> ShowAllMentor(String keyword, String searchText);
+    public Integer searchCountByMentor(String keyword, String searchText);
 }
