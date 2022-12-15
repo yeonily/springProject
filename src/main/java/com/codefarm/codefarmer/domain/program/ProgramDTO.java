@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.codefarm.codefarmer.type.ProgramLevel;
+import com.codefarm.codefarmer.type.ProgramStatus;
 import com.codefarm.codefarmer.type.ProgramType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
@@ -55,6 +56,11 @@ public class ProgramDTO {
     private Member member;
     private Long memberId;
     private List<ProgramFileDTO> files;
+    private List<MemberProgramDTO> memberProgramDTOS;
+
+    private List<ProgramStatus> programStatus;
+    private List<Long> programApplyId;
+
 
     public Program toEntity(){
         return Program.builder()
@@ -131,6 +137,20 @@ public class ProgramDTO {
         this.programLocation = programLocation;
         this.programInquire = programInquire;
         this.memberId = memberId;
+    }
+
+    @QueryProjection
+    public ProgramDTO(Long programId, ProgramType programType, String programTitle, LocalDateTime programWorkDate, LocalDateTime programApplyStartDate, String programLocation, List<ProgramFileDTO> files, List<MemberProgramDTO> memberProgramDTOS, List<ProgramStatus> programStatus, List<Long> programApplyId) {
+        this.programId = programId;
+        this.programType = programType;
+        this.programTitle = programTitle;
+        this.programWorkDate = programWorkDate;
+        this.programApplyStartDate = programApplyStartDate;
+        this.programLocation = programLocation;
+        this.files = files;
+        this.memberProgramDTOS = memberProgramDTOS;
+        this.programStatus=programStatus;
+        this.programApplyId=programApplyId;
     }
 }
 

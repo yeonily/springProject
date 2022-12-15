@@ -69,8 +69,8 @@ public class ProgramListService {
                 program.member.memberId
 
         )).from(program).fetch();
-
     }
+
 //    선택한 프로그램의 첨부파일 가져오기
     public List<ProgramFileDTO> showFiles(Long prgramId){
         return jpaQueryFactory.select(new QProgramFileDTO(

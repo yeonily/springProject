@@ -5,23 +5,24 @@
 </head>
 <body>
     <!-- 일반 유저 - 내가 신청한 프로그램 -->
-    <div class="list-wrap" th:fragment="userPrograms">
-        <div class="myProgram f-column select-l" th:onclick="'location.href=\''+ @{/program/detail} + '\''">
-            <div class="list-img">
-                <img src="https://cdn.comento.kr/images/pt/tmp/prefix_4gTSmjheRr.png" class="program-img">
-            </div>
-            <div class="list-text-wrap">
-                <div class="list-text">
-                    <div class="l-text starting l-d-ing">수강예정</div>
-                    <div class="l-m-c">∙</div>
-                    <div class="l-text l-address">지역</div>
-                </div>
-                <div class="l-a-cancel l-text"><a th:href="@{/mypage/program/cancel}">신청 취소</a></div>
-<!--                <div class="l-a-cancel l-text" style="color: #ff4d4d">취소 완료</div>-->
-            </div>
-            <div class="list-title">백엔드 개발자도 서버 · 인프라 관리를 할 수 있는 DevOps 실무 특강</div>
-        </div>
-        <div class="start-day">2022.11.17 시작</div>
+    <div class="f-wrap" id="pg-apply-list" th:fragment="userPrograms">
+<!--    <div class="list-wrap" >-->
+<!--        <div class="myProgram f-column select-l" th:onclick="'location.href=\''+ @{/program/detail} + '\''">-->
+<!--            <div class="list-img">-->
+<!--                <img src="https://cdn.comento.kr/images/pt/tmp/prefix_4gTSmjheRr.png" class="program-img">-->
+<!--            </div>-->
+<!--            <div class="list-text-wrap">-->
+<!--                <div class="list-text">-->
+<!--                    <div class="l-text starting l-d-ing">수강예정</div>-->
+<!--                    <div class="l-m-c">∙</div>-->
+<!--                    <div class="l-text l-address">지역</div>-->
+<!--                </div>-->
+<!--                <div class="l-a-cancel l-text"><a th:href="@{/mypage/program/cancel}">신청 취소</a></div>-->
+<!--&lt;!&ndash;                <div class="l-a-cancel l-text" style="color: #ff4d4d">취소 완료</div>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="list-title">백엔드 개발자도 서버 · 인프라 관리를 할 수 있는 DevOps 실무 특강</div>-->
+<!--        </div>-->
+<!--        <div class="start-day">2022.11.17 시작</div>-->
     </div>
 
 

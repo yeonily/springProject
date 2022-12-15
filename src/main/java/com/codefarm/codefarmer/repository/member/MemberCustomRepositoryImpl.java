@@ -11,10 +11,7 @@ import com.codefarm.codefarmer.domain.inquire.InquireDTO;
 import com.codefarm.codefarmer.domain.inquire.QInquireAnswerDTO;
 import com.codefarm.codefarmer.domain.inquire.QInquireDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
-import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
-import com.codefarm.codefarmer.domain.program.ProgramDTO;
-import com.codefarm.codefarmer.domain.program.QMemberProgramDTO;
-import com.codefarm.codefarmer.domain.program.QProgramDTO;
+import com.codefarm.codefarmer.domain.program.*;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.MemberAlba;
 import com.codefarm.codefarmer.entity.alba.QAlba;
@@ -27,11 +24,10 @@ import com.codefarm.codefarmer.entity.inquire.QInquire;
 import com.codefarm.codefarmer.entity.inquire.QInquireAnswer;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.member.QMember;
-import com.codefarm.codefarmer.entity.program.MemberProgram;
-import com.codefarm.codefarmer.entity.program.Program;
-import com.codefarm.codefarmer.entity.program.QMemberProgram;
+import com.codefarm.codefarmer.entity.program.*;
 import com.codefarm.codefarmer.type.Status;
 import com.querydsl.core.types.EntityPath;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +44,9 @@ import static com.codefarm.codefarmer.entity.board.QReply.*;
 import static com.codefarm.codefarmer.entity.inquire.QInquire.*;
 import static com.codefarm.codefarmer.entity.member.QMember.*;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
+import static com.codefarm.codefarmer.entity.program.QProgram.*;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
+import static com.codefarm.codefarmer.entity.program.QProgramFile.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -228,8 +226,60 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public List<MemberProgramDTO> selectMyProgramApply(Long memberId) {
-        return null;
+    public List<ProgramDTO> selectMyProgramApply(Long memberId) {
+        return jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
+                .and(memberProgram.member.memberId.eq(memberId))).fetch()
+                .stream().map(program -> new ProgramDTO(
+                        program.getProgramId(),
+                        program.getProgramType(),
+                        program.getProgramTitle(),
+                        program.getProgramWorkDate(),
+                        program.getProgramApplyStartDate(),
+                        program.getProgramLocation(),
+                        program.getProgramFiles().stream().map(programFile -> new ProgramFileDTO()).collect(Collectors.toList()),
+                        program.getMemberPrograms().stream().map(memberProgram -> new MemberProgramDTO()).collect(Collectors.toList()),
+                        program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramStatus()).collect(Collectors.toList()),
+                        program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramApplyId()).collect(Collectors.toList())
+                )).collect(Collectors.toList());
+
+//                jpaQueryFactory.selectFrom(program).innerJoin(program, programFile.program)
+//                .leftJoin(program, memberProgram.program)
+//                .where(program.member.memberId.eq(memberId)).fetch()
+//                .stream()
+//                .map(program -> new ProgramDTO(
+//                        program.getProgramId(),
+//                        program.getProgramType(),
+//                        program.getProgramTitle(),
+//                        program.getProgramWorkDate(),
+//                        program.getProgramApplyStartDate(),
+//                        program.getProgramLocation(),
+//                        program.getProgramFiles(),
+//                        program.get
+//                )).collect(Collectors.toList());
+
+//        this.programId = programId;
+//        this.programType = programType;
+//        this.programTitle = programTitle;
+//        this.programWorkDate = programWorkDate;
+//        this.programApplyStartDate = programApplyStartDate;
+//        this.programLocation = programLocation;
+//        this.files = files;
+//        this.programStatus = programStatus;
+//        this.programApplyId = programApplyId;
+    }
+
+    @Override
+    public List<MemberProgramDTO> selectMyPay(Long memberId) {
+        return jpaQueryFactory.selectFrom(memberProgram).join(memberProgram.program, program).fetchJoin()
+                .where(memberProgram.member.memberId.eq(memberId)).fetch()
+                .stream()
+                .map(memberProgram -> new MemberProgramDTO(
+                        memberProgram.getProgramApplyId(),
+                        memberProgram.getProgramStatus(),
+                        memberProgram.getProgramPayment(),
+                        memberProgram.getUpdatedDate(),
+                        memberProgram.getProgram().getProgramTitle()
+                )).collect(Collectors.toList());
     }
 
 

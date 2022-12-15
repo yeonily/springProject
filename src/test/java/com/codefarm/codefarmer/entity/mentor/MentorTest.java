@@ -114,16 +114,16 @@ public void saveUserTest(){
     @Test
     public void MentorSaveTest(){
 
-        MentorDTO mentorDTO = new MentorDTO();
-        Optional<Member> findFarmer = memberRepository.findById(61L);
-
-        mentorDTO.setMentorCrop("오렌지");
-        mentorDTO.setMentorYear("3~5년차");
-        mentorDTO.setMemberId(findFarmer.get());
-
-        Mentor mentor = mentorDTO.toEntity();
-        mentor.changeMember(mentorDTO.getMemberId());
-        mentorRepository.save(mentor);
+//        MentorDTO mentorDTO = new MentorDTO();
+//        Optional<Member> findFarmer = memberRepository.findById(61L);
+//
+//        mentorDTO.setMentorCrop("오렌지");
+//        mentorDTO.setMentorYear("3~5년차");
+//        mentorDTO.setMemberId(findFarmer.get());
+//
+//        Mentor mentor = mentorDTO.toEntity();
+//        mentor.changeMember(mentorDTO.getMemberId());
+//        mentorRepository.save(mentor);
 
     }
 
