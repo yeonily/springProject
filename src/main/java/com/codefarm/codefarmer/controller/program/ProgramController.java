@@ -60,7 +60,7 @@ public class ProgramController {
         log.info("programId:" + programId);
         ProgramDTO list = programDetailService.showByProgramId(programId);
         list.setFiles(programDetailService.showFiles(programId));
-        log.info("리스트 내용: " );
+        log.info("리스트 내용: " + list.toString());
 //        List<ProgramDTO> lists = programListService.();
         model.addAttribute("list",list);
     }

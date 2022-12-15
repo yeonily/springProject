@@ -21,38 +21,25 @@
 
         <!--메인 배너 Swiper-->
         <div class="main_banner">
+
             <div class="swiper mySwiper1">
+
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" style="background-color: rgb(120 157 200);">
-                        <div>
-                            <p>귀농준비는 여기서!</p>
-                            <p>귀농민을 위한</p>
-                            <p>다양한 정보공유 커뮤니티</p>
+                        <div class="swiper-slide" style="background-color: rgb(120 157 200);" th:each=" banner:${banners}">
+                            <div>
+                                <p th:utext="${banner.bannerTitle}"></p>
+                            </div>
+                            <img th:src="@{/admin/banner/display?fileName=} + ${banner.bannerRealname}" >
                         </div>
-                        <img src="https://img95.lovepik.com/photo/40112/1364.gif_wh300.gif">
-                    </div>
-                    <div class="swiper-slide" style="background-color: rgb(204 209 137);">
-                        <div>
-                            <p>베딩턴에서 즐기는</p>
-                            <p>놀거리가 가득한!!</p>
-                            <p>청년농업 맥주 페스티벌</p>
-                        </div>
-                        <img src="https://images.squarespace-cdn.com/content/v1/5b238a149f8770a79bf32145/1626698989712-EHL4K2F4ODT1E4TFDBY7/beddington-farm-gif.gif?format=1500w">
-                    </div>
-                    <div class="swiper-slide" style="background-color: rgb(204 226 222);">
-                        <div>
-                            <p>소수정예 실무</p>
-                            <p>퍼스널 트레이닝</p>
-                        </div>
-                        <img src="https://dgfarm.kr/img/2022/main/m_mv_01.jpg">
-                    </div>
                 </div>
                 <div class="buttonTest">
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
                 <div class="swiper-pagination"></div>
+
             </div>
+
         </div>
 
         <!--두 번째 배너-->
@@ -62,12 +49,12 @@
                 <!--멘토 슬라이드 배너-->
                 <div class="swiper mySwiper2">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <div class="swiper-slide" th:each=" mentor:${mentorList}">
                             <!--대표 이미지 영역-->
-                            <div class="imgDiv" style="background-image: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/04/urbanbrush-20220404144009535832.jpg');"></div>
+                            <div class="imgDiv"><a th:href="@{/mento/detail?mentorBoardId=} + ${mentor.mentorBoardId}"><img th:src="@{/mentofile/display?fileName=} + *{mentor.files[0].fileUploadPath} + '/s_'+ *{mentor.files[0].fileUuid}  + '_' + *{mentor.files[0].fileName}" ></a></div>
                             <div class="textDiv">
-                                <p>닉네임</p>
-                                <h3>멘토가 알려주는 감자 농사법</h3>
+                                <p th:text="*{mentor.memberNickName}"></p>
+                                <h3 th:text="*{mentor.mentorTitle}"></h3>
                                 <div class="mentor_info_caption">
                                     <div class="mentor_star">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
@@ -79,70 +66,70 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/05/urbanbrush-20220524083528618198.jpg');"></div>
-                            <div class="textDiv">
-                                <p>닉네임</p>
-                                <h3>멘토가 알려주는 감자 농사법</h3>
-                                <div class="mentor_info_caption">
-                                    <div class="mentor_star">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
-                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                        </svg>
-                                        <span class="mentor_star_span">4.9</span>
-                                        <div class="mentor_star_avg">(221)</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('http://image.newsis.com/2020/06/15/NISI20200615_0000544724_web.jpg');"></div>
-                            <div class="textDiv">
-                                <p>닉네임</p>
-                                <h3>멘토가 알려주는 감자 농사법</h3>
-                                <div class="mentor_info_caption">
-                                    <div class="mentor_star">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
-                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                        </svg>
-                                        <span class="mentor_star_span">4.9</span>
-                                        <div class="mentor_star_avg">(221)</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('http://www.dhns.co.kr/news/photo/202112/272933_174604_105.jpg');"></div>
-                            <div class="textDiv">
-                                <p>닉네임</p>
-                                <h3>멘토가 알려주는 감자 농사법</h3>
-                                <div class="mentor_info_caption">
-                                    <div class="mentor_star">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
-                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                        </svg>
-                                        <span class="mentor_star_span">4.9</span>
-                                        <div class="mentor_star_avg">(221)</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="imgDiv" style="background-image: url('https://newsimg.sedaily.com/2019/03/27/1VGR33B4HX_2.jpg');"></div>
-                            <div class="textDiv">
-                                <p>닉네임</p>
-                                <h3>멘토가 알려주는 감자 농사법</h3>
-                                <div class="mentor_info_caption">
-                                    <div class="mentor_star">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">
-                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>
-                                        </svg>
-                                        <span class="mentor_star_span">4.9</span>
-                                        <div class="mentor_star_avg">(221)</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="swiper-slide">-->
+<!--                            <div class="imgDiv" style="background-image: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/05/urbanbrush-20220524083528618198.jpg');"></div>-->
+<!--                            <div class="textDiv">-->
+<!--                                <p>닉네임</p>-->
+<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
+<!--                                <div class="mentor_info_caption">-->
+<!--                                    <div class="mentor_star">-->
+<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
+<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
+<!--                                        </svg>-->
+<!--                                        <span class="mentor_star_span">4.9</span>-->
+<!--                                        <div class="mentor_star_avg">(221)</div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="swiper-slide">-->
+<!--                            <div class="imgDiv" style="background-image: url('http://image.newsis.com/2020/06/15/NISI20200615_0000544724_web.jpg');"></div>-->
+<!--                            <div class="textDiv">-->
+<!--                                <p>닉네임</p>-->
+<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
+<!--                                <div class="mentor_info_caption">-->
+<!--                                    <div class="mentor_star">-->
+<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
+<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
+<!--                                        </svg>-->
+<!--                                        <span class="mentor_star_span">4.9</span>-->
+<!--                                        <div class="mentor_star_avg">(221)</div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="swiper-slide">-->
+<!--                            <div class="imgDiv" style="background-image: url('http://www.dhns.co.kr/news/photo/202112/272933_174604_105.jpg');"></div>-->
+<!--                            <div class="textDiv">-->
+<!--                                <p>닉네임</p>-->
+<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
+<!--                                <div class="mentor_info_caption">-->
+<!--                                    <div class="mentor_star">-->
+<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
+<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
+<!--                                        </svg>-->
+<!--                                        <span class="mentor_star_span">4.9</span>-->
+<!--                                        <div class="mentor_star_avg">(221)</div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="swiper-slide">-->
+<!--                            <div class="imgDiv" style="background-image: url('https://newsimg.sedaily.com/2019/03/27/1VGR33B4HX_2.jpg');"></div>-->
+<!--                            <div class="textDiv">-->
+<!--                                <p>닉네임</p>-->
+<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
+<!--                                <div class="mentor_info_caption">-->
+<!--                                    <div class="mentor_star">-->
+<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
+<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
+<!--                                        </svg>-->
+<!--                                        <span class="mentor_star_span">4.9</span>-->
+<!--                                        <div class="mentor_star_avg">(221)</div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="swiper-button next2"></div>
@@ -173,12 +160,20 @@
                                         <p class="communityContent" th:text="*{boardContent}"></p>
                                         <div><span class="replyIcon" ><img src="/image/main/reply.png"><span class="resultReplyCount"></span></span></div>
                                         <hr>
-                                        <div th:each="reply:${replies}" th:if="${reply.boardId == board.boardId} and ${replyStat.current}"  class="communityComment">
-                                                <input type="hidden" class="nicknameValue" th:value="${reply.memberNickName}">
-                                                <div class="nickNameCircle nicknameFirst" style="background-color: #F0D780;"></div>
-                                                <div class="nickName"><strong th:text="${reply.memberNickName}"></strong></div>
-                                                <div class="communityReply" th:text="${reply.replyContent}"></div>
+<!--                                        <div th:each="reply:${replies}" th:if="${reply.boardId == board.boardId} and ${replyStat.current}"  class="communityComment">-->
+<!--                                                <input type="hidden" class="nicknameValue" th:value="${reply.memberNickName}">-->
+<!--                                                <div class="nickNameCircle nicknameFirst" style="background-color: #F0D780;"></div>-->
+<!--                                                <div class="nickName"><strong th:text="${reply.memberNickName}"></strong></div>-->
+<!--                                                <div class="communityReply" th:text="${reply.replyContent}"></div>-->
+<!--                                        </div>-->
+                                        <th:block th:each="replys:${board.replies}">
+                                        <div class="communityComment">
+                                              <input type="hidden" class="nicknameValue" th:value="${replys.memberNickName}">
+                                              <div class="nickNameCircle nicknameFirst" style="background-color: #F0D780;"></div>
+                                              <div class="nickName"><strong th:text="${replys.memberNickName}"></strong></div>
+                                              <div class="communityReply" th:text="${replys.replyContent}"></div>
                                         </div>
+                                        </th:block>
                                             <div class="moreBtn" onclick="location.href='/community/community'">
                                                 <button type="button">+ 더보기</button>
                                             </div>
@@ -254,19 +249,13 @@
         <div id="socaMenu">
             <div id="socaMenu-inner">
                 <h1>자주 찾는 질문</h1>
-                <div class="menuList">
-                    <div class="menuList-menu">
-                        <img src="/image/main/FAQ.png">
-                        <span>농업신청은 어떻게 하나요? </span>
-                    </div>
-                    <div class="menuList-menu">
-                        <img src="/image/main/FAQ.png">
-                        <span>아르바이트 과정이 궁금해요 </span>
-                    </div>
-                    <div class="menuList-menu">
-                        <img src="/image/main/FAQ.png">
-                        <span>멘토는 아무나 할 수 있나요?</span>
-                    </div>
+                <div class="menuList" th:each="notice:${notices}">
+                    <a th:href="@{/notice/detail?noticeId=} + ${notice.noticeId}">
+                        <div class="menuList-menu">
+                            <img src="/image/main/FAQ.png">
+                            <span th:text="*{notice.noticeTitle}"></span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -281,8 +270,13 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" th:each="program:${programs}">
                             <div class="imgDiv" >
-                                <img th:src="@{/file/display/fileName=} + *{program.files[0].fileUploadPath} + '/s_'+ *{program.files[0].fileUuid}  + '_' + *{program.files[0].fileName}" >
-                                <div><p>멘티전용</p></div>
+                                <a th:href="@{/program/detail?programId=} + ${program.programId}"><img th:src="@{/file/display?fileName=} + *{program.files[0].fileUploadPath} + '/s_'+ *{program.files[0].fileUuid}  + '_' + *{program.files[0].fileName}" ></a>
+<!--                                if(list.programType == 'ONLY_MENTEE'){-->
+<!--                                text += '<span class="list-point-m">멘토 전용</span>'-->
+<!--                                }-->
+                                <div th:if="${#strings.equals(program.programType,'ONLY_MENTEE')}">
+                                    <p>멘티전용</p>
+                                </div>
                             </div>
                             <div class="textDiv">
                                 <p><span th:text="${program.programLocation}"/> ・ <span style="color: rgb(238, 126, 65)" th:text="|${program.programPrice}원|"></span></p>
@@ -311,11 +305,11 @@
                         <img src="/image/main/alba.png">
                         <span>아르바이트 목록</span>
                     </div>
-                    <div class="menuList-menu" onclick="location.href='/information/stepTest'">
+                    <div class="menuList-menu" onclick="location.href='/information/step'">
                         <img src="/image/main/step.png">
                         <span>단계별 테스트</span>
                     </div>
-                    <div class="menuList-menu" onclick="location.href='/information/readyTest'">
+                    <div class="menuList-menu" onclick="location.href='/information/ready'">
                         <img src="/image/main/ready.png">
                         <span>준비도 테스트</span>
                     </div>
@@ -332,7 +326,9 @@
                 <div class="swiper mySwiper5">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" th:each="alba:${albas}">
-                            <div class="imgDiv" style="background-image: url('https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201905/30/de84a1a8-b47d-4e9c-953d-8a9aba4c4f4c.jpg');"></div>
+                            <div class="imgDiv" >
+                                <a th:href="@{/alba/detail?albaId=} + ${alba.albaId}"><img th:src="@{/alba/display?fileName=} + *{alba.albaImage}" ></a>
+                            </div>
                             <div class="textDiv">
                                 <p><span th:text="${alba.albaApplyCount}"/>/<span th:text="${alba.albaApplyTotalCount}"/>명 <span style="color: rgb(238, 126, 65)" >・ 시급: <span th:text="${alba.albaPrice}"/>원</span></p>
                                 <h3 th:text="${alba.albaMainTitle}"></h3>
