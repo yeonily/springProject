@@ -40,87 +40,87 @@
             <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
         <div id="wrapContents">
-        <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents chart-no">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents chart-no">
 
-            <!-- 검색어 입력 폼 -->
-            <form th:action="@{/admin/help}" name="searchForm">
-                <div class="search-form">
-                        <span class="s-form">
-                            <select class="keywords" th:value="${param.keyword}" name="keyword">
-                                <option value="t">제목</option>
-                                <option value="c">내용</option>
-                                <option value="tc">제목 + 내용</option>
-                                <option value="w">작성자</option>
-                                <option value="s">상태</option>
-                            </select>
-                        </span>
-                    <span class="s-f-input">
-                            <span class="search-input">
-                                <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
+                <!-- 검색어 입력 폼 -->
+                <form th:action="@{/admin/help}" name="searchForm">
+                    <div class="search-form">
+                            <span class="s-form">
+                                <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                    <option value="t">제목</option>
+                                    <option value="c">내용</option>
+                                    <option value="tc">제목 + 내용</option>
+                                    <option value="w">작성자</option>
+                                    <option value="s">상태</option>
+                                </select>
                             </span>
-                        </span>
-                    <button type="submit" class="searchBtn">
-                        <img src="/image/admin/search.png">
-                    </button>
-                </div>
-            </form>
+                        <span class="s-f-input">
+                                <span class="search-input">
+                                    <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
+                                </span>
+                            </span>
+                        <button type="submit" class="searchBtn">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
 
-        </div>
-
-        <!-- 프로그램 리스트 출력 틀 -->
-        <div class="p-contents contents-bottom">
-                <span class="list-count">총
-                    <span th:text="${inquireCounts}"></span>건
-                </span>
-            <table>
-                <tr class="title">
-                    <th class="num">문의번호</th>
-                    <th class="title">제목</th>
-                    <th class="content">내용</th>
-                    <th class="id">작성자</th>
-                    <th class="date">작성날짜</th>
-                    <th class="askStatus">상태</th>
-                </tr>
-                <!-- ↓ 데이터 출력 -->
-                <th:block th:each="inquire:${inquires}">
-                    <tr th:object="${inquire}">
-                        <td th:text="*{inquireId}"></td>
-                        <td class="title" th:text="*{inquireQTitle}" th:onclick="|javascript:goPage('*{inquireId}')|"></td>
-                        <td class="content" th:text="*{inquireQContent}"></td>
-                        <td th:text="*{member.getMemberNickname}"></td>
-                        <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
-                        <td class="askStatus" th:text="*{inquireStatus}"></td>
-                    </tr>
-                </th:block>
-                <tr th:if="${data}">
-                    <td colspan="6" style="height: 180px;">검색 결과가 없습니다.</td>
-                </tr>
-            </table>
-
-            <!-- 페이징 -->
-            <div id="page" th:if="${!data}">
-                <div class="page_nation">
-                    <th:block th:with="start=${(inquires.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">
-                        <th:block th:if="${inquires.pageable.pageNumber > 0}">
-                            <a class="arrow pprev" th:href="@{/admin/help(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
-                            <a class="arrow prev" th:href="@{/admin/help(page=${((inquires.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
-                        </th:block >
-
-                        <th:block th:each="i: ${#numbers.sequence(start, end)}">
-                            <a th:href="@{/admin/help(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == inquires.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
-                        </th:block>
-
-                        <th:block th:if="${end < resultCount}">
-                            <a class="arrow next" th:href="@{/admin/help(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
-                            <a class="arrow nnext" th:href="@{/admin/help(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
-                        </th:block>
-                    </th:block>
-                </div>
             </div>
 
+            <!-- 프로그램 리스트 출력 틀 -->
+            <div class="p-contents contents-bottom">
+                    <span class="list-count">총
+                        <span th:text="${inquireCounts}"></span>건
+                    </span>
+                <table>
+                    <tr class="title">
+                        <th class="num">문의번호</th>
+                        <th class="title">제목</th>
+                        <th class="content">내용</th>
+                        <th class="id">작성자</th>
+                        <th class="date">작성날짜</th>
+                        <th class="askStatus">상태</th>
+                    </tr>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="inquire:${inquires}">
+                        <tr th:object="${inquire}">
+                            <td th:text="*{inquireId}"></td>
+                            <td class="title" th:text="*{inquireQTitle}" th:onclick="|javascript:goPage('*{inquireId}')|"></td>
+                            <td class="content" th:text="*{inquireQContent}"></td>
+                            <td th:text="*{member.getMemberNickname}"></td>
+                            <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                            <td class="askStatus" th:text="*{inquireStatus}"></td>
+                        </tr>
+                    </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="6" style="height: 180px;">검색 결과가 없습니다.</td>
+                    </tr>
+                </table>
+
+                <!-- 페이징 -->
+                <div id="page" th:if="${!data}">
+                    <div class="page_nation">
+                        <th:block th:with="start=${(inquires.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">
+                            <th:block th:if="${inquires.pageable.pageNumber > 0}">
+                                <a class="arrow pprev" th:href="@{/admin/help(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow prev" th:href="@{/admin/help(page=${((inquires.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block >
+
+                            <th:block th:each="i: ${#numbers.sequence(start, end)}">
+                                <a th:href="@{/admin/help(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == inquires.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                            </th:block>
+
+                            <th:block th:if="${end < resultCount}">
+                                <a class="arrow next" th:href="@{/admin/help(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/help(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

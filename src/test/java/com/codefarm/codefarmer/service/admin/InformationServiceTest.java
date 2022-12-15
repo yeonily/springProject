@@ -27,6 +27,8 @@ public class InformationServiceTest {
     private CropRepository cropRepository;
     @Autowired
     private ReplyRepository replyRepository;
+    @Autowired
+    private AdminService adminService;
 
 //    정책 등록
     @Test
@@ -109,4 +111,12 @@ public class InformationServiceTest {
 //    댓글 수 리스트
 //    @Test
 //    public void replyCountByBoardIdTest() { log.info("댓글 수 : " + replyRepository.countReplyByBoardId(1L)); }
+
+//    @Test
+//    public void boardShowAllTest(){
+//        Pageable pageable = Pageable.unpaged();
+//        String keyword = "";
+//        String searchText = "";
+//        adminService.boardShowAll(pageable, keyword, searchText).stream().forEach(b -> log.info("하.... -> " + b));
+//    }
 }

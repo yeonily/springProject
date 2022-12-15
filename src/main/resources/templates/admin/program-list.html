@@ -35,88 +35,162 @@
             <span id="userCount">가입된 회원 수 총 <strong th:text="${memberCounts}"></strong>명</span>
         </header>
         <div id="wrapContents">
-        <!-- 컨텐츠 검색 부분 -->
-        <div class="p-contents chart-no">
+            <!-- 컨텐츠 검색 부분 -->
+            <div class="p-contents chart-no">
 
-            <!-- 검색어 입력 폼 -->
-            <form action="" name="searchForm" method="post">
-                <div class="search-form">
+                <!-- 검색어 입력 폼 -->
+                <form th:action="@{/admin/program}" name="searchForm">
+                    <div class="search-form">
                         <span class="s-form">
-                            <select name="searchSelect">
-                                <option value="title">프로그램명</option>
-                                <option value="nickName">작성자</option>
-                                <option value="place">장소</option>
-                                <option value="status">상태</option>
+                            <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                <option value="p">프로그램명</option>
+                                <option value="n">작성자</option>
+                                <option value="a">장소</option>
+                                <option value="s">상태</option>
                             </select>
                         </span>
-                    <span class="s-f-input">
+                        <span class="s-f-input">
                             <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                                <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
                             </span>
                         </span>
-                    <button type="button" class="">
-                        <img src="/image/admin/search.png">
-                    </button>
-                </div>
-            </form>
-
-        </div>
+                        <button type="submit">
+                            <img src="/image/admin/search.png">
+                        </button>
+                    </div>
+                </form>
+            </div>
 
             <!-- 프로그램 리스트 출력 틀 -->
             <div class="p-contents contents-bottom">
+                <span class="list-count">총
+                    <span th:text="${programCounts}"></span>건
+                </span>
 
-            <span class="list-count">총
-                    <span>2476</span>건
-            </span>
+                    <table>
+                    <tr class="title">
+                        <th class="num">글번호</th>
+                        <th class="title" style="width: 25%;">프로그램명</th>
+                        <th class="id">작성자</th>
+                        <th class="cost" style="width: 10%">비용</th>
+                        <th class="place">장소</th>
+                        <th class="date">작성날짜</th>
+                        <th class="hits">신청인원 수</th>
+                        <th class="status" style="width: 7%">상태</th>
+                        <th class="delete"></th>
+                    </tr>
+                    <!-- ↓ 데이터 출력 -->
+                    <th:block th:each="program :${programs}">
+                        <tr class="title" th:object="${program}">
+                            <td class="num" th:text="*{programId}"></td>
+                            <td class="title" th:text="*{programTitle}" th:onclick="|javascript:goPage('*{programId}')|"></td>
+                            <td class="id" th:text="*{member.getMemberNickname}"></td>
+                            <td class="cost" th:text="*{programPrice}"></td>
+                            <td class="place" th:text="*{programLocation}"></td>
+                            <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                            <td class="hits">70</td>
+                            <td class="status">진행중</td>
+                            <td class="delete">
+                                <form method="post" class="deleteForm" th:action="@{/admin/program/delete}">
+                                    <input type="hidden" name="programId" th:value="*{programId}">
+                                    <input type="hidden" name="page" th:value="${criteria.page}">
+                                    <input type="hidden" name="searchText" th:value="${criteria.searchText}">
+                                    <input type="hidden" name="keyword" th:value="${criteria.keyword}">
+                                    <input type="button" value="삭제" class="deleteBtn">
+                                </form>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="8" style="height: 180px;">검색 결과가 없습니다.</td>
+                    </tr>
+                </table>
 
-                <table>
-                <tr class="title">
-                    <th class="num">글번호</th>
-                    <th class="title" style="width: 25%;">프로그램명</th>
-                    <th class="id">작성자</th>
-                    <th class="cost">비용</th>
-                    <th class="place">장소</th>
-                    <th class="date">작성날짜</th>
-                    <th class="hits">조회수</th>
-                    <th class="status">상태</th>
-                    <th class="delete"></th>
-                </tr>
-                <!-- ↓ 데이터 출력 -->
-                <tr class="title">
-                    <td class="num">123</td>
-                    <td class="title" onclick="location.href='/program/detail'">첫 번째 프로그램</td>
-                    <td class="id">herd</td>
-                    <td class="cost">20,000</td>
-                    <td class="place">서울시 관악구</td>
-                    <td class="date">2022-11-14 10:00</td>
-                    <td class="hits">70</td>
-                    <td class="statusOk">진행중</td>
-                    <td class="delete"><input type="button" value="삭제" onclick="deleteWriteCheck()"></td>
-                </tr>
-            </table>
+                <!-- 페이징 -->
+                <div id="page" th:if="${!data}">
+                    <div class="page_nation">
+                        <th:block th:with="start=${(programs.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">
+                            <th:block th:if="${programs.pageable.pageNumber > 0}">
+                                <a class="arrow pprev" th:href="@{/admin/program(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow prev" th:href="@{/admin/program(page=${((programs.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block >
+                            <th:block th:each="i: ${#numbers.sequence(start, end)}">
+                                <a th:href="@{/admin/program(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == programs.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                            </th:block>
 
-            <!-- 페이징 -->
-            <div id="page">
-                <div class="page_nation">
-                    <a class="arrow pprev" href="#"></a>
-                    <a class="arrow prev" href="#"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a class="arrow next" href="#"></a>
-                    <a class="arrow nnext" href="#"></a>
+                            <th:block th:if="${end < resultCount}">
+                                <a class="arrow next" th:href="@{/admin/program(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/program(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block>
+                        </th:block>
+                    </div>
                 </div>
+
             </div>
         </div>
-        </div>
     </div>
-</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script th:inline="javascript">
+        let queryString = [[${criteria.queryString}]];
+        const urlParams = new URL(location.href).searchParams;
+        const keyword = urlParams.get('keyword');
+
+        var now = new Date(); // 현재
+        var year = now.getFullYear();   // 연도
+        var month = now.getMonth()+1;   // 월
+        var day = now.getDate();        // 일
+        var today = new Date(year, month, day);
+
+        $(document).ready(function() {
+            $("input.applyEndDate").each(function(index, item){
+                var date = $(this).val().split("-");
+                var endDate = new Date(date[0], date[1], date[2]);
+
+                var minus = today.getTime() - endDate.getTime() ;
+                var result = minus / (1000*60*60*24) ;
+
+                if (result > 0){
+                    $(this).parent().next().html("마감");
+                    $(this).parent().next().css("color", "red");
+                } else if (result < 0) {
+                    $(this).parent().next().html("모집 중");
+                    $(this).parent().next().css("color", "green");
+                } else if (result == 0) {
+                    $(this).parent().next().html("오늘 마감");
+                }
+            });
+        });
+
+        // 프로그램 디테일 페이지로 이동
+        function goPage (programId) {
+            location.href='/program/detail?programId=' + programId;
+        }
+
+        // 검색 옵션
+        if(keyword == null || keyword == "") {
+            $(".keywords").val('p').prop("selected", true);
+        } else {
+            $(".keywords").val(keyword).prop("selected", true);
+        }
+
+        $(document).ready(function(){
+            $(".askStatus").each(function(i, item) {
+                if($(this).html() == "CONFIRM"){
+                    $(this).css("color", "green");
+                }
+            })
+        });
+
+        // 글 삭제
+        var msg = "이 프로그램을 삭제 하시겠습니까?";
+
+        $(".deleteBtn").on("click", function () {
+            var flag = confirm(msg);
+            if(flag){
+                $(this).parents("form.deleteForm").submit();
+            }
+        });
+    </script>
 </body>
 <html>

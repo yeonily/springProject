@@ -8,25 +8,6 @@ function deleteWriteCheck() {
     if (flag) alert('삭제 완료');
 }
 
-// 배너 삭제
-function deleteBannerCheck() {
-    var msg = "배너를 삭제 하시겠습니까?";
-    var flag = confirm(msg);
-
-    if (flag) alert('삭제 완료');
-}
-
-// 공지글 수정
-function reviseNoticeCheck() {
-    var msg = "글을 수정 하시겠습니까?";
-    var flag = confirm(msg);
-
-    if (flag) {
-        location.href="/admin/notice";
-        alert('수정 완료');
-    }
-}
-
 // 배너글 수정
 function reviseBannerCheck() {
     var msg = "글을 수정 하시겠습니까?";
