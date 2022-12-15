@@ -88,9 +88,9 @@ public class ChatRoomService {
         List<ChatDTO> chatDTOList = chatList(chatRoomId); // 해당 채팅방의 모든 채팅을 가져옴
         List<Chat> chatList = new ArrayList<>();
 
-        /*내가 입력한 메세지가 아닌 상대방이 입력한 메세지만 뽑기*/
         for(ChatDTO chatDTO : chatDTOList) {
-            if(chatDTO.getMember().getMemberId() != memberId) {
+            /*내가 입력한 메세지가 아닌 상대방이 입력한 메세지만 뽑기*/
+            if(!chatDTO.getMember().getMemberId().equals(memberId)) {
                 chatList.add(chatDTO.toEntity());
             }
         }
@@ -162,21 +162,33 @@ public class ChatRoomService {
     /*-----------------------------------------------*/
           /*로그인 세션 기준 읽지 않은 메세지 있는지 확인*/
     /*-----------------------------------------------*/
-    public int chatAlarm(Long memberId) {
+    public List<ChatDTO> chatAlarm(Long memberId) {
         List<ChatRoomDTO> chatRooms = chatRoomSelectAll(memberId); // 현재 회원이 참여한 채팅방 모두 저장
         List<ChatDTO> chats = new ArrayList<>();
-        int cnt = 0; // 메세지 읽지 않은 개수
+        ChatDTO chat = new ChatDTO();
+        List<ChatDTO> result = new ArrayList<>();
 
         for(ChatRoomDTO chatRoomDTO : chatRooms) {
-            chatList(chatRoomDTO.getChatRoomId()).stream().filter(v -> v.getMember().getMemberId() != memberId).forEach(v -> chats.add(v));
+            chatList(chatRoomDTO.getChatRoomId()).stream().filter(v -> v.getMember().getMemberId() != memberId).forEach(v -> {
+                v.setRoomId(chatRoomDTO.getChatRoomId());
+                chats.add(v);
+            });
         }
 
-        for(ChatDTO chatDTO : chats) {
-            if(chatDTO.getChatStatus() == UNREAD) {
-                cnt += 1;
+        for (int i = 0; i < chats.size(); i++) {
+            if (chat != null && !(chats.get(i).getMemberId()).equals(chat.getMemberId()) && chats.get(i).getChatStatus() == UNREAD) {
+                /*채팅방들 중 읽지않은 메세지의 회원 정보를 배열에 저장*/
+                if(!chats.get(i).getMemberId().equals(memberId)) {
+                    Long memId = chats.get(i).getMemberId();
+                    Long roomId = chats.get(i).getRoomId();
+                    chats.get(i).setNickName(memberRepository.findById(memId).get().getMemberNickname());
+                    chats.get(i).setRoomId(chatRoomRepository.findById(roomId).get().getChatRoomId());
+                    result.add(chats.get(i));
+                }
             }
+            chat = chats.get(i);
         }
-        return cnt;
+        return result;
     }
 }
 
