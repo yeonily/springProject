@@ -150,19 +150,18 @@ public class MentoController {
 
 
 
-
     /*채팅방 이동 시*/
     @GetMapping("/chatting")
     @RequestMapping(value = "/mento/chatting", method = RequestMethod.GET)
-    public void chatting(Model model, Long mentorId, HttpSession session) {
+    public void chatting(@RequestParam(value="mentorId", required=false, defaultValue="") Long mentorId, Model model, HttpSession session) {
         /*로그인 세션 변수로 보내기*/
         Long sessionId = (Long) session.getAttribute("memberId");
-//        Long sessionId = 1L;
         model.addAttribute("sessionId", sessionId);
-        mentorId = 86L;
 
         /*대화가 이미 있는지에 따라 채팅방 생성*/
-        cs.createChatRoom(mentorId, sessionId); // 게시글을 작성한 멘토 멤버아이디와 로그인 세션
+        if(mentorId != null) { // 만약 게시글 상세보기에서 채팅페이지로 넘어가는 경우 작성자 ID가 있음
+            cs.createChatRoom(mentorId, sessionId); // 게시글을 작성한 멘토 멤버아이디와 로그인 세션
+        }
         /*로그인 멤버 세션이 참여 중인 대화방 목록 저장*/
         model.addAttribute("rooms", cs.chatRoomSelectAll(sessionId));
         /*로그인 세션에 따른 읽지 않은 메세지 개수 가져오기*/
