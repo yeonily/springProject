@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.controller.admin;
 
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.inquire.InquireAnswerDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.notice.NoticeDTO;
 import com.codefarm.codefarmer.entity.admin.Banner;
 import com.codefarm.codefarmer.entity.admin.Criteria;
@@ -463,13 +464,21 @@ public class AdminController {
 
     // 멘토 관리
     @GetMapping("/mentor")
-    public String adminMentorMentor(Model model) {
+    public String adminMentorMentor(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable) {
+        Page<MentorDTO> mentors = adminService.mentorShowAll(pageable, keyword, searchText);
+
+        model.addAttribute("mentorCounts", adminService.countByMentor());
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("mentors", mentors);
+        model.addAttribute("resultCount", adminService.searchCountByMentor(keyword, searchText));
+        model.addAttribute("page", pageable);
+        model.addAttribute("data", mentors.isEmpty());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/mentor";
     }
 
     @GetMapping("/mentor/promotion")
-    public String adminMentorPromotion(Model model){
+    public String adminMentorPromotion(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable){
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/promotion";
     }

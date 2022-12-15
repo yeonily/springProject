@@ -1,8 +1,11 @@
 package com.codefarm.codefarmer.entity.mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -30,6 +33,10 @@ public class Mentor extends Period {
     @NotNull
     private String mentorYear;
 
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Program> programs;
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "mentor", cascade = CascadeType.REMOVE)
+    private List<MentorMentee> mentorMentees;
 
     public void update(MentorDTO mentorDTO){
         this.mentorCrop = mentorDTO.getMentorCrop();

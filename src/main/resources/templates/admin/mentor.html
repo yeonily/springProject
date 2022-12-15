@@ -41,22 +41,21 @@
             <div class="p-contents">
 
                 <!-- 검색어 입력 폼 -->
-                <form action="" name="searchForm" method="post">
+                <form th:action="@{/admin/mentor}" name="searchForm">
                     <div class="search-form">
                         <span class="s-form">
-                            <select name="searchSelect" class="val">
-                                <option value="name">멘토</option>
-                                <option value="nickName">닉네임</option>
-                                <option value="career">연차</option>
-                                <option value="region">지역</option>
+                            <select class="keywords" th:value="${param.keyword}" name="keyword">
+                                <option value="n">멘토</option>
+                                <option value="nn">닉네임</option>
+                                <option value="l">지역</option>
                             </select>
                         </span>
                         <span class="s-f-input">
                             <span class="search-input">
-                                <input type="text" name="programSearch" placeholder="검색어를 입력하세요">
+                                <input type="text" th:value="${param.searchText}" name="searchText" placeholder="검색어를 입력하세요.">
                             </span>
                         </span>
-                        <button type="button" class="">
+                        <button type="submit">
                             <img src="/image/admin/search.png">
                         </button>
                     </div>
@@ -68,7 +67,7 @@
             <div class="p-contents contents-bottom">
 
                 <span class="list-count">총
-                    <span>2476</span>건
+                    <span th:text="${mentorCounts}"></span>건
                 </span>
 
                 <table>
@@ -83,56 +82,42 @@
                     </tr>
 
                     <!-- ↓ 데이터 출력 -->
-                    <tr class="title">
-                        <td class="num">1</td>
-                        <td class="name">연태관</td>
-                        <td class="nickName">herd</td>
-                        <td class="programCount">50개</td>
-                        <td class="menteeCount" ><button id="main_fixed_button">3명</button></td>
-                        <td class="career">1~3년</td>
-                        <td class="region">강원도</td>
-                    </tr>
-                    <tr class="title">
-                        <td class="num">2</td>
-                        <td class="name">연태관</td>
-                        <td class="nickName">xogwan</td>
-                        <td class="programCount">50개</td>
-                        <td class="menteeCount"><button id="main_fixed_button">5명</button></td>
-                        <td class="career">3~5년차</td>
-                        <td class="region">경상도</td>
-                    </tr>
-                    <tr class="title">
-                        <td class="num">3</td>
-                        <td class="name">연태관</td>
-                        <td class="nickName">xorhks</td>
-                        <td class="programCount">50개</td>
-                        <td class="menteeCount"><button id="main_fixed_button">10명</button></td>
-                        <td class="career">5~7년차</td>
-                        <td class="region">충청도</td>
+                    <th:block th:each="mentor :${mentors}">
+                        <tr class="title" th:object="${mentor}">
+                            <td class="num" th:text="*{mentorId}"></td>
+                            <td class="name" th:text="*{memberName}"></td>
+                            <td class="nickName" th:text="*{memberNickname}"></td>
+                            <td class="programCount"><span th:text="*{programCount}"/>개</td>
+                            <td class="menteeCount" ><button id="main_fixed_button"><span th:text="*{menteeCount}"/>명</button></td>
+                            <td class="career" th:text="*{mentorYear}"></td>
+                            <td class="region" th:text="*{memberLocation}"></td>
+                        </tr>
+                    </th:block>
+                    <tr th:if="${data}">
+                        <td colspan="7" style="height: 180px;">검색 결과가 없습니다.</td>
                     </tr>
                 </table>
 
                 <!-- 페이징 -->
-                <div id="page">
+                <div id="page" th:if="${!data}">
                     <div class="page_nation">
-                        <a class="arrow pprev" href="#"></a>
-                        <a class="arrow prev" href="#"></a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">7</a>
-                        <a href="#">8</a>
-                        <a href="#">9</a>
-                        <a href="#">10</a>
-                        <a class="arrow next" href="#"></a>
-                        <a class="arrow nnext" href="#"></a>
+                        <th:block th:with="start=${(mentors.number/10)*10 + 1}, end=(${(resultCount == 0) ? 1 : ((start + 9) < resultCount ? (start + 9) : resultCount)})">
+                            <th:block th:if="${mentors.pageable.pageNumber > 0}">
+                                <a class="arrow pprev" th:href="@{/admin/mentor(page=0, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow prev" th:href="@{/admin/mentor(page=${((mentors.pageable.pageNumber/10)*10) - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block >
+                            <th:block th:each="i: ${#numbers.sequence(start, end)}">
+                                <a th:href="@{/admin/mentor(page=${i - 1}, searchText=${param.searchText}, keyword=${param.keyword})}" th:classappend="${i == mentors.pageable.pageNumber + 1} ? 'active' : '' " th:text="${i}">1</a>
+                            </th:block>
+
+                            <th:block th:if="${end < resultCount}">
+                                <a class="arrow next" th:href="@{/admin/mentor(page=${end},searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                                <a class="arrow nnext" th:href="@{/admin/mentor(page=${resultCount - 1}, searchText=${param.searchText}, keyword=${param.keyword})}"></a>
+                            </th:block>
+                        </th:block>
                     </div>
-
-
                 </div>
+                
                 <!--지원하기 모달창-->
                 <div id="modal" style="display: none;">
                     <div id="modal-overlay">
@@ -293,7 +278,17 @@
 </div>
 
 </body>
-<!-- 차트 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/admin/modal.js"></script>
+<script>
+    const urlParams = new URL(location.href).searchParams;
+    const keyword = urlParams.get('keyword');
+
+    // 검색 옵션
+    if(keyword == null || keyword == "") {
+        $(".keywords").val('n').prop("selected", true);
+    } else {
+        $(".keywords").val(keyword).prop("selected", true);
+    }
+</script>
 <html>

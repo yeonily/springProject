@@ -1,5 +1,6 @@
 package com.codefarm.codefarmer.domain.mentor;
 
+import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.querydsl.core.annotations.QueryProjection;
@@ -19,13 +20,30 @@ public class MentorDTO {
     private String mentorCrop;
     private String mentorYear;
     private String memberLocation;
-    private String memberNickName;
+    private String memberName;
+    private String memberNickname;
+    private int programCount;
+    private int menteeCount;
+
+    private List<ProgramDTO> programs;
+    private List<MentorMenteeDTO> mentorMentees;
 
     public Mentor toEntity(){
         return Mentor.builder()
                 .mentorCrop(mentorCrop)
                 .mentorYear(mentorYear)
                 .build();
+    }
+
+    @QueryProjection
+    public MentorDTO(Long mentorId, String memberName, String memberNickname , String mentorYear, String memberLocation, int programCount, int menteeCount) {
+        this.mentorId = mentorId;
+        this.memberName = memberName;
+        this.memberNickname = memberNickname;
+        this.mentorYear = mentorYear;
+        this.memberLocation = memberLocation;
+        this.programCount = programCount;
+        this.menteeCount = menteeCount;
     }
 
     @QueryProjection
@@ -42,7 +60,7 @@ public class MentorDTO {
         this.mentorCrop = mentorCrop;
         this.mentorYear = mentorYear;
         this.memberLocation = memberLocation;
-        this.memberNickName = memberNickName;
+        this.memberNickname = memberNickname;
     }
 
 
