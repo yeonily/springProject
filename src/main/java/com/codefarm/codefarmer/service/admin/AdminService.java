@@ -1,16 +1,17 @@
 package com.codefarm.codefarmer.service.admin;
 
 import com.codefarm.codefarmer.domain.board.BoardDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.entity.admin.Banner;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.MemberAlba;
-import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.Reply;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.mentor.Review;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.admin.BannerRepository;
-import com.codefarm.codefarmer.repository.alba.AlbaCustomRepository;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
 import com.codefarm.codefarmer.repository.board.BoardCustomRepository;
@@ -18,8 +19,11 @@ import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.board.ReplyCustomRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorCustomRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.repository.mentor.ReviewCustomRepository;
 import com.codefarm.codefarmer.repository.mentor.ReviewRepository;
+import com.codefarm.codefarmer.repository.program.MemberProgramRepository;
 import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.codefarm.codefarmer.type.BannerStatus;
 import lombok.RequiredArgsConstructor;
@@ -56,8 +60,12 @@ public class AdminService {
     private final MemberAlbaRepository memberAlbaRepository;
 //    프로그램
     private final ProgramRepository programRepository;
+    private final MemberProgramRepository memberProgramRepository;
 //    멤버
     private final MemberRepository memberRepository;
+//    멘토
+    private final MentorRepository mentorRepository;
+    private final MentorCustomRepository mentorCustomRepository;
 
 //    커뮤니티 목록
     public Page<BoardDTO> boardShowAll(Pageable pageable, String keyword, String searchText){
@@ -165,14 +173,15 @@ public class AdminService {
     public int countByMemberAlba() { return memberAlbaRepository.countByMemberAlba(); }
 
 //    프로그램 목록
-public Page<Program> programShowAll(Pageable pageable, String keyword, String searchText){
-    List<Program> programs = programRepository.findByProgramSearch(keyword, searchText);
-    final int total = programRepository.countByProgramSearch(keyword, searchText);
-    final int start = (int)pageable.getOffset();
-    final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
+    @Transactional(readOnly = true)
+    public Page<Program> programShowAll(Pageable pageable, String keyword, String searchText){
+        List<Program> programs = programRepository.findByProgramSearch(keyword, searchText);
+        final int total = programRepository.countByProgramSearch(keyword, searchText);
+        final int start = (int)pageable.getOffset();
+        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
 
-    return new PageImpl<>(programs.subList(start, end), pageable, programs.size());
-}
+        return new PageImpl<>(programs.subList(start, end), pageable, programs.size());
+    }
 
 //    프로그램 검색했을 떄 개수
     public int countByProgramSearch (String keyword, String searchText){
@@ -182,6 +191,27 @@ public Page<Program> programShowAll(Pageable pageable, String keyword, String se
 
 //    프로그램 개수
     public int countByProgram() { return programRepository.countByProgram(); }
+
+//    프로그램 신청자 목록
+    @Transactional(readOnly = true)
+    public Page<MemberProgram> memberProgramShowAll(Pageable pageable, String keyword, String searchText){
+        List<MemberProgram> memberPrograms = memberProgramRepository.findByMemberProgram(keyword, searchText);
+        final int total = memberProgramRepository.countByMemeberProgramSearch(keyword, searchText);
+        final int start = (int)pageable.getOffset();
+        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
+
+        return new PageImpl<>(memberPrograms.subList(start, end), pageable, memberPrograms.size());
+    }
+
+//    프로그램 신청자 -  검색했을 때 글 수
+    public int countByMemberProgramSearch (String keyword, String searchText){
+        int total = memberProgramRepository.countByMemeberProgramSearch(keyword, searchText);
+        return total%10 == 0 ? (total/10) : ((total/10) + 1);
+    }
+
+//    프로그램 신청자 글 수
+    public int countByMemberProgram() { return memberProgramRepository.countByMemberProgram(); }
+
 
 //    배너 목록
     @Transactional(readOnly = true)
@@ -245,5 +275,28 @@ public Page<Program> programShowAll(Pageable pageable, String keyword, String se
 
 //    회원 총 수
     public int countByMember() { return memberRepository.countByMember(); }
+
+//    멘토 목록
+    public Page<MentorDTO> mentorShowAll(Pageable pageable, String keyword, String searchText){
+        List<MentorDTO> mentors = mentorCustomRepository.ShowAllMentor(keyword, searchText);
+        final int total = mentorCustomRepository.searchCountByMentor(keyword, searchText);
+        final int start = (int)pageable.getOffset();
+        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
+
+        return new PageImpl<>(mentors.subList(start, end), pageable, total);
+    }
+
+//    커뮤니티 - 검색했을 때 글 개수
+    public int searchCountByMentor(String keyword, String searchText) {
+        int total = mentorCustomRepository.searchCountByMentor(keyword, searchText);
+
+        return total % 10 == 0 ? (total / 10) : ((total / 10) + 1);
+    }
+
+//    커뮤니티 글 개수
+    public int countByMentor() {
+        return mentorRepository.countByMentor();
+    }
+
 
 }

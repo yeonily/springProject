@@ -229,6 +229,16 @@
     font-weight: 700;
     margin-left: 5px;
 }
+.red-circle {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    content: "";
+    border-radius: 50%;
+    background: red;
+    width: 15px;
+    height: 15px;
+}
 
 /**************************************************************/
 /*지원하기 모달창*/

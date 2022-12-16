@@ -89,7 +89,8 @@
                                     <img class="content-img" src="/image/program/redmark.gif">
                                     <div class="timer-caption">
                                         <div class="timer-caption-line">
-                                            <span class="timer-caption-point" >3일 3시간 46분 50초</span>후 프로그램이 마감돼요.
+                                            <input type="hidden" id="programEndDate" th:value="${list.programApplyEndDate}">
+                                            <span class="timer-caption-point" id="resultEndTime"></span>후 프로그램이 마감돼요.
                                         </div>
                                     </div>
                                 </div>
@@ -261,9 +262,9 @@
                                 <div class="pg-info-content" th:text="*{programInfoContent4}"></div>
                             </div>
                         </div>
-<!--                        <div class="pg-info-background" th:each="test: ${list.files}">-->
-<!--                            <img class="register-img" style="width: 729px; object-fit: cover;" th:src="@{/file/display(fileName=${test[0].fileUploadPath} + '/s_' + ${test[0].fileUuid} + '_' + ${test[0].fileName})}">-->
-<!--                        </div>-->
+                        <div class="pg-info-background" th:each="test: ${list.files}">
+                            <img class="register-img" style="width: 729px; height: 729px; object-fit: cover;" th:src="@{/file/display(fileName=${test.fileUploadPath} + '/s_' + ${test.fileUuid} + '_' + ${test.fileName})}">
+                        </div>
                     </section>
                 </div>
             </div>
@@ -358,4 +359,76 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/header/header.js"></script>
 <script src="/js/program/detail.js"></script>
+<script>
+    // 헤더 검색창 없애기
+    $(".search_form").css("visibility", "hidden");
+    var endDate = $("#programEndDate").val();
+    console.log(endDate);
+
+    var nowDate = new Date();
+    console.log(nowDate);
+
+    var test = Date.parse(endDate);
+    var test2 = Date.parse(nowDate);
+    console.log(test);
+    console.log(test2);
+    var test3 = test - test2;
+    console.log(test3);
+
+    const seconds = 1000;
+    // 분
+    const minute = seconds * 60;
+    // 시
+    const hour = minute * 60;
+    // 일
+    const day = hour * 24;
+    // 년
+    const year = day * 365;
+
+    var test4 = new Date(test3);
+
+    console.log(test4);
+
+    function date_to_str() {
+        var endDate = $("#programEndDate").val();
+        var nowDate = new Date();
+        var parseEndDate = Date.parse(endDate);
+        var parseNowDate = Date.parse(nowDate);
+        var parseResultDate = parseEndDate - parseNowDate;
+        var parseTimestamp = new Date(parseResultDate);
+
+        // var year = format.getFullYear();
+
+        // var month = format.getMonth() + 1;
+
+        // if(month<10) month = '0' + month;
+
+        var date = parseTimestamp.getDate();
+
+        if(date<10) date = '0' + date;
+
+        var hour = parseTimestamp.getHours();
+
+        if(hour<10) hour = '0' + hour;
+
+        var min = parseTimestamp.getMinutes();
+
+        if(min<10) min = '0' + min;
+
+        var sec = parseTimestamp.getSeconds();
+
+        if(sec<10) sec = '0' + sec;
+
+
+        $("#resultEndTime").text((date-1) + "일" + (hour-9) + "시간" + min + "분" + sec + "초");
+        // return (date-1) + "일" + (hour-9) + "시간" + min + "분" + sec + "초";
+    }
+
+
+    console.log(date_to_str(test4));
+
+
+    setInterval(date_to_str, 1000);
+
+</script>
 </html>

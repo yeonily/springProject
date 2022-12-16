@@ -43,5 +43,6 @@ public interface MemberCustomRepository {
     public List<ProgramDTO> selectMyProgramApply(Long memberId);
     //결제내역 목록
     public List<MemberProgramDTO> selectMyPay(Long memberId);
-
+    //프로그램 신청 내역
+    public MemberProgramDTO selectApplyInfo(Long programApplyId, Long memberId);
 }

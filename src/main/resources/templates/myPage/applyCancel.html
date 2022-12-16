@@ -16,7 +16,7 @@
 
 <div id="main-grid">
     <div id="payment-grid">
-        <div id="payment-wrap">
+        <div id="payment-wrap" th:object="${applyInfo}">
 
             <div class="user-line">결제자 정보</div>
             <div class="info-wrap">
@@ -24,31 +24,31 @@
                     <div class="i-w-group">
                         <div class="i-name">프로그램명</div>
                         <div class="i-wrap">
-                            <div class="i-content">백엔드 개발자도 서버 · 인프라 관리를 할 수 있는 DevOps 실무 특강</div>
+                            <div class="i-content" th:text="*{programTitle}">백엔드 개발자도 서버 · 인프라 관리를 할 수 있는 DevOps 실무 특강</div>
                         </div>
                     </div>
                     <div class="i-w-group">
                         <div class="i-name">이름</div>
                         <div class="i-wrap">
-                            <div class="i-content">김지연</div>
+                            <div class="i-content" th:text="*{programApplyName}">김지연</div>
                         </div>
                     </div>
                     <div class="i-w-group">
                         <div class="i-name">전화번호</div>
                         <div class="i-wrap">
-                            <div class="i-content">010-1234-1234</div>
+                            <div class="i-content" th:text="*{programApplyPhoneNum}">010-1234-1234</div>
                         </div>
                     </div>
                     <div class="i-w-group">
                         <div class="i-name">이메일</div>
                         <div class="i-wrap">
-                            <div class="i-content">spring@naver.com</div>
+                            <div class="i-content" th:text="*{programApplyEmail}">spring@naver.com</div>
                         </div>
                     </div>
                     <div class="i-w-group">
                         <div class="i-name">신청인원</div>
                         <div class="i-wrap" style="border: none;">
-                            <div class="i-content">3명</div>
+                            <div class="i-content" th:text="|*{programApplyCount}명|">3명</div>
                         </div>
                     </div>
                 </div>
@@ -58,22 +58,24 @@
             <div class="info-wrap">
                 <div class="p-i-group">
                     <div class="p-title">정가</div>
-                    <div class="p-content">20,000원</div>
+                    <div class="p-content" th:text="*{programPrice}">20,000원</div>
                 </div>
                 <div class="p-i-group">
                     <div class="p-title">신청인원</div>
-                    <div class="p-content"> × 3</div>
+                    <div class="p-content" th:text="|× *{programApplyCount}명|"> × 3</div>
                 </div>
                 <hr>
                 <div class="total-price">
                     <div class="t-p-txt">최종 환불 금액</div>
-                    <div class="t-p-txt">60,000원</div>
+                    <div class="t-p-txt" th:text="|*{programPayment}명|">60,000원</div>
                 </div>
             </div>
 
-            <div class="btn-wrap">
-                <button class="apply-cancel" onclick="cancelCheck();">신청 취소</button>
-            </div>
+
+                <div class="btn-wrap">
+                    <button class="apply-cancel" onclick="cancelCheck();">신청 취소</button>
+
+                </div>
 
         </div>
     </div>
@@ -82,10 +84,13 @@
 <div class="overlay-l alam-wrap" style="display: none">
     <div class="alam">
         <p>정말 취소 하시겠어요?</p>
-        <div class="alam-btn-group">
-            <button class="a-ok">신청 취소</button>
-            <button type="button" class="a-no">닫기</button>
-        </div>
+        <form action="/mypage/program/cancelOk" method="post" id="cancel-Program">
+            <div class="alam-btn-group">
+                <button class="a-ok" id="cancel-btn">신청 취소</button>
+                <button type="button" class="a-no">닫기</button>
+                <input hidden name="memberProgramIdString" id="memberProgramIdString" th:value="${applyInfo.programApplyId}">
+            </div>
+        </form>
     </div>
 </div>
 
@@ -100,9 +105,15 @@
         $(".alam-wrap").show();
     };
 
+    //닫기 버튼 클릭 시
     $(".a-no").on("click", function(){
         $(".alam-wrap").hide();
     });
+
+    // 신청취소 버튼 클릭 시
+    $("#cancel-btn").on("click" , function () {
+        $("#cancel-Program").submit();
+    })
 
 </script>
 </html>

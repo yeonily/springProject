@@ -52,7 +52,7 @@ public class ChatRoomTest {
     /*채팅방 유무에 따라 채팅방 만들기*/
     @Test
     public void createChatRoom() {
-        chatRoomService.createChatRoom(86L, 83L);
+        chatRoomService.createChatRoom(86L, 33L);
     }
 
     /*채팅방 대화내역 불러오기*/
@@ -82,13 +82,13 @@ public class ChatRoomTest {
     public void sendChatTest() {
         ChatDTO chatDTO = new ChatDTO();
 
-        chatDTO.setRoomId(2232L);
-        chatDTO.setChatRoom(chatRoomRepository.findById(2232L).get()); // 87번 채팅방
+        chatDTO.setRoomId(2495L);
+        chatDTO.setChatRoom(chatRoomRepository.findById(2495L).get()); // 87번 채팅방
         chatDTO.setChatMessage("테스트 문자555 마지막");
         chatDTO.setChatStatus(ChatStatus.UNREAD);
-        chatDTO.setMember(chatRoomService.findByMemberId(83L).get());
-        chatDTO.setMemberId(83L);
-        chatDTO.setNickName(chatRoomService.findByMemberId(83L).get().getMemberNickname());
+        chatDTO.setMember(chatRoomService.findByMemberId(33L).get());
+        chatDTO.setMemberId(33L);
+        chatDTO.setNickName(chatRoomService.findByMemberId(33L).get().getMemberNickname());
 
         System.out.println("결과 : " + chatDTO.toString());
         chatRoomService.sendMessage(chatDTO);
@@ -97,7 +97,13 @@ public class ChatRoomTest {
     /*채팅 알림*/
     @Test
     public void chatAlarm() {
-        log.info("결과 : " + chatRoomService.chatAlarm(86L));
+        log.info("결과 : " + chatRoomService.chatAlarm(735L));
+    }
+
+    /*채팅방에서 안 읽은 메세지 중 가장 마지막*/
+    @Test
+    public void returnCheck() {
+        log.info("결과요 : " + chatRoomService.returnChat(2478L, 86L));
     }
 }
 

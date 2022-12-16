@@ -20,6 +20,7 @@ import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
+import com.codefarm.codefarmer.repository.program.MemberProgramRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ import java.util.Optional;
 public class MemberService {
 
         private final MemberRepository memberRepository;
+        private final MemberProgramRepository memberProgramRepository;
         private final MentorRepository mentorRepository;
 
         //    회원가입
@@ -103,6 +105,20 @@ public class MemberService {
                 return "MENTOR";
         }
 
+//        멘티 타입 변경
+        @Transactional
+        public String changeMenteeType(Long memberId){
+                memberRepository.updateMenteeType(memberId);
+                return "MENTEE";
+        }
+
+//        프로그램 상태 변경
+        @Transactional
+        public String changeMemberStatus(Long programApplyId){
+                memberRepository.updateMemberStatus(programApplyId);
+                return "PAY_CANCELED";
+        }
+
         //내가 등록한 프로그램 글의 신청자 목록
         public List<MemberProgramDTO> findMyProgramApplyers(Long memberId, Long programId){
                 return memberRepository.selectMyProgramApplyers(memberId, programId);
@@ -125,5 +141,32 @@ public class MemberService {
         public List<MemberProgramDTO> findMyPay(Long memberId){
                 return memberRepository.selectMyPay(memberId);
         }
+
+        //프로그램 신청 내역 보기
+        public MemberProgramDTO findMyApplyInfo(Long programApplyId, Long memberId){
+                return memberRepository.selectApplyInfo(programApplyId, memberId);
+        }
+
+        //        알바 상태 변경 - 수락
+        @Transactional
+        public String changeMemberAlbaConfirm(Long programApplyId){
+                memberRepository.updateMemberAlbaConfirm(programApplyId);
+                return "CONFIRM";
+        }
+
+        //        알바 상태 변경 - 거절
+        @Transactional
+        public String changeMemberAlbaReject(Long programApplyId){
+                memberRepository.updateMemberAlbaReject(programApplyId);
+                return "REJECT";
+        }
+
+        //        알바 count 변경 - 수락시 +1
+        @Transactional
+        public void plusAlbaCount(Long albaId){
+                memberRepository.updateAlbaCount(albaId);
+        }
+
+
 
 }

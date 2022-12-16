@@ -47,16 +47,34 @@
                                             </div>
 
                                             <div class="a-group">
-                                                <!-- 프로그램 신청날짜 -->
+                                                <!-- 아르바이트 신청날짜 -->
                                                 <!--<div class="a-date a-txt">2022.11.24</div>-->
-                                                <div class="a-btn-group">
-                                                    <button class="a-accept"> <!--onclick="alam();"-->수락</button>
-                                                    <button class="a-refuse">거절</button>
-                                                </div>
+                                                <th:block th:if="${#strings.equals(memberAlba.memberStatus, 'WAITING')}">
+                                                    <div class="a-btn-group" >
+                                                            <button class="a-accept" th:id="albaApplyId" th:data-albaApplyId="${memberAlba.albaApplyId}">수락</button>
+                                                            <button class="a-refuse" th:id="albaApplyId" th:data-albaApplyId="${memberAlba.albaApplyId}">거절</button>
+                                                            <input type="hidden" name="memberAlbaApplyId" th:value="${memberAlba.albaApplyId}">
+                                                    </div>
+                                                    <div style="display: none; color:#47c880;">수락</div>
+                                                    <div style="display: none; color:rgb(118, 125, 130);">거절</div>
+                                                </th:block>
+                                                <th:block th:unless="${#strings.equals(memberAlba.memberStatus, 'WAITING')}">
+                                                    <div class="a-btn-group-b">
+                                                        <th:block th:if="${#strings.equals(memberAlba.memberStatus, 'CONFIRM')}">
+                                                            <div class="status-ok" style="color:#47c880;">수락</div>
+                                                        </th:block>
+                                                        <th:block th:if="${#strings.equals(memberAlba.memberStatus, 'REJECT')}">
+                                                            <div class="status-no" style="color:rgb(118, 125, 130);">거절</div>
+                                                        </th:block>
+                                                    </div>
+                                                </th:block >
+
                                             </div>
                                         </div>
                                     </div>
+                                        <input type="hidden" name="albaId" th:value="${memberAlba.albaId}">
                                     </th:block>
+
                                 </div>
                             </div>
                             <!------------------->
@@ -81,11 +99,11 @@
 <script src="/js/header/header.js"></script>
 <script src="/js/myPage/myPage.js"></script>
 <script src="/js/myPage/list.js"></script>
-<script>
+<script th:inline="javascript">
     $(".apply-list").on("click", function(){
         let $info = $(this).next();
         let $moreBtn = $(this).find('svg');
-        console.log($moreBtn);
+        // console.log($moreBtn);
 
         if ($info.css("height") == "0px") {
             $(".a-more>svg").css("transform", "rotate(180deg)")
@@ -104,5 +122,54 @@
 
     $("div.menu-a").removeClass('menu-select');
     $("#alba").addClass('menu-select');
+
+//-------------------------------------------
+
+    let albaId = $("input[name=albaId]").val();
+    console.log(albaId);
+
+    $("button.a-accept").on("click", function(){
+        //console.log(this.getAttribute('data-albaApplyId'));
+        const albaApplyId = this.getAttribute('data-albaApplyId');
+        confirm(albaApplyId, albaId, this);
+    });
+
+    function confirm (albaApplyId, albaId, btn){ /* 수락 */
+
+        $.ajax({
+            url: "/mypage/alba/confirm",
+            type : "post",
+            data : {albaApplyId: albaApplyId,
+                albaId: albaId},
+            success : function () {
+                console.log(btn);
+                $(btn).parent("div.a-btn-group").css("display", "none");
+                $(btn).parent().next().css("display", "block");
+                //$(btn).parent().parent().siblings().children().children().children("div.status-ok").html("수락");
+            }
+        });
+    }
+
+
+    $("button.a-refuse").on("click", function(){
+        //console.log(this.getAttribute('data-albaApplyId'));
+        const albaApplyId = this.getAttribute('data-albaApplyId');
+        reject(albaApplyId, this);
+    });
+
+    function reject (albaApplyId, btn){ /* 거절 */
+
+        $.ajax({
+            url: "/mypage/alba/reject",
+            type : "post",
+            data : {albaApplyId: albaApplyId},
+            success : function () {
+                $(btn).parent("div.a-btn-group").css("display", "none");
+                $(btn).parent().next().next().css("display", "block");
+            }
+        });
+    }
+
+
 </script>
 </html>

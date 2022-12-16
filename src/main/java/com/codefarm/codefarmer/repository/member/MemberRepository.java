@@ -2,8 +2,10 @@ package com.codefarm.codefarmer.repository.member;
 
 import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.type.MemberType;
 import com.codefarm.codefarmer.type.Status;
 import org.springframework.data.domain.Page;
@@ -82,5 +84,35 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
     //    멤버 총 명수
     @Query("select count(m) from Member m")
     public int countByMember();
+
+    //프로그램 신청 상태 변경
+    @Transactional
+    @Modifying
+    @Query("update MemberProgram m set m.programStatus = 'PAY_CANCELED' where m.programApplyId in :programApplyId")
+    void updateMemberStatus(Long programApplyId);
+
+    //프로그램 신청 상태 변경 - 수락
+    @Transactional
+    @Modifying
+    @Query("update MemberAlba m set m.memberStatus = 'CONFIRM' where m.albaApplyId in :albaApplyId")
+    void updateMemberAlbaConfirm(Long albaApplyId);
+
+    //프로그램 신청 상태 변경 - 거절
+    @Transactional
+    @Modifying
+    @Query("update MemberAlba m set m.memberStatus = 'REJECT' where m.albaApplyId in :albaApplyId")
+    void updateMemberAlbaReject(Long albaApplyId);
+
+    //알바 수락 시 +1
+    @Transactional
+    @Modifying
+    @Query("update Alba a set a.albaApplyCount = a.albaApplyCount+1 where a.albaId in :albaId")
+    void updateAlbaCount(Long albaId);
+
+    //멘티 타입 변경
+    @Transactional
+    @Modifying
+    @Query("update Member m set m.memberType = 'MENTEE' where m.memberId in :memberId")
+    void updateMenteeType(Long memberId);
 
 }

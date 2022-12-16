@@ -2,9 +2,13 @@ package com.codefarm.codefarmer.repository.mentor;
 
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.mentor.QMentorBoardDTO;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.entity.mentor.QMentor;
+import com.codefarm.codefarmer.entity.mentor.QMentorMentee;
+import com.codefarm.codefarmer.entity.program.QProgram;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +19,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static com.codefarm.codefarmer.entity.mentor.QMentor.mentor;
 import static com.codefarm.codefarmer.entity.mentor.QMentorBoard.mentorBoard;
+import static com.codefarm.codefarmer.entity.mentor.QMentorMentee.mentorMentee;
+import static com.codefarm.codefarmer.entity.program.QProgram.program;
 
 @Repository
 @RequiredArgsConstructor
@@ -73,5 +81,73 @@ public class MentorCustomRepositoryImpl implements MentorCustomRepository{
         return new SliceImpl<>(content,pageable,hasNext);
     }
 
+//   멤버에게 멘토 아이디가 있으면 홍보글을 작성 할수 있는 권한이 생김.
+//    public void findMentorId(Long MentorId){
+//        List<MentorBoardDTO> mentorBoardDTOList = jpaQueryFactory.select(
+//                new QMentorBoardDTO(mentorBoard.mentorBoardId, mentorBoard.mentorCareer,
+//                        mentorBoard.mentorExCareer, mentorBoard.mentorStrongTitle1, mentorBoard.mentorStrongContent1, mentorBoard.mentorStrongTitle2, mentorBoard.mentorStrongContent2,
+//                        mentorBoard.mentorStrongTitle3, mentorBoard.mentorStrongContent3, mentorBoard.mentorTitle, mentorBoard.mentorTitleSub, mentorBoard.mentorTextTitle,
+//                        mentorBoard.mentorTextContent,
+//                        mentorBoard.mentor.mentorCrop
+//                        )).from(mentorBoard)
+//                        .where(mentorBoard.mentor.mentorId.eq(MentorId))
+//                        .fetch();
+//        }
+
 //.join(QMentor.mentor).fetchJoin()
+
+    @Override
+    public List<MentorDTO> ShowAllMentor(String keyword, String searchText) {
+        return jpaQueryFactory.selectFrom(mentor)
+                .leftJoin(mentor.programs, program)
+                .leftJoin(mentor.mentorMentees, mentorMentee)
+                .fetchJoin()
+                .where(
+                        eqName(keyword, searchText),
+                        eqNickname(keyword, searchText),
+                        eqAddress(keyword, searchText)
+                )
+                .orderBy(mentor.mentorId.desc())
+                .stream()
+                .map(mentor -> new MentorDTO(
+                        mentor.getMentorId(),
+                        mentor.getMember().getMemberName(),
+                        mentor.getMember().getMemberNickname(),
+                        mentor.getMentorYear(),
+                        mentor.getMember().getMemberLocation(),
+                        mentor.getPrograms().size(),
+                        mentor.getMentorMentees().size()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer searchCountByMentor(String keyword, String searchText) {
+        return Math.toIntExact(jpaQueryFactory.select(mentor.count())
+                .from(mentor)
+                .where(
+                        eqName(keyword, searchText),
+                        eqNickname(keyword, searchText),
+                        eqAddress(keyword, searchText)
+                )
+                .fetchOne());
+    }
+
+    private BooleanExpression eqName (String keyword, String searchText) {
+        if (keyword.equals("n")) {
+            return mentor.member.memberName.contains(searchText);
+        }
+        return null;
+    }
+    private BooleanExpression eqNickname (String keyword, String searchText) {
+        if (keyword.equals("nn")) {
+            return mentor.member.memberNickname.contains(searchText);
+        }
+        return null;
+    }
+    private BooleanExpression eqAddress (String keyword, String searchText) {
+        if (keyword.equals("l")) {
+            return mentor.member.memberLocation.contains(searchText);
+        }
+        return null;
+    }
 }

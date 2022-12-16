@@ -33,7 +33,9 @@ public class ChatController {
     @PostMapping("/alarm")
     public List<ChatDTO> alarm(HttpSession session) throws Exception {
         Long sessionId = (Long) session.getAttribute("memberId");
+        System.out.println("현재세션 : " + sessionId);
+        System.out.println("채팅결과 : " + chatRoomService.chatAlarm(sessionId));
+
         return chatRoomService.chatAlarm(sessionId);
     }
-
 }

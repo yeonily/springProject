@@ -131,7 +131,7 @@
         }
 
         inquires.forEach(function (inquireDTO) {
-            text += '<div id="c-w-wrap" class="f-column" th:each="inquire : ${inquires}">'
+            text += '<div id="c-w-wrap" class="f-column" >'
             var number = inquireDTO.inquireId;
             text += '<div class="commu c-link" >'
             text +='<input type="hidden" name="iqId" value="'+number+'">'
