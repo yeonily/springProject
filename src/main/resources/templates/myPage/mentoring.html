@@ -81,21 +81,58 @@
     }
 //---------------------------------------------
     /*멘토일 때 멘티 삭제*/
-    function menteeDelete(){
-        event.stopImmediatePropagation();
+    $("div#mentee-list").on("click", "button.delete", function(){
+        console.log("들어오니?")
+        const mentorMenteeId = $("input[name=mentorMenteeId]").val();
+
+        menteeDelete(mentorMenteeId, this);
+        console.log(this)
+    });
+
+
+    function menteeDelete(mentorMenteeId, btn){
+        $.ajax({
+            url: "/mypage/mentee/delete",
+            type : "post",
+            data : {mentorMenteeId: mentorMenteeId},
+            success : function () {
+                console.log("success")
+                $(btn).parent().parent().parent("div.confirm").css("display", "none");
+
+            }
+        });
     }
+
+    //-------------------------------
 
     $("div.menu-a").removeClass('menu-select');
     $("#mentoring").addClass('menu-select');
 
-    function move(tab){
+
+    //탭 이동
+    function moveList(tab){
+        console.log("리스트")
         $(".myInfo").css('height', '0px');
         $(".myInfo").css('padding', '0');
         $('.infoBtn>svg').css("transform", "rotate(180deg)");
 
         $(".menu-tab button").removeClass('active');
         $("button." + tab).addClass('active');
-        $('.content-m-wrap').hide();
+        $("div.waiting").hide();
+        $("div.confirm").show();
+        $("#" + tab).show();
+    };
+
+    function moveApply(tab){
+        console.log("신청")
+        $(".myInfo").css('height', '0px');
+        $(".myInfo").css('padding', '0');
+        $('.infoBtn>svg').css("transform", "rotate(180deg)");
+
+        $(".menu-tab button").removeClass('active');
+        $("button." + tab).addClass('active');
+        $("div.confirm").hide();
+        $("div.waiting").show();
         $("#" + tab).show();
     };
 
@@ -104,6 +141,7 @@
     //--------------------------------------------
     //멘티일 때 멘토리스트
     let memberId = [[${member.memberId}]];
+    console.log(memberId);
     let memberType = [[${member.memberType}]];
 
     if(memberType == 'MENTEE'){
@@ -163,44 +201,24 @@
     }
 
 
-    function getMenteeList(mentees){
+
+    function getMenteeList(mentees) {
         console.log(mentees)
         let text = "";
 
-        if(mentees.length == 0){
+        if (mentees.length == 0) {
             console.log("여기잇니?");
-            text += '<div class="m-none m-or-none">신청한 멘티가 없습니다.</div>'
-            $("div#mentee-apply").html(text);
+            text += '<div class="m-none m-or-none">멘티가 없습니다.</div>'
+            $("div#mentee-list").html(text);
             return;
         }
 
         mentees.forEach(function (menteeDTO) {
-            if(menteeDTO.menteeStatus == 'WAITING'){
+
+            if (menteeDTO.menteeStatus == 'CONFIRM') {
+                console.log("컨펌2")
                 console.log(menteeDTO)
-
-                text += '<div class="m-l-wrap">'
-                text += '<div class="m-l">'
-                text += '<div class="name">' + menteeDTO.menteeNickName + '</div>'
-                text += '<div class="m-l-side">'
-                text += '<button class="infoBtn">한 줄 소개'
-                text += '<svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>'
-                text += '</button>'
-                text += '<button class="accept">수락</button>'
-                text += '<button type="button" class="refuse">거절</button>'
-                text += '</div>'
-                text += '</div>'
-                text += '<div class="myInfo">' + menteeDTO.menteeComment + '</div>'
-                text += '</div>'
-            }
-
-        })
-        $("div#mentee-apply").html(text);
-
-        mentees.forEach(function (menteeDTO) {
-            if(menteeDTO.menteeStatus == 'CONFIRM'){
-                console.log(menteeDTO)
-
-                text += '<div class="m-l-wrap m-l-link" >'
+                text += '<div class="m-l-wrap m-l-link confirm" >'
                 text += '<div class="m-l">'
                 text += '<div class="name"><span>멘티</span>' + menteeDTO.menteeNickName + '</div>'
                 text += '<div class="m-l-side">'
@@ -210,21 +228,130 @@
                 let month = date.getMonth() + 1;
                 let day = date.getDate();
                 text += '<div class="m-s-date">' + year + "." + month + "." + day + '</div>'
-                var number = mentorDTO.mentorMenteeId;
-                text += '<input type="hidden" name="mentorMenteeId" value="'+number+'">'
+                var number = menteeDTO.mentorMenteeId;
+                text += '<input type="hidden" name="mentorMenteeId" value="' + number + '">'
                 text += '<button type="button" class="refuse" onclick="location.href=\'/mento/chatting\'">채팅</button>'
-                text += '<button type="button" class="refuse" th:id="mentorMenteeId" th:data-mentorMenteeId="${mentorDTO.mentorMenteeId}">삭제</button>'
+                text += '<button type="button" class="refuse delete" th:id="mentorMenteeId" th:data-mentorMenteeId="${mentorDTO.mentorMenteeId}">삭제</button>'
                 text += '</div>'
                 text += '</div>'
                 text += '</div>'
             }
+            if (menteeDTO.menteeStatus != 'CONFIRM') {
+                console.log("웨이팅2")
+                console.log(menteeDTO)
 
+                text += '<div class="m-l-wrap waiting" th:object="${menteeDTO}">'
+                text += '<div class="m-l">'
+                text += '<div class="name">' + menteeDTO.menteeNickName + '</div>'
+                if (menteeDTO.menteeStatus == 'REJECT'){
+                    text += '<div class="m-l-side" style="display: none;">'
+                    text += '<button class="infoBtn">한 줄 소개'
+                    text += '<svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>'
+                    text += '</button>'
+                    text += '<button class="accept m-accept" >수락</button>'
+                    text += '<button type="button" class="refuse m-refuse" >거절</button>'
+                    text += '</div>'
+                    text += '<div class="info" style="line-height: 50px; color: rgb(118, 125, 130);">거절</div>'
+                }else{
+                    text += '<div class="m-l-side">'
+                    text += '<button class="infoBtn">한 줄 소개'
+                    text += '<svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>'
+                    text += '</button>'
+                    text += '<button class="accept m-accept" th:id="mentorMenteeId" th:data-mentorMenteeId="${menteeDTO.mentorMenteeId}">수락</button>'
+                    text += '<button type="button" class="refuse m-refuse" th:id="mentorMenteeId" th:data-mentorMenteeId="${menteeDTO.mentorMenteeId}">거절</button>'
+                    var numberMM = menteeDTO.mentorMenteeId;
+                    console.log("numberMM" + numberMM)
+                    text += '<input type="hidden" name="mentorMenteeId" value="' + numberMM + '">'
+                    var number = menteeDTO.menteeId;
+                    console.log("number" +number)
+                    text += '<input type="hidden" name="menteeId" value="' + number + '">'
+                    text += '</div>'
+                    text += '<div class="info" style="display: none; line-height: 50px; color: rgb(118, 125, 130);">거절</div>'
+                }
+                text += '</div>'
+                text += '<div class="myInfo">' + menteeDTO.menteeComment + '</div>'
+                text += '</div>'
+
+            }
         })
-        $("div#mentee-list").html(text);
-
+        // mentees.forEach(function (menteeDTO) {
+        //     if (menteeDTO.menteeStatus == 'WAITING') {
+        //         console.log("웨이팅2")
+        //         console.log(menteeDTO)
+        //
+        //         text += '<div class="m-l-wrap">'
+        //         text += '<div class="m-l">'
+        //         text += '<div class="name">' + menteeDTO.menteeNickName + '</div>'
+        //         text += '<div class="m-l-side">'
+        //         text += '<button class="infoBtn">한 줄 소개'
+        //         text += '<svg data-v-bd9f2bcc="" data-v-6e28c8f5="" width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" class="my-page-aside-menu-toggle ml-4 c-application c-icon click-passive" data-v-1d2e44b5="" style="fill: rgb(118, 125, 130);"><path data-v-bd9f2bcc="" fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z"></path></svg>'
+        //         text += '</button>'
+        //         text += '<button class="accept">수락</button>'
+        //         text += '<button type="button" class="refuse">거절</button>'
+        //         text += '</div>'
+        //         text += '</div>'
+        //         text += '<div class="myInfo">' + menteeDTO.menteeComment + '</div>'
+        //         text += '</div>'
+        //
+        //     }
+        //
+        // })
+        // $("div#mentee-apply").html(text);
     }
 
+//----------------------------------------
+    //멘티수락
+    var mtId = $("input[name=menteeId]").val();
+    console.log("mtId:"+mtId);
+    var mmId1 = $("input[name=mentorMenteeId]").val();
+    console.log("mmId1:"+mmId1);
 
+    $("div#mentee-list").on("click", "button.m-accept", function(){
+        console.log(this)
+        const mmId = this.getAttribute('data-mentorMenteeId');
+        console.log("this.getAttribute('data-mentorMenteeId') "+ this.getAttribute('data-mentorMenteeId'));
+        confirm(mmId, mtId, this);
+
+    });
+
+    function confirm (mmId, mtId, btn){
+
+        $.ajax({
+            url: "/mypage/mentee/confirm",
+            type : "post",
+            data : {mentorMenteeId: mmId,
+                menteeId:mtId},
+            success : function () {
+                console.log(btn);
+                $(btn).parent().parent("div.m-l").css("display", "none");
+
+                //$(btn).parent().parent().siblings().children().children().children("div.status-ok").html("수락");
+            }
+        });
+    }
+
+    //----------------------------------------
+    /* 거절 */
+    $("div#mentee-list").on("click", "button.m-refuse", function(){
+        const mentorMenteeId = this.getAttribute('data-mentorMenteeId');
+        console.log(mentorMenteeId);
+        reject(mentorMenteeId, this);
+
+    });
+
+    function reject (mentorMenteeId, btn){
+
+        $.ajax({
+            url: "/mypage/mentee/reject",
+            type : "post",
+            data : {mentorMenteeId: mentorMenteeId},
+            success : function () {
+                //$(btn).parent().parent().parent("div.waiting").css("display", "none");
+                $(btn).parent("div.m-l-side").css("display", "none");
+                $(btn).parent().next().css("display", "block");
+            }
+        });
+    }
 
 </script>
 </html>

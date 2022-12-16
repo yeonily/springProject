@@ -134,7 +134,7 @@ function nickCheck (){ /* 중복 체크 */
 }
 
 // let memberId = [[${member.memberId}]];
-function nickSave() { /* 저장 */
+function nickSave() { /* 닉네임 저장 */
     nickForm.submit();
 }
 $("button.nick-save").on("click", nickSave);

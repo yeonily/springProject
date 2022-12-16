@@ -182,4 +182,37 @@ public class MyPageRestController {
         List<MentorMenteeDTO> mentees = mentorMenteeService.findByMentorId(mentorId);
         return mentees;
     }
+
+    //멘티 삭제
+    @PostMapping("/mentee/delete")
+    public String menteeDelete(@RequestParam String mentorMenteeId){
+        log.info("멘티 삭제 컨트롤러 들어옴");
+        log.info("멘티 삭제 컨트롤러 들어옴" + mentorMenteeId);
+        Long mentorMenteeIdL = Long.parseLong(mentorMenteeId);
+        mentorMenteeService.removeById(mentorMenteeIdL);
+
+        return "delete success";
+    }
+
+    //멘티상태 변경 - 수락
+    @PostMapping("/mentee/confirm")
+    public String menteeConfirm(@RequestParam String mentorMenteeId, @RequestParam String memberId){
+        log.info("수락 컨트롤러 들어옴");
+        log.info("memberProgramIdString"+mentorMenteeId);
+        Long mentorMenteeIdL = Long.parseLong(mentorMenteeId);
+        mentorMenteeService.changeConfirmStatus(mentorMenteeIdL); //멘티상태변경
+        //memberService.changeMenteeType((Long)session.getAttribute("memberId")); //멤버타입변경
+
+        return "success";
+    }
+
+    //멘티상태 변경 - 거절
+    @PostMapping("/mentee/reject")
+    public String menteeReject(@RequestParam String mentorMenteeId){
+        log.info("거절 컨트롤러 들어옴");
+        log.info("memberProgramIdString"+mentorMenteeId);
+        Long mentorMenteeIdL = Long.parseLong(mentorMenteeId);
+        mentorMenteeService.changeRejectStatus(mentorMenteeIdL);
+        return "success";
+    }
 }

@@ -47,19 +47,18 @@
         <div class="c-header-can">
             <div class="menu-tab-btn">
                 <div class="menu-tab">
-                    <button id="list" class="active main-tab mentee-list" onclick="move('mentee-list');">멘티 목록</button>
+                    <button id="list" class="active main-tab mentee-list" onclick="moveList('mentee-list');">멘티 목록</button>
                 </div>
                 <div class="menu-tab">
-                    <button id="apply" class="main-tab mentee-apply" onclick="move('mentee-apply');">멘티 신청</button>
+                    <button id="apply" class="main-tab mentee-apply" onclick="moveApply('mentee-apply');">멘티 신청</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="content">
+    <div class="content" >
         <div class="wrapper-s">
             <!-- 멘티 목록 -->
-            <div id="mentee-list" class="content-m-wrap">
+            <div class="content-m-wrap" id="mentee-list">
                 <!---->
 <!--                <div class="m-l-wrap m-l-link" th:onclick="'location.href=\''+ @{/mento/chatting} + '\''">-->
 <!--                    <div class="m-l">-->
@@ -85,9 +84,9 @@
             <!---->
 
             <!-- 멘티 신청 -->
-            <div id="mentee-apply" class="content-m-wrap" >
+            <div class="content-m-wrap" id="mentee-apply">
                 <!---->
-                <div class="m-l-wrap">
+                <!--<div class="m-l-wrap">
                     <div class="m-l">
                         <div class="name">박수현</div>
                         <div class="m-l-side">
@@ -104,7 +103,7 @@
                         지연 로딩으로 설정했다면, 필드에 있는 연관객체에는 Proxy가 주입된다.
                         이 때 최초 Proxy는 원본 객체를 상속받고 필드도 그대로 가지고 있다.
                     </div>
-                </div>
+                </div>-->
                 <!---->
 
                 <!-- 신청한 멘티가 없다면 -->

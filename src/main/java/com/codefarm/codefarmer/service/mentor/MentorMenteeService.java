@@ -6,6 +6,7 @@ import com.codefarm.codefarmer.repository.mentor.MentorMenteeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,4 +30,17 @@ public class MentorMenteeService {
         return mentorMenteeRepository.selectByMentorId(mentorId);
     }
 
+    //거절 상태
+    @Transactional
+    public String changeRejectStatus(Long mentorMenteeId) {
+        mentorMenteeRepository.updateRejectStatus(mentorMenteeId);
+        return "REJECT";
+    }
+
+    //수락 상태
+    @Transactional
+    public String changeConfirmStatus(Long mentorMenteeId) {
+        mentorMenteeRepository.updateConfirmStatus(mentorMenteeId);
+        return "CONFIRM";
+    }
 }
