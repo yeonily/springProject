@@ -56,15 +56,13 @@ public class AlbaController {
         Long memberId = (Long)session.getAttribute("memberId");
 //        model.addAttribute("lists", albaListService.showListByRecentEndDate());
 //        model.addAttribute("counts", albaListService.showCount());
-//        model.addAttribute("memberId", memberId);
+        model.addAttribute("memberId", memberId);
 
-        if(memberId==null) {
-            model.addAttribute("nickName","닉네임");
-        }else {
+        if(memberId!=null) {
             model.addAttribute("memberType", albaListService.getMemberType(memberId));
+            log.info("memberType" + albaListService.getMemberType(memberId));
         }
 
-        log.info("typeman : " + albaListService.getMemberType(memberId));
         log.info("진짜?");
     }
 
@@ -140,19 +138,16 @@ public class AlbaController {
         log.info("alba : "+ albaId);
 
         Long memberId = (Long)session.getAttribute("memberId");
-        Long cancel = albaDetailService.albaSelect(albaId, memberId);
-        model.addAttribute("cancel",cancel);
 
         if(memberId!=null) {
+            Long cancel = albaDetailService.albaSelect(albaId, memberId);
+            model.addAttribute("cancel",cancel);
             model.addAttribute("memberType", albaListService.getMemberType(memberId));
+
+            Optional<Member> member = memberRepository.findById(memberId);
+            String name = member.get().getMemberName();
+            model.addAttribute("name", name);
         }
-
-//        String name = albaDetailService.nameFind(albaId);
-//        model.addAttribute("name", name);
-
-        Optional<Member> member = memberRepository.findById(memberId);
-        String name = member.get().getMemberName();
-        model.addAttribute("name", name);
 
         AlbaDTO list = albaDetailService.showByAlbaId(albaId);
         model.addAttribute("list",list);
