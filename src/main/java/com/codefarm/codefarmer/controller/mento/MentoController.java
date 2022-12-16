@@ -6,6 +6,7 @@ import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.service.chat.ChatRoomService;
@@ -131,20 +132,32 @@ public class MentoController {
         return new RedirectView("/mento/list");
     }
 
+//    멘토 신청
+    @GetMapping("/apply")
+    public void doApply(Model model, HttpSession session){
+        model.addAttribute("mentorMenteeDTO", new MentorMenteeDTO());
+    }
+
+
 //    멘토한테 멘티 신청 시(Type이 USER랑 MENTEE 둘다 멘토한테 신청 가능)
     @PostMapping("/apply")
-    public RedirectView apply(MentorMenteeDTO mentorMenteeDTO,@RequestParam Long mentorId ,HttpSession session){
-        Long sessionId = (Long)session.getAttribute("memberId");
-        MemberType sessionType = (MemberType)session.getAttribute("memberType");
+    public RedirectView apply(MentorMenteeDTO mentorMenteeDTO,@RequestParam Long mentorId,@RequestParam String mentorComment ,HttpSession session){
+        log.info("멘토아이디 : " + mentorId);
+        log.info("멘토한줄평 : " + mentorComment);
 
-        if(sessionType == MemberType.USER || sessionType == MemberType.MENTEE){
+        Long sessionId = (Long)session.getAttribute("memberId");
+//        MemberType sessionType = (MemberType)session.getAttribute("memberType");
+
+//        if(sessionType == MemberType.USER || sessionType == MemberType.MENTEE){
 
             mentorMenteeDTO.setMenteeId(sessionId);
 
             mentorMenteeDTO.setMentorId(mentorId);
 
+            mentorMenteeDTO.setMenteeComment(mentorComment);
+
             mentorMenteeApplyService.saveMenteeApply(mentorMenteeDTO);
-        }
+//        }
         return new RedirectView("/mento/list");
     }
 
