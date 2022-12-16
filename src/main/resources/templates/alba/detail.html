@@ -62,20 +62,20 @@
                                         </div>
                                         <!--작성자가 아닌 사람이 해당 게시글에 접속했을 때-->
 
-                                        <button id="main_fixed_button" >
+                                        <button id="main_fixed_button" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and cancel==null }">
                                             <div/>지원하기<div/>
                                         </button>
 
                                         <!--지원한 게시글에 접근했을 때-->
-                                        <button id="cancel" >
+                                        <button id="cancel" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and cancel!=null }">
                                             <div/>지원 취소하기<div/>
                                         </button>
 
                                         <!--자신이 작성한 게시글에 접속했을 때 버튼 변경-->
-                                        <button id="update_button" th:onclick="|location.href='@{/alba/update(albaId=${list.albaId})}'|">
+                                        <button id="update_button" th:onclick="|location.href='@{/alba/update(albaId=${list.albaId})}'|" th:if="${memberType == 'FARMER' or memberType == 'MENTOR'}">
                                             <div/>수정하기<div/>
                                         </button>
-                                        <button id="remove_button">
+                                        <button id="remove_button" th:if="${memberType == 'FARMER' or memberType == 'MENTOR'}">
                                             <div/>삭제하기<div/>
                                         </button>
                                         <button type="button" class="list_go_button" onclick="location.href='/alba/list'">
@@ -143,7 +143,7 @@
                             <!--프로필 아이콘(간단설명)-->
                             <div class="img-icon">
                                 <img src="/image/alba/profile.png">
-                                <h1>김민혁</h1>
+                                <h1 th:text="${name}"></h1>
                                 <span><img src="/image/alba/mentoIcon.png">인증 멘토</span>
                             </div>
                             <!--프로필 상세설명-->

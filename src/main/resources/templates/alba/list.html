@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/common/font.css"/>
     <link rel="stylesheet" href="/css/alba/list.css"/>
     <link rel="stylesheet" href="/css/alba/listRes.css"/>
+    <link rel="stylesheet" href="/css/alba/paging.css"/>
     <link rel="icon" href="/image/header/favicon.png" />
     <link rel="stylesheet" href="/css/myPage/paging.css" />
     <link rel="shortcut icon" href="/image/header/favicon.png" />
@@ -216,19 +217,24 @@
 
         let text = "";
 
+        text += '<ul>'
+        text += '<li className="sidePageNum prev">'
         if(prev){
-            text += `<a class="mainNewpage" href="` + (startNumber - 1) + `"><code><</code></a>`
+            text += `<a class="mainNewpage" href="` + (startNumber - 1) + `"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="fill: #3c4144; margin-top: 4px; transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
         }
+        text += '<li>'
         for (let i=startNumber; i<=endNumber; i++){
             if(globalThis.page == i){
-                text += `<code>` + i + `</code>`
+                text += `<code class="selectPage">` + i + `</code>`
                 continue;
             }
             text += `<a class="mainNewpage" href="`+ i + `"><code>` + i + `</code></a>`
         }
+        text += '</li>'
         if(next){
-            text += `<a class="mainNewpage" href="` + (endNumber + 1) + `"><code>></code></a>`
+            text += `<li class="sidePageNum next"><a class="mainNewpage" href="` + (endNumber + 1) + `"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
         }
+        text += '</ul>'
 
         $("#paging").html(text);
     }
@@ -244,6 +250,7 @@
                                 /*최신순*/
     /*-----------------------------------------------------------*/
     $("#recent-btn").on("click", function() {
+        globalThis.page = 1
         albaService.newList({
             page: globalThis.page
         }, newList);
@@ -304,19 +311,24 @@
 
         let text = "";
 
+        text += '<ul>'
+        text += '<li className="sidePageNum prev">'
         if(prev){
-            text += `<a class="newPage" href="` + (startNumber - 1) + `"><code><</code></a>`
+            text += `<a class="newPage" href="` + (startNumber - 1) + `"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="fill: #3c4144; margin-top: 4px; transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
         }
+        text += '<li>'
         for (let i=startNumber; i<=endNumber; i++){
             if(globalThis.page == i){
-                text += `<code>` + i + `</code>`
+                text += `<code class="selectPage">` + i + `</code>`
                 continue;
             }
             text += `<a class="newPage" href="`+ i + `"><code>` + i + `</code></a>`
         }
+        text += '</li>'
         if(next){
-            text += `<a class="newPage" href="` + (endNumber + 1) + `"><code>></code></a>`
+            text += `<li class="sidePageNum next"><a class="newPage" href="` + (endNumber + 1) + `"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
         }
+        text += '</ul>'
 
         $("#paging").html(text);
     }
@@ -332,6 +344,7 @@
                                 /*시급순*/
     /*-----------------------------------------------------------*/
     $("#pay-btn").on("click", function() {
+        globalThis.page = 1
         albaService.payList({
             page: globalThis.page
         }, payList);
@@ -391,19 +404,24 @@
 
         let text = "";
 
-            if(prev){
-                text += `<a class="payPage" href="` + (startNumber - 1) + `"><code><</code></a>`
+        text += '<ul>'
+        text += '<li className="sidePageNum prev">'
+        if(prev){
+            text += `<a class="payPage" href="` + (startNumber - 1) + `"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="fill: #3c4144; margin-top: 4px; transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '<li>'
+        for (let i=startNumber; i<=endNumber; i++){
+            if(globalThis.page == i){
+                text += `<code class="selectPage">` + i + `</code>`
+                continue;
             }
-            for (let i=startNumber; i<=endNumber; i++){
-                if(globalThis.page == i){
-                    text += `<code>` + i + `</code>`
-                    continue;
-                }
-                text += `<a class="payPage" href="`+ i + `"><code>` + i + `</code></a>`
-            }
-            if(next){
-                text += `<a class="payPage" href="` + (endNumber + 1) + `"><code>></code></a>`
-            }
+            text += `<a class="payPage" href="`+ i + `"><code>` + i + `</code></a>`
+        }
+        text += '</li>'
+        if(next){
+            text += `<li class="sidePageNum next"><a class="payPage" href="` + (endNumber + 1) + `"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '</ul>'
 
         $("#paging").html(text);
     }
@@ -419,9 +437,12 @@
                                 /*마감순*/
     /*-----------------------------------------------------------*/
     $("#deadline-btn").on("click", function() {
+        globalThis.page = 1
         albaService.endList({
             page: globalThis.page
         }, endList);
+        $("li .page").removeClass("selectPage");
+
     });
 
     function showEnd(){
@@ -479,19 +500,24 @@
 
         let text = "";
 
+        text += '<ul>'
+        text += '<li className="sidePageNum prev">'
         if(prev){
-            text += `<a class="endPage" href="` + (startNumber - 1) + `"><code><</code></a>`
+            text += `<a class="endPage" href="` + (startNumber - 1) + `"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="fill: #3c4144; margin-top: 4px; transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
         }
+        text += '<li>'
         for (let i=startNumber; i<=endNumber; i++){
             if(globalThis.page == i){
-                text += `<code>` + i + `</code>`
+                text += `<code class="selectPage page">` + i + `</code>`
                 continue;
             }
             text += `<a class="endPage" href="`+ i + `"><code>` + i + `</code></a>`
         }
+        text += '</li>'
         if(next){
-            text += `<a class="endPage" href="` + (endNumber + 1) + `"><code>></code></a>`
+            text += `<li class="sidePageNum next"><a class="endPage" href="` + (endNumber + 1) + `"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
         }
+        text += '</ul>'
 
         $("#paging").html(text);
     }

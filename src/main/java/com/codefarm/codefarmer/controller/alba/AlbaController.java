@@ -4,9 +4,12 @@ import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
+import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.alba.AlbaListService;
+import com.codefarm.codefarmer.service.member.MemberService;
 import com.codefarm.codefarmer.type.MemberType;
 import com.codefarm.codefarmer.type.Status;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +34,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -41,39 +45,45 @@ public class AlbaController {
 
     private final AlbaListService albaListService;
     private final AlbaDetailService albaDetailService;
-    private final AlbaRepository albaRepository;
+    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     // 알바메인페이지 리스트
     @GetMapping("/list")
-    public String albaList(Model model, MemberDTO memberDTO, @PageableDefault( size = 10, sort = "AlbaId", direction = Sort.Direction.DESC) Pageable pageable) {
+    public void albaList(Model model, MemberDTO memberDTO, HttpSession session) {
 
         log.info("들어옴1");
+        Long memberId = (Long)session.getAttribute("memberId");
+//        model.addAttribute("lists", albaListService.showListByRecentEndDate());
+//        model.addAttribute("counts", albaListService.showCount());
+//        model.addAttribute("memberId", memberId);
 
-        MemberType memberType = memberDTO.getMemberType();
+        if(memberId==null) {
+            model.addAttribute("nickName","닉네임");
+        }else {
+            model.addAttribute("memberType", albaListService.getMemberType(memberId));
+        }
 
-        model.addAttribute("lists", albaListService.showListByRecentEndDate());
-        model.addAttribute("counts", albaListService.showCount());
-//        model.addAttribute("recents", albaListService.showByRecent(pageable));
-        model.addAttribute("memberType", memberType);
-
-        Page<Alba> albas = albaRepository.findAll(pageable);
-
-        model.addAttribute("albas", albas);
-        model.addAttribute("maxPage", 5);
+        log.info("typeman : " + albaListService.getMemberType(memberId));
         log.info("진짜?");
-
-        return "/alba/list";
     }
 
     // 알바 글 등록
     @GetMapping("/write")
-    public void albaWrite(Model model) {
+    public void albaWrite(Model model, HttpSession session) {
+
+
+        Long memberId = (Long)session.getAttribute("memberId");
         model.addAttribute("alba", new AlbaDTO());
+
+        Optional<Member> member = memberRepository.findById(memberId);
+        String name = member.get().getMemberName();
+        model.addAttribute("name", name);
     }
 
     // 알바 글 등록
     @PostMapping("/write")
-    public RedirectView albaWrite(AlbaDTO albaDTO, HttpSession session, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image) throws Exception {
+    public RedirectView albaWrite(Model model, AlbaDTO albaDTO, HttpSession session, String albaApplyStartDateString, String albaApplyEndDateString, String albaWorkDateString, @RequestParam MultipartFile image) throws Exception {
 
         // 알바 글쓰기 세션 아이디 저장
         Long memberId = (Long)session.getAttribute("memberId");
@@ -125,9 +135,24 @@ public class AlbaController {
 
     // 알바 상세정보 불러오기
     @GetMapping("/detail")
-    public void albaDetail(Model model, @RequestParam Long albaId) throws Exception {
+    public void albaDetail(Model model,HttpSession session, @RequestParam Long albaId) throws Exception {
         log.info("디테일 들어옴");
         log.info("alba : "+ albaId);
+
+        Long memberId = (Long)session.getAttribute("memberId");
+        Long cancel = albaDetailService.albaSelect(albaId, memberId);
+        model.addAttribute("cancel",cancel);
+
+        if(memberId!=null) {
+            model.addAttribute("memberType", albaListService.getMemberType(memberId));
+        }
+
+//        String name = albaDetailService.nameFind(albaId);
+//        model.addAttribute("name", name);
+
+        Optional<Member> member = memberRepository.findById(memberId);
+        String name = member.get().getMemberName();
+        model.addAttribute("name", name);
 
         AlbaDTO list = albaDetailService.showByAlbaId(albaId);
         model.addAttribute("list",list);
