@@ -109,5 +109,10 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
     @Query("update Alba a set a.albaApplyCount = a.albaApplyCount+1 where a.albaId in :albaId")
     void updateAlbaCount(Long albaId);
 
+    //멘티 타입 변경
+    @Transactional
+    @Modifying
+    @Query("update Member m set m.memberType = 'MENTEE' where m.memberId in :memberId")
+    void updateMenteeType(Long memberId);
 
 }

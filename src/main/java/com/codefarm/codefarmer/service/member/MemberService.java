@@ -105,7 +105,14 @@ public class MemberService {
                 return "MENTOR";
         }
 
-//        멘토 타입 변경
+//        멘티 타입 변경
+        @Transactional
+        public String changeMenteeType(Long memberId){
+                memberRepository.updateMenteeType(memberId);
+                return "MENTEE";
+        }
+
+//        프로그램 상태 변경
         @Transactional
         public String changeMemberStatus(Long programApplyId){
                 memberRepository.updateMemberStatus(programApplyId);
@@ -147,14 +154,14 @@ public class MemberService {
                 return "CONFIRM";
         }
 
-        //        알바 상태 변경 - 수락
+        //        알바 상태 변경 - 거절
         @Transactional
         public String changeMemberAlbaReject(Long programApplyId){
                 memberRepository.updateMemberAlbaReject(programApplyId);
                 return "REJECT";
         }
 
-        //        알바 상태 변경 - 수락
+        //        알바 count 변경 - 수락시 +1
         @Transactional
         public void plusAlbaCount(Long albaId){
                 memberRepository.updateAlbaCount(albaId);

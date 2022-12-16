@@ -51,15 +51,9 @@
                                                 <!--<div class="a-date a-txt">2022.11.24</div>-->
                                                 <th:block th:if="${#strings.equals(memberAlba.memberStatus, 'WAITING')}">
                                                     <div class="a-btn-group" >
-    <!--                                                    <form action="/mypage/alba/confirm" method="post" style="display: inline-block" name="confirmForm">-->
                                                             <button class="a-accept" th:id="albaApplyId" th:data-albaApplyId="${memberAlba.albaApplyId}">수락</button>
-    <!--                                                        <input type="hidden" name="memberAlbaApplyId" th:value="${memberAlba.albaApplyId}">-->
-    <!--                                                        <input type="hidden" name="memberAlbaId" th:value="${memberAlba.albaId}">-->
-    <!--                                                    </form>-->
-                                                        <!--<form  method="post" style="display: inline-block" name="rejectForm">-->
                                                             <button class="a-refuse" th:id="albaApplyId" th:data-albaApplyId="${memberAlba.albaApplyId}">거절</button>
                                                             <input type="hidden" name="memberAlbaApplyId" th:value="${memberAlba.albaApplyId}">
-                                                        <!--</form>-->
                                                     </div>
                                                     <div style="display: none; color:#47c880;">수락</div>
                                                     <div style="display: none; color:rgb(118, 125, 130);">거절</div>
