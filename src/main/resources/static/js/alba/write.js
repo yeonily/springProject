@@ -249,7 +249,7 @@ $("#workDay").on("change", function() {
 
 
 /*-----------------------------------------------------------*/
-                        /*제출버튼 클릭 시*/
+/*제출버튼 클릭 시*/
 /*-----------------------------------------------------------*/
 $("button.submitBtn").on("click", function (){
     var inputList = new Array();
@@ -257,7 +257,7 @@ $("button.submitBtn").on("click", function (){
     let check = true;
 
     $("input").each(function(index, item) {
-       inputList.push($(item));
+        inputList.push($(item));
     });
     $("textarea").each(function(index, item) {
         textareaList.push($(item));
@@ -270,7 +270,17 @@ $("button.submitBtn").on("click", function (){
         $("#preview-image").css("border", "1px solid red");
         check = false;
     }
+    if($(".input-div-input-people").val() == 0) {
+        $(".input-div-input-people").css("border", "1px solid red");
+        check = false;
+    }
+    if($(".input-div-input-pay").val() == 0) {
+        $(".input-div-input-pay").css("border", "1px solid red");
+        check = false;
+    }
 
+    console.log($(".input-div-input-pay").val());
+    console.log($(".input-div-input-people").val());
     /*input 태그가 비어져 있으면 빨간 상자*/
     for(let i = 0; i < inputList.length; i++) {
         if(inputList[i].val() == '') {
@@ -289,6 +299,7 @@ $("button.submitBtn").on("click", function (){
 
 
     if(!check) {
+        $("div.m-title").css("color", "red");
         $("div.m-title").text("입력하지 않은 값이 있습니다.");
         $("div.m-c-title").text("빨간박스에 값을 모두 입력한 후 다시 시도해주세요!");
         $("div#modal").show();
@@ -303,8 +314,20 @@ $("button.submitBtn").on("click", function (){
     $("div.m-c-title").text("목록 페이지로 이동합니다.");
     $("div#modal").show();
     $("button.cancel").on("click", function(){
-        location.href='/alba/detail';
+        location.href='/alba/list';
     });
+
+    $("#writeForm").submit();
+});
+
+$("input").on("change", function() {
+    $(this).css("border", "1px solid #e1e4e6");
+})
+$("textarea").on("change", function() {
+    $(this).css("border", "1px solid #e1e4e6");
+})
+$("#input-image").on("change", function() {
+    $("#preview-image").css("border", "1px solid #e1e4e6");
 });
 
 $("input").on("change", function() {

@@ -135,7 +135,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
                 alba.albaProfileContent2,
-                alba.member.memberId
+                alba.member.memberId,
+                alba.member.memberName,
+                alba.member.memberEmail
                 )).from(alba).where(alba.member.memberId.eq(memberId))
                 .fetch();
 

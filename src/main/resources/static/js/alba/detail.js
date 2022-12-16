@@ -39,7 +39,8 @@ if($("#main_fixed_category").text() == "모집마감" || $(".left-div span").tex
 $("button#main_fixed_button").on("click", function(){
     $("#modal").show();
 });
-$("#modal .cancel").on("click", function(){
+
+$("div.modalWrap").on("click","button.cancel" ,function(){
     $("#modal").hide();
 });
 
@@ -59,7 +60,7 @@ $("#modal .cancel").on("click", function(){
 $("button#cancel").on("click", function(){
     $("#cancelModal").show();
 });
-$("#cancelModal .cancel").on("click", function(){
+$("div.cancelWrap").on("click","button.cancel" ,function(){
     $("#cancelModal").hide();
 });
 
@@ -136,3 +137,24 @@ function mapSearch() {
         }
     });
 }
+
+let albaApplyService = (function (){
+    function add(){
+        $.ajax({
+            url:"/alba/apply",
+            type:"post",
+            success: function (albaId){
+                console.log(albaId);
+            }
+        });
+    }
+    function cancel(){
+        $.ajax({
+            url: "/alba/applyCancel",
+            type: "post",
+            success:function (apply){
+                console.log(apply);
+            }
+        })
+    }
+})

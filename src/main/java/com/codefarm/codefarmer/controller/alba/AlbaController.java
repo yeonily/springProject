@@ -74,9 +74,11 @@ public class AlbaController {
         Long memberId = (Long)session.getAttribute("memberId");
         model.addAttribute("alba", new AlbaDTO());
 
-        Optional<Member> member = memberRepository.findById(memberId);
-        String name = member.get().getMemberName();
-        model.addAttribute("name", name);
+        if(memberId!=null) {
+            Optional<Member> member = memberRepository.findById(memberId);
+            String name = member.get().getMemberName();
+            model.addAttribute("name", name);
+        }
     }
 
     // 알바 글 등록
@@ -86,48 +88,51 @@ public class AlbaController {
         // 알바 글쓰기 세션 아이디 저장
         Long memberId = (Long)session.getAttribute("memberId");
 
-//        String path = "/Users/yeontaegwan/Desktop/project/image";
-        String path = "C:/upload";
-        String uploadFileName = null;
+        if(memberId!=null) {
+            String path = "/Users/yeontaegwan/Desktop/project/image";
+//          String path = "C:/upload";
+            String uploadFileName = null;
 
-        File uploadPath = new File(path);
-        if(!uploadPath.exists()){
-            uploadPath.mkdirs();
+            File uploadPath = new File(path);
+            if(!uploadPath.exists()){
+                uploadPath.mkdirs();
+            }
+
+            if (!image.isEmpty()){
+                UUID uuid = UUID.randomUUID();
+                String fileName = image.getOriginalFilename();
+                uploadFileName = uuid.toString() + "_" + fileName;
+                File saveFile = new File(path, uploadFileName);
+                image.transferTo(saveFile);
+                albaDTO.setAlbaImage(uploadFileName);
+            }
+
+            log.info("들어왔니?");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            DateTimeFormatter formatter1 = new DateTimeFormatterBuilder()
+                    .append(DateTimeFormatter.ISO_LOCAL_TIME)
+                    .parseDefaulting(ChronoField.EPOCH_DAY, 0)
+                    .toFormatter();
+
+            LocalDateTime albaWorkDateTest = LocalDate.parse(albaWorkDateString, formatter).atStartOfDay();
+            log.info("1" + albaWorkDateTest);
+
+            LocalDateTime albaApplyStartDateTest = LocalDate.parse(albaApplyStartDateString, formatter).atStartOfDay();
+            log.info("2" + albaApplyStartDateTest);
+
+            LocalDateTime albaApplyEndDateTest = LocalDate.parse(albaApplyEndDateString, formatter).atStartOfDay();
+            log.info("3" + albaApplyEndDateTest);
+
+            albaDTO.setAlbaApplyStartDate(albaApplyStartDateTest);
+            albaDTO.setAlbaApplyEndDate(albaApplyEndDateTest);
+            albaDTO.setAlbaWorkDate(albaWorkDateTest);
+            albaDTO.setMemberId(memberId);
+
+            albaListService.saveAll(albaDTO);
         }
 
-        if (!image.isEmpty()){
-            UUID uuid = UUID.randomUUID();
-            String fileName = image.getOriginalFilename();
-            uploadFileName = uuid.toString() + "_" + fileName;
-            File saveFile = new File(path, uploadFileName);
-            image.transferTo(saveFile);
-            albaDTO.setAlbaImage(uploadFileName);
-        }
-
-        log.info("들어왔니?");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        DateTimeFormatter formatter1 = new DateTimeFormatterBuilder()
-                .append(DateTimeFormatter.ISO_LOCAL_TIME)
-                .parseDefaulting(ChronoField.EPOCH_DAY, 0)
-                .toFormatter();
-
-        LocalDateTime albaWorkDateTest = LocalDate.parse(albaWorkDateString, formatter).atStartOfDay();
-        log.info("1" + albaWorkDateTest);
-
-        LocalDateTime albaApplyStartDateTest = LocalDate.parse(albaApplyStartDateString, formatter).atStartOfDay();
-        log.info("2" + albaApplyStartDateTest);
-
-        LocalDateTime albaApplyEndDateTest = LocalDate.parse(albaApplyEndDateString, formatter).atStartOfDay();
-        log.info("3" + albaApplyEndDateTest);
-
-        albaDTO.setAlbaApplyStartDate(albaApplyStartDateTest);
-        albaDTO.setAlbaApplyEndDate(albaApplyEndDateTest);
-        albaDTO.setAlbaWorkDate(albaWorkDateTest);
-        albaDTO.setMemberId(memberId);
-
-        albaListService.saveAll(albaDTO);
 
         return new RedirectView("/alba/list");
     }
@@ -144,12 +149,8 @@ public class AlbaController {
             Long cancel = albaDetailService.albaSelect(albaId, memberId);
             model.addAttribute("cancel",cancel);
             model.addAttribute("memberType", albaListService.getMemberType(memberId));
-
-            Optional<Member> member = memberRepository.findById(memberId);
-            String name = member.get().getMemberName();
-            model.addAttribute("name", name);
         }
-
+        model.addAttribute("albaId",albaId);
         AlbaDTO list = albaDetailService.showByAlbaId(albaId);
         model.addAttribute("list",list);
     }
@@ -181,6 +182,7 @@ public class AlbaController {
 
         log.info("몇 번째일까요? : " + albaDTO.getAlbaId());
         String path = "/Users/yeontaegwan/Desktop/project/image";
+//        String path = "C:/upload";
         String uploadFileName = null;
         String dbFile = albaDetailService.showByAlbaId(albaDTO.getAlbaId()).getAlbaImage();
 
@@ -238,46 +240,46 @@ public class AlbaController {
     @GetMapping("/display")
     @ResponseBody
     public byte[] display(String fileName) throws IOException{
-//        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
-        File file = new File("C:/upload", fileName);
+        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
+//        File file = new File("C:/upload", fileName);
 
         return FileCopyUtils.copyToByteArray(file);
     }
 
     // 알바 지원하기
-    @PostMapping("/apply")
-    public RedirectView albaApply(HttpSession session , MemberAlbaDTO memberAlbaDTO) throws Exception{
-        Long memberId = (Long)session.getAttribute("memberId");
+//    @PostMapping("/apply")
+//    public RedirectView albaApply(HttpSession session , MemberAlbaDTO memberAlbaDTO) throws Exception{
+//        Long memberId = (Long)session.getAttribute("memberId");
+//
+//        log.info("어플라이 알바아이디 : " + memberAlbaDTO.getAlbaId().toString());
+//        log.info("memberId : " + memberId);
+//
+//        memberAlbaDTO.setMemberStatus(Status.WAITING);
+//        memberAlbaDTO.setMemberId(memberId);
+//        memberAlbaDTO.setAlbaId(memberAlbaDTO.getAlbaId());
+//
+//        albaDetailService.albaApply(memberAlbaDTO);
+//
+//        return new RedirectView("/alba/list");
+//    }
 
-        log.info("어플라이 알바아이디 : " + memberAlbaDTO.getAlbaId().toString());
-        log.info("memberId : " + memberId);
-
-        memberAlbaDTO.setMemberStatus(Status.WAITING);
-        memberAlbaDTO.setMemberId(memberId);
-        memberAlbaDTO.setAlbaId(memberAlbaDTO.getAlbaId());
-
-        albaDetailService.albaApply(memberAlbaDTO);
-
-        return new RedirectView("/alba/list");
-    }
-
-    // 지원 취소하기
-    @GetMapping("/applyCancel")
-    public RedirectView albaApplyCancel(HttpSession session, Long albaId) throws Exception{
-        Long memberId = (Long)session.getAttribute("memberId");
-        log.info("sessionMemberId : " + memberId);
-        log.info("albaID : " + albaId);
-
-        log.info("select : " + albaDetailService.albaSelect(albaId, memberId));
-//        log.info("albaApplyId : " + albaApplyId);
-
-//        model.addAttribute("albaApplyId", albaDetailService.albaApplyCancel(albaApplyId));
-        Long applyCancelId = albaDetailService.albaSelect(albaId, memberId);
-
-        albaDetailService.albaApplyCancel(applyCancelId);
-
-        return new RedirectView("/alba/list");
-    }
+//    // 지원 취소하기
+//    @PostMapping("/applyCancel")
+//    public RedirectView albaApplyCancel(HttpSession session, Long albaId) throws Exception{
+//        Long memberId = (Long)session.getAttribute("memberId");
+//        log.info("sessionMemberId : " + memberId);
+//        log.info("albaID : " + albaId);
+//
+//        log.info("select : " + albaDetailService.albaSelect(albaId, memberId));
+////        log.info("albaApplyId : " + albaApplyId);
+//
+////        model.addAttribute("albaApplyId", albaDetailService.albaApplyCancel(albaApplyId));
+//        Long applyCancelId = albaDetailService.albaSelect(albaId, memberId);
+//
+//        albaDetailService.albaApplyCancel(applyCancelId);
+//
+//        return new RedirectView("/alba/list");
+//    }
 
 
 
