@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <link rel="icon" href="/image/header/favicon.png" />
     <link rel="shortcut icon" href="/image/header/favicon.png" />
     <link rel="stylesheet" href="/css/common/font.css" />
@@ -21,11 +23,12 @@
                     </div>
                     <a href="https://kauth.kakao.com/oauth/authorize?client_id=b6c8cc415d06296f3dad49e498e431cc&redirect_uri=http://localhost:5555/login/kakao&response_type=code" class="oauth-txt" style="color: #181600;">카카오로 1초만에 시작하기</a>
                 </section>
-                <section class="naver">
+                <section class="naver" id="naver_id_login">
                     <div class="oauth-logo">
                         <img src="https://cdn.comento.kr/icon/icon-naver-medium.svg">
                     </div>
-                    <div class="oauth-txt">네이버로 시작하기</div>
+                    <a id="naverIdLogin_loginButton" href="javascript:void(0)">
+                        <div class="oauth-txt">네이버로 시작하기</div></a>
                 </section>
                 <section class="google">
                     <div class="oauth-logo">
@@ -49,5 +52,14 @@
 
     // 헤더 검색창 없애기
     $(".search_form").css("visibility", "hidden");
+
+        var naver_id_login = new naver_id_login("u3ZqJSTCTJ24JmTyzz72", "http://localhost:5555/login/naver");
+        var state = naver_id_login.getUniqState();
+        // naver_id_login.setButton("white", 2,40);
+        naver_id_login.setDomain("http://localhost:5555");
+        naver_id_login.setState(state);
+        // naver_id_login.setPopup();
+        naver_id_login.init_naver_id_login();
+</script>
 </script>
 </html>

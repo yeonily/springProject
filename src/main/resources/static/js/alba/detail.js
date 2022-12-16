@@ -131,7 +131,7 @@ function mapSearch() {
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             map.setCenter(coords);
         } else {
-            alert("주소를 정확하게 다시 입력해주세요!");
+            // alert("주소를 정확하게 다시 입력해주세요!");
             $("div#map").css("display", "none");
         }
     });

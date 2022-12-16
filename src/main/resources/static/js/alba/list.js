@@ -25,7 +25,6 @@ for(var i = 0; i < $status.length; i++) {
 /*-----------------------------------------------------------*/
 
 let albaService = (function(){
-
     /* 알바 8개 리스트 */
     function mainList(main, callback, error){
         $.ajax({

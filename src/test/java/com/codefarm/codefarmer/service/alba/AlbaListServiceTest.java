@@ -17,13 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class AlbaListServiceTest {
 
     @Autowired
-    private JPAQueryFactory jpaQueryFactory;
-
-    @Autowired
     private AlbaListService albaListService;
 
-    @Autowired
-    private AlbaRepository albaRepository;
 
 
     //    곧 마감인 아르바이트
@@ -33,35 +28,27 @@ public class AlbaListServiceTest {
     }
 
     //    아르바이트 게시글 총 개수
-    @Test
-    public void showAlbaTotalCountTest() {
-        log.info("아르바이트 게시글 총 개수 : " + albaListService.showAlbaTotalCount());
-    }
 
     @Test
     public void showCountTest() {
         log.info("count : " + albaListService.showCount());
     }
+
     //    최신순
     @Test
-    public void showListByRecentTest() {
-        albaListService.showListByRecent().forEach(a -> log.info("최신순 : " + a.toString()));
+    public void showAlbaNewTest(Pageable pageable) {
+        albaListService.showAlbaNew(pageable).forEach(a -> log.info("최신순 : " + a.toString()));
     }
 
     //    시급순
     @Test
-    public void showListByHighPayTest(Pageable pageable) {
-        albaListService.showListByHighPay(pageable).forEach(a -> log.info("시급순 : " + a.getAlbaPrice()));
+    public void showAlbaPayTest(Pageable pageable) {
+        albaListService.showAlbaPay(pageable).forEach(a -> log.info("시급순 : " + a.getAlbaPrice()));
     }
 
     //    모집중
     @Test
-    public void showListByGatheringListTest(Pageable pageable) {
-        albaListService.showListByEndDate(pageable).forEach(a -> log.info("모집중 : " + a.toString()));
-    }
-
-    @Test
-    public void albaShowAllTest(Pageable pageable){
-        albaListService.albaShowAll(pageable).stream().forEach(a -> log.info("" + a));
+    public void showAlbaEndTest(Pageable pageable) {
+        albaListService.showAlbaEnd(pageable).forEach(a -> log.info("모집중 : " + a.toString()));
     }
 }

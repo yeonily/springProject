@@ -3,8 +3,10 @@ package com.codefarm.codefarmer.service.alba;
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
 import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.domain.alba.QAlbaDTO;
+import com.codefarm.codefarmer.domain.member.QMemberDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.MemberAlba;
+import com.codefarm.codefarmer.entity.member.QMember;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import static com.codefarm.codefarmer.entity.alba.QAlba.alba;
 import static com.codefarm.codefarmer.entity.alba.QMemberAlba.memberAlba;
+import static com.codefarm.codefarmer.entity.member.QMember.member;
 
 @Service
 @Slf4j
@@ -132,5 +135,12 @@ public class AlbaDetailService {
     public Long albaApplyCancel(Long albaApplyId){
         memberAlbaRepository.deleteById(albaApplyId);
         return albaApplyId;
+    }
+
+    public String nameFind(Long albaId){
+        return jpaQueryFactory.select(member.memberName)
+                .from(alba)
+                .where(alba.albaId.eq(albaId))
+                .fetchOne();
     }
 }
