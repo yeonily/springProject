@@ -302,14 +302,14 @@ $("button.okay").on("click", function(e){
 
         console.log(textareaList.length);
         for(let i = 0; i < inputList.length; i++) {
-            if(inputList[i].val() == '') {
+            if(inputList[i].val() == null) {
                 inputList[i].css("border", "1px solid red");
                 check = false;
             }
         }
         for(let i = 0; i < textareaList.length; i++) {
             console.log(textareaList[i].val());
-            if(textareaList[i].val() == '') {
+            if(textareaList[i].val() == null) {
                 textareaList[i].css("border", "1px solid red");
                 check = false;
             }

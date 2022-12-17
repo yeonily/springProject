@@ -13,8 +13,10 @@
     <div id="main_grid_inner1">
         <div id="main_grid_inner2">
             <form name="mentorBoardForm" method="post" id="writeForm" action="/mento/update" th:object="${updateRegister}">
-                <input type="hidden" th:field="*{mentorBoardId}">
-                <input type="hidden" th:field="*{mentorId}">
+                <input type="hidden" name="mentorBoardId" th:field="*{mentorBoardId}">
+<!--                <input type="hidden" th:field="*{mentorId}">-->
+                <input type="hidden" name="sessionId" id="sessionId" th:value="${sessionId}">
+                <input type="hidden" name="mentorId" id="mentorId" th:value="${mentorId}">
                 <span>
                 <div>
                     <!--멘토 소개 페이지 헤더-->
@@ -464,7 +466,7 @@
 </html>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script src="/js/mento/write.js"></script>
+<script src="/js/mento/update.js"></script>
 
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>

@@ -7,6 +7,7 @@ import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.service.chat.ChatRoomService;
@@ -104,23 +105,28 @@ public class MentoController {
 
 //    멘토 수정 페이지 이동
     @GetMapping("/update")
-    public void update(Model model, @RequestParam Long mentorBoardId){
+    public String update(Model model, @RequestParam Long mentorBoardId){
         MentorBoardDTO updateRegister = mentorService.showUpdate(mentorBoardId);
         model.addAttribute("updateRegister", updateRegister);
+        return "/mento/update";
     }
 
 //    멘토 수정하고 제출버튼 클릭 시
     @PostMapping("/update")
-    public RedirectView updateFin(@RequestParam Long mentorBoardId,@RequestParam Long mentorId ,MentorBoardDTO mentorBoardDTO, HttpSession session){
+    public RedirectView updateFin(@RequestParam Long mentorBoardId, Long mentorId ,MentorBoardDTO mentorBoardDTO, HttpSession session, String mentorCareer){
         Long sessionId = (Long)session.getAttribute("memberId");
-        log.info("dto : " + mentorBoardDTO);
 //        세션에 memberId넣기
+        mentorBoardDTO.setMentorId(mentorService.showUpdate(mentorBoardId).getMentorId());
         mentorBoardDTO.setMemberId(sessionId);
-        mentorBoardDTO.setMentorId(mentorId);
-
         mentorBoardDTO.setMentorBoardId(mentorBoardId);
-        mentorService.update(mentorBoardDTO);
+        log.info("세션아이디 : " + sessionId);
+        log.info("보드아이디 : " + mentorBoardId);
+        log.info("멘토아이디 : " + mentorService.showUpdate(mentorBoardId).getMentorId());
 
+
+//        MentorBoard mentorBoard = mentorBoardDTO.toEntity();
+//        mentorBoard.update(mentorBoardDTO);
+        mentorService.update(mentorBoardDTO);
         return new RedirectView("list");
     }
 
@@ -142,10 +148,11 @@ public class MentoController {
 //    멘토한테 멘티 신청 시(Type이 USER랑 MENTEE 둘다 멘토한테 신청 가능)
     @PostMapping("/apply")
     public RedirectView apply(MentorMenteeDTO mentorMenteeDTO,@RequestParam Long mentorId,@RequestParam String mentorComment ,HttpSession session){
+        Long sessionId = (Long)session.getAttribute("memberId");
         log.info("멘토아이디 : " + mentorId);
         log.info("멘토한줄평 : " + mentorComment);
+        log.info("세션아이디 : " + sessionId);
 
-        Long sessionId = (Long)session.getAttribute("memberId");
 //        MemberType sessionType = (MemberType)session.getAttribute("memberType");
 
 //        if(sessionType == MemberType.USER || sessionType == MemberType.MENTEE){
