@@ -22,6 +22,7 @@ import java.util.Optional;
 import static com.codefarm.codefarmer.entity.mentor.QMentor.mentor;
 import static com.codefarm.codefarmer.entity.mentor.QMentorBoard.mentorBoard;
 import static com.codefarm.codefarmer.entity.mentor.QMentorFile.mentorFile;
+import static com.codefarm.codefarmer.entity.mentor.QReview.review;
 import static com.codefarm.codefarmer.entity.program.QProgramFile.programFile;
 
 @Service
@@ -250,6 +251,35 @@ public List<MentorFileDTO> showFiles(Long mentorBoardId){
         )).from(mentorBoard)
                 .orderBy(mentorBoard.updatedDate.desc())
                 .limit(8).fetch();
+    }
+
+    //    해당하는 멘토게시물 별점 평균 가져오기
+    public List<Double> findReviewAvg(Long mentorBoardId){
+        return jpaQueryFactory.select(review.reviewStar.avg()).from(review)
+                .where(review.mentorBoard.mentorBoardId.eq(mentorBoardId))
+                .fetch();
+    }
+
+    //    해당하는 멘토게시물 댓글 총 개수 가져오기
+    public List<Long> findReviewCount(Long mentorBoardId){
+        return jpaQueryFactory.select(review.reviewStar.count()).from(review)
+                .where(review.mentorBoard.mentorBoardId.eq(mentorBoardId))
+                .fetch();
+    }
+
+    //    리뷰 programDTO에 담으려고 함
+    public List<ReviewDTO> showReviews(Long mentorBoardId){
+        return jpaQueryFactory.select(new QReviewDTO(
+                review.reviewId,
+                review.member.memberId,
+                review.mentorBoard.mentorBoardId,
+                review.member.memberNickname,
+                review.reviewContent,
+                review.reviewStar,
+                review.createdDate,
+                review.updatedDate
+        )).from(review)
+                .where(mentorFile.mentorBoard.mentorBoardId.eq(mentorBoardId)).fetch();
     }
 
 }
