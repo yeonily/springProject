@@ -52,8 +52,8 @@
                                         <article class="mentor_info_inner1">
                                             <div class="mentor_info_inner2">
                                                 <picture class="mentor_info_image" style=";">
-                                                    <source srcset="https://cdn.comento.kr/images/vod/lecture/braze.png?s=518x600&amp;q=75" type="image/webp">
-                                                    <img src="https://cdn.comento.kr/images/vod/lecture/braze.png" alt="" width="259" height="300">
+<!--                                                    <source srcset="https://cdn.comento.kr/images/vod/lecture/braze.png?s=518x600&amp;q=75" type="image/webp">-->
+                                                    <img th:src="@{/mentofile/display?fileName=} + *{files[0].fileUploadPath} + '/'+ *{files[0].fileUuid}  + '_' + *{files[0].fileName}" + width="259" height="300">
                                                 </picture>
                                             </div>
                                             <div class="mentor_info_inner3">
