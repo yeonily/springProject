@@ -55,7 +55,11 @@ public class MentoController {
 
     @GetMapping("/intro")
     public void mentoIntro(Model model) {
-      model.addAttribute("lists",mentorService.getIntroMentor());
+        List<MentorBoardDTO> mentorBoardDTOs = mentorService.findMainList();
+        for (MentorBoardDTO mentorBoardDTO : mentorBoardDTOs){
+            mentorBoardDTO.setFiles(mentorService.showFiles(mentorBoardDTO.getMentorBoardId()));
+        }
+      model.addAttribute("lists", mentorBoardDTOs);
 
     }
 
