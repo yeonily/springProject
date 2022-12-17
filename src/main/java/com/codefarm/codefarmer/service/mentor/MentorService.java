@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.codefarm.codefarmer.entity.mentor.QMentor.mentor;
 import static com.codefarm.codefarmer.entity.mentor.QMentorBoard.mentorBoard;
@@ -178,30 +179,59 @@ public List<MentorFileDTO> showFiles(Long mentorBoardId){
                 mentorBoard.mentorTitleSub,
                 mentorBoard.mentorTextTitle,
                 mentorBoard.mentorTextContent,
-                mentorBoard.member.memberId
+                mentorBoard.member.memberId,
+                mentorBoard.mentor.mentorId
                  )).from(mentorBoard)
                 .where(mentorBoard.mentorBoardId.eq(mentorBoardId))
                 .fetchOne();
     }
 
+//    멘토 보드 게시글 수정
+//    public void mentorBoardUpdate(MentorBoardDTO mentorBoardDTO){
+//        MentorBoard mentorBoard = mentorBoardDTO.toEntity();
+//
+//        mentorBoard.changeMember(memberRepository.findById(mentorBoardDTO.getMemberId()).get());
+//        if (FindmemberIdToMentor(mentorBoard.getMember().getMemberId()) != null){
+//            mentorBoard.changeMentor(FindmemberIdToMentor(mentorBoard.getMember().getMemberId()));
+//        }
+//
+//        mentorBoard.changeMentor(mentorRepository.findById(mentorBoardDTO.getMentorId()).get());
+//        mentorBoard.update(mentorBoardDTO);
+//        mentorBoardRepository.save(mentorBoard);
+//    }
+
+
+
 //    수정 시 파일 삭제하고 다시 입력하면 저장하기
     public void update(MentorBoardDTO mentorBoardDTO){
-        MentorBoard mentorBoard = mentorBoardDTO.toEntity();
+        MentorBoard mentorBoard = mentorBoardRepository.findById(mentorBoardDTO.getMentorBoardId()).get();
+        // MentorBoard mentorBoard = mentorBoardDTO.toEntity();
 
+//        첨부파일 수정
         mentorBoard.changeFiles(mentorBoardDTO.getFiles());
-        mentorBoard.changeMember(memberRepository.findById(mentorBoardDTO.getMemberId()).get());
-        mentorBoard.changeMentor(mentorRepository.findById(mentorBoardDTO.getMentorId()).get());
-
         mentorBoard.getMentorFiles().stream().map(t -> mentorFileRepository.save(t));
-
         List<MentorFile> mentorFiles = mentorFileRepository.findByMentorBoard_MentorBoardId(mentorBoardDTO.getMentorBoardId());
         mentorFiles.forEach(t -> mentorFileRepository.delete(t));
-
         List<MentorFileDTO> files = mentorBoardDTO.getFiles();
         files.stream().map(t -> t.toEntity());
-
+        mentorBoard.changeMember(memberRepository.findById(mentorBoardDTO.getMemberId()).get());
         mentorBoard.update(mentorBoardDTO);
+
         mentorBoardRepository.save(mentorBoard);
+    }
+
+
+    //    멘토테이블에서 멤버아이디 찾기
+    public Mentor FindmemberIdToMentor(Long memberId){
+        List<Mentor> mentorList = mentorRepository.findAll();
+        Mentor mentorRe;
+        for(Mentor mentor : mentorList){
+            if(mentor.getMember().getMemberId().equals(memberId)){
+                mentorRe = mentor;
+                return mentorRe;
+            }
+        }
+        return null;
     }
 
     //멤버 아이디로 멘토아이디 찾기

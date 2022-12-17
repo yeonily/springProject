@@ -2,9 +2,12 @@ package com.codefarm.codefarmer.service.Mentor;
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorBoardRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorCustomRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.service.mentor.MentorService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -28,6 +31,10 @@ public class MentorBoardServiceTest {
     private MemberRepository memberRepository;
     @Autowired
     private MentorCustomRepository mentorCustomRepository;
+    @Autowired
+    private MentorRepository mentorRepository;
+    @Autowired
+    private MentorBoardRepository mentorBoardRepository;
 
     @Test
     public void mentorBoardAddTest(){
@@ -49,6 +56,37 @@ public class MentorBoardServiceTest {
 //        mentorBoardDTO.setMemberId(findMentor.get());
         mentorService.mentorBoardAdd(mentorBoardDTO);
     }
+
+//    @Test
+//    public void updateTest(MentorBoardDTO mentorBoardDTO){
+//        Optional<Member> findMember = memberRepository.findById(159L);
+//        Optional<Mentor> findMentor = mentorRepository.findById(2L);
+//        Optional<MentorBoard> findMentorBoard = mentorBoardRepository.findById(159L);
+//        MentorBoard mentorBoard = mentorBoardDTO.toEntity();
+//
+//
+//        mentorBoardDTO.setMentorCareer("고구마 농사 멘토 활동중");
+//        mentorBoardDTO.setMentorExCareer("20회 이상 멘티 컨설팅 25년 다양한 작물 재배");
+//        mentorBoardDTO.setMentorStrongTitle1("20회 이상 멘티 가르침으로 생긴 노하우 전수");
+//        mentorBoardDTO.setMentorStrongContent1("2019년 44명 지정된 농업 마스터");
+//        mentorBoardDTO.setMentorStrongTitle2("내 강점 2");
+//        mentorBoardDTO.setMentorStrongContent2("내 강점 내용 2");
+//        mentorBoardDTO.setMentorStrongTitle3("내 강점 3");
+//        mentorBoardDTO.setMentorStrongContent3("내 강점 내용 3");
+//        mentorBoardDTO.setMentorTitle("딸기를 재배해보양");
+//        mentorBoardDTO.setMentorTitleSub("서브 배너 문구입니다.");
+//        mentorBoardDTO.setMentorTextTitle("텍스트 제목");
+//        mentorBoardDTO.setMentorTextContent("텍스트 내용");
+//
+//        mentorBoard.update(mentorBoardDTO);
+//        mentorBoardRepository.save(mentorBoard);
+//
+//    }
+
+
+
+
+
 
     @Test
     public void getMentorBoardListTest(Long mentorBoardId, Pageable pageable){
