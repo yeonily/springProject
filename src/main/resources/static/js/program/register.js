@@ -259,10 +259,11 @@ $("button.before").on("click", function() {
 });
 
 //제출하기 빨간줄 뜨기
-$(".opening-footer").on("click", "button.submitButton", function () {
+$(".opening-footer").on("click", "button#submitRegister", function () {
+    console.log("버튼 누름");
     var inputList = new Array();
     var textareaList = new Array();
-    let check = true;
+    let check = false;
 
     $("input").each(function (index, item) {
         inputList.push($(item));
@@ -297,44 +298,45 @@ $(".opening-footer").on("click", "button.submitButton", function () {
             }
         }
     }
-    // if(!check) {
-    //     modal2.style.display = "flex"
-    //
-    //     okModal.addEventListener("click", evt => {
-    //         modal2.style.display = "none"
-    //     })
-    //     return;
-    // }
+    if(!check) {
+        modal2.style.display = "flex"
 
+        okModal.addEventListener("click", evt => {
+            modal2.style.display = "none"
+        })
+        return;
+    }
+    if(check){
+        $("button.okay").on("click", function(e){
+            e.preventDefault();
+            let text = "";
+            $.each($(".uploadResult ul li"), function(i, li){
+                let fileName = $(li).data("file-name");
+                let fileUploadPath = $(li).data("file-upload-path");
+                let fileUuid = $(li).data("file-uuid");
+                let fileSize = $(li).data("file-size");
+                let fileImageCheck = $(li).data("file-image-check");
+                console.log(fileName);
+                console.log(fileUploadPath);
+                console.log(fileUuid);
+                console.log(fileSize);
+                console.log(fileImageCheck);
+
+                text += `<input type="hidden" name="files[` + i + `].fileName" value="` + fileName + `">`;
+                text += `<input type="hidden" name="files[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
+                text += `<input type="hidden" name="files[` + i + `].fileUuid" value="` + fileUuid + `">`;
+                text += `<input type="hidden" name="files[` + i + `].fileSize" value="` + fileSize + `">`;
+                text += `<input type="hidden" name="files[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
+            });
+            console.log(text);
+            $("form#writeForm").append(text).submit();
+
+        });
+    }
 
     modal3.style.display = "flex"
 
-    $("button.okay").on("click", function(e){
-        e.preventDefault();
-        let text = "";
-        $.each($(".uploadResult ul li"), function(i, li){
-            let fileName = $(li).data("file-name");
-            let fileUploadPath = $(li).data("file-upload-path");
-            let fileUuid = $(li).data("file-uuid");
-            let fileSize = $(li).data("file-size");
-            let fileImageCheck = $(li).data("file-image-check");
-            console.log(fileName);
-            console.log(fileUploadPath);
-            console.log(fileUuid);
-            console.log(fileSize);
-            console.log(fileImageCheck);
 
-            text += `<input type="hidden" name="files[` + i + `].fileName" value="` + fileName + `">`;
-            text += `<input type="hidden" name="files[` + i + `].fileUploadPath" value="` + fileUploadPath + `">`;
-            text += `<input type="hidden" name="files[` + i + `].fileUuid" value="` + fileUuid + `">`;
-            text += `<input type="hidden" name="files[` + i + `].fileSize" value="` + fileSize + `">`;
-            text += `<input type="hidden" name="files[` + i + `].fileImageCheck" value="` + fileImageCheck + `">`;
-        });
-        console.log(text);
-        $("form#writeForm").append(text).submit();
-
-
-    });
 
 });
 

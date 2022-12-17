@@ -65,7 +65,9 @@ public class AlbaListService {
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
                 alba.albaProfileContent2,
-                alba.member.memberId
+                alba.member.memberId,
+                alba.member.memberName,
+                alba.member.memberEmail
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .limit(8)

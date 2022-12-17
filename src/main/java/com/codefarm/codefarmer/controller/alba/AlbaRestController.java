@@ -1,8 +1,11 @@
 package com.codefarm.codefarmer.controller.alba;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.alba.MemberAlbaDTO;
 import com.codefarm.codefarmer.entity.admin.Criteria;
+import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.alba.AlbaListService;
+import com.codefarm.codefarmer.type.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -18,10 +24,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/alba/*")
-public class AlbaListSortController {
+public class AlbaRestController {
 
     @Autowired
     private AlbaListService albaListService;
+    @Autowired
+    private AlbaDetailService albaDetailService;
 
     // 메인 화면
     @PostMapping("/list/main")
@@ -130,5 +138,39 @@ public class AlbaListSortController {
         albaDTOPage.stream().map(AlbaDTO::getAlbaAddress).forEach(log::info);
 
         return albaListService.showAlbaEnd(pageable);
+    }
+
+    @PostMapping("/apply")
+    public RedirectView albaApply(HttpSession session , MemberAlbaDTO memberAlbaDTO, RedirectAttributes redirectAttributes) throws Exception{
+        Long memberId = (Long)session.getAttribute("memberId");
+
+        log.info("어플라이 알바아이디 : " + memberAlbaDTO.getAlbaId().toString());
+        log.info("memberId : " + memberId);
+        Long albaId = memberAlbaDTO.getAlbaId();
+        memberAlbaDTO.setMemberStatus(Status.WAITING);
+        memberAlbaDTO.setMemberId(memberId);
+        memberAlbaDTO.setAlbaId(memberAlbaDTO.getAlbaId());
+
+        albaDetailService.albaApply(memberAlbaDTO);
+        redirectAttributes.addAttribute("albaId" , albaId);
+        return new RedirectView("/alba/detail");
+    }
+
+    // 지원 취소하기
+    @PostMapping("/applyCancel")
+    public RedirectView albaApplyCancel(HttpSession session, Long albaId, RedirectAttributes redirectAttributes) throws Exception{
+        Long memberId = (Long)session.getAttribute("memberId");
+        log.info("sessionMemberId : " + memberId);
+        log.info("albaID : " + albaId);
+
+        log.info("select : " + albaDetailService.albaSelect(albaId, memberId));
+//        log.info("albaApplyId : " + albaApplyId);
+
+//        model.addAttribute("albaApplyId", albaDetailService.albaApplyCancel(albaApplyId));
+        Long applyCancelId = albaDetailService.albaSelect(albaId, memberId);
+
+        albaDetailService.albaApplyCancel(applyCancelId);
+        redirectAttributes.addAttribute("albaId" , albaId);
+        return new RedirectView("/alba/detail");
     }
 }

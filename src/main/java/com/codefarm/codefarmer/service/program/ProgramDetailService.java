@@ -4,6 +4,8 @@ import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.domain.program.QProgramDTO;
 import com.codefarm.codefarmer.domain.program.QProgramFileDTO;
+import com.codefarm.codefarmer.entity.program.MemberProgram;
+import com.codefarm.codefarmer.entity.program.QMemberProgram;
 import com.codefarm.codefarmer.entity.program.QProgram;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
 import static com.codefarm.codefarmer.entity.program.QProgramFile.programFile;
 
@@ -122,5 +125,12 @@ public class ProgramDetailService {
                 programFile.fileImageCheck
         )).from(programFile)
                 .where(programFile.program.programId.eq(prgramId)).fetch();
+    }
+
+//    신청한 프로그램인지 확인
+    public Long programApplyCheck(Long memberId, Long programId){
+        return jpaQueryFactory.select(memberProgram.programApplyId).from(memberProgram)
+                .where(memberProgram.program.programId.eq(programId).and(memberProgram.member.memberId.eq(memberId)))
+                .fetchOne();
     }
 }

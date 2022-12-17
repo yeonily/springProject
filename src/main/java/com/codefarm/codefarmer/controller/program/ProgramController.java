@@ -55,11 +55,23 @@ public class ProgramController {
     }
 
     @GetMapping("/detail")
-    public void detail(Model model,@RequestParam Long programId){
+    public void detail(Model model,@RequestParam Long programId , HttpSession session){
+        Long memberId = (Long)session.getAttribute("memberId");
+        boolean check = false;
         log.info("상세페이지 들어옴");
         log.info("programId:" + programId);
         ProgramDTO list = programDetailService.showByProgramId(programId);
         list.setFiles(programDetailService.showFiles(programId));
+        Long checkId =  programDetailService.programApplyCheck(memberId,programId);
+//        log.info("null?: " + programDetailService.programApplyCheck(memberId,programId));
+        if(checkId == null){
+            log.info("null일때");
+            model.addAttribute("check" , check);
+        }else{
+            log.info("null 아닐때");
+            check = true;
+            model.addAttribute("check" , check);
+        }
         log.info("리스트 내용: " + list.toString());
 //        List<ProgramDTO> lists = programListService.();
         model.addAttribute("list",list);

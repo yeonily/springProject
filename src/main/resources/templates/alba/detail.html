@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>아르바이트 상세페이지</title>
@@ -33,6 +33,7 @@
             <div id="main_banner_inner4">
                 <div id="main_banner_flex_1"></div>
                 <div id="main_banner_flex_2">
+                    <input type="hidden" id="getAlbaId" th:value="${albaId}">
                     <section id="main_fixed">
                         <aside>
                             <div>
@@ -143,7 +144,7 @@
                             <!--프로필 아이콘(간단설명)-->
                             <div class="img-icon">
                                 <img src="/image/alba/profile.png">
-                                <h1 th:text="${name}"></h1>
+                                <h1 th:text="${list.memberName}"></h1>
                                 <span><img src="/image/alba/mentoIcon.png">인증 멘토</span>
                             </div>
                             <!--프로필 상세설명-->
@@ -183,18 +184,19 @@
 <div id="modal" style="display: none;">
     <div id="modal-overlay">
         <div class="c-modal">
-            <div class="m-wrap">
-                <div class="m-title">아르바이트 지원하기</div>
-                <form method="post" th:action="@{/alba/apply(albaId=*{albaId})}" th:object="${list}" id="applyWrite">
-                    <div class="m-c-wrap">
-                        <div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>
-                        <p>mesudal@naver.com</p>
-                    </div>
-                    <div class="applyBtnWrap">
-                        <button type="submit" class="applyBtn">메일전송 완료</button>
-                        <button type="button" class="cancel">취소</button>
-                    </div>
-                </form>
+            <div class="m-wrap modalWrap">
+                <input type="hidden" id="getMemberEmail" th:value="${list.memberEmail}">
+<!--                <form method="post" th:action="@{/alba/apply(albaId=*{albaId})}" th:object="${list}" id="applyWrite">-->
+<!--                <div class="m-title">아르바이트 지원하기</div>-->
+<!--                    <div class="m-c-wrap" id="modal-wrap">-->
+<!--                        <div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>-->
+<!--                        <p>mesudal@naver.com</p>-->
+<!--                    </div>-->
+<!--                    <div class="applyBtnWrap">-->
+<!--                        <button type="button" class="applyBtn">메일전송 완료</button>-->
+<!--                        <button type="button" class="cancel">취소</button>-->
+<!--                    </div>-->
+<!--                </form>-->
             </div>
         </div>
     </div>
@@ -223,15 +225,17 @@
 <div id="cancelModal" style="display: none">
     <div id="modalCancel-overlay">
         <div class="c-modal">
-            <div class="m-wrap">
-                <div class="m-title" >아르바이트 지원 취소</div>
-                    <div class="m-c-wrap">
-                        <div class="m-c-title">신청한 아르바이트를 취소하시겠습니까?</div>
-                    </div>
-                    <div class="applyBtnWrap">
-                        <button type="submit" class="applyBtn" th:onclick="|location.href='@{/alba/applyCancel(albaId=${param.albaId})}'|">예</button>
-                        <button type="button" class="cancel">아니오</button>
-                    </div>
+            <div class="m-wrap cancelWrap">
+<!--                <form method="post" th:action="@{/alba/applyCancel(albaId=${param.albaId})}" th:object="${list}" id="cancelWrite">-->
+<!--                <div class="m-title" >아르바이트 지원 취소</div>-->
+<!--                    <div class="m-c-wrap">-->
+<!--                        <div class="m-c-title">신청한 아르바이트를 취소하시겠습니까?</div>-->
+<!--                    </div>-->
+<!--                    <div class="applyBtnWrap">-->
+<!--                        <button type="button" class="cancelBtn">예</button>-->
+<!--                        <button type="button" class="cancel">아니오</button>-->
+<!--                    </div>-->
+<!--                </form>-->
             </div>
         </div>
     </div>
@@ -263,4 +267,59 @@
 <script src="/js/header/header.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f55e971f1bb222a365c9e75eb0175b7e&libraries=services"></script>
 <script src="/js/alba/detail.js"></script>
+<script th:inline="javascript">
+
+    var albaId = $("#getAlbaId").val();
+    var memberEmail = $("#getMemberEmail").val();
+
+    $("#main_fixed_button").on("click", function (){
+        add(albaId);
+    })
+
+    function add(albaId) {
+        console.log(memberEmail);
+        let text = "";
+        text += '<form id="applyWrite" method="post" action="/alba/apply?albaId=' + albaId + '">'
+        text += '<div class="m-title">아르바이트 지원하기</div>'
+        text += '<div class="m-c-wrap">'
+        text += '<div class="m-c-title">화면에 출력된 이메일에 지원서를 전송한 후 "메일전송 완료" 버튼을 눌러주세요</div>'
+        if (memberEmail){
+            text += '<p>' + memberEmail +'</p>'
+            text += '</div>'
+            text += '<div class="applyBtnWrap">'
+            text += '<button type="submit" id="submitBtn" class="applyBtn">메일전송 완료</button>'
+        }else {
+            text += '<p>이메일이 없습니다</p>'
+            text += '</div>'
+            text += '<div class="applyBtnWrap">'
+            text += '<button type="button" class="cancel">나가기</button>'
+        }
+        text += '<button type="button" class="cancel">취소</button>'
+        text += '</div>'
+        text += '</form>'
+
+        $("div.modalWrap").html(text);
+    }
+
+    $("#cancel").on("click", function (){
+        cancel(albaId);
+    })
+
+    function cancel(apply){
+        let text = "";
+            text += '<form id="cancelWrite" method="post" action="/alba/applyCancel?albaId=' + apply + '">'
+            text += '<div class="m-title">아르바이트 지원 취소</div>'
+            text += '<div class="m-c-wrap">'
+            text += '<div class="m-c-title">신청한 아르바이트를 취소하시겠습니까?</div>'
+            text += '</div>'
+            text += '<div class="applyBtnWrap">'
+            text += '<button type="submit" class="cancelBtn">예</button>'
+            text += '<button type="button" class="cancel">아니오</button>'
+            text += '</div>'
+            text += '</form>'
+
+        $("div.cancelWrap").html(text);
+    }
+
+</script>
 </html>
