@@ -3,6 +3,8 @@ package com.codefarm.codefarmer.controller.main;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.QReviewDTO;
+import com.codefarm.codefarmer.domain.mentor.ReviewDTO;
 import com.codefarm.codefarmer.domain.notice.NoticeDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
@@ -141,7 +143,6 @@ public class MainController {
         model.addAttribute("notices" , notices);
 
     }
-
 
 }
 
