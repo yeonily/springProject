@@ -575,6 +575,7 @@ div.m-c-title {
 }
 div.applyBtnWrap {padding: 20px 32px 0;}
 button.applyBtn,
+button.cancelBtn,
 button.cancel{
     width: 49%;
     height: 40px;
@@ -588,12 +589,22 @@ button.cancel{
     line-height: 25px;
     letter-spacing: .02em;
     font-weight: 600;
+    margin-right: 4px;
 }
 button.applyBtn:disabled {
     background-color: #47c88052;
     cursor: not-allowed!important;
 }
 button.applyBtn:hover:not([disabled]),
+button.cancel:hover{
+    background-color: #357e55;
+}
+
+button.cancelBtn:disabled {
+    background-color: #47c88052;
+    cursor: not-allowed!important;
+}
+button.cancelBtn:hover:not([disabled]),
 button.cancel:hover{
     background-color: #357e55;
 }

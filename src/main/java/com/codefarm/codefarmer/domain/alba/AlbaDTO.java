@@ -43,8 +43,8 @@ public class AlbaDTO {
     private Member member;
     private Long memberId;
     private int EndPage;
-    private List groupList;
-
+    private String memberName;
+    private String memberEmail;
 
     public Alba toEntity() {
         return Alba.builder()
@@ -80,7 +80,7 @@ public class AlbaDTO {
     }
 
     @QueryProjection
-    public AlbaDTO( Long albaId, String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2, Long memberId) {
+    public AlbaDTO( Long albaId, String albaTitle, String albaImage, String albaTitleOne, LocalDateTime albaApplyStartDate, LocalDateTime albaApplyEndDate, LocalDateTime albaWorkDate, int albaApplyCount, int albaApplyTotalCount, String albaAddress, int albaPrice, String albaMainTitle, String albaMainContent, String albaStrongTitle1, String albaStrongContent1, String albaStrongTitle2, String albaStrongContent2, String albaStrongTitle3, String albaStrongContent3, String albaBannerTitle, String albaBannerOne, String albaTextTitle, String albaText, String albaProfileTitle1, String albaProfileContent1, String albaProfileTitle2, String albaProfileContent2, Long memberId, String memberName, String memberEmail) {
         this.albaId = albaId;
         this.albaTitle = albaTitle;
         this.albaImage = albaImage;
@@ -109,6 +109,8 @@ public class AlbaDTO {
         this.albaProfileTitle2 = albaProfileTitle2;
         this.albaProfileContent2 = albaProfileContent2;
         this.memberId = memberId;
+        this.memberName = memberName;
+        this.memberEmail = memberEmail;
     }
 
     public AlbaDTO(Alba entity) {
