@@ -28,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.ws.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -56,10 +57,24 @@ public class MentoController {
     @GetMapping("/intro")
     public void mentoIntro(Model model) {
         List<MentorBoardDTO> mentorBoardDTOs = mentorService.findMainList();
+        List<Long> mentorBoardIds = new ArrayList<>();
+        List<Double> mentorBoardAvg = new ArrayList<>();
+        List<Long> mentorBoardTotalCount = new ArrayList<>();
+
         for (MentorBoardDTO mentorBoardDTO : mentorBoardDTOs){
             mentorBoardDTO.setFiles(mentorService.showFiles(mentorBoardDTO.getMentorBoardId()));
+            mentorBoardIds.add(mentorBoardDTO.getMentorBoardId());
         }
-      model.addAttribute("lists", mentorBoardDTOs);
+
+        for(Long mentorBoardId : mentorBoardIds){
+            mentorBoardAvg.add(mentorService.findReviewAvg(mentorBoardId).get(0));
+            mentorBoardTotalCount.add(mentorService.findReviewCount(mentorBoardId).get(0));
+        }
+
+        model.addAttribute("mentorBoardAvg", mentorBoardAvg);
+        model.addAttribute("mentorBoardTotalCount", mentorBoardTotalCount);
+
+        model.addAttribute("lists", mentorBoardDTOs);
 
     }
 
@@ -69,6 +84,8 @@ public class MentoController {
         Object memberType = (Object)session.getAttribute("memberType");
         model.addAttribute("sessionMemberType", memberType);
         model.addAttribute("sessionMemberId", memberId);
+
+
     }
 
     @GetMapping("/write")
