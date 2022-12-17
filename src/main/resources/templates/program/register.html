@@ -14,7 +14,7 @@
         <div id="main-grid">
             <div class="c-new-row">
                 <div class="c-new-col">
-                    <form id="writeForm" method="post"  action="/program/register" th:object="${programRegister}">
+                    <form id="writeForm" method="post"  action="/program/register" th:object="${programRegister}" enctype="multipart/form-data">
                         <span>
                             <!--헤더-->
                             <div>
@@ -412,7 +412,7 @@
                     </div>
                     <div>
                         <div class="align-items-center">
-                            <input type="file" id="file-input" name="upload" style="display: none;" required accept="image/*" multiple>
+                            <input type="file" id="file-input" name="upload" style="display: none;" multiple>
                             <label for="file-input"><img class="upload" src="/image/program/upload.gif"></label>
                             <!--<img class="upload upload-margin" src="/image/program/link_upload.gif">-->
                         </div>

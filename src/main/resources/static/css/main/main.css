@@ -296,7 +296,7 @@ div.sub_banner_inner .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /*object-fit: cover;*/
 }
 
 div.sub_banner_inner div.swiper-button-next,
@@ -724,7 +724,7 @@ div#albaMenu-inner .swiper-slide img{
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /*object-fit: cover;*/
 }
 
 div#programMenu-inner div.swiper-button.next4 {

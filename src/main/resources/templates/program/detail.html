@@ -74,10 +74,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="apply-a" th:href="@{/program/apply(programId=${list.programId})}">
+
+                                <a class="apply-a"  th:if="${#bools.isFalse(check)}" th:href="@{/program/apply(programId=${list.programId})}">
                                     <button class="apply-button">
                                         <div class="button-icon"></div>
                                         프로그램 신청하기
+                                        <div class="button-icon"></div>
+                                    </button>
+                                </a>
+                                <a class="apply-a" th:unless="${#bools.isFalse(check)}">
+                                    <button class="apply-button" style="pointer-events: none; background-color: #818181;">
+                                        <div class="button-icon"></div>
+                                        이미 신청한 프로그램 입니다.
                                         <div class="button-icon"></div>
                                     </button>
                                 </a>
