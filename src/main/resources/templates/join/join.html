@@ -27,7 +27,7 @@
                 </div>
                 <div class="oauth-txt">네이버로 시작하기</div>
             </section>
-            <section class="google" th:onclick="'location.href=\''+ @{/register/form} + '\''">
+            <section class="google" onclick="location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id=467034188557-a2dk8gl9s7rtj2nvh0f0t5ls35gnfsi3.apps.googleusercontent.com&redirect_uri=http://localhost:5555/register/google&response_type=code&scope=email%20profile%20openid&access_type=offline'")>
                 <div class="oauth-logo">
                     <img src="https://cdn.comento.kr/icon/icon-google-medium.svg">
                 </div>
