@@ -167,6 +167,7 @@ $("#ls-wrap").on("click", ".myProgram", function(){
 
     if(memberType == 'FARMER' || memberType == 'MENTOR'){
     $(document).ready(function () {
+        console.log(memberId);
         myPageService.getPgList({
             memberId: memberId
         }, getList);

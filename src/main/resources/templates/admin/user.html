@@ -133,8 +133,6 @@
     </div>
 </body>
 <script th:inline="javascript">
-    let queryString = [[${criteria.queryString}]];
-
     const urlParams = new URL(location.href).searchParams;
     const keyword = urlParams.get('keyword');
 
@@ -146,7 +144,7 @@
     }
 
     // 삭제 확인 알람
-    var msg = "삭제 하시겠습니까?";
+    var msg = "이 사용자를 탈퇴시키시겠습니까?";
 
     $(".deleteBtn").on("click", function () {
         var flag = confirm(msg);

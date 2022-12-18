@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.controller.admin;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.inquire.InquireAnswerDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.domain.notice.NoticeDTO;
 import com.codefarm.codefarmer.entity.admin.Banner;
 import com.codefarm.codefarmer.entity.admin.Criteria;
@@ -14,18 +15,19 @@ import com.codefarm.codefarmer.entity.board.Reply;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.inquire.InquireAnswer;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
+import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.entity.mentor.Review;
 import com.codefarm.codefarmer.entity.notice.Notice;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
-import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.service.admin.AdminService;
 import com.codefarm.codefarmer.service.admin.InformationService;
 import com.codefarm.codefarmer.service.admin.InquireService;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.board.BoardService;
 import com.codefarm.codefarmer.service.board.ReplyService;
-import com.codefarm.codefarmer.service.mentor.ReviewService;
+import com.codefarm.codefarmer.service.mentor.MentorService;
 import com.codefarm.codefarmer.service.notice.NoticeService;
 import com.codefarm.codefarmer.service.program.ProgramDeleteService;
 import com.codefarm.codefarmer.type.Status;
@@ -47,6 +49,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -57,21 +60,20 @@ public class AdminController {
     private final AdminService adminService;
 //    커뮤니티
     private final BoardService boardService;
-    private final BoardRepository boardRepository;
 //    알바
     private final AlbaDetailService albaDetailService;
 //    프로그램
     private final ProgramDeleteService programDeleteService;
 //    댓글
     private final ReplyService replyService;
-//    후기
-    private final ReviewService reviewService;
 //    공지
     private final NoticeService noticeService;
 //    작물, 정책
     private final InformationService informationService;
 //    문의
     private final InquireService inquireService;
+//    멘토
+    private final MentorService mentorService;
 
     @GetMapping("/help")
     public String ask(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "inquireId", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -458,29 +460,77 @@ public class AdminController {
     // 메인 관리
     @GetMapping("/main")
     public String adminMain(Model model) {
+        model.addAttribute("members", adminService.showAdminByMember());
+        model.addAttribute("programs", adminService.showAdminByProgram());
+        model.addAttribute("jobs", adminService.showAdminByAlba());
+        model.addAttribute("mentors", adminService.showAdminByMentor());
+        model.addAttribute("replies", adminService.showAdminByReply());
+        model.addAttribute("boards", adminService.showAdminByBoard());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/main";
     }
 
     // 멘토 관리
     @GetMapping("/mentor")
-    public String adminMentorMentor(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable) {
-        Page<MentorDTO> mentors = adminService.mentorShowAll(pageable, keyword, searchText);
+    public String adminMentorMentor(Model model, @RequestParam(value = "memberId", required = false)Long memberId, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable) {
+        Page<Mentor> mentors = adminService.mentorShowAll(pageable, keyword, searchText);
 
+        if (memberId != null ) {
+//            List<MentorMentee> mentees = adminService.showMentee(memberId);
+//
+//            log.info("받은 멤버" + memberId);
+//
+//            model.addAttribute("mentees", mentees);
+////            mentees.stream().forEach(m -> log.info("멘티 목록... → " + m));
+//            mentees.stream().forEach(m -> log.info("멘티 목록... → " + m.toString()));
+//            for(MentorMentee mentorMentee : mentees){
+//                Long memberIdtest = mentorMentee.getMentor().getMemberId();
+//                memberIds.add(memberIdtest);
+//            }
+        }
         model.addAttribute("mentorCounts", adminService.countByMentor());
         model.addAttribute("maxPage", 10);
         model.addAttribute("mentors", mentors);
         model.addAttribute("resultCount", adminService.searchCountByMentor(keyword, searchText));
         model.addAttribute("page", pageable);
+//        model.addAttribute("countProgram", adminService.countByMentorProgram);
         model.addAttribute("data", mentors.isEmpty());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/mentor";
     }
 
+    @ResponseBody
+    @GetMapping("/mentee/list/{memberId}")
+    public List<MentorMenteeDTO> menteeList(@PathVariable("memberId") Long memberId) {
+        log.info("들어옴 : " + memberId);
+        List<MentorMenteeDTO> mentees = adminService.showMentee(Long.valueOf(memberId));
+        return adminService.showMentee(Long.valueOf(memberId));
+    }
+
     @GetMapping("/mentor/promotion")
-    public String adminMentorPromotion(Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable){
+    public String mentorPromotion(Model model, Criteria criteria, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10) Pageable pageable){
+        Page<MentorBoard> mentorBoards = adminService.mentorBoardShowAll(pageable, keyword, searchText);
+        if(criteria.getPage() == 0) {
+            criteria.createCriteria(pageable.getPageNumber(), searchText, keyword);
+        }
+        model.addAttribute("promotionCounts", adminService.countByMentorBoard());
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("mentorBoards", mentorBoards);
+        model.addAttribute("resultCount", adminService.searchCountByMentorBoard(keyword, searchText));
+        model.addAttribute("page", pageable);
+        model.addAttribute("data", mentorBoards.isEmpty());
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         return "/admin/promotion";
+    }
+
+//    멘토 홍보 글 삭제
+    @PostMapping("/mentor/promotion/delete")
+    public RedirectView mentorPromotionDelete(Criteria criteria, RedirectAttributes redirectAttributes, Long mentorBoardId){
+        mentorService.removeMentorBoard(mentorBoardId);
+        redirectAttributes.addAttribute("page", criteria.getPage());
+        redirectAttributes.addAttribute("searchText", criteria.getSearchText());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
+        return new RedirectView("/admin/mentor/promotion");
     }
 
     // 공지 목록
@@ -709,7 +759,7 @@ public class AdminController {
 
     // 사용자 관리
     @GetMapping("/user")
-    public String adminUser(Criteria criteria, Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "MemberId", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String user(Criteria criteria, Model model, @RequestParam(required = false, defaultValue = "")String keyword, @RequestParam(required = false, defaultValue = "")String searchText, @PageableDefault(size = 10, sort = "MemberId", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Member> members = adminService.memberShowAll(pageable, keyword, searchText);
 
         model.addAttribute("members", members);
@@ -717,6 +767,16 @@ public class AdminController {
         model.addAttribute("memberCounts", adminService.countByMember()); // 멤버 수
         model.addAttribute("data", members.isEmpty());
         return "/admin/user";
+    }
+
+//    회원 탈퇴
+    @PostMapping("/user/delete")
+    public RedirectView userDelete(Criteria criteria, Long memberId, RedirectAttributes redirectAttributes){
+        adminService.removeMember(memberId);
+        redirectAttributes.addAttribute("page", criteria.getPage());
+        redirectAttributes.addAttribute("searchText", criteria.getSearchText());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
+        return new RedirectView("/admin/user");
     }
 
 

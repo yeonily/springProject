@@ -24,6 +24,17 @@ public class MentorMenteeDTO {
     private LocalDateTime updateDate;
     private String mentorNickName;
     private String menteeNickName;
+    private String menteeName;
+    private String menteePhone;
+
+    @QueryProjection
+    public MentorMenteeDTO(Long mentorMenteeId, Long menteeId, String menteeName, String menteeNickName, String menteePhone) {
+        this.mentorMenteeId = mentorMenteeId;
+        this.menteeName = menteeName;
+        this.menteeId = menteeId;
+        this.menteeNickName = menteeNickName;
+        this.menteePhone = menteePhone;
+    }
 
     @QueryProjection
     public MentorMenteeDTO(Long mentorMenteeId, Long mentorId, Long menteeId, Status menteeStatus, String menteeComment, LocalDateTime createdDate, LocalDateTime updateDate) {

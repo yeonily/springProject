@@ -2,12 +2,16 @@ package com.codefarm.codefarmer.service.admin;
 
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.entity.admin.Banner;
 import com.codefarm.codefarmer.entity.alba.Alba;
 import com.codefarm.codefarmer.entity.alba.MemberAlba;
+import com.codefarm.codefarmer.entity.board.Board;
 import com.codefarm.codefarmer.entity.board.Reply;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
+import com.codefarm.codefarmer.entity.mentor.MentorBoard;
+import com.codefarm.codefarmer.entity.mentor.MentorMentee;
 import com.codefarm.codefarmer.entity.mentor.Review;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
@@ -19,10 +23,7 @@ import com.codefarm.codefarmer.repository.board.BoardRepository;
 import com.codefarm.codefarmer.repository.board.ReplyCustomRepository;
 import com.codefarm.codefarmer.repository.board.ReplyRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
-import com.codefarm.codefarmer.repository.mentor.MentorCustomRepository;
-import com.codefarm.codefarmer.repository.mentor.MentorRepository;
-import com.codefarm.codefarmer.repository.mentor.ReviewCustomRepository;
-import com.codefarm.codefarmer.repository.mentor.ReviewRepository;
+import com.codefarm.codefarmer.repository.mentor.*;
 import com.codefarm.codefarmer.repository.program.MemberProgramRepository;
 import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.codefarm.codefarmer.type.BannerStatus;
@@ -66,6 +67,8 @@ public class AdminService {
 //    멘토
     private final MentorRepository mentorRepository;
     private final MentorCustomRepository mentorCustomRepository;
+    private final MentorBoardRepository mentorBoardRepository;
+    private final MentorMenteeRepository mentorMenteeRepository;
 
 //    커뮤니티 목록
     public Page<BoardDTO> boardShowAll(Pageable pageable, String keyword, String searchText){
@@ -271,14 +274,14 @@ public class AdminService {
     }
 
 //    회원 삭제
-    public void memberRemove(Long memberId) { memberRepository.delete(memberRepository.findById(memberId).get()); }
+    public void removeMember(Long memberId) { memberRepository.deleteById(memberId); }
 
 //    회원 총 수
     public int countByMember() { return memberRepository.countByMember(); }
 
 //    멘토 목록
-    public Page<MentorDTO> mentorShowAll(Pageable pageable, String keyword, String searchText){
-        List<MentorDTO> mentors = mentorCustomRepository.ShowAllMentor(keyword, searchText);
+    public Page<Mentor> mentorShowAll(Pageable pageable, String keyword, String searchText){
+        List<Mentor> mentors = mentorCustomRepository.ShowAllMentor(keyword, searchText);
         final int total = mentorCustomRepository.searchCountByMentor(keyword, searchText);
         final int start = (int)pageable.getOffset();
         final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
@@ -286,17 +289,69 @@ public class AdminService {
         return new PageImpl<>(mentors.subList(start, end), pageable, total);
     }
 
-//    커뮤니티 - 검색했을 때 글 개수
+//    멘티 목록
+    public List<MentorMenteeDTO> showMentee (Long memberId) {
+        return mentorMenteeRepository.findByAdminMentee(memberId);
+    }
+
+//    멘토 - 검색했을 때 글 개수
     public int searchCountByMentor(String keyword, String searchText) {
         int total = mentorCustomRepository.searchCountByMentor(keyword, searchText);
 
         return total % 10 == 0 ? (total / 10) : ((total / 10) + 1);
     }
 
-//    커뮤니티 글 개수
+//    멘토 글 개수
     public int countByMentor() {
         return mentorRepository.countByMentor();
     }
 
+//    멘토 홍보 글 목록
+    public Page<MentorBoard> mentorBoardShowAll (Pageable pageable, String keyword, String searchText){
+        List<MentorBoard> mentorBoards = mentorBoardRepository.findByMentorBoardSearch(keyword, searchText);
+        final int total = mentorBoardRepository.searchCountByMentorBoard(keyword, searchText);
+        final int start = (int)pageable.getOffset();
+        final int end = (start + pageable.getPageSize()) < total ? (start + pageable.getPageSize()) : total;
 
+        return new PageImpl<>(mentorBoards.subList(start, end), pageable, total);
+    }
+
+//    멘토 홍보 - 검색했을 때 글 개수
+    public int searchCountByMentorBoard(String keyword, String searchText) {
+        int total = mentorBoardRepository.searchCountByMentorBoard(keyword, searchText);
+
+        return total % 10 == 0 ? (total / 10) : ((total / 10) + 1);
+    }
+
+//    멘토 홍보 글 개수
+    public int countByMentorBoard() {
+        return mentorBoardRepository.countByMentorBoard();
+    }
+
+
+//    메인화면
+//    유저
+    public List<Member> showAdminByMember (){
+        return memberRepository.showAdmin();
+    }
+//    프로그램
+    public List<Program> showAdminByProgram (){
+        return programRepository.showAdmin();
+    }
+//    알바
+    public List<Alba> showAdminByAlba (){
+        return albaRepository.showAdmin();
+    }
+//    멘토
+    public List<MentorBoard> showAdminByMentor (){
+        return mentorBoardRepository.showAdmin();
+    }
+//    댓글
+    public List<Reply> showAdminByReply(){
+        return replyCustomRepository.showAdmin();
+    }
+//    커뮤니티
+    public List<Board> showAdminByBoard(){
+        return boardCustomRepository.showAdmin();
+    }
 }

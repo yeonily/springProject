@@ -17,4 +17,6 @@ public interface BoardCustomRepository {
 //    검색 + 페이징
     public List<BoardDTO> ShowAllBoard(String keyword, String searchText);
     public Integer searchCountByBoard(String keyword, String searchText);
+
+    public List<Board> showAdmin();
 }

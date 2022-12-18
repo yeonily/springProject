@@ -16,13 +16,6 @@ if($("#main_fixed_category").text() == "모집마감" || $(".left-div span").tex
 /*-----------------------------------------------------------*/
 /*지원하기 버튼 클릭 시 모달*/
 /*-----------------------------------------------------------*/
-$("button#main_fixed_button").on("click", function(){
-    $("#modal").show();
-});
-$("button.cancel").on("click", function(){
-    $("#modal").hide();
-});
-
 /*메일전송 완료 버튼 클릭 시*/
 $("button.applyBtn").on("click", function(){
     $("#modal").hide();

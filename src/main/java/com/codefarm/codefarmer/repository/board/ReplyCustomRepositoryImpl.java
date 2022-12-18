@@ -66,4 +66,13 @@ public class ReplyCustomRepositoryImpl implements ReplyCustomRepository{
                 .fetchOne());
     }
 
+    @Override
+    public List<Reply> showAdmin() {
+        return jpaQueryFactory.selectFrom(reply)
+                .orderBy(reply.createdDate.desc())
+                .limit(5)
+                .fetch();
+    }
+
+
 }

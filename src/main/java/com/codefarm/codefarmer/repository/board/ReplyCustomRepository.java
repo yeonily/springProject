@@ -13,5 +13,6 @@ public interface ReplyCustomRepository {
 
     public List<Reply> findByNickname(String memberNickname, Pageable pageable);
     public Integer countByMemberNickname(String memberNickname);
+    public List<Reply> showAdmin();
 
 }

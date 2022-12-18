@@ -47,48 +47,23 @@
                         <table>
                             <colgroup>
                                 <col width="18%;">
-                                <col width="34%;">
+                                <col width="22%;">
+                                <col width="12%;">
                                 <col width="18%;">
                                 <col width="10%;">
-                                <col width="20%;">
+                                <col width="18%;">
                             </colgroup>
                             <tbody>
-                            <!-- 최근 가입한 사용자 -->
-                            <tr>
-                                <td class="name">[김민혁]</td>
-                                <td class="grade">농장주</td>
-                                <td>010-1234-1234</td>
-                                <td>경기</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[김지연]</td>
-                                <td class="grade">일반인</td>
-                                <td>010-1234-1234</td>
-                                <td>서울</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[서승우]</td>
-                                <td class="grade">농장주</td>
-                                <td>010-1234-1234</td>
-                                <td>인천</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[박수현]</td>
-                                <td class="grade">일반인</td>
-                                <td>010-1234-1234</td>
-                                <td>경기</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[정호석]</td>
-                                <td class="grade">농장주</td>
-                                <td>010-1234-1234</td>
-                                <td>경기</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
+                                <tr th:each="member :${members}" th:object="${member}">
+                                    <td class="name">[<span th:text="*{memberName}"/>]</td>
+                                    <td class="grade" th:text="*{memberNickname}"></td>
+                                    <td class="grade">
+                                        <input type="hidden" class="memberType" th:value="*{memberType}">
+                                    </td>
+                                    <td th:text="*{memberPhone}"></td>
+                                    <td class="location" th:text="*{memberLocation}"></td>
+                                    <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -104,37 +79,18 @@
                     <div class="c-content">
                         <table>
                             <colgroup>
-                                <col width="20%;">
-                                <col width="55%;">
-                                <col width="20%;">
+                                <col width="25%;">
+                                <col width="57%;">
+                                <col width="18%;">
                             </colgroup>
-                            <tbody class="reply">
-                            <!-- 아르바이트 글 최근 순 출력 (5개) -->
-                            <tr>
-                                <td class="title">[벼 알바 하실분 구합니다.]</td>
-                                <td class="content">벼알바 시급 15000원16000원17000원18000원19000원20000원21000원22000원15000원</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title">[벼 알바]</td>
-                                <td class="content">벼알바 시급 15000원</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title">[밭 농사 하실분 구합니다.]</td>
-                                <td class="content">벼알바 시급 15000원16000원</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title">[밭 농사]</td>
-                                <td class="content">농업에 관심 있는 분 지원해주세요.</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title">[꿀 알바 하실분]</td>
-                                <td class="content">꿀 알바 시급 3만원. 책임감 있는분 모십니다.</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
+                            <tbody>
+                                <th:block th:each="job :${jobs}" th:object="${job}">
+                                    <tr th:onclick="|javascript:goAlba('*{albaId}')|" class="link-href">
+                                        <td class="title">[<span th:text="*{albaTitle}"/>]</td>
+                                        <td class="content" th:text="*{albaTitleOne}"></td>
+                                        <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                                    </tr>
+                                </th:block>
                             </tbody>
                         </table>
                     </div>
@@ -145,43 +101,23 @@
                     <div class="content-title">
                         <div class="title">커뮤니티 댓글 관리</div>
                         <div class="title2">
-                            <a th:href="@{/admin/board-reply}">더보기 →</a>
+                            <a th:href="@{/admin/reply}">더보기 →</a>
                         </div>
                     </div>
                     <div class="c-content">
                         <table>
                             <colgroup>
-                                <col width="17%;">
-                                <col width="65%;">
+                                <col width="22%;">
+                                <col width="60%;">
                                 <col width="18%;">
                             </colgroup>
-                            <tbody class="reply">
-                            <!-- 댓글 최근 순 출력 (5개) -->
-                            <tr>
-                                <td class="name">[김지연]</td>
-                                <td class="content">안녕하세요~</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[서승우]</td>
-                                <td class="content">도움 많이 얻었습니다!! 감사합니다!</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[정호석]</td>
-                                <td class="content">혹시 바구니 무료나눔 받을 수 있나요??</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[김민혁]</td>
-                                <td class="content">오늘 가입했습니다!!</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[연태관]</td>
-                                <td class="content">궁금점이 많이 해결된 것 같아요!!</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
+                            <tbody>
+                            <tbody>
+                                <tr th:each="reply :${replies}" th:object="${reply}">
+                                    <td class="name">[<span th:text="*{member.getMemberNickname}"/>]</td>
+                                    <td class="content" th:text="*{replyContent}"></td>
+                                    <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -194,43 +130,24 @@
                     <div class="content-title">
                         <div class="title">프로그램 관리</div>
                         <div class="title2">
-                            <a th:href="@{/admin/program-list}">더보기 →</a>
+                            <a th:href="@{/admin/program}">더보기 →</a>
                         </div>
                     </div>
                     <div class="c-content">
                         <table>
                             <colgroup>
-                                <col width="20%;">
-                                <col width="55%;">
-                                <col width="20%;">
+                                <col width="25%;">
+                                <col width="57%;">
+                                <col width="18%;">
                             </colgroup>
-                            <tbody class="reply">
-                            <!-- 프로그램 게시글 최근 순 출력 (5개) -->
-                            <tr>
-                                <td class="title">[드론으로 배우는 농업기술]</td>
-                                <td class="content">모두가 쉽게 배울 수 있는 드론기술과 농업기술!</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[프로그램 제목을 지어주세요]</td>
-                                <td class="content">프로그램 제목을 뭐로 할까요?</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[재미있는 농업스킬 배우기]</td>
-                                <td class="content">혹시 농업스킬을 배우는게 두렵나요??</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[모두가 도전할 수 있습니다. 귀농귀촌.]</td>
-                                <td class="content">귀농귀촌이 궁금하신분들은 이 프로그램을 신청하세요!!</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="name">[깨끗한 공기를 느낄 수 있어요]</td>
-                                <td class="content">귀농귀촌 어렵지 않아요~</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
+                            <tbody>
+                                <th:block th:each="program :${programs}" th:object="${program}">
+                                    <tr th:onclick="|javascript:goProgram('*{programId}')|" class="link-href">
+                                        <td class="title">[<span th:text="*{programTitleSub}"/>]</td>
+                                        <td class="content" th:text="*{programTitle}"></td>
+                                        <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                                    </tr>
+                                </th:block>
                             </tbody>
                         </table>
                     </div>
@@ -241,37 +158,25 @@
                     <div class="content-title">
                         <div class="title">멘토홍보</div>
                         <div class="title2">
-                            <a th:href="@{/admin/promotion}">더보기 →</a>
+                            <a th:href="@{/admin/mentor/promotion}">더보기 →</a>
                         </div>
                     </div>
                     <div class="c-content">
                         <table>
                             <colgroup>
                                 <col width="80%;">
-                                <col width="20%;">
+                                <col width="18%;">
                             </colgroup>
                             <tbody>
-                            <!-- 멘토홍보 게시글 최근 순 출력 (5개) -->
-                            <tr> <!-- [지역][주작목] - 이름 -->
-                                <td class="title" onclick="location.href='#'">[경기도][블루베리] - 홍길동</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">[홍천군][특수작물] - 나문희</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">[횡성군][더덕] - 김미영</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">[화천군][와송] 이순재</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">[홍천군][밭작물] 한동석</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
+                                <th:block th:each="mentor :${mentors}" th:object="${mentor}">
+                                    <tr th:onclick="|javascript:goMentor('*{mentorBoardId}')|" class="link-href">
+                                        <td class="title">
+                                            [<span class="location" th:text="*{member.getMemberLocation}"/>]
+                                            [<span th:text="*{mentor.getMentorCrop}"/>] - <span th:text="*{member.getMemberName}"/>
+                                        </td>
+                                        <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                                    </tr>
+                                </th:block>
                             </tbody>
                         </table>
                     </div>
@@ -289,30 +194,15 @@
                         <table>
                             <colgroup>
                                 <col width="80%;">
-                                <col width="20%;">
+                                <col width="18%;">
                             </colgroup>
                             <tbody>
-                            <!-- 자유게시판 게시글 최근 순 출력 (5개) -->
-                            <tr>
-                                <td class="title" onclick="location.href='#'">요즘 관심가지고 있는 파테크 아시냐요?</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">아이들과 함께하는 꽃밭 가꾸기 팁</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">청년! 3박4일 예천에 한번 살아볼까요?</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">● [ 농산물상자 & 파렛트 ] 저렴히 판매합니다..●</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
-                            <tr>
-                                <td class="title" onclick="location.href='#'">귀농 귀촌 하우스 농사 하실분</td>
-                                <td class="date">2022-10-03 10:00</td>
-                            </tr>
+                                <th:block th:each="board :${boards}" th:object="${board}">
+                                    <tr th:onclick="|javascript:goBoard('*{boardId}')|" class="link-href">
+                                        <td class="title" th:text="*{boardTitle}"></td>
+                                        <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
+                                    </tr>
+                                </th:block>
                             </tbody>
                         </table>
                     </div>
@@ -325,6 +215,42 @@
     </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".location").each(function(index, item){
+            $(this).html($(this).html().split(' ', 1));
+        });
+    });
 
+<!--프로그램-->
+    function goProgram (programId) {
+        location.href='/program/detail?programId=' + programId;
+    }
+<!--알바-->
+    function goAlba (albaId) {
+        location.href='/alba/detail?albaId=' + albaId;
+    }
+<!--멘토 홍보 글-->
+    function goMentor (mentorBoardId) {
+        location.href='/mento/detail?mentorBoardId=' + mentorBoardId;
+    }
+<!--자유게시판-->
+    function goBoard (boardId) {
+        location.href='/community/detail?boardId=' + boardId;
+    }
+
+    $(document).ready(function(){
+        $("input.memberType").each(function(i, item) {
+            if($(this).val() == "FARMER" || $(this).val() == "MENTOR"){
+                $(this).parent().html("농장주")
+            } else if($(this).val() == "USER" || $(this).val() == "MENTEE"){
+                $(this).parent().html("일반인")
+            } else {
+                $(this).parent().html("관리자")
+            }
+        })
+    });
+</script>
 </body>
 <html>
