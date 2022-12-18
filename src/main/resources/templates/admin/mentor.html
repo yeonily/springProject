@@ -85,10 +85,7 @@
                     <th:block th:each="mentor :${mentors}">
                         <tr class="title" th:object="${mentor}">
                             <td class="num" th:text="*{mentorId}"></td>
-                            <td class="name">
-                                <span th:text="*{member.getMemberId}"></span>
-                                <span th:text="*{member.getMemberName}"></span>
-                            </td>
+                            <td class="name" th:text="*{member.getMemberName}"></td>
                             <td class="nickName" th:text="*{member.getMemberNickname}"></td>
                             <td class="career" th:text="*{mentorYear}"></td>
                             <td class="phone" th:text="*{member.getMemberPhone}"></td>
