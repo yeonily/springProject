@@ -59,9 +59,7 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
                 alba.albaProfileContent2,
-                alba.member.memberId,
-                alba.member.memberName,
-                alba.member.memberEmail
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .orderBy(alba.albaApplyStartDate.desc())
@@ -107,9 +105,7 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
                 alba.albaProfileContent2,
-                alba.member.memberId,
-                alba.member.memberName,
-                alba.member.memberEmail
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .orderBy(alba.albaPrice.desc())
@@ -155,9 +151,7 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 alba.albaProfileContent1,
                 alba.albaProfileTitle2,
                 alba.albaProfileContent2,
-                alba.member.memberId,
-                alba.member.memberName,
-                alba.member.memberEmail
+                alba.member.memberId
         )).from(alba)
                 .where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime)))
                 .orderBy(alba.albaApplyEndDate.asc())
@@ -185,5 +179,12 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 .from(alba)
                 .where(alba.member.memberName.contains(memberName))
                 .fetchOne());
+    }
+    @Override
+    public List<Alba> showAdmin() {
+        return queryFactory.selectFrom(alba)
+                .orderBy(alba.albaId.desc())
+                .limit(5)
+                .fetch();
     }
 }
