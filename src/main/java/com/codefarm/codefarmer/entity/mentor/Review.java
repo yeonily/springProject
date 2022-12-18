@@ -26,6 +26,7 @@ public class Review extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENTOR_BOARD_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private MentorBoard mentorBoard;
 
     @NotNull

@@ -85,7 +85,7 @@
 <!--                </th:block>-->
                 </div>
             <div id="writeBtn">
-                <button type="button" onclick="location.href = `/alba/write`">글쓰기</button>
+                <button type="button" onclick="location.href = `/alba/write`" th:if="${memberType == 'FARMER' or memberType == 'MENTOR'}">글쓰기</button>
             </div>
 
             <!--페이징 처리(PC : 10페이지까지, Mobile : 5페이지까지)-->
@@ -169,6 +169,7 @@
     }
 
     function mainNewList(alba) {
+        console.log(alba);
         let text = "";
         alba.content.forEach(function (albas) {
             text += '<div class="list_td">'
@@ -263,8 +264,10 @@
     }
 
     function newList(result) {
+        console.log(result);
         let text = "";
         result.content.forEach(function (recent) {
+            console.log(result);
             text += '<div class="list_td">'
             text += '<div class="location"><p>' + recent.albaAddress + '</p></div>'
             text += '<div class="title">'
@@ -298,6 +301,7 @@
     globalThis.page = 1;
 
     function showNewPage(totalElements){
+        console.log("totalElements : " + totalElements);
         let endNumber = Math.ceil(globalThis.page / 5) * 5;
         let startNumber = endNumber - 4;
         let realEnd = Math.ceil(totalElements/ 10);
@@ -357,6 +361,7 @@
     }
 
     function payList(albaDTO){
+        console.log(albaDTO);
         let text = "";
         albaDTO.content.forEach(function(alba){
             text += '<div class="list_td">'
@@ -452,6 +457,7 @@
     }
 
     function endList(list) {
+        console.log(list);
         let text = "";
         list.content.forEach(function (job) {
             text += '<div class="list_td">'

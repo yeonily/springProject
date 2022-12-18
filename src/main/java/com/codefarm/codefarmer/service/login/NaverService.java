@@ -98,7 +98,7 @@ public class NaverService {
         }
     }
 
-    //  id
+//      id
     public String getNaverIdByToken(String token) throws Exception{
         String header = "Bearer " + token; // Bearer 다음에 공백 추가
         String naverId = null;
@@ -129,7 +129,7 @@ public class NaverService {
             System.out.println(e);
         }
 
-        return null;
+        return naverId;
     }
 
 //        email
@@ -162,7 +162,7 @@ public class NaverService {
             System.out.println(e);
         }
 
-        return null;
+        return email;
     }
 
     public Integer checkOauth(String oauthId){return memberRepository.duplicateOauth(oauthId);}

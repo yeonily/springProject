@@ -3,6 +3,8 @@ package com.codefarm.codefarmer.controller.main;
 import com.codefarm.codefarmer.domain.board.BoardDTO;
 import com.codefarm.codefarmer.domain.board.ReplyDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
+import com.codefarm.codefarmer.domain.mentor.QReviewDTO;
+import com.codefarm.codefarmer.domain.mentor.ReviewDTO;
 import com.codefarm.codefarmer.domain.notice.NoticeDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
@@ -67,10 +69,29 @@ public class MainController {
 //        멘토부분
 //        mentorBoardDTO에 file정보 추가해서 model객체로 보냄
         List<MentorBoardDTO> mentorBoardDTOs = mentorService.findMainList();
+        List<Long> mentorBoardIds = new ArrayList<>();
+        List<Double> mentorBoardAvg = new ArrayList<>();
+        List<Long> mentorBoardTotalCount = new ArrayList<>();
         for(MentorBoardDTO mentorBoardDTO : mentorBoardDTOs){
             mentorBoardDTO.setFiles(mentorService.showFiles(mentorBoardDTO.getMentorBoardId()));
+//            mentorBoardDTO.setReviews(mentorService.showReviews(mentorBoardDTO.getMentorBoardId()));
+            mentorBoardIds.add(mentorBoardDTO.getMentorBoardId());
+            log.info("멘토board 리뷰 들어갔니 " +mentorBoardDTO.toString());
         }
+
+        for(Long mentorBoardId : mentorBoardIds){
+           mentorBoardAvg.add(mentorService.findReviewAvg(mentorBoardId).get(0));
+           mentorBoardTotalCount.add(mentorService.findReviewCount(mentorBoardId).get(0));
+        }
+
+        log.info("평균 잘 들어갔니?:"+ mentorBoardAvg.toString());
+        log.info("댓글 총 개수 잘 들어갔니?:" + mentorBoardTotalCount.toString());
+        model.addAttribute("mentorBoardAvg", mentorBoardAvg);
+        model.addAttribute("mentorBoardTotalCount", mentorBoardTotalCount);
+
+
         log.info("멘토보드 파일 잘 들어갔니? " + mentorBoardDTOs.toString());
+
 
         model.addAttribute("mentorList",mentorBoardDTOs);
 
@@ -122,7 +143,6 @@ public class MainController {
         model.addAttribute("notices" , notices);
 
     }
-
 
 }
 

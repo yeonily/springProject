@@ -4,9 +4,13 @@ import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.entity.member.QMember;
 import com.codefarm.codefarmer.entity.mentor.MentorMentee;
 import com.codefarm.codefarmer.entity.mentor.QMentorMentee;
+import com.codefarm.codefarmer.type.Status;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,9 +41,9 @@ public class MentorMenteeCustomRepositoryImpl implements MentorMenteeCustomRepos
     }
 
     @Override
-    public List<MentorMenteeDTO> selectByMentorId(Long mentorId) {
+    public List<MentorMenteeDTO> selectByMentorId(Long mentorId, Status status) {
         return jpaQueryFactory.selectFrom(mentorMentee).join(mentorMentee.mentor, member).fetchJoin()
-                .where(mentorMentee.mentor.memberId.eq(mentorId)).fetch()
+                .where((mentorMentee.mentor.memberId.eq(mentorId)), (statusEqs(status))).fetch()
                 .stream().map(mentorMentee -> new MentorMenteeDTO(
                         mentorMentee.getMentorMenteeId(),
                         mentorMentee.getMentor().getMemberId(),
@@ -51,6 +55,7 @@ public class MentorMenteeCustomRepositoryImpl implements MentorMenteeCustomRepos
                         mentorMentee.getMenteeComment()
                 )).collect(Collectors.toList());
     }
+
 
     @Override
     public List<MentorMenteeDTO> findByAdminMentee(Long mentorId) {
@@ -65,4 +70,22 @@ public class MentorMenteeCustomRepositoryImpl implements MentorMenteeCustomRepos
                 )).collect(Collectors.toList());
     }
 
+
+    private BooleanExpression statusEq(Status status){
+        return status.name().equals("CONFIRM") ? mentorMentee.menteeStatus.eq(status) : null;
+    }
+
+    private BooleanExpression statusNotEq(Status status){
+        return !(status.name().equals("CONFIRM")) ? mentorMentee.menteeStatus.eq(status) : null;
+    }
+
+    private BooleanExpression statusEqOrNotEq(Status status){
+        return statusNotEq(status).and(statusEq(status));
+    }
+
+    private BooleanExpression statusEqs(Status status){
+        return !(status.name().equals("CONFIRM")) ? mentorMentee.menteeStatus.eq(status) : mentorMentee.menteeStatus.eq(status);
+    }
+
+    BooleanBuilder builder = new BooleanBuilder();
 }

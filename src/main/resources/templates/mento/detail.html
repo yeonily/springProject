@@ -54,7 +54,7 @@
                                     <div>
                                         <article id="main_fixed_inner1">
                                             <div id="main_fixed_inner2">
-                                                <div id="main_fixed_category" th:text="${mentorDTO.memberNickName}"></div>
+                                                <div id="main_fixed_category" th:text="${mentorDTO.memberNickname}"></div>
                                                 <div id="main_fixed_title" th:text="*{mentorTitle}"></div>
                                                 <div>
                                                     <div>
@@ -94,16 +94,16 @@
                                                         <div style="display: flex!important;"></div>
                                                     </button>
                                                     <button class="main_fixed_button" id="mento_update">
-                                                        <a th:href="@{/mento/update(mentorBoardId=${param.mentorBoardId})}">
+                                                        <a th:href="@{/mento/update(mentorBoardId=${param.mentorBoardId})}" style="color: white">
                                                             <div style="display: flex!important;"></div>
-                                                            홍보글 수정
+                                                            글 수정
                                                             <div style="display: flex!important;"></div>
                                                         </a>
                                                     </button>
                                                     <button class="main_fixed_button" id="mento_delete">
-                                                        <a th:href="@{/mento/delete(mentorBoardId=${param.mentorBoardId})}">
+                                                        <a th:href="@{/mento/delete(mentorBoardId=${param.mentorBoardId})}" style="color: white">
                                                             <div style="display: flex!important;"></div>
-                                                            홍보글 삭제
+                                                            글 삭제
                                                             <div style="display: flex!important;"></div>
                                                         </a>
                                                     </button>
@@ -163,7 +163,7 @@
                                                      src="https://cdn.comento.kr/images/pt/tmp/prefix_laH12sIOyU.png"
                                                      alt="" id="main_intro_image1">-->
                                                 <p id="main_intro_text1" th:text="${mentorDTO.mentorYear}"></p>
-                                                <p id="main_intro_text2"><strong id="main_intro_strong" th:text="${mentorDTO.memberNickName}"></strong>멘토님
+                                                <p id="main_intro_text2"><strong id="main_intro_strong" th:text="${mentorDTO.memberNickname}"></strong>멘토님
                                                 </p>
                                             </div>
                                         </dt>
@@ -230,83 +230,83 @@
                         </div>
                     </div>
                 </section>
-                <section id="mentee_program">
-                    <div id="mentee_program_inner1">
-                        <div id="mentee_program_inner2">
-                            <div id="mentee_program_inner3">
-                                <h3 style="margin: 0 8px 8px;">멘토 진행 프로그램</h3>
-                            </div>
-                            <div id="mentee_program_flex">
-                                <div class="mentee_program_flex_inner1">
-                                    <a href="/program/detail" style="text-decoration: none; width: 100%">
-                                        <article class="mentee_program_list">
-                                            <div class="mentee_program_list_images1">
-                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">
-                                            </div>
-                                            <div class="mentee_program_list_texts">
-                                                <div class="list_subtitle">
-                                                    <div class="list_location">경기도</div>
-                                                    <div class="list_dot"> · </div>
-                                                    <div class="list_price">무료</div>
-                                                </div>
-                                                <div class="list_title">
-                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>
-                                                </div>
-                                                <div class="list_caption">
-                                                    <span class="list_date">11월 28일 시작</span>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </a>
-                                </div>
-                                <div class="mentee_program_flex_inner1">
-                                    <a href="/program/detail" style="text-decoration: none; width: 100%">
-                                        <article class="mentee_program_list">
-                                            <div class="mentee_program_list_images1">
-                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">
-                                            </div>
-                                            <div class="mentee_program_list_texts">
-                                                <div class="list_subtitle">
-                                                    <div class="list_location">경기도</div>
-                                                    <div class="list_dot"> · </div>
-                                                    <div class="list_price">무료</div>
-                                                </div>
-                                                <div class="list_title">
-                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>
-                                                </div>
-                                                <div class="list_caption">
-                                                    <span class="list_date">11월 28일 시작</span>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </a>
-                                </div>
-                                <div class="mentee_program_flex_inner1">
-                                    <a href="/program/detail" style="text-decoration: none; width: 100%">
-                                        <article class="mentee_program_list">
-                                            <div class="mentee_program_list_images1">
-                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">
-                                            </div>
-                                            <div class="mentee_program_list_texts">
-                                                <div class="list_subtitle">
-                                                    <div class="list_location">경기도</div>
-                                                    <div class="list_dot"> · </div>
-                                                    <div class="list_price">무료</div>
-                                                </div>
-                                                <div class="list_title">
-                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>
-                                                </div>
-                                                <div class="list_caption">
-                                                    <span class="list_date">11월 28일 시작</span>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+<!--                <section id="mentee_program">-->
+<!--                    <div id="mentee_program_inner1">-->
+<!--                        <div id="mentee_program_inner2">-->
+<!--                            <div id="mentee_program_inner3">-->
+<!--                                <h3 style="margin: 0 8px 8px;">멘토 진행 프로그램</h3>-->
+<!--                            </div>-->
+<!--                            <div id="mentee_program_flex">-->
+<!--                                <div class="mentee_program_flex_inner1">-->
+<!--                                    <a href="/program/detail" style="text-decoration: none; width: 100%">-->
+<!--                                        <article class="mentee_program_list">-->
+<!--                                            <div class="mentee_program_list_images1">-->
+<!--                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">-->
+<!--                                            </div>-->
+<!--                                            <div class="mentee_program_list_texts">-->
+<!--                                                <div class="list_subtitle">-->
+<!--                                                    <div class="list_location">경기도</div>-->
+<!--                                                    <div class="list_dot"> · </div>-->
+<!--                                                    <div class="list_price">무료</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="list_title">-->
+<!--                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="list_caption">-->
+<!--                                                    <span class="list_date">11월 28일 시작</span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </article>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <div class="mentee_program_flex_inner1">-->
+<!--                                    <a href="/program/detail" style="text-decoration: none; width: 100%">-->
+<!--                                        <article class="mentee_program_list">-->
+<!--                                            <div class="mentee_program_list_images1">-->
+<!--                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">-->
+<!--                                            </div>-->
+<!--                                            <div class="mentee_program_list_texts">-->
+<!--                                                <div class="list_subtitle">-->
+<!--                                                    <div class="list_location">경기도</div>-->
+<!--                                                    <div class="list_dot"> · </div>-->
+<!--                                                    <div class="list_price">무료</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="list_title">-->
+<!--                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="list_caption">-->
+<!--                                                    <span class="list_date">11월 28일 시작</span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </article>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <div class="mentee_program_flex_inner1">-->
+<!--                                    <a href="/program/detail" style="text-decoration: none; width: 100%">-->
+<!--                                        <article class="mentee_program_list">-->
+<!--                                            <div class="mentee_program_list_images1">-->
+<!--                                                <img src="/image/program/pgimage.gif" alt="" class="mentee_program_list_images2">-->
+<!--                                            </div>-->
+<!--                                            <div class="mentee_program_list_texts">-->
+<!--                                                <div class="list_subtitle">-->
+<!--                                                    <div class="list_location">경기도</div>-->
+<!--                                                    <div class="list_dot"> · </div>-->
+<!--                                                    <div class="list_price">무료</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="list_title">-->
+<!--                                                    <div class="list_title_name">일일 무 뽑기 프로그램</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="list_caption">-->
+<!--                                                    <span class="list_date">11월 28일 시작</span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </article>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </section>-->
             </div>
         </div>
     </div>
@@ -562,17 +562,23 @@
     <div id="modal-overlay">
         <div class="c-modal">
             <div class="m-wrap">
-                <div class="m-title">멘토 신청하기</div>
+
+                    <div class="m-title">멘토 신청하기</div>
+
+
                 <form th:action="@{/mento/apply}" name="mentorApplyForm" method="post" th:object="${mentorMenteeDTO}">
                     <div class="m-c-wrap">
                         <div class="m-c-title">자신을 어필할 수있는 한줄평을 써주세요!</div>
-                        <input type="text" placeholder="멘토님께 소개할 한줄평 작성해주세요" class="modal_input" th:text="${menteeComment}">
+
+                            <input type="text" name="mentorComment" placeholder="멘토님께 소개할 한줄평 작성해주세요" class="modal_input">
+                            <input type="hidden" name="mentorId" th:value="${mentorId}">
                     </div>
                     <div class="applyBtnWrap">
                         <button type="button" class="applyBtn" onclick="apply()">멘토 신청</button>
                         <button type="button" class="cancel">취소</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -814,12 +820,14 @@
     }
 
     function apply() {
-        if($(".applyBtn") == null) {
-            alert("한줄평을 입력해주세요.");
+        if($(".modal_input").val().length == 0){
+            alert("한줄평을 입력해주세요")
         }else{
-            $(".applyBtn").submit();
+            mentorApplyForm.submit();
         }
     }
+
+
 
 </script>
 

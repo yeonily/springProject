@@ -67,7 +67,7 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = queryFactory.selectFrom(alba).fetch().size();
+        long total = queryFactory.selectFrom(alba).where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime))).fetch().size();
 
         return new PageImpl<>(albas, pageable, total);
     }
@@ -113,7 +113,7 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = queryFactory.selectFrom(alba).fetch().size();
+        long total = queryFactory.selectFrom(alba).where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime))).fetch().size();
 
         return new PageImpl<>(albas, pageable, total);
     }
@@ -159,7 +159,7 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = queryFactory.selectFrom(alba).fetch().size();
+        long total = queryFactory.selectFrom(alba).where(alba.albaApplyStartDate.before(localDateTime).and(alba.albaApplyEndDate.after(localDateTime))).fetch().size();
 
         return new PageImpl<>(albas, pageable, total);
     }

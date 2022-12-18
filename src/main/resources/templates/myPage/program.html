@@ -75,20 +75,20 @@
 
                         </div>
                     </div>
-                    <div id="paging" style="display: none">
-                        <ul>
-                            <li class="sidePageNum prev">
-                                <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                            </li>
-                            <li><a href="" class="page selectPage">1</a></li>
-                            <li><a href="" class="page">2</a></li>
-                            <li><a href="" class="page">3</a></li>
-                            <li><a href="" class="page">4</a></li>
-                            <li><a href="" class="page">5</a></li>
-                            <li class="sidePageNum next">
-                                <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                            </li>
-                        </ul>
+                    <div id="paging" style="margin-bottom: 100px;">
+                        <!--                    <ul th:with="start=${(albas.number/maxPage)*maxPage + 1}, end=(${(albas.totalPages == 0) ? 1 : (start + (maxPage - 1) < albas.totalPages ? start + (maxPage - 1) : albas.totalPages)})">-->
+                        <!--                        <li class="sidePageNum prev" th:if="${albas.pageable.pageNumber > 0}">-->
+                        <!--                            <a th:href="@{/alba/list(page=${((albas.pageable.pageNumber/5)*5) - 1})}" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>-->
+                        <!--                        </li>-->
+                        <!--                        <th:block  th:each="i: ${#numbers.sequence(start, end)}">-->
+                        <!--                            <li>-->
+                        <!--                                <a class="page" th:href="@{/alba/list(page=${i - 1})}" th:classappend="${i == albas.pageable.pageNumber + 1} ? 'selectPage' : '' " th:text="${i}">1</a>-->
+                        <!--                            </li>-->
+                        <!--                        </th:block >-->
+                        <!--                        <li class="sidePageNum next" th:if="${end < albas.totalPages}">-->
+                        <!--                            <a th:href="@{/alba/list(page=${end})}" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>-->
+                        <!--                        </li>-->
+                        <!--                    </ul>-->
                     </div>
 
 
@@ -157,9 +157,8 @@
     }
 
 $("#ls-wrap").on("click", ".myProgram", function(){
-    var n = $('input[name=pgId]').val();
-    console.log("ok"+n);
-    viewDetail(n);
+    let programId = this.classList[3];
+    viewDetail(programId);
 })
 //-------------------------------------------------
 
@@ -209,7 +208,7 @@ $("#ls-wrap").on("click", ".myProgram", function(){
 
             text += '<div class="list-wrap"  th:object="${programDTO}">'
             var number = programDTO.programId;
-            text += '<div class="myProgram f-column select-l">'
+            text += "<div class='myProgram f-column select-l "+programDTO.programId+"'>"
             text += '<input type="hidden" name="pgId" value="'+number+'">'
             text += '<div class="list-img">'
             text += '<div class="only-mentor">'
@@ -278,7 +277,7 @@ $("#ls-wrap").on("click", ".myProgram", function(){
 
             text += '<div class="list-wrap"  th:object="${programDTO}">'
             var number = programDTO.programId;
-            text += '<div class="myProgram f-column select-l">'
+            text += "<div class='myProgram f-column select-l "+programDTO.programId+"'>"
             text += '<input type="hidden" name="pgId" value="'+number+'">'
             text += '<div class="list-img">'
             text += '<div class="only-mentor">'

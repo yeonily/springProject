@@ -18,6 +18,7 @@ public class MentorMenteeDTO {
     private Long mentorId;
     private Long menteeId;
     private Status menteeStatus;
+//    private String menteeStatus;
     private String menteeComment;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;

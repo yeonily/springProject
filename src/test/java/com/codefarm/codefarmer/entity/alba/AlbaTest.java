@@ -48,7 +48,7 @@ public class AlbaTest {
 
         albaDTO1.setAlbaAddress("연태관");
         albaDTO1.setAlbaApplyCount(1);
-        albaDTO1.setAlbaApplyEndDate(LocalDateTime.of(2022,12,18,0,0));
+        albaDTO1.setAlbaApplyEndDate(LocalDateTime.of(2022,12,19,0,0));
         albaDTO1.setAlbaApplyStartDate(LocalDateTime.of(2022,12,6,0,0));
         albaDTO1.setAlbaApplyTotalCount(5);
         albaDTO1.setAlbaBannerOne("연태관");

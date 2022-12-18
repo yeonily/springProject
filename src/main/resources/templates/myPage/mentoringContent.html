@@ -15,17 +15,17 @@
 
                 <!---->
                 <div class="m-l-wrap m-l-link" th:onclick="'location.href=\''+ @{/mento/chatting} + '\''">
-                    <div class="m-l">
-                        <div class="name">
-                            <span>멘토</span>
-                            박수현
-                        </div>
-                        <div class="m-l-side">
-                            <!-- 멘토 관계가 성립된 날짜 -->
-                            <div class="m-s-date">2022.11.23</div>
-                            <button type="button" class="refuse" onclick="mentorDelete();">삭제</button>
-                        </div>
-                    </div>
+<!--                    <div class="m-l">-->
+<!--                        <div class="name">-->
+<!--                            <span>멘토</span>-->
+<!--                            박수현-->
+<!--                        </div>-->
+<!--                        <div class="m-l-side">-->
+<!--                            &lt;!&ndash; 멘토 관계가 성립된 날짜 &ndash;&gt;-->
+<!--                            <div class="m-s-date">2022.11.23</div>-->
+<!--                            <button type="button" class="refuse" onclick="mentorDelete();">삭제</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
                 <!---->
 
@@ -47,10 +47,12 @@
         <div class="c-header-can">
             <div class="menu-tab-btn">
                 <div class="menu-tab">
-                    <button id="list" class="active main-tab mentee-list" onclick="moveList('mentee-list');">멘티 목록</button>
+                    <button id="list" class="active main-tab mentee-list" >멘티 목록</button>
+                    <input type="hidden" name="status" value="CONFIRM">
                 </div>
                 <div class="menu-tab">
-                    <button id="apply" class="main-tab mentee-apply" onclick="moveApply('mentee-apply');">멘티 신청</button>
+                    <button id="apply" class="main-tab mentee-apply" >멘티 신청</button>
+                    <input type="hidden" name="applyStatus" value="WAITING">
                 </div>
             </div>
         </div>

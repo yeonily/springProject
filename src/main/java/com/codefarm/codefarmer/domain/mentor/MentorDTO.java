@@ -57,7 +57,7 @@ public class MentorDTO {
     }
 
     @QueryProjection
-    public MentorDTO(String mentorCrop, String mentorYear, String memberLocation, String memberNickName) {
+    public MentorDTO(String mentorCrop, String mentorYear, String memberLocation, String memberNickname) {
         this.mentorCrop = mentorCrop;
         this.mentorYear = mentorYear;
         this.memberLocation = memberLocation;

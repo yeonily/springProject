@@ -30,7 +30,7 @@ public class ProgramListService {
     private final JPAQueryFactory jpaQueryFactory;
     //    프로그램 목록 전체 출력
     public List<ProgramDTO> showAll(){
-
+        LocalDateTime localDateTime = LocalDateTime.now();
         return jpaQueryFactory.select(new QProgramDTO(
 
                 program.programId,
@@ -68,7 +68,8 @@ public class ProgramListService {
                 program.programInquire,
                 program.member.memberId
 
-        )).from(program).fetch();
+        )).from(program).
+          where(program.programApplyEndDate.gt(localDateTime)).fetch();
     }
 
 //    선택한 프로그램의 첨부파일 가져오기
@@ -176,7 +177,7 @@ public List<ProgramDTO> showListByRecentApplyDate(){
 
     )).from(program)
             .orderBy(program.programApplyStartDate.desc())
-            .fetch();
+            .where(program.programApplyEndDate.gt(localDateTime)).fetch();
 }
 
 // 최근 마감일 순 정렬
@@ -223,7 +224,7 @@ public List<ProgramDTO> showListByRecentEndDate(){
 
     )).from(program)
             .orderBy(program.programApplyEndDate.desc())
-            .fetch();
+            .where(program.programApplyEndDate.gt(localDateTime)).fetch();
 }
 
 // 멘티 전용만 보이게 정렬
@@ -269,7 +270,7 @@ public List<ProgramDTO> showListByOnlyMentee(){
             program.member.memberId
 
     )).from(program)
-            .where(program.programType.eq(ProgramType.ONLY_MENTEE))
+            .where(program.programType.eq(ProgramType.ONLY_MENTEE).and(program.programApplyEndDate.gt(localDateTime)))
             .fetch();
 }
 
@@ -316,7 +317,7 @@ public List<ProgramDTO> showListByOnlyUser(){
             program.member.memberId
 
     )).from(program)
-            .where(program.programType.eq(ProgramType.ALL_USER))
+            .where(program.programType.eq(ProgramType.ALL_USER).and(program.programApplyEndDate.gt(localDateTime)))
             .fetch();
 }
 
@@ -363,7 +364,7 @@ public List<ProgramDTO> showListByUsePrice(){
             program.member.memberId
 
     )).from(program)
-            .where(program.programPrice.gt(0))
+            .where(program.programPrice.gt(0).and(program.programApplyEndDate.gt(localDateTime)))
             .fetch();
 }
 
@@ -411,11 +412,13 @@ public List<ProgramDTO> showListByFreePrice(){
             program.member.memberId
 
     )).from(program)
-            .where(program.programPrice.eq(0))
+            .where(program.programPrice.eq(0).and(program.programApplyEndDate.gt(localDateTime)))
             .fetch();
 }
 
     public List<ProgramDTO> findTop8ByOrderByProgramApplyEndDateDesc(){
+
+        LocalDateTime localDateTime = LocalDateTime.now();
 
         return jpaQueryFactory.select(new QProgramDTO(
 
@@ -455,6 +458,7 @@ public List<ProgramDTO> showListByFreePrice(){
                 program.member.memberId
 
         )).from(program)
+                .where(program.programApplyEndDate.gt(localDateTime))
                 .orderBy(program.programApplyEndDate.desc())
                 .limit(8)
                 .fetch();

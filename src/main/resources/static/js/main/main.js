@@ -151,3 +151,6 @@ function nicknameFirst() {
 
 }
 nicknameFirst();
+
+//테스트
+console.log("스코어는:" + $(".scores").val());

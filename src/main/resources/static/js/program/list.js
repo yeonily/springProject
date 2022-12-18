@@ -50,7 +50,7 @@ $(document).ready(function () {
                 text += '</div>'
                 console.log(list.files);
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -136,7 +136,7 @@ $("#showall-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -212,7 +212,7 @@ $("#progress-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -284,7 +284,7 @@ $("#recent-register-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -355,7 +355,7 @@ $("#recent-end-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -426,7 +426,7 @@ $("#mentee-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -499,7 +499,7 @@ $("#user-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -571,7 +571,7 @@ $("#pay-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }
@@ -643,7 +643,7 @@ $("#free-btn").on("click", function () {
                 text += '</div>'
                 text += '</div>'
                 if(nowDate > startDate){
-                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/s_' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + list.files[0].fileUploadPath + '/' + list.files[0].fileUuid + '_' + list.files[0].fileName + '>'
                 }else{
                     text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
                 }

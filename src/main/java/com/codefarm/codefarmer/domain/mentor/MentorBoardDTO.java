@@ -71,7 +71,7 @@ public class MentorBoardDTO {
 
 
     @QueryProjection
-    public MentorBoardDTO(Long mentorBoardId, String mentorCareer, String mentorExCareer, String mentorStrongTitle1, String mentorStrongContent1, String mentorStrongTitle2, String mentorStrongContent2, String mentorStrongTitle3, String mentorStrongContent3, String mentorTitle, String mentorTitleSub, String mentorTextTitle, String mentorTextContent, Long memberId) {
+    public MentorBoardDTO(Long mentorBoardId, String mentorCareer, String mentorExCareer, String mentorStrongTitle1, String mentorStrongContent1, String mentorStrongTitle2, String mentorStrongContent2, String mentorStrongTitle3, String mentorStrongContent3, String mentorTitle, String mentorTitleSub, String mentorTextTitle, String mentorTextContent, Long memberId, Long mentorId) {
         this.mentorBoardId = mentorBoardId;
         this.mentorCareer = mentorCareer;
         this.mentorExCareer = mentorExCareer;
@@ -86,6 +86,7 @@ public class MentorBoardDTO {
         this.mentorTextTitle = mentorTextTitle;
         this.mentorTextContent = mentorTextContent;
         this.memberId = memberId;
+        this.mentorId = mentorId;
     }
 
     public MentorBoard toEntity(){

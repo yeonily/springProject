@@ -309,7 +309,103 @@ div.input-div textarea {
     border: 1px solid #e1e4e6;
 }
 
+/*input이 있는 메뉴*/
+div.input-div-people {
+    margin-top: 40px;
+}
+div.input-div-people span {
+    font-size: 14px;
+    color: #595F63;
+}
+div.input-div-people p {
+    font-size: 12px;
+    color : #949BA0;
+    margin-top: 4px;
+}
+div.input-div-people input {
+    width: 226px;
+    height: 38px;
+    padding: 0 16px;
+    color: #3c4144;
+    font-size: 16px;
+    border: 1px solid #e1e4e6;
+    border-radius: 5px;
+    position: relative;
+}
+div.input-div-people input:focus {
+    outline: none;
+    border: 1px solid #3c4144;
+}
+div.input-div-people input::placeholder,
+div.input-div-people textarea::placeholder {
+    color: #cfd4d7;
+}
+div.input-div-people #input-image {
+    margin-top: 5px;
+    padding-left: 0;
+    border: 0;
+    text-align: center;
+}
 
+
+div.input-div-people textarea {
+    width: 710px;
+    height: 250px;
+    resize: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #e1e4e6;
+}
+
+/*input이 있는 메뉴*/
+div.input-div-pay {
+    margin-top: 40px;
+}
+div.input-div-pay span {
+    font-size: 14px;
+    color: #595F63;
+}
+div.input-div-pay p {
+    font-size: 12px;
+    color : #949BA0;
+    margin-top: 4px;
+}
+div.input-div-pay input {
+    width: 226px;
+    height: 38px;
+    padding: 0 16px;
+    color: #3c4144;
+    font-size: 16px;
+    border: 1px solid #e1e4e6;
+    border-radius: 5px;
+    position: relative;
+}
+div.input-div-pay input:focus {
+    outline: none;
+    border: 1px solid #3c4144;
+}
+div.input-div-pay input::placeholder,
+div.input-div-pay textarea::placeholder {
+    color: #cfd4d7;
+}
+div.input-div-pay #input-image {
+    margin-top: 5px;
+    padding-left: 0;
+    border: 0;
+    text-align: center;
+}
+
+
+div.input-div-pay textarea {
+    width: 710px;
+    height: 250px;
+    resize: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #e1e4e6;
+}
 
 /**************************************************************/
                         /*대표내용1 부분*/

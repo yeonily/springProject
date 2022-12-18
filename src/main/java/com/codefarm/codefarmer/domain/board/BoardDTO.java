@@ -39,13 +39,12 @@ public class BoardDTO {
     }
 
     @QueryProjection
-    public BoardDTO(Long boardId,String boardTitle, String boardContent, int boardViewCount, LocalDateTime createdDate, int replyCount){
+    public BoardDTO(Long boardId,String boardTitle, String boardContent, int boardViewCount, LocalDateTime createdDate){
         this.boardId = boardId;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardViewCount = boardViewCount;
         this.createdDate = createdDate;
-        this.replyCount = replyCount;
     }
 
     @QueryProjection

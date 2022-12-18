@@ -6,6 +6,8 @@ import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.entity.chat.Chat;
+import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.MentorBoard;
 import com.codefarm.codefarmer.repository.chat.ChatRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.service.chat.ChatRoomService;
@@ -26,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.ws.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,7 +56,25 @@ public class MentoController {
 
     @GetMapping("/intro")
     public void mentoIntro(Model model) {
-      model.addAttribute("lists",mentorService.getIntroMentor());
+        List<MentorBoardDTO> mentorBoardDTOs = mentorService.findMainList();
+        List<Long> mentorBoardIds = new ArrayList<>();
+        List<Double> mentorBoardAvg = new ArrayList<>();
+        List<Long> mentorBoardTotalCount = new ArrayList<>();
+
+        for (MentorBoardDTO mentorBoardDTO : mentorBoardDTOs){
+            mentorBoardDTO.setFiles(mentorService.showFiles(mentorBoardDTO.getMentorBoardId()));
+            mentorBoardIds.add(mentorBoardDTO.getMentorBoardId());
+        }
+
+        for(Long mentorBoardId : mentorBoardIds){
+            mentorBoardAvg.add(mentorService.findReviewAvg(mentorBoardId).get(0));
+            mentorBoardTotalCount.add(mentorService.findReviewCount(mentorBoardId).get(0));
+        }
+
+        model.addAttribute("mentorBoardAvg", mentorBoardAvg);
+        model.addAttribute("mentorBoardTotalCount", mentorBoardTotalCount);
+
+        model.addAttribute("lists", mentorBoardDTOs);
 
     }
 
@@ -63,6 +84,8 @@ public class MentoController {
         Object memberType = (Object)session.getAttribute("memberType");
         model.addAttribute("sessionMemberType", memberType);
         model.addAttribute("sessionMemberId", memberId);
+
+
     }
 
     @GetMapping("/write")
@@ -103,23 +126,28 @@ public class MentoController {
 
 //    멘토 수정 페이지 이동
     @GetMapping("/update")
-    public void update(Model model, @RequestParam Long mentorBoardId){
+    public String update(Model model, @RequestParam Long mentorBoardId){
         MentorBoardDTO updateRegister = mentorService.showUpdate(mentorBoardId);
         model.addAttribute("updateRegister", updateRegister);
+        return "/mento/update";
     }
 
 //    멘토 수정하고 제출버튼 클릭 시
     @PostMapping("/update")
-    public RedirectView updateFin(@RequestParam Long mentorBoardId,@RequestParam Long mentorId ,MentorBoardDTO mentorBoardDTO, HttpSession session){
+    public RedirectView updateFin(@RequestParam Long mentorBoardId, Long mentorId ,MentorBoardDTO mentorBoardDTO, HttpSession session, String mentorCareer){
         Long sessionId = (Long)session.getAttribute("memberId");
-        log.info("dto : " + mentorBoardDTO);
 //        세션에 memberId넣기
+        mentorBoardDTO.setMentorId(mentorService.showUpdate(mentorBoardId).getMentorId());
         mentorBoardDTO.setMemberId(sessionId);
-        mentorBoardDTO.setMentorId(mentorId);
-
         mentorBoardDTO.setMentorBoardId(mentorBoardId);
-        mentorService.update(mentorBoardDTO);
+        log.info("세션아이디 : " + sessionId);
+        log.info("보드아이디 : " + mentorBoardId);
+        log.info("멘토아이디 : " + mentorService.showUpdate(mentorBoardId).getMentorId());
 
+
+//        MentorBoard mentorBoard = mentorBoardDTO.toEntity();
+//        mentorBoard.update(mentorBoardDTO);
+        mentorService.update(mentorBoardDTO);
         return new RedirectView("list");
     }
 
@@ -131,20 +159,33 @@ public class MentoController {
         return new RedirectView("/mento/list");
     }
 
+//    멘토 신청
+    @GetMapping("/apply")
+    public void doApply(Model model, HttpSession session){
+        model.addAttribute("mentorMenteeDTO", new MentorMenteeDTO());
+    }
+
+
 //    멘토한테 멘티 신청 시(Type이 USER랑 MENTEE 둘다 멘토한테 신청 가능)
     @PostMapping("/apply")
-    public RedirectView apply(MentorMenteeDTO mentorMenteeDTO,@RequestParam Long mentorId ,HttpSession session){
+    public RedirectView apply(MentorMenteeDTO mentorMenteeDTO,@RequestParam Long mentorId,@RequestParam String mentorComment ,HttpSession session){
         Long sessionId = (Long)session.getAttribute("memberId");
-        MemberType sessionType = (MemberType)session.getAttribute("memberType");
+        log.info("멘토아이디 : " + mentorId);
+        log.info("멘토한줄평 : " + mentorComment);
+        log.info("세션아이디 : " + sessionId);
 
-        if(sessionType == MemberType.USER || sessionType == MemberType.MENTEE){
+//        MemberType sessionType = (MemberType)session.getAttribute("memberType");
+
+//        if(sessionType == MemberType.USER || sessionType == MemberType.MENTEE){
 
             mentorMenteeDTO.setMenteeId(sessionId);
 
             mentorMenteeDTO.setMentorId(mentorId);
 
+            mentorMenteeDTO.setMenteeComment(mentorComment);
+
             mentorMenteeApplyService.saveMenteeApply(mentorMenteeDTO);
-        }
+//        }
         return new RedirectView("/mento/list");
     }
 
