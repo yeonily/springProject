@@ -180,4 +180,12 @@ public class AlbaCustomRepositoryImpl implements AlbaCustomRepository {
                 .where(alba.member.memberName.contains(memberName))
                 .fetchOne());
     }
+
+    @Override
+    public List<Alba> showAdmin() {
+        return queryFactory.selectFrom(alba)
+                .orderBy(alba.albaId.desc())
+                .limit(5)
+                .fetch();
+    }
 }

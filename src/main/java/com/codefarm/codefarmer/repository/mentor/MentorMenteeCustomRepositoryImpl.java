@@ -52,4 +52,17 @@ public class MentorMenteeCustomRepositoryImpl implements MentorMenteeCustomRepos
                 )).collect(Collectors.toList());
     }
 
+    @Override
+    public List<MentorMenteeDTO> findByAdminMentee(Long mentorId) {
+        return jpaQueryFactory.selectFrom(mentorMentee).join(mentorMentee.mentor, member).fetchJoin()
+                .where(mentorMentee.mentor.memberId.eq(mentorId)).fetch()
+                .stream().map(mentorMentee -> new MentorMenteeDTO(
+                        mentorMentee.getMentorMenteeId(),
+                        mentorMentee.getMentee().getMemberId(),
+                        mentorMentee.getMentee().getMemberName(),
+                        mentorMentee.getMentee().getMemberNickname(),
+                        mentorMentee.getMentee().getMemberPhone()
+                )).collect(Collectors.toList());
+    }
+
 }

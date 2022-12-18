@@ -1,6 +1,7 @@
 package com.codefarm.codefarmer.entity.admin;
 
 import com.codefarm.codefarmer.domain.alba.AlbaDTO;
+import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.entity.alba.Alba;
@@ -10,6 +11,9 @@ import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.repository.alba.AlbaRepository;
 import com.codefarm.codefarmer.repository.alba.MemberAlbaRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorCustomRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorMenteeRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.repository.program.MemberProgramRepository;
 import com.codefarm.codefarmer.repository.program.ProgramRepository;
 import com.codefarm.codefarmer.type.*;
@@ -22,6 +26,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -44,6 +49,10 @@ public class AdminTest {
     private AlbaRepository albaRepository;
     @Autowired
     private MemberAlbaRepository memberAlbaRepository;
+    @Autowired
+    private MentorRepository mentorRepository;
+    private MentorCustomRepository mentorCustomRepository;
+    private MentorMenteeRepository mentorMenteeRepository;
 
 //    유저 등록
 
@@ -214,8 +223,21 @@ public class AdminTest {
     }
 
 
+// 멘토
+    @Test
+    public void mentorTest() {
+        String keyword = "nn";
+        String searchText = "";
+//        List<MentorDTO> mentors = mentorCustomRepository.ShowAllMentor(keyword, searchText);
+//
+//        mentors.stream().map(mentorDTO -> mentorDTO.getMemberNickname()).forEach(m -> log.info("" + m));
 
+    }
 
+    @Test
+    public void menteeTest(){
+        mentorMenteeRepository.findByAdminMentee(21L).stream().forEach(m -> log.info("멘티 → " + m));
 
+    }
 
 }

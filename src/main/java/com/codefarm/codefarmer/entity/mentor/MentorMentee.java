@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_MENTOR_MENTEE")
-@Getter
+@Getter @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MentorMentee extends Period {
     @Id @GeneratedValue

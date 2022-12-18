@@ -33,7 +33,7 @@ public class Mentor extends Period {
     @NotNull
     private String mentorYear;
 
-    @OneToMany (fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Program> programs;
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "mentor", cascade = CascadeType.REMOVE)
     private List<MentorMentee> mentorMentees;

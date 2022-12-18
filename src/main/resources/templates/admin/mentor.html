@@ -75,22 +75,25 @@
                         <th class="num">번호</th>
                         <th class="name">멘토</th>
                         <th class="nickName">닉네임</th>
-                        <th class="programCount">진행하는 프로그램 수</th>
-                        <th class="menteeCount">멘티수</th>
                         <th class="career">연차</th>
+                        <th class="phone">전화번호</th>
                         <th class="region">지역</th>
+                        <th class="menteeCount" style="width: 8%;">멘티 목록</th>
                     </tr>
 
                     <!-- ↓ 데이터 출력 -->
                     <th:block th:each="mentor :${mentors}">
                         <tr class="title" th:object="${mentor}">
                             <td class="num" th:text="*{mentorId}"></td>
-                            <td class="name" th:text="*{memberName}"></td>
-                            <td class="nickName" th:text="*{memberNickname}"></td>
-                            <td class="programCount"><span th:text="*{programCount}"/>개</td>
-                            <td class="menteeCount" ><button id="main_fixed_button"><span th:text="*{menteeCount}"/>명</button></td>
+                            <td class="name">
+                                <span th:text="*{member.getMemberId}"></span>
+                                <span th:text="*{member.getMemberName}"></span>
+                            </td>
+                            <td class="nickName" th:text="*{member.getMemberNickname}"></td>
                             <td class="career" th:text="*{mentorYear}"></td>
-                            <td class="region" th:text="*{memberLocation}"></td>
+                            <td class="phone" th:text="*{member.getMemberPhone}"></td>
+                            <td class="region" th:text="*{member.getMemberLocation}"></td>
+                            <td class="menteeCount" th:onclick="|javascript:menteeShow('*{member.getMemberId}')|">></td>
                         </tr>
                     </th:block>
                     <tr th:if="${data}">
@@ -126,141 +129,7 @@
                                 <div class="m-title">멘티 정보보기</div>
                                 <form action="">
                                     <div class="m-c-wrap">
-                                        <table style="margin-bottom: 0px;">
-                                            <tr>
-                                                <th class="name">이름</th>
-                                                <th class="nickName">닉네임</th>
-                                                <th class="phoneNumber">핸드폰 번호</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">연태관</td>
-                                                <td class="nickName">herd</td>
-                                                <td class="phoneNumber">010-2402-0324</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">연태관</td>
-                                                <td class="nickName">herd</td>
-                                                <td class="phoneNumber">010-2402-0324</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr><tr>
-                                            <td class="name">연태관</td>
-                                            <td class="nickName">herd</td>
-                                            <td class="phoneNumber">010-2402-0324</td>
-                                        </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="name">연태관</td>
-                                            <td class="nickName">herd</td>
-                                            <td class="phoneNumber">010-2402-0324</td>
-                                        </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr><tr>
-                                            <td class="name">연태관</td>
-                                            <td class="nickName">herd</td>
-                                            <td class="phoneNumber">010-2402-0324</td>
-                                        </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">김민혁</td>
-                                                <td class="nickName">kmh</td>
-                                                <td class="phoneNumber">010-9999-9999</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">연태관</td>
-                                                <td class="nickName">herd</td>
-                                                <td class="phoneNumber">010-2402-0324</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">연태관</td>
-                                                <td class="nickName">herd</td>
-                                                <td class="phoneNumber">010-2402-0324</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">연태관</td>
-                                                <td class="nickName">herd</td>
-                                                <td class="phoneNumber">010-2402-0324</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">연태관</td>
-                                                <td class="nickName">herd</td>
-                                                <td class="phoneNumber">010-2402-0324</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">정호석</td>
-                                                <td class="nickName">jhs</td>
-                                                <td class="phoneNumber">010-2134-1234</td>
-                                            </tr>
-                                        </table>
+                                        <table style="margin-bottom: 0px;" id="menteeLists"></table>
                                     </div>
                                     <div class="applyBtnWrap">
                                         <button type="button" class="cancel">닫기</button>
@@ -279,10 +148,40 @@
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script src="/js/admin/modal.js"></script>
-<script>
+<script src="/js/admin/mentor.js"></script>
+<script th:inline="javascript">
     const urlParams = new URL(location.href).searchParams;
     const keyword = urlParams.get('keyword');
+
+    function menteeShow(memberId){
+        mentorService.getList(memberId, menteeList);
+        $("#modal").show();
+    };
+
+    $("button.cancel").on("click", function(){
+        $("#modal").hide();
+    });
+
+    function menteeList(mentees) {
+        let text = "";
+        if (mentees.length == 0) {
+            text += `<tr><td style="padding: 40px;">매칭된 멘티가 없습니다.</td></tr>`;
+        } else {
+            text += `<tr>`;
+            text += `<th class="name">이름</th>`;
+            text += `<th class="nickName">닉네임</th>`;
+            text += `<th class="phoneNumber">핸드폰 번호</th>`;
+            text += `</tr>`;
+            mentees.forEach(function(mentorMentee){
+                text += `<tr>`;
+                text += `<th class="name">` + mentorMentee.menteeName + `</th>`;
+                text += `<th class="nickName">` + mentorMentee.menteeNickName + `</th>`;
+                text += `<th class="phoneNumber">` + mentorMentee.menteePhone + `</th>`;
+                text += `</tr>`;
+            });
+        }
+        $("#menteeLists").html(text);
+    };
 
     // 검색 옵션
     if(keyword == null || keyword == "") {

@@ -280,6 +280,13 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 
     }
 
+    @Override
+    public List<Member> showAdmin() {
+        return jpaQueryFactory.selectFrom(member)
+                .orderBy(member.memberId.desc())
+                .limit(5)
+                .fetch();
+    }
 
 
 }

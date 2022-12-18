@@ -45,4 +45,7 @@ public interface MemberCustomRepository {
     public List<MemberProgramDTO> selectMyPay(Long memberId);
     //프로그램 신청 내역
     public MemberProgramDTO selectApplyInfo(Long programApplyId, Long memberId);
+
+    //관리자 메인 페이지
+    public List<Member> showAdmin();
 }

@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/common/font.css"/>
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <footer th:fragment="footer">
+        <script>
+            function loginAdimin(e) {
+                alert("관리자로 로그인 후 이용해주세요.");
+                location.href="/login/";
+            }
+
+            function loginCheck() {
+                alert("로그인 후 이용해주세요.");
+                location.href="/login/";
+            }
+        </script>
         <div class="footer-container">
             <!--푸터에서 상단 영역-->
             <div class="footer-top-wrap">
@@ -30,12 +42,14 @@
                 <div class="section">
                     <h2>관리자</h2>
                     <ul style="width: 185px">
-                        <li><a href="/admin/main">관리자 페이지 이동</a></li>
+                        <li th:if="${session.memberType == 'ADMIN'}"><a href="/admin/main">관리자 페이지 이동</a></li>
+                        <li th:unless="${session.memberType == 'ADMIN'}"><a href="javascript:void(0);" onclick="javascript:loginAdimin();">관리자 페이지 이동</a></li>
                     </ul>
                 </div>
                 <div class="infoCenter">
                     <h2>고객센터</h2><span class="miniText">*코로나19로 전화상담이 제한됩니다.</span>
-                    <button type="button" th:onclick="|location.href='@{/help}'|"><span class="headsetImg"></span>1:1 문의하기</button>
+                    <button type="button" th:if="${session.memberId == null}" onclick="javascript:loginCheck();"><span class="headsetImg"></span>1:1 문의하기</button>
+                    <button type="button" th:unless="${session.memberId == null}" th:onclick="|location.href='@{/help}'|"><span class="headsetImg"></span>1:1 문의하기</button>
                     <p>운영시간 : 평일 10시 ~ 18시 30분 (주말, 공휴일 제외)</p>
                     <p>점심시간 : 12시 30분 ~ 14시</p>
                 </div>

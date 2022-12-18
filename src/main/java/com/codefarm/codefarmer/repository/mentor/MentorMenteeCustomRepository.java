@@ -12,4 +12,6 @@ public interface MentorMenteeCustomRepository {
     //멘토아이디로 멘티정보 찾기
     public List<MentorMenteeDTO> selectByMentorId(Long mentorId);
 
+    //관리자
+    public List<MentorMenteeDTO> findByAdminMentee(Long mentorId);
 }

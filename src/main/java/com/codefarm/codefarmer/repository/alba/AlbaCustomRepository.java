@@ -21,4 +21,6 @@ public interface AlbaCustomRepository {
     public List<Alba> findByAlbaLikeMemberName(String memberNickname);
     // 작성자 검색했을 시 개수
     public Integer countByMemberName(String memberNickname);
+    // 관리자 화면
+    public List<Alba> showAdmin();
 }
