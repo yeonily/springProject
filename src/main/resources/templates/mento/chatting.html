@@ -65,7 +65,7 @@
                             <p class="list_text_p2">*욕설 및 비방, 비하의 채팅을 하지말아주세요!</p>
                         </div>
                         <div style="margin-top: 10px; float: right">
-                            <input type="button" id="apply_button" value="멘토 신청하기">
+                            <input type="button" id="apply_button" value="너와 농부싶어" disabled>
                         </div>
                     </div>
                 </div>
@@ -162,7 +162,9 @@
 <script src="/js/mento/chatting.js"></script>
 <script src="/js/chat/chatting.js"></script>
 <script>
-
+    $(".left_lists_a").on("click", function () {
+        $("#apply_button").val("채팅중");
+    })
 
 </script>
 </html>
