@@ -65,20 +65,20 @@
                             </div>
                             <!------------------------>
                         </div>
-                        <div id="paging" style="display: none">
-                            <ul>
-                                <li class="sidePageNum prev">
-                                    <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                                </li>
-                                <li><a href="" class="page selectPage">1</a></li>
-                                <li><a href="" class="page">2</a></li>
-                                <li><a href="" class="page">3</a></li>
-                                <li><a href="" class="page">4</a></li>
-                                <li><a href="" class="page">5</a></li>
-                                <li class="sidePageNum next">
-                                    <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                                </li>
-                            </ul>
+                        <div id="paging" style="margin-bottom: 100px;">
+                            <!--                    <ul th:with="start=${(albas.number/maxPage)*maxPage + 1}, end=(${(albas.totalPages == 0) ? 1 : (start + (maxPage - 1) < albas.totalPages ? start + (maxPage - 1) : albas.totalPages)})">-->
+                            <!--                        <li class="sidePageNum prev" th:if="${albas.pageable.pageNumber > 0}">-->
+                            <!--                            <a th:href="@{/alba/list(page=${((albas.pageable.pageNumber/5)*5) - 1})}" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>-->
+                            <!--                        </li>-->
+                            <!--                        <th:block  th:each="i: ${#numbers.sequence(start, end)}">-->
+                            <!--                            <li>-->
+                            <!--                                <a class="page" th:href="@{/alba/list(page=${i - 1})}" th:classappend="${i == albas.pageable.pageNumber + 1} ? 'selectPage' : '' " th:text="${i}">1</a>-->
+                            <!--                            </li>-->
+                            <!--                        </th:block >-->
+                            <!--                        <li class="sidePageNum next" th:if="${end < albas.totalPages}">-->
+                            <!--                            <a th:href="@{/alba/list(page=${end})}" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>-->
+                            <!--                        </li>-->
+                            <!--                    </ul>-->
                         </div>
                     </div>
                 </div>
@@ -139,32 +139,40 @@
     }
 
     $("#c-w-wrap").on("click", ".commu", function(){
-        var n = $('input[name=abId]').val();
-        viewDetail(n);
+        let albaId = this.classList[2];
+        viewDetail(albaId);
     })
 //----------------------------------------
     let memberId = [[${member.memberId}]];
     let memberType = [[${member.memberType}]];
+    globalThis.page = 1;
 
     if(memberType == 'FARMER' || memberType == 'MENTOR'){
         $(document).ready(function () {
             myPageService.getAbList({
-                memberId: memberId
+                page: globalThis.page
             }, getList);
         })
     }else{
         $(document).ready(function () {
             myPageService.getApplyAbList({
-                memberId: memberId
+                page: globalThis.page
             }, getApplyList);
         })
     }
 
 //내가 등록한 알바 목록
+
+    function showNew(){
+        myPageService.getAbList({
+            page: globalThis.page
+        }, getList);
+    }
+
     function getList(albas){
         let text = "";
 
-        if(albas.length == 0){
+        if(albas.content.length == 0){
             text += '<div id="content-wrap">'
             text += '<div class="n-c-wrap" style="line-height: 25px;">'
             text += '아르바이트 목록이 없어요.<br>'
@@ -175,7 +183,7 @@
             return;
         }
 
-        albas.forEach(function (albaDTO) {
+        albas.content.forEach(function (albaDTO) {
             nowDate = new Date();
             nowDateDTO1 = albaDTO.albaApplyStartDate;
             nowDateDTO2 = albaDTO.albaApplyEndDate;
@@ -184,7 +192,7 @@
 
             text += '<div class="alba-list" th:object="${albaDTO}">'
             var number = albaDTO.albaId;
-            text += '<div class="commu c-link">'
+            text += "<div class='commu c-link "+albaDTO.albaId+"'>"
             text += '<input type="hidden" name="abId" value="'+number+'">'
             text += '<div class="c-top-wrap">'
             text += '<div class="t-s-wrap">'
@@ -217,13 +225,69 @@
             text += '</div>'
         })
         $("div#alba-list").html(text);
+
+        showNewPage(albas.totalElements);
     }
 
-//내가 신청한 알바 목록
-    function getApplyList(albas){
+    function showNewPage(totalElements){
+        let endNumber = Math.ceil(globalThis.page / 5) * 5;
+        let startNumber = endNumber - 4;
+        let realEnd = Math.ceil(totalElements/ 10);
+
+        if(endNumber > realEnd){
+            endNumber = realEnd == 0 ? '1' : realEnd;
+        }
+
+        let prev = startNumber > 1;
+        let next = endNumber < realEnd ;
+
         let text = "";
 
-        if(albas.length == 0){
+        text += '<ul>'
+        text += '<li className="sidePageNum prev">'
+        if(prev){
+            text += `<a class="payPage" href="` + (startNumber - 1) + `"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="fill: #3c4144; margin-top: 4px; transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '<li>'
+        for (let i=startNumber; i<=endNumber; i++){
+            if(globalThis.page == i){
+                text += `<code class="selectPage">` + i + `</code>`
+                continue;
+            }
+            text += `<a class="payPage" href="`+ i + `"><code>` + i + `</code></a>`
+        }
+        text += '</li>'
+        if(next){
+            text += `<li class="sidePageNum next"><a class="payPage" href="` + (endNumber + 1) + `"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '</ul>'
+
+        $("#paging").html(text);
+    }
+
+    $("div#paging").on("click", "a.payPage", function(e){
+        console.log("들어옴?");
+        e.preventDefault();
+        globalThis.page = $(this).attr("href");
+        showNew();
+    });
+
+//내가 신청한 알바 목록
+
+    function showNewApply(){
+        myPageService.getApplyAbList({
+            page: globalThis.page
+        }, getApplyList);
+    }
+
+    function getApplyList(albas){
+        let text = "";
+        console.log("들어옴1");
+        console.log(albas.totalElements);
+        console.log(albas.content);
+        console.log(albas);
+
+        if(albas.content.length == 0){
             text += '<div id="content-wrap">'
             text += "<div class='n-c-wrap'>";
             text += "너와농부싶어와 함께하는 아르바이트를 확인해보세요!";
@@ -234,8 +298,10 @@
             return;
         }
 
-        albas.forEach(function (albaDTO) {
-            text += '<div class="alba-list" th:object="${albaDTO}">'
+        albas.content.forEach(function (albaDTO) {
+            console.log("들어옴2");
+            console.log(albaDTO);
+            text += '<div class="alba-list" >'
             var number = albaDTO.albaId;
             text += '<div class="commu c-link">'
             text += '<input type="hidden" name="abId" value="'+number+'">'
@@ -266,6 +332,53 @@
             text += '</div>'
         })
         $("div#alba-apply-list").html(text);
+
+        showNewApplyPage(albas.totalElements);
     }
+
+
+    function showNewApplyPage(totalElements){
+        let endNumber = Math.ceil(globalThis.page / 5) * 5;
+        let startNumber = endNumber - 4;
+        let realEnd = Math.ceil(totalElements/ 10);
+
+        if(endNumber > realEnd){
+            endNumber = realEnd == 0 ? '1' : realEnd;
+        }
+
+        let prev = startNumber > 1;
+        let next = endNumber < realEnd ;
+
+        let text = "";
+
+        text += '<ul>'
+        text += '<li className="sidePageNum prev">'
+        if(prev){
+            text += `<a class="payPage" href="` + (startNumber - 1) + `"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="fill: #3c4144; margin-top: 4px; transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '<li>'
+        for (let i=startNumber; i<=endNumber; i++){
+            if(globalThis.page == i){
+                text += `<code class="selectPage">` + i + `</code>`
+                continue;
+            }
+            text += `<a class="payPage" href="`+ i + `"><code>` + i + `</code></a>`
+        }
+        text += '</li>'
+        if(next){
+            text += `<li class="sidePageNum next"><a class="payPage" href="` + (endNumber + 1) + `"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '</ul>'
+
+        $("#paging").html(text);
+    }
+
+    $("div#paging").on("click", "a.payPage", function(e){
+        console.log("들어옴?");
+        e.preventDefault();
+        globalThis.page = $(this).attr("href");
+        showNewApply();
+    });
+
 </script>
 </html>

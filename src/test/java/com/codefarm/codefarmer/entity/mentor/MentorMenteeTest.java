@@ -5,6 +5,7 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.MentorMentee;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorMenteeRepository;
+import com.codefarm.codefarmer.type.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,16 @@ public class MentorMenteeTest {
         mentorMenteeRepository.deleteById(1l);
     }
 
+    @Test
+    public void selectByMentorIdTest(){
+        Long mentorId = 1l;
+        //상태가 confirm일 때
+//        mentorMenteeRepository.selectByMentorId(mentorId, Status.CONFIRM).stream().map(MentorMenteeDTO::getMenteeId).forEach(v->log.info(v+""));
+        //상태가 waiting일 때
+        mentorMenteeRepository.selectByMentorId(mentorId, Status.WAITING).stream().map(MentorMenteeDTO::getMenteeId).forEach(v->log.info(v+""));
+        //상태가 reject일 때
+//        mentorMenteeRepository.selectByMentorId(mentorId, Status.REJECT).stream().map(MentorMenteeDTO::getMenteeId).forEach(v->log.info(v+""));
+
+    }
 
 }

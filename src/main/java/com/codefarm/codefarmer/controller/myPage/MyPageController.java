@@ -14,6 +14,7 @@ import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
+import com.codefarm.codefarmer.repository.inquire.InquireAnswerRepository;
 import com.codefarm.codefarmer.service.admin.InquireService;
 import com.codefarm.codefarmer.service.alba.AlbaDetailService;
 import com.codefarm.codefarmer.service.board.BoardService;
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,8 +57,9 @@ public class MyPageController {
         Member member= memberService.find((Long)session.getAttribute("memberId"));
         model.addAttribute("member", member);
         int countOfInquire = memberService.findMyInquire(member.getMemberId()).size();
-        int countOfBoard = memberService.findMyBoard(member.getMemberId()).size();
+//        int countOfBoard = memberService.findMyBoard(member.getMemberId()).size();
         int countOfMyProgram = memberService.findMyProgramRegister(member.getMemberId()).size();
+        Long countOfBoard = boardService.showBoardCountMine((Long)session.getAttribute("memberId"));
         model.addAttribute("countOfInquire", countOfInquire);
         model.addAttribute("countOfBoard", countOfBoard);
         model.addAttribute("countOfMyProgram", countOfMyProgram);
@@ -229,14 +232,20 @@ public class MyPageController {
 
     //문의글 답변 페이지 이동
     @GetMapping("/inquire/question")
-    public String myInquirePage(Model model, HttpSession session, @RequestParam Long inquireId){
+    public String myInquirePage(Model model, HttpSession session, @RequestParam String inquireId){
         Member member= memberService.find((Long)session.getAttribute("memberId"));
-        Inquire inquire = inquireService.showInquireOne(inquireId);
-        InquireAnswer ia = inquireService.answerCheck(inquireService.showInquireOne(inquireId));
+        Long inquiredIdL = Long.parseLong(inquireId);
+        Inquire inquire = inquireService.showInquireOne(inquiredIdL);
         model.addAttribute("member", member);
         model.addAttribute("inquire", inquire);
-        model.addAttribute("inquireAnswer", ia);
-        log.info("id"+inquireId);
+        Optional<InquireAnswer> ia = inquireService.showAnswer(inquiredIdL);
+        if(ia.isPresent()){
+            log.info("ia :"+ia.get());
+            log.info("ia :"+ia.get().getInquireAnswer());
+            model.addAttribute("inquireAnswer", ia.get());
+        }
+        log.info("inquire :"+inquire);
+        log.info("inquireStatus :"+inquire.getInquireStatus());
         return "/myPage/myInquire";
     }
 

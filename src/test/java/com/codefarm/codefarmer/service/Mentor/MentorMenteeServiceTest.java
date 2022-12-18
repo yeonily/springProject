@@ -45,7 +45,7 @@ public class MentorMenteeServiceTest {
         Optional<Member> findMentor = memberRepository.findById(1L);
 
         mentorMenteeDTO.setMenteeComment("나 너의 멘티가 될래");
-        mentorMenteeDTO.setMenteeStatus(Status.WAITING);
+//        mentorMenteeDTO.setMenteeStatus(Status.WAITING);
         mentorMenteeDTO.setMenteeId(findMentee.get().getMemberId());
         mentorMenteeDTO.setMentorId(findMentor.get().getMemberId());
         mentorMenteeApplyService.saveMenteeApply(mentorMenteeDTO);

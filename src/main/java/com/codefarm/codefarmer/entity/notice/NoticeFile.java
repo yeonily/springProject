@@ -3,6 +3,8 @@ package com.codefarm.codefarmer.entity.notice;
 import com.codefarm.codefarmer.domain.notice.NoticeFileDTO;
 import com.codefarm.codefarmer.entity.period.Period;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -21,6 +23,7 @@ public class NoticeFile extends Period{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NOTICE_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Notice notice;
 
     public void changeNotice(Notice notice){

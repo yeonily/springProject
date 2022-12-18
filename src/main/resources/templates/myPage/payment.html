@@ -43,20 +43,20 @@
                             </div>
                         </div>
 
-                        <div id="paging" style="display: none">
-                            <ul>
-                                <li class="sidePageNum prev">
-                                    <a href="" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                                </li>
-                                <li><a href="" class="page selectPage">1</a></li>
-                                <li><a href="" class="page">2</a></li>
-                                <li><a href="" class="page">3</a></li>
-                                <li><a href="" class="page">4</a></li>
-                                <li><a href="" class="page">5</a></li>
-                                <li class="sidePageNum next">
-                                    <a href="" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>
-                                </li>
-                            </ul>
+                        <div id="paging" style="margin-bottom: 100px;">
+                            <!--                    <ul th:with="start=${(albas.number/maxPage)*maxPage + 1}, end=(${(albas.totalPages == 0) ? 1 : (start + (maxPage - 1) < albas.totalPages ? start + (maxPage - 1) : albas.totalPages)})">-->
+                            <!--                        <li class="sidePageNum prev" th:if="${albas.pageable.pageNumber > 0}">-->
+                            <!--                            <a th:href="@{/alba/list(page=${((albas.pageable.pageNumber/5)*5) - 1})}" class="page"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>-->
+                            <!--                        </li>-->
+                            <!--                        <th:block  th:each="i: ${#numbers.sequence(start, end)}">-->
+                            <!--                            <li>-->
+                            <!--                                <a class="page" th:href="@{/alba/list(page=${i - 1})}" th:classappend="${i == albas.pageable.pageNumber + 1} ? 'selectPage' : '' " th:text="${i}">1</a>-->
+                            <!--                            </li>-->
+                            <!--                        </th:block >-->
+                            <!--                        <li class="sidePageNum next" th:if="${end < albas.totalPages}">-->
+                            <!--                            <a th:href="@{/alba/list(page=${end})}" class="page"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a>-->
+                            <!--                        </li>-->
+                            <!--                    </ul>-->
                         </div>
 
                     </div>
@@ -78,19 +78,25 @@
 
 //--------------------------------------------------
     let memberId = [[${member.memberId}]];
+    globalThis.page = 1;
     $(document).ready(function () {
         myPageService.getApplyPayList({
-            memberId: memberId
+            page: globalThis.page
         }, getList);
+
     })
 
-    globalThis.page = 1;
+    function showNew(){
+        myPageService.getApplyPayList({
+            page: globalThis.page
+        }, getList);
+    }
 
     function getList(memberPrograms){
 
         let text = "";
 
-        if(memberPrograms.length == 0){
+        if(memberPrograms.content.length == 0){
             text += '<div class="n-c-wrap">';
             text += '결제 내역이 없습니다.';
             text += '</div>';
@@ -98,7 +104,7 @@
             return;
         }
 
-        memberPrograms.forEach(function (memberProgramDTO) {
+        memberPrograms.content.forEach(function (memberProgramDTO) {
             text += '<div class="payment" >'
             let date = new Date(memberProgramDTO.updateDate);
             let year = date.getFullYear();
@@ -114,6 +120,55 @@
             text += '</div>'
         })
         $("div#content-wrap").html(text);
+
+        showNewPage(memberPrograms.totalElements);
     }
+
+
+
+    function showNewPage(totalElements){
+        let endNumber = Math.ceil(globalThis.page / 5) * 5;
+        let startNumber = endNumber - 4;
+        let realEnd = Math.ceil(totalElements/ 10);
+
+        if(endNumber > realEnd){
+            endNumber = realEnd == 0 ? '1' : realEnd;
+        }
+
+        let prev = startNumber > 1;
+        let next = endNumber < realEnd ;
+
+        let text = "";
+
+        text += '<ul>'
+        text += '<li className="sidePageNum prev">'
+        if(prev){
+            text += `<a class="payPage" href="` + (startNumber - 1) + `"><svg width="16" height="16" class="sidePageDisabled" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="fill: #3c4144; margin-top: 4px; transform:rotate(270deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '<li>'
+        for (let i=startNumber; i<=endNumber; i++){
+            if(globalThis.page == i){
+                text += `<code class="selectPage">` + i + `</code>`
+                continue;
+            }
+            text += `<a class="payPage" href="`+ i + `"><code>` + i + `</code></a>`
+        }
+        text += '</li>'
+        if(next){
+            text += `<li class="sidePageNum next"><a class="payPage" href="` + (endNumber + 1) + `"><svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(90deg);" data-v-bd9f2bcc="" data-v-30c80689=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.64645 4.64645C7.84171 4.45118 8.15829 4.45118 8.35355 4.64645L12.8536 9.14645C13.0488 9.34171 13.0488 9.65829 12.8536 9.85355C12.6583 10.0488 12.3417 10.0488 12.1464 9.85355L8 5.70711L3.85355 9.85355C3.65829 10.0488 3.34171 10.0488 3.14645 9.85355C2.95118 9.65829 2.95118 9.34171 3.14645 9.14645L7.64645 4.64645Z" data-v-bd9f2bcc=""></path></svg></a></li>`
+        }
+        text += '</ul>'
+
+        $("#paging").html(text);
+    }
+
+    $("div#paging").on("click", "a.payPage", function(e){
+        console.log("들어옴?");
+        e.preventDefault();
+        globalThis.page = $(this).attr("href");
+        showNew();
+    });
+
+
 </script>
 </html>
