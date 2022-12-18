@@ -49,9 +49,9 @@
                                         <div class="sidebox-difficulty-info">
                                             <strong class="s" th:if="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="멘티전용"></strong>
                                             <strong class="s" th:unless="${#strings.equals(list.programType,'ONLY_MENTEE')}" th:text="전체사용자용"></strong>
-                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'BASIC')}" th:text="베이직"></strong>
-                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'SKILL_UP')}" th:text="스킬업"></strong>
-                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'MASTER')}" th:text="마스터"></strong>프로그램입니다.</div>
+                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'BASIC')}" th:text="초급"></strong>
+                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'SKILL_UP')}" th:text="중급"></strong>
+                                            <strong class="s" th:if="${#strings.equals(list.programLevel,'MASTER')}" th:text="고급"></strong>프로그램입니다.</div>
                                     </div>
                                     <div class="sidebox-info">
                                         <div class="sidebox-item-content">
@@ -74,21 +74,41 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <a class="apply-a"  th:if="${#bools.isFalse(check)}" th:href="@{/program/apply(programId=${list.programId})}">
+                                <div th:switch="${check}">
+                                <a class="apply-a" th:case="register" th:href="@{/program/update(programId=${list.programId})}">
+                                    <button class="apply-button" >
+                                        <div class="button-icon"></div>
+                                        프로그램 수정하기
+                                        <div class="button-icon"></div>
+                                    </button>
+                                </a>
+                                <a class="apply-a"  th:case="user" th:href="@{/program/apply(programId=${list.programId})}">
                                     <button class="apply-button">
                                         <div class="button-icon"></div>
                                         프로그램 신청하기
                                         <div class="button-icon"></div>
                                     </button>
                                 </a>
-                                <a class="apply-a" th:unless="${#bools.isFalse(check)}">
+                                <a class="apply-a" th:case="apply">
                                     <button class="apply-button" style="pointer-events: none; background-color: #818181;">
                                         <div class="button-icon"></div>
                                         이미 신청한 프로그램 입니다.
                                         <div class="button-icon"></div>
                                     </button>
                                 </a>
+                                <a class="apply-a" th:case="isNotMentoMentee">
+                                    <button class="apply-button" style="pointer-events: none; background-color: #818181;">
+                                        <div class="button-icon"></div>
+                                        멘토 관계가 아닙니다
+                                        <div class="button-icon"></div>
+                                    </button>
+<!--                                    <button class="apply-button" th:href="@{/program/apply(programId=${list.programId})}">-->
+<!--                                        <div class="button-icon"></div>-->
+<!--                                        멘토 신청하기-->
+<!--                                        <div class="button-icon"></div>-->
+<!--                                    </button>-->
+                                </a>
+                                </div>
                             </div>
                         </article>
                         <div class="pg-deadline-timer">
