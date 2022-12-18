@@ -309,13 +309,13 @@ $("button.submitBtn").on("click", function (){
         return;
     }
 
-    $("div.m-title").css("color", "#47c880");
-    $("div.m-title").text("글이 정상적으로 등록되었습니다.");
-    $("div.m-c-title").text("목록 페이지로 이동합니다.");
-    $("div#modal").show();
-    $("button.cancel").on("click", function(){
-        location.href='/alba/list';
-    });
+    // $("div.m-title").css("color", "#47c880");
+    // $("div.m-title").text("글이 정상적으로 등록되었습니다.");
+    // $("div.m-c-title").text("목록 페이지로 이동합니다.");
+    // $("div#modal").show();
+    // $("button.cancel").on("click", function(){
+    //     location.href='/alba/list';
+    // });
 
     $("#writeForm").submit();
 });
