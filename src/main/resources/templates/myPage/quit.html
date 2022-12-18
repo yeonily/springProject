@@ -73,6 +73,7 @@
             </div>
             <div class="m-wrap">
                 <div class="m-title">탈퇴 사유</div>
+                <th:block th:if="${#strings.endsWith(session.oauthId,'k')}">
                 <form th:action="@{/login/quitkakao}" name="quitForm" >
                     <div class="m-c-wrap">
                         <div class="m-c-title">더 나은 서비스를 위해 탈퇴 사유를 알려주시겠어요?</div>
@@ -108,6 +109,82 @@
                         <button class="quitBtn" onclick="quitBtn()">회원 탈퇴하기</button>
                     </div>
                 </form>
+                </th:block>
+                <th:block th:if="${#strings.endsWith(session.oauthId,'n')}">
+                    <form th:action="@{/login/quitnaver}" name="quitForm" >
+                        <div class="m-c-wrap">
+                            <div class="m-c-title">더 나은 서비스를 위해 탈퇴 사유를 알려주시겠어요?</div>
+                            <div class="m-text">
+                                <input type="radio" id="q-r-5" name="reason" class="m-r-reason">
+                                <label class="m-reason" for="q-r-5">
+                                    <div class="r-r-text">아이디 변경/재가입을 위해</div>
+                                </label>
+                            </div>
+                            <div class="m-text">
+                                <input type="radio" id="q-r-6" name="reason" class="m-r-reason">
+                                <label class="m-reason" for="q-r-6">
+                                    <div class="r-r-text">원하는 서비스/정보가 없어서</div>
+                                </label>
+                            </div>
+                            <div class="m-text">
+                                <input type="radio" id="q-r-7" name="reason" class="m-r-reason m-reason">
+                                <label class="m-reason" for="q-r-7">
+                                    <div class="r-r-text">이용이 불편해서</div>
+                                </label>
+                            </div>
+                            <div class="m-text">
+                                <input type="radio" id="q-r-8" name="reason" class="m-r-reason reason-etc" value="reason-etc">
+                                <label class="m-reason" for="q-r-8">
+                                    <div class="r-r-text">기타</div>
+                                </label>
+                            </div>
+                            <div class="quit-reason">
+                                <input type="text" class="q-r-input" placeholder="50자 내외로 작성해주세요." maxlength="50">
+                            </div>
+                        </div>
+                        <div class="quitBtnWrap">
+                            <button class="quitBtn" onclick="quitBtn()">회원 탈퇴하기</button>
+                        </div>
+                    </form>
+                </th:block>
+<!--                <th:block th:if=${#strings.endsWith(session.oauthId,'n')}">-->
+<!--                    <form th:action="@{/login/quitnaver}" name="quitForm" >-->
+<!--                        &lt;!&ndash;                <form th:action="@{/login/quitgoogle}" name="quitForm" th:if=${#strings.endsWith(session.oauthId,'g')}">&ndash;&gt;-->
+<!--                        <div class="m-c-wrap">-->
+<!--                            <div class="m-c-title">더 나은 서비스를 위해 탈퇴 사유를 알려주시겠어요?</div>-->
+<!--                            <div class="m-text">-->
+<!--                                <input type="radio" id="q-r-1" name="reason" class="m-r-reason">-->
+<!--                                <label class="m-reason" for="q-r-1">-->
+<!--                                    <div class="r-r-text">아이디 변경/재가입을 위해</div>-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="m-text">-->
+<!--                                <input type="radio" id="q-r-2" name="reason" class="m-r-reason">-->
+<!--                                <label class="m-reason" for="q-r-2">-->
+<!--                                    <div class="r-r-text">원하는 서비스/정보가 없어서</div>-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="m-text">-->
+<!--                                <input type="radio" id="q-r-3" name="reason" class="m-r-reason m-reason">-->
+<!--                                <label class="m-reason" for="q-r-3">-->
+<!--                                    <div class="r-r-text">이용이 불편해서</div>-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="m-text">-->
+<!--                                <input type="radio" id="q-r-4" name="reason" class="m-r-reason reason-etc" value="reason-etc">-->
+<!--                                <label class="m-reason" for="q-r-4">-->
+<!--                                    <div class="r-r-text">기타</div>-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="quit-reason">-->
+<!--                                <input type="text" class="q-r-input" placeholder="50자 내외로 작성해주세요." maxlength="50">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="quitBtnWrap">-->
+<!--                            <button class="quitBtn" onclick="quitBtn()">회원 탈퇴하기</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </th:block>-->
             </div>
         </div>
     </div>

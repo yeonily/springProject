@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.controller.join;
 
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.service.join.JoinKakaoService;
+import com.codefarm.codefarmer.service.join.JoinNaverService;
 import com.codefarm.codefarmer.service.join.JoinService;
 import com.codefarm.codefarmer.service.member.MemberService;
 import com.codefarm.codefarmer.type.MemberType;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 public class JoinController {
 
     private final JoinKakaoService joinKakaoService;
+    private final JoinNaverService joinNaverService;
     private final JoinService joinService;
     private final MemberService memberService;
 
@@ -39,6 +41,7 @@ public class JoinController {
             String memberEmail = joinKakaoService.getKakaoEmailByToken(token);
             Long id = joinKakaoService.getKakaoIdByToken(token);
             String memberOauthId = id+"k";
+            session.setAttribute("oauthId", memberOauthId);
             log.info("아이디: " + memberOauthId);
             log.info("이메일: " + memberEmail);
             redirectAttributes.addFlashAttribute("memberOauthId", memberOauthId);
@@ -90,6 +93,32 @@ public class JoinController {
         log.info("세션 value"+ value);
         log.info("세션 stringv"+ type);
         return "/main/main";
+    }
+
+
+    @ResponseBody
+    @GetMapping("/naver")
+    public RedirectView naverLogin(String code, RedirectAttributes redirectAttributes,HttpSession session){
+        log.info("코드 : "+code);
+        String token = joinNaverService.getNaverAccessToken(code);
+        session.setAttribute("token", token);
+        try {
+            String memberEmail = joinNaverService.getNaverEmailByToken(token);
+            String id = joinNaverService.getNaverIdByToken(token);
+            String memberOauthId = id+"n";
+            session.setAttribute("oauthId", memberOauthId);
+            log.info("아이디: " + memberOauthId);
+            log.info("이메일: " + memberEmail);
+            redirectAttributes.addFlashAttribute("memberOauthId", memberOauthId);
+            redirectAttributes.addFlashAttribute("memberEmail", memberEmail);
+            if(joinService.checkOauth(memberOauthId) == 1){
+                return new RedirectView("/login/");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new RedirectView("/register/form");
     }
 
 
