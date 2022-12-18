@@ -4,7 +4,7 @@ import com.codefarm.codefarmer.service.join.JoinKakaoService;
 import com.codefarm.codefarmer.service.join.JoinService;
 import com.codefarm.codefarmer.service.login.KakaoService;
 import com.codefarm.codefarmer.service.login.NaverService;
-import com.codefarm.codefarmer.service.member.MemberService;
+//import com.codefarm.codefarmer.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,28 +22,28 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     private final KakaoService kakaoService;
-    private final MemberService memberService;
+//    private final MemberService memberService;
     private final NaverService naverService;
 
-    @ResponseBody
-    @GetMapping("/kakao")
-    public RedirectView kakaoLogin(String code, HttpSession session) throws Exception {
-        log.info("코드 : "+code);
-        String token = kakaoService.getKakaoAccessToken(code);
-        String email = kakaoService.getKakaoEmailByToken(token);
-        Long oauthId = kakaoService.getKakaoIdByToken(token);
-        String memberOauthId = oauthId+"k";
-        Long id = kakaoService.selectId(memberOauthId);
-        String type = kakaoService.selectType(memberOauthId);
-
-        session.setAttribute("memberId", id);
-        session.setAttribute("memberType", type);
-        session.setAttribute("token", token);
-        if(kakaoService.checkOauth(memberOauthId) == 0){
-            return new RedirectView("/register/form");
-        }
-        return new RedirectView("/main/main");
-    }
+//    @ResponseBody
+//    @GetMapping("/kakao")
+//    public RedirectView kakaoLogin(String code, HttpSession session) throws Exception {
+//        log.info("코드 : "+code);
+//        String token = kakaoService.getKakaoAccessToken(code);
+//        String email = kakaoService.getKakaoEmailByToken(token);
+//        Long oauthId = kakaoService.getKakaoIdByToken(token);
+//        String memberOauthId = oauthId+"k";
+//        Long id = kakaoService.selectId(memberOauthId);
+//        String type = kakaoService.selectType(memberOauthId);
+//
+//        session.setAttribute("memberId", id);
+//        session.setAttribute("memberType", type);
+//        session.setAttribute("token", token);
+//        if(kakaoService.checkOauth(memberOauthId) == 0){
+//            return new RedirectView("/register/form");
+//        }
+//        return new RedirectView("/main/main");
+//    }
 
     @GetMapping("/logoutkakao")
     public RedirectView kakaoLogout(HttpSession session){
@@ -54,15 +54,15 @@ public class LoginController {
         return new RedirectView("/main/main");
     }
 
-    @GetMapping("/quitkakao")
-    public RedirectView kakaoQuit(HttpSession session){
-        log.info("quit");
-        memberService.secession((Long)session.getAttribute("memberId"));
-        kakaoService.quitKakao((String)session.getAttribute("token"));
-        session.invalidate();
-
-        return new RedirectView("/main/main");
-    }
+//    @GetMapping("/quitkakao")
+//    public RedirectView kakaoQuit(HttpSession session){
+//        log.info("quit");
+//        memberService.secession((Long)session.getAttribute("memberId"));
+//        kakaoService.quitKakao((String)session.getAttribute("token"));
+//        session.invalidate();
+//
+//        return new RedirectView("/main/main");
+//    }
 
     @GetMapping("")
     public String loginPage(){
@@ -76,25 +76,25 @@ public class LoginController {
 
 
     @GetMapping("/naver")
-    public RedirectView naverLogin(@RequestParam String code, HttpSession session) throws Exception {
+    public void naverLogin(@RequestParam String code, HttpSession session) throws Exception {
         log.info("코드 : "+code);
-
-        String token = naverService.getNaverAccessToken(code);
-        String email = naverService.getNaverEmailByToken(token);
-        String oauthId = naverService.getNaverIdByToken(token);
-        String memberOauthId = oauthId+"n";
-        Long id = naverService.selectId(memberOauthId);
-        String type = naverService.selectType(memberOauthId);
-
-        session.setAttribute("memberId", id);
-        session.setAttribute("memberType", type);
-        session.setAttribute("token", token);
-
-        if (naverService.checkOauth(memberOauthId) == 0){
-            return new RedirectView("/register/form");
-        }
-
-        return new RedirectView("/main/main");
+//
+//        String token = naverService.getNaverAccessToken(code);
+//        String email = naverService.getNaverEmailByToken(token);
+//        String oauthId = naverService.getNaverIdByToken(token);
+//        String memberOauthId = oauthId+"n";
+//        Long id = naverService.selectId(memberOauthId);
+//        String type = naverService.selectType(memberOauthId);
+//
+//        session.setAttribute("memberId", id);
+//        session.setAttribute("memberType", type);
+//        session.setAttribute("token", token);
+//
+//        if (naverService.checkOauth(memberOauthId) == 0){
+//            return new RedirectView("/register/form");
+//        }
+//
+//        return new RedirectView("/main/main");
 
     }
 

@@ -165,7 +165,7 @@ public class NaverService {
         return null;
     }
 
-    public Integer checkOauth(String oauthId){return memberRepository.duplicateOauth(oauthId);}
+//    public Integer checkOauth(String oauthId){return memberRepository.duplicateOauth(oauthId);}
 
     public Long selectId(String oauthId){return memberRepository.selectMemberId(oauthId);}
 
