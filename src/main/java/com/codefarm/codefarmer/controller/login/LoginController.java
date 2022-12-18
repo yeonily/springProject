@@ -37,6 +37,7 @@ public class LoginController {
         Long id = kakaoService.selectId(memberOauthId);
         String type = kakaoService.selectType(memberOauthId);
 
+        session.setAttribute("oauthId", memberOauthId);
         session.setAttribute("memberId", id);
         session.setAttribute("memberType", type);
         session.setAttribute("token", token);
@@ -76,31 +77,51 @@ public class LoginController {
     }
 
 
-//    @GetMapping("/naver")
-//    public void naverLogin(@RequestParam String code, HttpSession session) throws Exception {
-//        log.info("코드 : "+code);
-//
-//        String token = naverService.getNaverAccessToken(code);
-//        String email = naverService.getNaverEmailByToken(token);
-//        String oauthId = naverService.getNaverIdByToken(token);
-//        String memberOauthId = oauthId+"n";
-//        Long id = naverService.selectId(memberOauthId);
-//        String type = naverService.selectType(memberOauthId);
-//
-//        session.setAttribute("memberId", id);
-//        session.setAttribute("memberType", type);
-//        session.setAttribute("token", token);
-//
-//        if (naverService.checkOauth(memberOauthId) == 0){
-//            return new RedirectView("/register/form");
-//        }
-//
-//        return new RedirectView("/main/main");
+    @GetMapping("/naver")
+    public RedirectView naverLogin(@RequestParam String code, HttpSession session) throws Exception {
+        log.info("코드 : "+code);
 
-//    }
+        String token = naverService.getNaverAccessToken(code);
+        String email = naverService.getNaverEmailByToken(token);
+        String oauthId = naverService.getNaverIdByToken(token);
+        String memberOauthId = oauthId+"n";
+        Long id = naverService.selectId(memberOauthId);
+        String type = naverService.selectType(memberOauthId);
+
+        session.setAttribute("oauthId", memberOauthId);
+        session.setAttribute("memberId", id);
+        session.setAttribute("memberType", type);
+        session.setAttribute("token", token);
+
+        if (naverService.checkOauth(memberOauthId) == 0){
+            return new RedirectView("/register/form");
+        }
+
+        return new RedirectView("/main/main");
+
+    }
 
     @GetMapping("/test")
     public String loginTest(){
         return "/login/test";
     }
+
+    @GetMapping("/logoutnaver")
+    public RedirectView naverLogout(HttpSession session){
+        log.info("logout");
+        session.invalidate();
+
+        return new RedirectView("/main/main");
+    }
+
+    @GetMapping("/quitnaver")
+    public RedirectView naverQuit(HttpSession session){
+        log.info("logout");
+        memberService.secession((Long)session.getAttribute("memberId"));
+        session.invalidate();
+
+        return new RedirectView("/main/main");
+    }
+
+
 }
