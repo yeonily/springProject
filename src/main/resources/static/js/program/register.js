@@ -222,7 +222,7 @@ closeModal.addEventListener("click", evt => {
     window.location='/mypage/program';
 })
 
-
+let check = true;
 
 /*다음 버튼*/
 $("button.next").on("click", function() {
@@ -259,45 +259,64 @@ $("button.before").on("click", function() {
 });
 
 //제출하기 빨간줄 뜨기
-$(".opening-footer").on("click", "button#submitRegister", function () {
+$(".opening-footer").on("click", "button.submitButton", function () {
+    var cnt = 0;
     console.log("버튼 누름");
+
     var inputList = new Array();
     var textareaList = new Array();
-    let check = false;
+    var spanList =  $(".select-chip");
+    console.log(spanList.length);
 
     $("input").each(function (index, item) {
-        inputList.push($(item));
+        if(item.value == ''){
+            console.log(item);
+            $(item).css("border","1px solid red");
+            inputList.push(item);
+        }
+
     });
     $("textarea").each(function (index, item) {
-        textareaList.push($(item));
+        if(item.value == ''){
+            console.log(item);
+            $(item).css("border","1px solid red");
+            textareaList.push(item);
+        }
     });
 
-    for (let i = 0; i < inputList.length; i++) {
-        if (inputList[i].val() == '') {
-            if(inputList[i].hasClass('c-text-field-input')){
-                inputList[i].css("border", "1px solid red");
-                check = false;
-            }else if(inputList[i].hasClass('ql-editor')){
-                inputList[i].parent().parent().css("border", "1px solid red");
-                check = false;
-            }else if(inputList[i].hasClass('c-text-field-input2')) {
-                inputList[i].css("border", "1px solid red");
-                check = false;
-            }
+
+    $(spanList).each(function (index,item) {
+        // console.log($(item).css("background-color"));
+        if($(item).css("background-color")==("rgba(71, 200, 128, 0.32)")){
+            cnt++;
         }
+    })
+
+
+
+    if(inputList.length == 0 && textareaList.length == 0) {
+        console.log("없음 들어옴");
+        check = true;
+    } else {
+        console.log(inputList.toString());
+        console.log(textareaList.toString());
+        check = false;
     }
 
-    for (let i = 0; i < textareaList.length; i++) {
-        if (textareaList[i].val() == '') {
-            if(textareaList[i].hasClass('textarea-editor')){
-                textareaList[i].parent().parent().css("border", "1px solid red");
-                check = false;
-            }else if(textareaList[i].hasClass('ql-editor-text')){
-                textareaList[i].parent().parent().css("border", "1px solid red");
+    if(cnt <2){
+        $(spanList).each(function (index,item) {
+            if(!($(item).css("background-color")=="#47c88052")){
+                $(item).css("border","1px solid red");
                 check = false;
             }
-        }
+        })
+    }else if(cnt == 2){
+        check = true;
     }
+
+    console.log("cnt테스트"+cnt);
+
+
     if(!check) {
         modal2.style.display = "flex"
 
@@ -306,6 +325,9 @@ $(".opening-footer").on("click", "button#submitRegister", function () {
         })
         return;
     }
+
+    console.log("체크 : " + check);
+
     if(check){
         $("button.okay").on("click", function(e){
             e.preventDefault();

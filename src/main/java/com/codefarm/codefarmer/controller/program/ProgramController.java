@@ -68,10 +68,53 @@ public class ProgramController {
 
         ProgramDTO list = programDetailService.showByProgramId(programId);
         list.setFiles(programDetailService.showFiles(programId));
-        Long checkId =  programDetailService.programApplyCheck(memberId,programId);
-        Long registerCheckId = programDetailService.programRegisterCheck(memberId,programId);
-        Long mentorMenteeId = programDetailService.findMentorMenteeTrue(memberId,mentorId);
-//        log.info("null?: " + programDetailService.programApplyCheck(memberId,programId));
+
+        if(memberId != null) {
+            int checkId = programDetailService.programApplyCheck(memberId, programId);
+            Long registerCheckId = programDetailService.programRegisterCheck(memberId, programId);
+            Long mentorMenteeId = programDetailService.findMentorMenteeTrue(memberId, mentorId);
+            if(list.getProgramType().equals(ProgramType.ONLY_MENTEE)){
+//            멘토전용 프로그램일 경우
+                if(mentorMenteeId == null){
+//            멘토멘티 관계가 아닐 때
+                    check = "isNotMentoMentee";
+                    model.addAttribute("check" , check);
+                }else if(registerCheckId != null){
+//            내가 등록한 프로그램일 때
+                    check = "register";
+                    model.addAttribute("check" , check);
+                }else if(checkId == 0){
+//            프로그램 신청 안했을 때
+                    model.addAttribute("check" , check);
+                }else{
+//            프로그램 신청 했을 때
+                    check = "apply";
+                    model.addAttribute("check" , check);
+                }
+
+            }else{
+//            누구나 신청할 수 있는 프로그램일 경우
+                if(registerCheckId != null){
+//            내가 등록한 프로그램일 때
+                    check = "register";
+                    model.addAttribute("check" , check);
+                }else if(checkId == 0){
+//            프로그램 신청 안했을 때
+                    model.addAttribute("check" , check);
+                }else{
+//            프로그램 신청 했을 때
+                    check = "apply";
+                    model.addAttribute("check" , check);
+                }
+
+            }
+        }
+        else{
+
+            model.addAttribute("check" , "noLogin");
+        }
+
+        //        log.info("null?: " + programDetailService.programApplyCheck(memberId,programId));
 
 //      check
 //      user: 신청 안했을 때
@@ -80,41 +123,7 @@ public class ProgramController {
 //      isNotMentoMentee: 멘토 관계가 아닐때
 
 
-        if(list.getProgramType().equals(ProgramType.ONLY_MENTEE)){
-//            멘토전용 프로그램일 경우
-            if(mentorMenteeId == null){
-//            멘토멘티 관계가 아닐 때
-                check = "isNotMentoMentee";
-                model.addAttribute("check" , check);
-            }else if(registerCheckId != null){
-//            내가 등록한 프로그램일 때
-                check = "register";
-                model.addAttribute("check" , check);
-            }else if(checkId == null){
-//            프로그램 신청 안했을 때
-                model.addAttribute("check" , check);
-            }else{
-//            프로그램 신청 했을 때
-                check = "apply";
-                model.addAttribute("check" , check);
-            }
 
-        }else{
-//            누구나 신청할 수 있는 프로그램일 경우
-            if(registerCheckId != null){
-//            내가 등록한 프로그램일 때
-                check = "register";
-                model.addAttribute("check" , check);
-            }else if(checkId == null){
-//            프로그램 신청 안했을 때
-                model.addAttribute("check" , check);
-            }else{
-//            프로그램 신청 했을 때
-                check = "apply";
-                model.addAttribute("check" , check);
-            }
-
-        }
 
 
         log.info("리스트 내용: " + list.toString());
