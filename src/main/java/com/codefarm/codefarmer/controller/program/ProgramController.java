@@ -5,10 +5,12 @@ import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.entity.member.Member;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.codefarm.codefarmer.entity.program.ProgramFile;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
+import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
 import com.codefarm.codefarmer.service.member.MemberService;
 import com.codefarm.codefarmer.service.program.*;
@@ -47,6 +49,7 @@ public class ProgramController {
     private final ProgramDeleteService programDeleteService;
     private final MemberRepository memberRepository;
     private final MemberService memberService;
+    private final MentorRepository mentorRepository;
 
     @GetMapping("/list")
     public void list(Model model){
@@ -57,21 +60,63 @@ public class ProgramController {
     @GetMapping("/detail")
     public void detail(Model model,@RequestParam Long programId , HttpSession session){
         Long memberId = (Long)session.getAttribute("memberId");
-        boolean check = false;
+        String check = "user";
         log.info("상세페이지 들어옴");
         log.info("programId:" + programId);
+        Long mentorId = programDetailService.findMemberIdByProgramId(programId);
+
+
         ProgramDTO list = programDetailService.showByProgramId(programId);
         list.setFiles(programDetailService.showFiles(programId));
         Long checkId =  programDetailService.programApplyCheck(memberId,programId);
+        Long registerCheckId = programDetailService.programRegisterCheck(memberId,programId);
+        Long mentorMenteeId = programDetailService.findMentorMenteeTrue(memberId,mentorId);
 //        log.info("null?: " + programDetailService.programApplyCheck(memberId,programId));
-        if(checkId == null){
-            log.info("null일때");
-            model.addAttribute("check" , check);
+
+//      check
+//      user: 신청 안했을 때
+//      apply: 내가 신청한 프로그램 일 때
+//      register: 내가 등록한 프로그램 일 때
+//      isNotMentoMentee: 멘토 관계가 아닐때
+
+
+        if(list.getProgramType().equals(ProgramType.ONLY_MENTEE)){
+//            멘토전용 프로그램일 경우
+            if(mentorMenteeId == null){
+//            멘토멘티 관계가 아닐 때
+                check = "isNotMentoMentee";
+                model.addAttribute("check" , check);
+            }else if(registerCheckId != null){
+//            내가 등록한 프로그램일 때
+                check = "register";
+                model.addAttribute("check" , check);
+            }else if(checkId == null){
+//            프로그램 신청 안했을 때
+                model.addAttribute("check" , check);
+            }else{
+//            프로그램 신청 했을 때
+                check = "apply";
+                model.addAttribute("check" , check);
+            }
+
         }else{
-            log.info("null 아닐때");
-            check = true;
-            model.addAttribute("check" , check);
+//            누구나 신청할 수 있는 프로그램일 경우
+            if(registerCheckId != null){
+//            내가 등록한 프로그램일 때
+                check = "register";
+                model.addAttribute("check" , check);
+            }else if(checkId == null){
+//            프로그램 신청 안했을 때
+                model.addAttribute("check" , check);
+            }else{
+//            프로그램 신청 했을 때
+                check = "apply";
+                model.addAttribute("check" , check);
+            }
+
         }
+
+
         log.info("리스트 내용: " + list.toString());
 //        List<ProgramDTO> lists = programListService.();
         model.addAttribute("list",list);

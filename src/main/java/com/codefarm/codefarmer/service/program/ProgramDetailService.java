@@ -4,6 +4,7 @@ import com.codefarm.codefarmer.domain.program.ProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramFileDTO;
 import com.codefarm.codefarmer.domain.program.QProgramDTO;
 import com.codefarm.codefarmer.domain.program.QProgramFileDTO;
+import com.codefarm.codefarmer.entity.mentor.QMentorMentee;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.QMemberProgram;
 import com.codefarm.codefarmer.entity.program.QProgram;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.codefarm.codefarmer.entity.mentor.QMentorMentee.mentorMentee;
 import static com.codefarm.codefarmer.entity.program.QMemberProgram.memberProgram;
 import static com.codefarm.codefarmer.entity.program.QProgram.program;
 import static com.codefarm.codefarmer.entity.program.QProgramFile.programFile;
@@ -131,6 +133,27 @@ public class ProgramDetailService {
     public Long programApplyCheck(Long memberId, Long programId){
         return jpaQueryFactory.select(memberProgram.programApplyId).from(memberProgram)
                 .where(memberProgram.program.programId.eq(programId).and(memberProgram.member.memberId.eq(memberId)))
+                .fetchOne();
+    }
+
+//    내가 등록한 프로그램인지 확인
+    public Long programRegisterCheck(Long memberId, Long programId){
+        return jpaQueryFactory.select(program.programId).from(program)
+                .where(program.programId.eq(programId).and(program.member.memberId.eq(memberId)))
+                .fetchOne();
+    }
+
+//   해당 프로그램의 작성자 memberId 찾기
+    public Long findMemberIdByProgramId(Long programId){
+        return jpaQueryFactory.select(program.member.memberId).from(program)
+                .where(program.programId.eq(programId))
+                .fetchOne();
+    }
+
+//    멘토멘티 관계 확인
+    public Long findMentorMenteeTrue(Long memberId, Long mentorId){
+        return jpaQueryFactory.select(mentorMentee.mentorMenteeId).from(mentorMentee)
+                .where(mentorMentee.mentor.memberId.eq(mentorId).and(mentorMentee.mentee.memberId.eq(memberId)))
                 .fetchOne();
     }
 }
