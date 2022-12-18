@@ -5,6 +5,7 @@ import com.codefarm.codefarmer.service.join.JoinService;
 import com.codefarm.codefarmer.service.login.KakaoService;
 import com.codefarm.codefarmer.service.login.NaverService;
 //import com.codefarm.codefarmer.service.member.MemberService;
+import com.codefarm.codefarmer.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
