@@ -71,10 +71,9 @@
                 <table class="board">
                     <tr class="title">
                         <th class="num">번호</th>
-                        <th class="title">제목</th>
+                        <th class="title" style="width: 21%;">제목</th>
                         <th class="content">내용</th>
-                        <th class="nickName">작성자</th>
-                        <th class="file-check">첨부파일</th>
+                        <th class="nickName" style="width: 9%;">작성자</th>
                         <th class="date">작성날짜</th>
                         <th class="hits">조회수</th>
                         <th class="reply">댓글</th>
@@ -87,13 +86,6 @@
                             <td class="title" th:text="*{boardTitle}"  th:onclick="|javascript:goPage('*{boardId}')|"></td>
                             <td class="content" th:text="*{boardContent}"></td>
                             <td th:text="*{memberNickName}"></td>
-                            <td>
-                                <img src="/image/community/clip.png" style="width: 14px;">
-    <!--                            <div th:if="*{#lists.isEmpty(noticeFiles)}">-</div>-->
-    <!--                            <div th:unless="*{#lists.isEmpty(noticeFiles)}" class="fileCheck">-->
-    <!--                                <img src="/image/community/clip.png" style="width: 14px;">-->
-    <!--                            </div>-->
-                            </td>
                             <td th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
                             <td th:text="*{boardViewCount}"></td>
                             <td th:text="*{replyCount}"></td>

@@ -33,6 +33,11 @@ html, body {
     cursor: pointer;
 }
 
+.swiper-slide p {
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+}
+
 .fake-header {
     height: 0 !important;
 }

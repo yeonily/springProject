@@ -101,7 +101,9 @@
                                 <input type="hidden" name="page" th:value="${criteria.page}">
                                 <input type="hidden" name="searchText" th:value="${criteria.searchText}">
                                 <input type="hidden" name="keyword" th:value="${criteria.keyword}">
-                                <textarea th:field="*{inquireAnswer}" rows="6" class="summernote_ask"></textarea>
+                                <div id="editor">
+                                    <textarea th:field="*{inquireAnswer}" class="summernote" placeholder="배너 내용을 입력하세요."></textarea>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -127,7 +129,9 @@
                                 <input type="hidden" name="page" th:value="${criteria.page}">
                                 <input type="hidden" name="searchText" th:value="${criteria.searchText}">
                                 <input type="hidden" name="keyword" th:value="${criteria.keyword}">
-                                <textarea th:field="*{inquireAnswer}" rows="6" class="summernote_ask"></textarea>
+                                <div id="editor2">
+                                    <textarea th:field="*{inquireAnswer}" class="summernote" placeholder="배너 내용을 입력하세요."></textarea>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -144,6 +148,9 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="/js/admin/summerNoteBanner.js"></script>
 <script src="/js/admin/write.js"></script>
 <script th:inline="javascript">
     let queryString = [[${criteria.queryString}]];
