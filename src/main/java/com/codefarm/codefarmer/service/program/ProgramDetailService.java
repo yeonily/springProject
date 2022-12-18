@@ -130,10 +130,10 @@ public class ProgramDetailService {
     }
 
 //    신청한 프로그램인지 확인
-    public Long programApplyCheck(Long memberId, Long programId){
+    public int programApplyCheck(Long memberId, Long programId){
         return jpaQueryFactory.select(memberProgram.programApplyId).from(memberProgram)
                 .where(memberProgram.program.programId.eq(programId).and(memberProgram.member.memberId.eq(memberId)))
-                .fetchOne();
+                .fetch().size();
     }
 
 //    내가 등록한 프로그램인지 확인
