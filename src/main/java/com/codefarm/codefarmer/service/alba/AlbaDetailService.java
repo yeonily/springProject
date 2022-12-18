@@ -139,8 +139,8 @@ public class AlbaDetailService {
         return albaApplyId;
     }
 
-    public String nameFind(Long albaId){
-        return jpaQueryFactory.select(member.memberName)
+    public Long memberIdFind(Long albaId){
+        return jpaQueryFactory.select(alba.member.memberId)
                 .from(alba)
                 .where(alba.albaId.eq(albaId))
                 .fetchOne();

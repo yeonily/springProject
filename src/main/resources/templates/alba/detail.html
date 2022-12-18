@@ -73,10 +73,10 @@
                                         </button>
 
                                         <!--자신이 작성한 게시글에 접속했을 때 버튼 변경-->
-                                        <button id="update_button" th:onclick="|location.href='@{/alba/update(albaId=${list.albaId})}'|" th:if="${memberType == 'FARMER' or memberType == 'MENTOR'}">
+                                        <button id="update_button" th:onclick="|location.href='@{/alba/update(albaId=${list.albaId})}'|" th:if="${(memberType == 'FARMER' or memberType == 'MENTOR') and memberId == writerId}">
                                             <div/>수정하기<div/>
                                         </button>
-                                        <button id="remove_button" th:if="${memberType == 'FARMER' or memberType == 'MENTOR'}">
+                                        <button id="remove_button" th:if="${(memberType == 'FARMER' or memberType == 'MENTOR') and memberId == writerId}">
                                             <div/>삭제하기<div/>
                                         </button>
                                         <button type="button" class="list_go_button" onclick="location.href='/alba/list'">
@@ -287,7 +287,7 @@
             text += '<p>' + memberEmail +'</p>'
             text += '</div>'
             text += '<div class="applyBtnWrap">'
-            text += '<button type="submit" id="submitBtn" class="applyBtn">메일전송 완료</button>'
+            text += '<button type="submit" id="submitBtn" class="applyBtn" style="margin-right: 4px;">메일전송 완료</button>'
         }else {
             text += '<p>이메일이 없습니다</p>'
             text += '</div>'
@@ -313,13 +313,12 @@
             text += '<div class="m-c-title">신청한 아르바이트를 취소하시겠습니까?</div>'
             text += '</div>'
             text += '<div class="applyBtnWrap">'
-            text += '<button type="submit" class="cancelBtn">예</button>'
+            text += '<button type="submit" class="cancelBtn" style="margin-right: 4px;">예</button>'
             text += '<button type="button" class="cancel">아니오</button>'
             text += '</div>'
             text += '</form>'
 
         $("div.cancelWrap").html(text);
     }
-
 </script>
 </html>
