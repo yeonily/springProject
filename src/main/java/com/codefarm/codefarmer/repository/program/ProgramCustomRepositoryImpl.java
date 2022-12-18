@@ -40,6 +40,8 @@ public class ProgramCustomRepositoryImpl implements ProgramCustomRepository{
                 .fetchOne());
     }
 
+
+
     private BooleanExpression eqProgramTitle (String keyword, String searchText){
         if (keyword.equals("p")) {
             return program.programTitle.contains(searchText);
