@@ -99,71 +99,71 @@ public class NaverService {
     }
 
     //  id
-    public String getNaverIdByToken(String token) throws Exception{
-        String header = "Bearer " + token; // Bearer 다음에 공백 추가
-        String naverId = null;
-        try {
-            String apiURL = "https://openapi.naver.com/v1/nid/me";
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", header);
-            int responseCode = con.getResponseCode();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String line = "";
-            String result = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-
-            //Gson 라이브러리로 JSON파싱
-
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-            naverId = element.getAsJsonObject().get("response").getAsJsonObject().get("id").getAsString();
-
-            return naverId;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return null;
-    }
-
-//        email
-    public String getNaverEmailByToken(String token) throws Exception{
-        String header = "Bearer " + token; // Bearer 다음에 공백 추가
-        String email = null;
-        try {
-            String apiURL = "https://openapi.naver.com/v1/nid/me";
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", header);
-            int responseCode = con.getResponseCode();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String line = "";
-            String result = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            //Gson 라이브러리로 JSON파싱
-
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-            email = element.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
-
-            return email;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return null;
-    }
+//    public String getNaverIdByToken(String token) throws Exception{
+//        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+//        String naverId = null;
+//        try {
+//            String apiURL = "https://openapi.naver.com/v1/nid/me";
+//            URL url = new URL(apiURL);
+//            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+//            con.setRequestMethod("GET");
+//            con.setRequestProperty("Authorization", header);
+//            int responseCode = con.getResponseCode();
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//            String line = "";
+//            String result = "";
+//
+//            while ((line = br.readLine()) != null) {
+//                result += line;
+//            }
+//
+//            //Gson 라이브러리로 JSON파싱
+//
+//            JsonParser parser = new JsonParser();
+//            JsonElement element = parser.parse(result);
+//            naverId = element.getAsJsonObject().get("response").getAsJsonObject().get("id").getAsString();
+//
+//            return naverId;
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        return null;
+//    }
+//
+////        email
+//    public String getNaverEmailByToken(String token) throws Exception{
+//        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+//        String email = null;
+//        try {
+//            String apiURL = "https://openapi.naver.com/v1/nid/me";
+//            URL url = new URL(apiURL);
+//            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+//            con.setRequestMethod("GET");
+//            con.setRequestProperty("Authorization", header);
+//            int responseCode = con.getResponseCode();
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//            String line = "";
+//            String result = "";
+//
+//            while ((line = br.readLine()) != null) {
+//                result += line;
+//            }
+//            //Gson 라이브러리로 JSON파싱
+//
+//            JsonParser parser = new JsonParser();
+//            JsonElement element = parser.parse(result);
+//            email = element.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+//
+//            return email;
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        return null;
+//    }
 
 //    public Integer checkOauth(String oauthId){return memberRepository.duplicateOauth(oauthId);}
 
