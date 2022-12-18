@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -93,4 +94,10 @@ public class InquireService {
 
 //    문의 답변 번호로  찾기
     public InquireAnswer answerShowOne(Long inquireAnswerId){return inquireAnswerRepository.findById(inquireAnswerId).get();}
+
+
+//  문의 답변 보기
+    public Optional<InquireAnswer> showAnswer(Long inquireId){
+        return inquireAnswerRepository.findByInquireId(inquireId);
+    }
 }

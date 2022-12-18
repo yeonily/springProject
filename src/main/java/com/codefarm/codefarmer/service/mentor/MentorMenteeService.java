@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.service.mentor;
 import com.codefarm.codefarmer.domain.mentor.MentorMenteeDTO;
 import com.codefarm.codefarmer.repository.mentor.MentorFileRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorMenteeRepository;
+import com.codefarm.codefarmer.type.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,8 @@ public class MentorMenteeService {
     }
 
     //멘토 아이디로 멘티정보 찾기
-    public List<MentorMenteeDTO> findByMentorId(Long mentorId){
-        return mentorMenteeRepository.selectByMentorId(mentorId);
+    public List<MentorMenteeDTO> findByMentorId(Long mentorId, Status status){
+        return mentorMenteeRepository.selectByMentorId(mentorId, status);
     }
 
     //거절 상태

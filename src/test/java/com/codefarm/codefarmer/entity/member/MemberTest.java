@@ -15,6 +15,7 @@ import com.codefarm.codefarmer.entity.inquire.Inquire;
 import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.program.*;
+import com.codefarm.codefarmer.repository.inquire.InquireAnswerRepository;
 import com.codefarm.codefarmer.repository.member.MemberRepository;
 import com.codefarm.codefarmer.repository.mentor.MentorRepository;
 import com.codefarm.codefarmer.type.MemberType;
@@ -54,6 +55,8 @@ public class MemberTest {
         private MentorRepository mentorRepository;
         @Autowired
         private JPAQueryFactory jpaQueryFactory;
+        @Autowired
+        private InquireAnswerRepository inquireAnswerRepository;
 
         @Test
         public void saveTest(){
@@ -138,7 +141,7 @@ public class MemberTest {
     //내가 등록한 알바 select
     @Test
     public void findMyAlbaTest(){
-            memberRepository.selectMyAlba(1l).stream().map(AlbaDTO::getAlbaTitle).forEach(log::info);
+//            memberRepository.selectMyAlba(1l).stream().map(AlbaDTO::getAlbaTitle).forEach(log::info);
     }
 
 
@@ -151,7 +154,7 @@ public class MemberTest {
     //내가 쓴 글 select
     @Test
     public void findMyBoardTest(){
-        memberRepository.selectMyBoard(1l).stream().map(BoardDTO::toString).forEach(log::info);
+//        memberRepository.selectMyBoard(1l).stream().map(BoardDTO::getBoardTitle).forEach(log::info);
     }
 
 
@@ -195,7 +198,7 @@ public class MemberTest {
     @Test
     public void findMyInquireTest(){
             Long memberId = 1l;
-            log.info("결과 : "+memberRepository.selectMyInquire(1l).size());
+//            log.info("결과 : "+memberRepository.selectMyInquire(1l).size());
     }
 
 
@@ -238,7 +241,7 @@ public class MemberTest {
 
     @Test
     public void selectMyPayTest(){
-            memberRepository.selectMyPay(11l).stream().map(memberProgramDTO -> memberProgramDTO.toString()).forEach(log::info);
+//            memberRepository.selectMyPay(11l).stream().map(memberProgramDTO -> memberProgramDTO.toString()).forEach(log::info);
     }
 
     @Test
@@ -277,6 +280,11 @@ public class MemberTest {
     public void updateAlbaCountTest(){
             Long albaId = 2l;
             memberRepository.updateAlbaCount(albaId);
+    }
+
+    @Test
+    public void findByInquireIdTest(){
+        log.info(inquireAnswerRepository.findByInquireId(99l).toString());
     }
 
 }

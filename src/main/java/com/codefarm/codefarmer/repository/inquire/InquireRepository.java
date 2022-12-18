@@ -2,6 +2,7 @@ package com.codefarm.codefarmer.repository.inquire;
 
 import com.codefarm.codefarmer.entity.admin.Crop;
 import com.codefarm.codefarmer.entity.inquire.Inquire;
+import com.codefarm.codefarmer.entity.inquire.InquireAnswer;
 import com.codefarm.codefarmer.type.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,4 +29,5 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
     @Modifying
     @Query("update Inquire i set i.inquireStatus= :status where i.inquireId in :inquireId")
     public void updateStatues(Long inquireId, Status status);
+
 }

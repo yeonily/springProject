@@ -23,9 +23,9 @@ let myPageService = (function () {
         });
     }
 
-    function getAbList(memberId, callback, error) {
+    function getAbList(param, callback, error) {
         $.ajax({
-            url: "/mypage/albalist",
+            url: "/mypage/albalist/" + (param.page || 0),
             type: "get",
             success: function (albas, status, xhr) {
                 console.log("getAbList - "+ albas);
@@ -41,9 +41,9 @@ let myPageService = (function () {
         });
     }
 
-    function getBoList(memberId, callback, error) {
+    function getBoList(param, callback, error) {
         $.ajax({
-            url: "/mypage/boardlist",
+            url: "/mypage/boardlist/" + (param.page || 0),
             type: "get",
             success: function (boards, status, xhr) {
                 console.log("getBoList - "+ boards);
@@ -61,9 +61,9 @@ let myPageService = (function () {
     }
 
 
-    function getIqList(memberId, callback, error) {
+    function getIqList(param, callback, error) {
         $.ajax({
-            url: "/mypage/inquirelist",
+            url: "/mypage/inquirelist/" + (param.page || 0),
             type: "get",
             success: function (inquires, status, xhr) {
                 console.log("getIqList - "+ inquires);
@@ -98,9 +98,9 @@ let myPageService = (function () {
         });
     }
 
-    function getApplyAbList(memberId, callback, error) {
+    function getApplyAbList(param, callback, error) {
         $.ajax({
-            url: "/mypage/alba/applylist",
+            url: "/mypage/alba/applylist/" + (param.page || 0),
             type: "get",
             success: function (albas, status, xhr) {
                 console.log("getApplyAbList - "+ albas);
@@ -116,9 +116,9 @@ let myPageService = (function () {
         });
     }
 
-    function getApplyPayList(memberId, callback, error) {
+    function getApplyPayList(param, callback, error) {
         $.ajax({
-            url: "/mypage/paylist",
+            url: "/mypage/paylist/" + (param.page || 0),
             type: "get",
             success: function (memberPrograms, status, xhr) {
                 console.log("getApplyPayList - "+ memberPrograms);
@@ -152,10 +152,12 @@ let myPageService = (function () {
         });
     }
 
-    function getMenteeList(memberId, callback, error) {
+    function getMenteeList(status, callback, error) {
         $.ajax({
-            url: "/mypage/menteelist",
-            type: "get",
+            url: "/mypage/mentee",
+            type: "post",
+            data : {status: status},
+            contentType: "application/json; charset=utf-8",
             success: function (mentees, status, xhr) {
                 console.log("getMenteeList - "+ mentees);
                 if (callback) {
@@ -170,5 +172,49 @@ let myPageService = (function () {
         });
     }
 
-    return {getPgList: getPgList, getAbList: getAbList, getBoList:getBoList, getIqList:getIqList, getApplyPgList:getApplyPgList, getApplyAbList:getApplyAbList, getApplyPayList:getApplyPayList, getMentorList:getMentorList, getMenteeList:getMenteeList}
+    function getMenteeListConfirm(status, callback, error) {
+        $.ajax({
+            url: "/mypage/menteelist/confirm",
+            type: "post",
+            data : {status: status},
+            contentType: "application/json; charset=utf-8",
+            success: function (mentees, status, xhr) {
+                console.log("getMenteeListConfirm - "+ mentees);
+                if (callback) {
+                    callback(mentees);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            },
+            async: false
+        });
+    }
+
+    function getMenteeListOther(status, callback, error) {
+        $.ajax({
+            url: "/mypage/menteelist/other",
+            type: "post",
+            data : {status: $("input[name=applyStatus]").val()},
+            contentType: "application/json; charset=utf-8",
+            success: function (mentees, status, xhr) {
+                console.log("getMenteeListOther - "+ mentees);
+                if (callback) {
+                    callback(mentees);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            },
+            async: false
+        });
+    }
+
+    return {getPgList: getPgList, getAbList: getAbList, getBoList:getBoList, getIqList:getIqList, getApplyPgList:getApplyPgList,
+        getApplyAbList:getApplyAbList, getApplyPayList:getApplyPayList, getMentorList:getMentorList, getMenteeList:getMenteeList,
+        getMenteeListConfirm:getMenteeListConfirm, getMenteeListOther:getMenteeListOther}
 })();

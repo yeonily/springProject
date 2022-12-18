@@ -4,6 +4,8 @@ import com.codefarm.codefarmer.entity.period.Period;
 import com.codefarm.codefarmer.entity.program.Program;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -27,6 +29,7 @@ public class MentorFile extends Period {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENTOR_BOARD_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private MentorBoard mentorBoard;
 
     public void changeMentor(MentorBoard mentorBoard){

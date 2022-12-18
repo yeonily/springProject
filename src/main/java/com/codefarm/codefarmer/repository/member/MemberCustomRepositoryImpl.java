@@ -31,8 +31,12 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,8 +110,8 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public List<AlbaDTO> selectMyAlba(Long memberId) {
-        return jpaQueryFactory.select(new QAlbaDTO(
+    public Page<AlbaDTO> selectMyAlba(Long memberId, Pageable pageable) {
+        List<AlbaDTO> albaDTOList = jpaQueryFactory.select(new QAlbaDTO(
                 alba.albaId,
                 alba.albaTitle,
                 alba.albaImage,
@@ -139,7 +143,13 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 alba.member.memberName,
                 alba.member.memberEmail
                 )).from(alba).where(alba.member.memberId.eq(memberId))
-                .fetch();
+                .orderBy(alba.albaId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        long total = jpaQueryFactory.selectFrom(alba).fetch().size();
+
+        return new PageImpl<>(albaDTOList, pageable, total);
 
     }
 
@@ -186,18 +196,125 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public List<BoardDTO> selectMyBoard(Long memberId) {
-        return jpaQueryFactory.selectFrom(board).join(board.replies, reply).fetchJoin()
-                .where(board.member.memberId.eq(memberId)).fetch()
-                .stream()
-                .map(board -> new BoardDTO(
-                        board.getBoardId(),
-                        board.getBoardTitle(),
-                        board.getBoardContent(),
-                        board.getBoardViewCount(),
-                        board.getCreatedDate(),
-                        board.getReplies().size()))
-                .collect(Collectors.toList());
+    public Page<ProgramDTO> selectMyProgram(Long memberId, Pageable pageable) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        List<ProgramDTO> programDTOList = jpaQueryFactory.select(new QProgramDTO(
+                program.programId,
+                program.programCrop,
+                program.programType,
+                program.programTarget1,
+                program.programTarget2,
+                program.programTarget3,
+                program.programTarget4,
+                program.programTitle,
+                program.programTitleSub,
+                program.programLevel,
+                program.programResult1,
+                program.programResult2,
+                program.programResult3,
+                program.programResult4,
+                program.programFarmerInfo,
+                program.programInfoTitle1,
+                program.programInfoTitle2,
+                program.programInfoTitle3,
+                program.programInfoTitle4,
+                program.programInfoContent1,
+                program.programInfoContent2,
+                program.programInfoContent3,
+                program.programInfoContent4,
+                program.programWorkDate,
+                program.programWorkStartTime,
+                program.programWorkEndTime,
+                program.programApplyStartDate,
+                program.programApplyEndDate,
+                program.programApplyCount,
+                program.programApplyTotalCount,
+                program.programPrice,
+                program.programLocation,
+                program.programInquire,
+                program.member.memberId
+        )).from(program)
+                .where(program.member.memberId.eq(memberId))
+                .orderBy(program.programId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        long total = jpaQueryFactory.selectFrom(program).fetch().size();
+
+        return new PageImpl<>(programDTOList, pageable, total);
+    }
+
+//    @Override
+//    public List<BoardDTO> selectMyBoard(Long memberId) {
+//        return jpaQueryFactory.selectFrom(board).join(board.replies, reply).fetchJoin()
+//                .where(board.member.memberId.eq(memberId)).fetch()
+//                .stream().distinct()
+//                .map(board -> new BoardDTO(
+//                        board.getBoardId(),
+//                        board.getBoardTitle(),
+//                        board.getBoardContent(),
+//                        board.getBoardViewCount(),
+//                        board.getCreatedDate(),
+//                        board.getReplies().size()))
+//                .collect(Collectors.toList());
+//    }
+
+    @Override
+    public Page<BoardDTO> selectMyBoard(Long memberId, Pageable pageable) {
+        List<BoardDTO> boardDTOList = jpaQueryFactory.select(new QBoardDTO(
+                board.boardId,
+                board.boardTitle,
+                board.boardContent,
+                board.boardViewCount,
+                board.createdDate
+        )).from(board).join(board.member)
+                .where(board.member.memberId.eq(memberId)).fetch();
+
+        long total = jpaQueryFactory.selectFrom(board).fetch().size();
+
+        return new PageImpl<>(boardDTOList, pageable, total);
+    }
+
+//    @Override
+//    public Page<BoardDTO> selectMyBoard(Long memberId, Pageable pageable) {
+//        List<BoardDTO> boardDTOList = jpaQueryFactory.selectFrom(board).join(board.replies, reply).fetchJoin()
+//                .where(board.member.memberId.eq(memberId))
+//                .orderBy(board.boardId.desc())
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize()).fetch()
+//                .stream().distinct()
+//                .map(board -> new BoardDTO(
+//                        board.getBoardId(),
+//                        board.getBoardTitle(),
+//                        board.getBoardContent(),
+//                        board.getBoardViewCount(),
+//                        board.getCreatedDate(),
+//                        board.getReplies().size()))
+//                .collect(Collectors.toList());
+//
+//        long total = jpaQueryFactory.selectFrom(board).fetch().size();
+//
+//        return new PageImpl<>(boardDTOList, pageable, total);
+//    }
+
+    @Override
+    public Page<InquireDTO> selectMyInquire(Long memberId, Pageable pageable) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        List<InquireDTO> inquires = jpaQueryFactory.select(new QInquireDTO(
+                inquire.inquireId,
+                inquire.inquireQTitle,
+                inquire.inquireQContent,
+                inquire.inquireStatus,
+                inquire.member.memberId,
+                inquire.createdDate
+        )).from(inquire).where(inquire.member.memberId.eq(memberId))
+                .orderBy(inquire.inquireId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        long total = jpaQueryFactory.selectFrom(inquire).fetch().size();
+
+        return new PageImpl<>(inquires, pageable, total);
     }
 
     @Override
@@ -210,12 +327,16 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 inquire.member.memberId,
                 inquire.createdDate
         )).from(inquire).where(inquire.member.memberId.eq(memberId)).fetch();
+
     }
 
     @Override
-    public List<MemberAlbaDTO> selectMyAlbaApply(Long memberId) {
-        return jpaQueryFactory.selectFrom(memberAlba).join(memberAlba.alba, alba).fetchJoin()
-                .where(memberAlba.member.memberId.eq(memberId)).fetch()
+    public Page<MemberAlbaDTO> selectMyAlbaApply(Long memberId, Pageable pageable) {
+        List<MemberAlbaDTO> memberAlbaDTOS = jpaQueryFactory.selectFrom(memberAlba).join(memberAlba.alba, alba).fetchJoin()
+                .where(memberAlba.member.memberId.eq(memberId))
+                .orderBy(memberAlba.albaApplyId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch()
                 .stream()
                 .map(memberAlba -> new MemberAlbaDTO(
                         memberAlba.getAlbaApplyId(),
@@ -226,6 +347,10 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         memberAlba.getAlba().getAlbaPrice(),
                         memberAlba.getAlba().getAlbaAddress()
                 )).collect(Collectors.toList());
+
+        long total = jpaQueryFactory.selectFrom(memberAlba).fetch().size();
+
+        return new PageImpl<>(memberAlbaDTOS, pageable, total);
     }
 
     @Override
@@ -248,9 +373,37 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public List<MemberProgramDTO> selectMyPay(Long memberId) {
-        return jpaQueryFactory.selectFrom(memberProgram).join(memberProgram.program, program).fetchJoin()
-                .where(memberProgram.member.memberId.eq(memberId)).fetch()
+    public Page<ProgramDTO> selectMyProgramApply(Long memberId, Pageable pageable) {
+        List<ProgramDTO> programDTOList = jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
+                .and(memberProgram.member.memberId.eq(memberId)))
+                .orderBy(memberProgram.programApplyId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch()
+                .stream().map(program -> new ProgramDTO(
+                        program.getProgramId(),
+                        program.getProgramType(),
+                        program.getProgramTitle(),
+                        program.getProgramWorkDate(),
+                        program.getProgramApplyStartDate(),
+                        program.getProgramLocation(),
+                        program.getProgramFiles().stream().map(programFile -> new ProgramFileDTO()).collect(Collectors.toList()),
+                        program.getMemberPrograms().stream().map(memberProgram -> new MemberProgramDTO()).collect(Collectors.toList()),
+                        program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramStatus()).collect(Collectors.toList()),
+                        program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramApplyId()).collect(Collectors.toList())
+                )).collect(Collectors.toList());
+
+        long total = jpaQueryFactory.selectFrom(memberProgram).fetch().size();
+
+        return new PageImpl<>(programDTOList, pageable, total);
+    }
+
+    @Override
+    public Page<MemberProgramDTO> selectMyPay(Long memberId, Pageable pageable) {
+        List<MemberProgramDTO> memberProgramDTOList = jpaQueryFactory.selectFrom(memberProgram).join(memberProgram.program, program).fetchJoin()
+                .where(memberProgram.member.memberId.eq(memberId))
+                .orderBy(memberProgram.programApplyId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch()
                 .stream()
                 .map(memberProgram -> new MemberProgramDTO(
                         memberProgram.getProgramApplyId(),
@@ -259,6 +412,10 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         memberProgram.getUpdatedDate(),
                         memberProgram.getProgram().getProgramTitle()
                 )).collect(Collectors.toList());
+
+        long total = jpaQueryFactory.selectFrom(memberProgram).fetch().size();
+
+        return new PageImpl<>(memberProgramDTOList, pageable, total);
     }
 
     @Override
