@@ -302,6 +302,7 @@ div.sub_banner_inner .swiper-slide img {
     width: 100%;
     height: 100%;
     /*object-fit: cover;*/
+    border-radius: 10px;
 }
 
 div.sub_banner_inner div.swiper-button-next,
@@ -587,7 +588,7 @@ div#socaMenu div#socaMenu-inner div.menuList {
     grid-column-gap: 24px;
 }
 div#socaMenu-inner div.menuList div.menuList-menu {
-    background-color:#f3f4f5;
+    background-color:#b3f15459;
     width: 353px;
     height: 96px;
     border-radius: 10px;
@@ -596,7 +597,7 @@ div#socaMenu-inner div.menuList div.menuList-menu {
     justify-content: center;
 }
 div#socaMenu-inner div.menuList div.menuList-menu:hover {
-    background-color: #EAECEE;
+    background-color: #b3f15494;
 }
 div#socaMenu-inner div.menuList div.menuList-menu img {
     margin-right: 30px;
@@ -730,6 +731,7 @@ div#albaMenu-inner .swiper-slide img{
     width: 100%;
     height: 100%;
     /*object-fit: cover;*/
+    border-radius: 10px;
 }
 
 div#programMenu-inner div.swiper-button.next4 {

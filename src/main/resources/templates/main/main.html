@@ -27,7 +27,7 @@
                 <div class="swiper-wrapper">
                         <div class="swiper-slide" style="background-color: rgb(120 157 200);" th:each=" banner:${banners}">
                             <div>
-                                <p th:utext="${banner.bannerInfo}"></p>
+                                <p class="banner-info" th:utext="${banner.bannerInfo}"></p>
                             </div>
                             <img th:src="@{/admin/banner/display?fileName=} + ${banner.bannerRealname}" >
                         </div>
@@ -72,70 +72,6 @@
                                 </div>
                             </div>
                         </div>
-<!--                        <div class="swiper-slide">-->
-<!--                            <div class="imgDiv" style="background-image: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/05/urbanbrush-20220524083528618198.jpg');"></div>-->
-<!--                            <div class="textDiv">-->
-<!--                                <p>닉네임</p>-->
-<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
-<!--                                <div class="mentor_info_caption">-->
-<!--                                    <div class="mentor_star">-->
-<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
-<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
-<!--                                        </svg>-->
-<!--                                        <span class="mentor_star_span">4.9</span>-->
-<!--                                        <div class="mentor_star_avg">(221)</div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="swiper-slide">-->
-<!--                            <div class="imgDiv" style="background-image: url('http://image.newsis.com/2020/06/15/NISI20200615_0000544724_web.jpg');"></div>-->
-<!--                            <div class="textDiv">-->
-<!--                                <p>닉네임</p>-->
-<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
-<!--                                <div class="mentor_info_caption">-->
-<!--                                    <div class="mentor_star">-->
-<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
-<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
-<!--                                        </svg>-->
-<!--                                        <span class="mentor_star_span">4.9</span>-->
-<!--                                        <div class="mentor_star_avg">(221)</div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="swiper-slide">-->
-<!--                            <div class="imgDiv" style="background-image: url('http://www.dhns.co.kr/news/photo/202112/272933_174604_105.jpg');"></div>-->
-<!--                            <div class="textDiv">-->
-<!--                                <p>닉네임</p>-->
-<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
-<!--                                <div class="mentor_info_caption">-->
-<!--                                    <div class="mentor_star">-->
-<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
-<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
-<!--                                        </svg>-->
-<!--                                        <span class="mentor_star_span">4.9</span>-->
-<!--                                        <div class="mentor_star_avg">(221)</div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="swiper-slide">-->
-<!--                            <div class="imgDiv" style="background-image: url('https://newsimg.sedaily.com/2019/03/27/1VGR33B4HX_2.jpg');"></div>-->
-<!--                            <div class="textDiv">-->
-<!--                                <p>닉네임</p>-->
-<!--                                <h3>멘토가 알려주는 감자 농사법</h3>-->
-<!--                                <div class="mentor_info_caption">-->
-<!--                                    <div class="mentor_star">-->
-<!--                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" element="span" class="mentor_star_inner1">-->
-<!--                                            <path d="M7.54402 1.51325C7.72091 1.12016 8.27905 1.12016 8.45594 1.51325L10.25 5.5L14.549 5.8944C14.9851 5.93442 15.1627 6.47608 14.8349 6.76654L11.75 9.5L12.5463 13.8799C12.6242 14.3082 12.1555 14.6245 11.7874 14.392L7.99998 12L4.21258 14.392C3.8445 14.6245 3.37577 14.3082 3.45365 13.8799L4.24998 9.5L1.16508 6.76654C0.837274 6.47608 1.01485 5.93442 1.45099 5.8944L5.74998 5.5L7.54402 1.51325Z"></path>-->
-<!--                                        </svg>-->
-<!--                                        <span class="mentor_star_span">4.9</span>-->
-<!--                                        <div class="mentor_star_avg">(221)</div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
                 <div class="swiper-button next2"></div>
@@ -187,62 +123,6 @@
                                 </div>
                             </div>
                         </th:block>
-<!--                        <div class="swiper-slide">-->
-<!--                            <div class="swiper-slide-inner">-->
-<!--                                <div class="slideContent">-->
-<!--                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>-->
-<!--                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>-->
-<!--                                    <p class="communityContent">-->
-<!--                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.-->
-<!--                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한-->
-<!--                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !-->
-<!--                                    </p>-->
-<!--                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>-->
-<!--                                    <hr>-->
-<!--                                    <div class="communityComment">-->
-<!--                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>-->
-<!--                                        <div class="nickName"><strong>캐빈코치</strong></div>-->
-<!--                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="communityComment">-->
-<!--                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>-->
-<!--                                        <div class="nickName"><strong>으어사고오</strong></div>-->
-<!--                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="moreBtn">-->
-<!--                                        <button type="button">+ 더보기</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="swiper-slide">-->
-<!--                            <div class="swiper-slide-inner">-->
-<!--                                <div class="slideContent">-->
-<!--                                    <span class="viewTopIcon"><p>조회수 TOP</p></span>-->
-<!--                                    <h2 class="communityTitle">생산기술 직무는 무엇을 하나요</h2>-->
-<!--                                    <p class="communityContent">-->
-<!--                                        안녕하세요 ! 현대자동차 생산기술 직무로 일하고 싶은 27살 취준생입니다.-->
-<!--                                        다름이 아니오라 생산기술 직무에서는 정확히 무슨일을 하는지 또한-->
-<!--                                        어떤 역량이 필요한지 알고 싶어 연락드립니다 !-->
-<!--                                    </p>-->
-<!--                                    <span class="replyIcon"><img src="/image/main/reply.png">3</span>-->
-<!--                                    <hr>-->
-<!--                                    <div class="communityComment">-->
-<!--                                        <div class="nickNameCircle" style="background-color: #f3c499;">캐</div>-->
-<!--                                        <div class="nickName"><strong>캐빈코치</strong></div>-->
-<!--                                        <div class="communityReply">안녕하세요 멘티님 반갑습니다. 기아자동차 생산기술부품 현직자입니다. 생산에서 필요한</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="communityComment">-->
-<!--                                        <div class="nickNameCircle" style="background-color: #F0D780;">으</div>-->
-<!--                                        <div class="nickName"><strong>으어사고오</strong></div>-->
-<!--                                        <div class="communityReply">1.제 경우에는 2~3배수 정도였습니다. 2. 인성 면접 위주로 준비하시고, 남는 시간에 전공 공부하여서 PT 면접을 대비하시기 바랍니다.</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="moreBtn">-->
-<!--                                        <button type="button">+ 더보기</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
                 <div class="swiper-button next3"></div>
@@ -254,11 +134,11 @@
         <!--소카 대표메뉴-->
         <div id="socaMenu">
             <div id="socaMenu-inner">
-                <h1>자주 찾는 질문</h1>
+                <h1>너와농부싶어! 공지사항이에요</h1>
                 <div class="menuList" th:each="notice:${notices}">
                     <a th:href="@{/notice/detail?noticeId=} + ${notice.noticeId}">
                         <div class="menuList-menu">
-                            <img src="/image/main/FAQ.png">
+                            <!--<img src="/image/main/FAQ.png">-->
                             <span th:text="*{notice.noticeTitle}"></span>
                         </div>
                     </a>

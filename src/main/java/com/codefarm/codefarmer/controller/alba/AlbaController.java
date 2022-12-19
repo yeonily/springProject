@@ -139,7 +139,7 @@ public class AlbaController {
 
     // 알바 상세정보 불러오기
     @GetMapping("/detail")
-    public void albaDetail(Model model,HttpSession session, @RequestParam Long albaId) throws Exception {
+    public void albaDetail(Model model,HttpSession session, @RequestParam Long albaId, @RequestParam(required = false) String albaIdString) throws Exception {
         log.info("디테일 들어옴");
         log.info("alba : "+ albaId);
 
@@ -251,8 +251,7 @@ public class AlbaController {
     @GetMapping("/display")
     @ResponseBody
     public byte[] display(String fileName) throws IOException{
-//        File file = new File("/Users/
-//        yeontaegwan/Desktop/project/image", fileName);
+//        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
         File file = new File("C:/upload", fileName);
 
         return FileCopyUtils.copyToByteArray(file);
