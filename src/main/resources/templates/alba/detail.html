@@ -67,16 +67,23 @@
                                             </dl>
                                         </div>
                                         <!--작성자가 아닌 사람이 해당 게시글에 접속했을 때-->
+                                        <th:block>
                                         <button id="main_fixed_button" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and (list.albaApplyCount < list.albaApplyTotalCount) and cancel==null }">
                                             <div/>지원하기<div/>
                                         </button>
                                         <button id="main_fixed_button" th:if="${list.albaApplyCount >= list.albaApplyTotalCount}">
                                             <div/>모집마감<div/>
                                         </button>
+                                        </th:block>
                                         <!--지원한 게시글에 접근했을 때-->
-                                        <button id="cancel" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and cancel!=null }">
+                                        <th:block>
+                                        <button id="cancel" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and (list.albaApplyCount < list.albaApplyTotalCount) and cancel!=null }">
                                             <div/>지원 취소하기<div/>
                                         </button>
+                                        <button id="cancel" th:if="${list.albaApplyCount >= list.albaApplyTotalCount}" style="display: none;">
+                                            <div/><div/>
+                                        </button>
+                                        </th:block>
 
                                         <!--자신이 작성한 게시글에 접속했을 때 버튼 변경-->
                                         <button id="update_button" th:onclick="|location.href='@{/alba/update(albaId=${list.albaId})}'|" th:if="${(memberType == 'FARMER' or memberType == 'MENTOR') and memberId == writerId}">
