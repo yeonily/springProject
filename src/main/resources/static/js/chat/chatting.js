@@ -50,20 +50,18 @@ $(".left_lists").on("click", function () {
                 console.log(chatDate.getDate());
 
                 if (sessionId == chat.memberId) {
-                    const status = chatStatus == true ? `` : `1&nbsp&nbsp`;
                     text += `<div class="chatting_inner">`;
                     text += `<div class="chatting_inner_right">`;
-                    text += `<p class="chatting_date_right"><span class="no_read_chat">` + status + `</span>` + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" + `</p>`;
+                    text += `<p class="chatting_date_right">` + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" + `</p>`;
                     text += `<ul class="chatting_ul">`;
                     text += `<li class="chatting_text">` + chat.chatMessage + `</li>`;
                     text += `</ul>`;
                     text += `</div>`;
                     text += `</div>`;
                 } else {
-                    const status = chatStatus == true ? `` : `&nbsp&nbsp1`;
                     text += `<div class="chatting_inner">`;
                     text += `<div class="chatting_inner_left">`;
-                    text += `<p class="chatting_date_left">` + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" + `<span class="no_read_chat">` + status + `</span></p>`;
+                    text += `<p class="chatting_date_left">` + (chatDate.getMonth()+1) + "월 " + chatDate.getDate() + "일" + `</p>`;
                     text += `<ul class="chatting_ul">`;
                     text += `<li class="chatting_text">` + chat.chatMessage + `</li>`;
                     text += `</ul>`;
@@ -122,8 +120,6 @@ $(".left_lists").on("click", function () {
             let message = content.chatMessage; // 메세지 내용
             let sendDate = content.chatDate; // 메세지 날짜
             let writer = content.memberId; // 채팅을 작성한 사람
-            let chatStatus = content.chatStatus == 'READ' ? true : false;
-
 
             const item = new LiModel(message, sendDate, writer, chatStatus);
             item.makeLi();
@@ -140,10 +136,9 @@ $(".left_lists").on("click", function () {
                     const check = this.chatStatus == true ? true : false; // 채팅을 읽은 상태일 경우 true
 
                     if (sessionId == this.writer) {
-                        this.chatStatus = check == true ? `` : `1&nbsp&nbsp`; // 채팅을 읽지 않은 상태일 경우 1을 표시
                         text += `<div class="chatting_inner">`;
                         text += `<div class="chatting_inner_right">`;
-                        text += `<p class="chatting_date_right"><span class="no_read_chat">${this.chatStatus}</span>` + month + "월 " + days + "일" + `</p>`;
+                        text += `<p class="chatting_date_right">` + month + "월 " + days + "일" + `</p>`;
                         text += `<ul class="chatting_ul">`;
                         text += `<li class="chatting_text">${this.message}</li>`;
                         text += `</ul>`;
@@ -152,10 +147,9 @@ $(".left_lists").on("click", function () {
                     }
                     /*상대방이 보낸 채팅의 경우*/
                     else {
-                        this.chatStatus = check == true ? `` : `&nbsp&nbsp1`; // 채팅을 읽지 않은 상태일 경우 1을 표시
                         text += `<div class="chatting_inner">`;
                         text += `<div class="chatting_inner_left">`;
-                        text += `<p class="chatting_date_left">` + month + "월 " + days + "일" + `<span class="no_read_chat">${this.chatStatus}</span></p>`;
+                        text += `<p class="chatting_date_left">` + month + "월 " + days + "일" + `</p>`;
                         text += `<ul class="chatting_ul">`;
                         text += `<li class="chatting_text">${this.message}</li>`;
                         text += `</ul>`;
