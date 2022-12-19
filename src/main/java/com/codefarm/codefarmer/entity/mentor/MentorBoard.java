@@ -45,7 +45,7 @@ public class MentorBoard extends Period {
     private String mentorTitleSub;
     @NotNull
     private String mentorTextTitle;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String mentorTextContent;
 
 

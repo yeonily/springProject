@@ -22,7 +22,7 @@ public class Board extends Period {
     private Long boardId;
     @NotNull
     private String boardTitle;
-    @NotNull
+    @NotNull @Column(length = 5000)
     private String boardContent;
     @ColumnDefault("0")
     private int boardViewCount;

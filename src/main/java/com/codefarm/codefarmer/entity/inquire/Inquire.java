@@ -21,7 +21,7 @@ public class Inquire extends Period {
     private Long inquireId;
     @NotNull
     private String inquireQTitle;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String inquireQContent;
     @NotNull
     @Enumerated(EnumType.STRING)

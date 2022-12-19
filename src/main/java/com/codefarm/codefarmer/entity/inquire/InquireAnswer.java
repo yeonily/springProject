@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class InquireAnswer extends Period {
     @Id @GeneratedValue
     private Long inquireAnswerId;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String inquireAnswer;
 
     @ManyToOne(fetch = FetchType.LAZY)
