@@ -42,7 +42,7 @@ public class Alba extends Period {
     private int albaPrice;
     @NotNull
     private String albaMainTitle;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String albaMainContent;
     @NotNull
     private String albaStrongTitle1;
@@ -62,7 +62,7 @@ public class Alba extends Period {
     private String albaBannerOne;
     @NotNull
     private String albaTextTitle;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String albaText;
     @NotNull
     private String albaProfileTitle1;
