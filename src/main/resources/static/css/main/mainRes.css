@@ -2,6 +2,10 @@
                 /*모바일 창*/
 /*------------------------------------------*/
 @media only screen and (max-width: 768px) {
+
+    p.banner-info{
+        margin: 0;
+    }
     body {
         width: 100%;
         scrollbar-width: none;
@@ -112,7 +116,7 @@
     }
     div.main_banner .swiper-slide div {
         width: 90%;
-        height: 120px;
+        height: 165px;
         font-size: 32px;
         font-weight: bold;
         color: #FFFFFF;
@@ -132,6 +136,9 @@
         padding: 0;
     }
 
+    p.banner-info p {
+        margin: 0;
+    }
     /*------------------------------------*/
                     /*멘토배너*/
     /*------------------------------------*/
@@ -220,7 +227,7 @@
         width: 100%;
     }
     div#socaMenu-inner div.menuList div.menuList-menu {
-        background-color: #f3f4f5;
+        background-color: #b3f15459;
         width: 353px;
         height: 96px;
         border-radius: 10px;
@@ -228,6 +235,11 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        margin-top: 10px;
+    }
+
+    div#socaMenu-inner div.menuList div.menuList-menu:hover {
+        background-color: #b3f15494;
     }
     div#socaMenu-inner div.menuList div.menuList-menu img {
         margin-right: 5px;
@@ -277,6 +289,9 @@
         width: 52px;
     }
 
+    div#programMenu{
+        margin-bottom: 80px;
+    }
 
     /*------------------------------------*/
                 /*사람들이 즐겨찾는 메뉴*/

@@ -94,7 +94,7 @@ public class JoinController {
 
 
     @PostMapping("/joinOk")
-    public String joinOk(MemberDTO memberDTO, HttpSession session){
+    public RedirectView joinOk(MemberDTO memberDTO, HttpSession session){
         memberService.join(memberDTO);
         Long id = joinService.selectId(memberDTO.getMemberOauthId());
         String type = joinService.selectType(memberDTO.getMemberOauthId());
@@ -108,7 +108,7 @@ public class JoinController {
         Long value = (Long)session.getAttribute("memberId");
         log.info("세션 value"+ value);
         log.info("세션 stringv"+ type);
-        return "/main/main";
+        return new RedirectView("/main/main");
     }
 
 
