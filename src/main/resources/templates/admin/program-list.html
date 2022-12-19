@@ -93,7 +93,9 @@
                                 <th:block th:text="*{programApplyTotalCount}"/>
                                 <input type="hidden" class="applyEndDate" th:value="*{#temporals.format(programApplyEndDate, 'yyyy-MM-dd')}">
                             </td>
-                            <td></td>
+                            <td>
+                                <span th:text="*{programApplyCount}"/>/<span th:text="*{programApplyTotalCount}"/>명
+                            </td>
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/program/delete}">
                                     <input type="hidden" name="programId" th:value="*{programId}">

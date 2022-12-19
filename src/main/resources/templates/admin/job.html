@@ -86,7 +86,7 @@
                             <td class="title" th:text="*{albaTitle}" th:onclick="|javascript:goPage('*{albaId}')|"></td>
                             <td class="id" th:text="*{member.getMemberName}"></td>
                             <td class="hourCost">
-                                <span th:text="*{albaApplyCount}" class="applyCount"/>/<span th:text="*{albaApplyTotalCount}"/>
+                                <span th:text="*{albaApplyCount}"/>/<span th:text="*{albaApplyTotalCount}"/>명
                             </td>
                             <td class="hourCost" th:text="*{albaPrice}"></td>
                             <td class="work-date" th:text="*{#temporals.format(albaWorkDate, 'yyyy.MM.dd')}"></td>
