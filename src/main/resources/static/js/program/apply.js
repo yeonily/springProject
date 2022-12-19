@@ -221,12 +221,14 @@ $("input[name='name']").keyup(function(){
 
 
 // input 값 모두 입력했을 때 회원 가입하기 버튼 활성화
-applyForm.programApplyName.addEventListener("keyup", inputfin)
-applyForm.programApplyPhoneNum.addEventListener("keyup", inputfin)
-applyForm.programApplyEmail.addEventListener("keyup", inputfin)
-applyForm.programApplyLocation.addEventListener("keyup", inputfin)
-applyForm.programApplyBirthString.addEventListener("keyup", inputfin)
+// applyForm.programApplyName.addEventListener("keyup", inputfin)
+// applyForm.programApplyPhoneNum.addEventListener("keyup", inputfin)
+// applyForm.programApplyEmail.addEventListener("keyup", inputfin)
+// applyForm.programApplyLocation.addEventListener("keyup", inputfin)
+// applyForm.programApplyBirthString.addEventListener("keyup", inputfin)
 
+
+inputfin();
 function inputfin() {
     if (!(applyForm.programApplyName.value && applyForm.programApplyPhoneNum.value && applyForm.programApplyEmail.value && applyForm.programApplyLocation.value && applyForm.programApplyBirthString.value)) {
         $(".apply-button").prop("disabled", true);

@@ -140,13 +140,26 @@ public class ProgramController {
         log.info("memberId:" + memberId);
         Member member = memberService.find(memberId);
         String memberName = member.getMemberName();
+        String memberEmail = member.getMemberEmail();
+        String memberLocation = member.getMemberLocation();
+        String memberPhone = member.getMemberPhone();
+        String memberBirth = member.getMemberBirth();
         ProgramDTO programDTO = programDetailService.showByProgramId(programId);
         log.info("프로그램DTO:" + programDTO.toString());
+        String programTitle = programDTO.getProgramTitle();
+        String programCrop = programDTO.getProgramCrop();
         String farmerName = memberService.find(programDTO.getMemberId()).getMemberName();
         String programName = programDTO.getProgramTitle();
+
         model.addAttribute("memberName" , memberName);
+        model.addAttribute("memberEmail" , memberEmail);
+        model.addAttribute("memberLocation" , memberLocation);
+        model.addAttribute("memberPhone" , memberPhone);
+        model.addAttribute("memberBirth" , memberBirth);
         model.addAttribute("farmerName" , farmerName);
         model.addAttribute("programName" , programName);
+        model.addAttribute("programTitle" , programTitle);
+        model.addAttribute("programCrop" , programCrop);
         model.addAttribute("programId" , programId);
     }
 
@@ -171,6 +184,7 @@ public class ProgramController {
         return "/program/applyfin";
     }
 
+//    프로그램 첫 신청페이지에서 다음버튼 입력할때
     @PostMapping("/pay")
     public void pay(HttpSession session, @RequestParam Long programId,Model model ,MemberProgramDTO memberProgramDTO,String programApplyBirthString){
         Long memberId = (Long)session.getAttribute("memberId");
@@ -185,9 +199,10 @@ public class ProgramController {
         int programApplyTotalCount = programDTO.getProgramApplyTotalCount();
         int programTotalPrice = programPrice * programApplyCount;
         String programName = programDTO.getProgramTitle();
-        String memberEmail = memberService.find(programDTO.getMemberId()).getMemberEmail();
-        String memberPhone = memberService.find(programDTO.getMemberId()).getMemberPhone();
+        String memberEmail = memberProgramDTO.getProgramApplyEmail();
+        String memberPhone = memberProgramDTO.getProgramApplyPhoneNum();
         String memberLocation = memberService.find(programDTO.getMemberId()).getMemberLocation();
+
         model.addAttribute("memberName" , memberName);
         model.addAttribute("farmerName" , farmerName);
         model.addAttribute("programApplyCount" , programApplyCount);

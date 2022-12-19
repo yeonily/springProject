@@ -54,7 +54,7 @@ public class Program extends Period {
     private String programResult3;
     @NotNull
     private String programResult4;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String programFarmerInfo;
     @NotNull
     private String programInfoTitle1;

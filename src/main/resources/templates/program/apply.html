@@ -23,10 +23,10 @@
                 </div>
                 <div class="telling-body">
                     <div class="telling-body-content">
-                        저는 무밭을 운영하고 있는 농장주입니다.<br>
-                        닉네임님이 무 뽑기 일일 프로그램을 통하여<br>
+                        저는 <span th:text="${programCrop}"></span>을 재배하고 있는 농장주입니다.<br>
+                        <span th:text="${memberName}"></span>님이 <span th:text="${programTitle}"></span>을 통하여<br>
                         재배의 즐거움과 성취감을 가득 안고 가실 수 있도록 노력하겠습니다!<br>
-                        프로그램에 대해 안내드릴 수 있도록 닉네임님을 소개해주실 수 있나요?</div>
+                        프로그램에 대해 안내드릴 수 있도록 <span th:text="${memberName}"></span>님을 소개해주실 수 있나요?</div>
                 </div>
             </div>
             <div class="avatar-wrapper">
@@ -61,7 +61,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="programApplyName" id="username">
+                                    <input type="text" class="text-field-name" name="programApplyName" id="username" th:value="${memberName}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption1" ></p>
@@ -74,7 +74,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="programApplyPhoneNum" id="userphone" placeholder="예시) 010-1234-5678">
+                                    <input type="text" class="text-field-name" name="programApplyPhoneNum" id="userphone" placeholder="예시) 010-1234-5678" th:value="${memberPhone}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption2" ></p>
@@ -87,7 +87,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="programApplyEmail" id="useremail">
+                                    <input type="text" class="text-field-name" name="programApplyEmail" id="useremail" th:value="${memberEmail}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption3" ></p>
@@ -100,7 +100,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="programApplyLocation" id="userhome">
+                                    <input type="text" class="text-field-name" name="programApplyLocation" id="userhome" th:value="${memberLocation}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption4" ></p>
@@ -113,7 +113,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="programApplyBirthString" id="userbirth" placeholder="예시) 2022-12-12">
+                                    <input type="text" class="text-field-name" name="programApplyBirthString" id="userbirth" placeholder="예시) 2022-12-12" th:value="${memberBirth}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption5" ></p>
