@@ -42,6 +42,15 @@ public class ProgramCustomRepositoryImpl implements ProgramCustomRepository{
 
 
 
+    @Override
+    public List<Program> showAdmin() {
+        return jpaQueryFactory.selectFrom(program)
+                .orderBy(program.programId.desc())
+                .limit(5)
+                .fetch();
+    }
+
+
     private BooleanExpression eqProgramTitle (String keyword, String searchText){
         if (keyword.equals("p")) {
             return program.programTitle.contains(searchText);

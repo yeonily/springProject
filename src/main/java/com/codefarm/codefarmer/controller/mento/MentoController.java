@@ -175,7 +175,7 @@ public class MentoController {
         log.info("세션아이디 : " + sessionId);
 
 //        MemberType sessionType = (MemberType)session.getAttribute("memberType");
-
+//
 //        if(sessionType == MemberType.USER || sessionType == MemberType.MENTEE){
 
             mentorMenteeDTO.setMenteeId(sessionId);
@@ -185,6 +185,7 @@ public class MentoController {
             mentorMenteeDTO.setMenteeComment(mentorComment);
 
             mentorMenteeApplyService.saveMenteeApply(mentorMenteeDTO);
+
 //        }
         return new RedirectView("/mento/list");
     }

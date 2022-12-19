@@ -146,9 +146,12 @@ public class AlbaController {
         Long memberId = (Long)session.getAttribute("memberId");
 
         if(memberId!=null) {
+            Long writerId = albaDetailService.memberIdFind(albaId);
             Long cancel = albaDetailService.albaSelect(albaId, memberId);
             model.addAttribute("cancel",cancel);
             model.addAttribute("memberType", albaListService.getMemberType(memberId));
+            model.addAttribute("memberId",memberId);
+            model.addAttribute("writerId",writerId);
         }
         model.addAttribute("albaId",albaId);
         AlbaDTO list = albaDetailService.showByAlbaId(albaId);
@@ -165,11 +168,19 @@ public class AlbaController {
 
     // 알바 게시글 수정
     @GetMapping("/update")
-    public String albaUpdate(Long albaId, Model model) throws IOException {
+    public String albaUpdate(HttpSession session, Long albaId, Model model) throws IOException {
+        Long memberId = (Long)session.getAttribute("memberId");
+
         AlbaDTO updateAlba = albaDetailService.showByAlbaId(albaId);
         log.info("enter?");
         log.info("albaId : " + albaId);
         model.addAttribute("updateAlba", updateAlba);
+
+        if(memberId!=null) {
+            Optional<Member> member = memberRepository.findById(memberId);
+            String name = member.get().getMemberName();
+            model.addAttribute("name", name);
+        }
 
         return "/alba/update";
     }

@@ -80,10 +80,10 @@
                         <p>실제로 작업이 진행되는 날짜를 입력해주세요.</p>
                         <input type="date" name="albaWorkDateString" id="workDay" class="input-div-input">
                     </div>
-                    <div class="input-div">
+                    <div class="input-div-people">
                         <span>모집인원</span>
                         <p>모집하고 싶은 인원을 입력해주세요.</p>
-                        <input th:field="*{albaApplyTotalCount}" type="number" class="input-div-input" placeholder="예시) 5">
+                        <input th:field="*{albaApplyTotalCount}" type="number" class="input-div-input-people" placeholder="예시) 5">
                     </div>
                     <div class="input-div">
                         <span>장소</span>
@@ -93,10 +93,10 @@
                         <input th:field="*{albaAddress}" type="text" id="locationInput" class="input-div-input" placeholder="지번, 도로명 주소를 입력해주세요.">
                         <input type="button" value="장소 검색" class="locationBtn" onclick="mapSearch();">
                     </div>
-                    <div class="input-div">
+                    <div class="input-div-pay">
                         <span>시급</span>
                         <p>해당 아르바이트의 시급을 입력해주세요.</p>
-                        <input th:field="*{albaPrice}" type="text" class="input-div-input" placeholder="예시) 9,120원">
+                        <input th:field="*{albaPrice}" type="text" class="input-div-input-pay" placeholder="예시) 9,120원">
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@
                             <div class="img-icon">
                                 <img src="/image/alba/profile.png">
                                 <p>농장주</p>
-                                <h1>ex)김00</h1>
+                                <h1 th:text="${name}"></h1>
                             </div>
                             <!--프로필 상세설명-->
                             <div class="profile-content">
@@ -318,7 +318,7 @@
                 <button type="button" class="prev"><img class="footer-img-prev" src="/image/alba/prev_register.gif">이전</button>
                 <button type="button" class="next">다음<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
                 <!--작성 완료 시 작성된 게시글로 이동되어야 함, alba/detail.js 300번째 줄쯤에 있음-->
-                <button type="submit" class="submitBtn" style="display: none; width: 82px">수정하기<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
+                <button type="button" class="submitBtn" style="display: none; width: 82px">수정하기<img class="footer-img-next" src="/image/alba/next_register.gif"></button>
             </div>
         </div>
     </form>

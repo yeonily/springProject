@@ -589,7 +589,6 @@ button.cancel{
     line-height: 25px;
     letter-spacing: .02em;
     font-weight: 600;
-    margin-right: 4px;
 }
 button.applyBtn:disabled {
     background-color: #47c88052;

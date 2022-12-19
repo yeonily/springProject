@@ -27,7 +27,7 @@
                 <div class="swiper-wrapper">
                         <div class="swiper-slide" style="background-color: rgb(120 157 200);" th:each=" banner:${banners}">
                             <div>
-                                <p th:utext="${banner.bannerTitle}"></p>
+                                <p th:utext="${banner.bannerInfo}"></p>
                             </div>
                             <img th:src="@{/admin/banner/display?fileName=} + ${banner.bannerRealname}" >
                         </div>

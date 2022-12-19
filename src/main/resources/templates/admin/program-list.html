@@ -46,7 +46,6 @@
                                 <option value="p">프로그램명</option>
                                 <option value="n">작성자</option>
                                 <option value="a">장소</option>
-                                <option value="s">상태</option>
                             </select>
                         </span>
                         <span class="s-f-input">
@@ -85,11 +84,16 @@
                             <td class="num" th:text="*{programId}"></td>
                             <td class="title" th:text="*{programTitle}" th:onclick="|javascript:goPage('*{programId}')|"></td>
                             <td class="id" th:text="*{member.getMemberNickname}"></td>
-                            <td class="cost" th:text="*{programPrice}"></td>
+                            <td class="cost">
+                                <input type="hidden" class="pay" th:value="*{programPrice}">
+                            </td>
                             <td class="place" th:text="*{programLocation}"></td>
                             <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
-                            <td class="hits">70</td>
-                            <td class="status">진행중</td>
+                            <td class="hits">
+                                <th:block th:text="*{programApplyCount}"/>
+                                <input type="hidden" class="applyEndDate" th:value="*{#temporals.format(programApplyEndDate, 'yyyy-MM-dd')}">
+                            </td>
+                            <td></td>
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/program/delete}">
                                     <input type="hidden" name="programId" th:value="*{programId}">
@@ -132,7 +136,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script th:inline="javascript">
-        let queryString = [[${criteria.queryString}]];
         const urlParams = new URL(location.href).searchParams;
         const keyword = urlParams.get('keyword');
 
@@ -143,12 +146,20 @@
         var today = new Date(year, month, day);
 
         $(document).ready(function() {
+            $("input.pay").each(function(index, item){
+                if ($(this).val() == 0) {
+                    $(this).parent().html("무료");
+                } else if ($(this).val() != 0) {
+                    $(this).parent().html($(this).val() + "원");
+                }
+            });
             $("input.applyEndDate").each(function(index, item){
                 var date = $(this).val().split("-");
                 var endDate = new Date(date[0], date[1], date[2]);
 
                 var minus = today.getTime() - endDate.getTime() ;
                 var result = minus / (1000*60*60*24) ;
+                console.log($(this).parent());
 
                 if (result > 0){
                     $(this).parent().next().html("마감");
@@ -173,14 +184,6 @@
         } else {
             $(".keywords").val(keyword).prop("selected", true);
         }
-
-        $(document).ready(function(){
-            $(".askStatus").each(function(i, item) {
-                if($(this).html() == "CONFIRM"){
-                    $(this).css("color", "green");
-                }
-            })
-        });
 
         // 글 삭제
         var msg = "이 프로그램을 삭제 하시겠습니까?";

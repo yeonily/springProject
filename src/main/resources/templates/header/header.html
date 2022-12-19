@@ -102,7 +102,20 @@
                                         <li style="display: block; margin-left: 5px;"><div><span class="mypageLink"/><a th:href="@{/mypage/setting}">마이페이지</a></div></li><hr>
                                         <li style="display: block; margin-left: 5px;"><div><span class="commuLink"/><a th:href="@{/mypage/community}">커뮤니티 활동</a></div></li><hr>
                                         <li style="display: block; margin-left: 5px;"><div><span class="chatLink"/><a th:href="@{/mento/chatting}">채팅방</a></div></li><hr>
-                                        <li style="display: block; margin-left: 5px;"><div><span class="logout"/><a th:href="@{https://kauth.kakao.com/oauth/logout?client_id=b6c8cc415d06296f3dad49e498e431cc&logout_redirect_uri=http://localhost:5555/login/logoutkakao}">로그아웃</a></div></li>
+                                        <li style="display: block; margin-left: 5px;">
+                                            <div th:if="${#strings.endsWith(session.oauthId,'k')}">
+                                                <span class="logout"/>
+                                                <a th:href="@{https://kauth.kakao.com/oauth/logout?client_id=b6c8cc415d06296f3dad49e498e431cc&logout_redirect_uri=http://localhost:5555/login/logoutkakao}">로그아웃</a>
+                                            </div>
+                                            <div th:if="${#strings.endsWith(session.oauthId,'n')}">
+                                                <span class="logout"/>
+                                                <a th:href="@{/login/logoutnaver}">로그아웃</a>
+                                            </div>
+                                            <div th:if="${#strings.endsWith(session.oauthId,'g')}">
+                                                <span class="logout"/>
+                                                <a onclick="location.href='https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:5555/login/logoutgoogle'">로그아웃</a>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

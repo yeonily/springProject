@@ -2,12 +2,9 @@ package com.codefarm.codefarmer.repository.mentor;
 
 
 import com.codefarm.codefarmer.domain.mentor.MentorBoardDTO;
-import com.codefarm.codefarmer.domain.mentor.MentorDTO;
 import com.codefarm.codefarmer.domain.mentor.QMentorBoardDTO;
+import com.codefarm.codefarmer.entity.mentor.Mentor;
 import com.codefarm.codefarmer.entity.mentor.MentorBoard;
-import com.codefarm.codefarmer.entity.mentor.QMentor;
-import com.codefarm.codefarmer.entity.mentor.QMentorMentee;
-import com.codefarm.codefarmer.entity.program.QProgram;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +16,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.codefarm.codefarmer.entity.mentor.QMentor.mentor;
 import static com.codefarm.codefarmer.entity.mentor.QMentorBoard.mentorBoard;
-import static com.codefarm.codefarmer.entity.mentor.QMentorMentee.mentorMentee;
-import static com.codefarm.codefarmer.entity.program.QProgram.program;
 
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class MentorCustomRepositoryImpl implements MentorCustomRepository{
+public class MentorCustomRepositoryImpl implements MentorCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
@@ -97,27 +91,15 @@ public class MentorCustomRepositoryImpl implements MentorCustomRepository{
 //.join(QMentor.mentor).fetchJoin()
 
     @Override
-    public List<MentorDTO> ShowAllMentor(String keyword, String searchText) {
+    public List<Mentor> ShowAllMentor(String keyword, String searchText) {
         return jpaQueryFactory.selectFrom(mentor)
-                .leftJoin(mentor.programs, program)
-                .leftJoin(mentor.mentorMentees, mentorMentee)
-                .fetchJoin()
                 .where(
                         eqName(keyword, searchText),
                         eqNickname(keyword, searchText),
                         eqAddress(keyword, searchText)
                 )
                 .orderBy(mentor.mentorId.desc())
-                .stream()
-                .map(mentor -> new MentorDTO(
-                        mentor.getMentorId(),
-                        mentor.getMember().getMemberName(),
-                        mentor.getMember().getMemberNickname(),
-                        mentor.getMentorYear(),
-                        mentor.getMember().getMemberLocation(),
-                        mentor.getPrograms().size(),
-                        mentor.getMentorMentees().size()))
-                .collect(Collectors.toList());
+                .fetch();
     }
 
     @Override

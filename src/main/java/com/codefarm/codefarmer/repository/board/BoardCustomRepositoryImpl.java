@@ -87,6 +87,14 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
     }
 
     @Override
+    public List<Board> showAdmin() {
+        return jpaQueryFactory.selectFrom(board)
+                .orderBy(board.boardId.desc())
+                .limit(5)
+                .fetch();
+    }
+
+    @Override
     public List<BoardDTO> ShowAllBoard(String keyword, String searchText) {
         return jpaQueryFactory.selectFrom(board).leftJoin(board.replies, reply)
                 .fetchJoin()
@@ -104,8 +112,8 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
                         board.getBoardContent(),
                         board.getBoardViewCount(),
                         board.getMember().getMemberNickname(),
-                        board.getCreatedDate(),
                         board.getUpdatedDate(),
+                        board.getCreatedDate(),
                         board.getReplies().size()))
                 .collect(Collectors.toList());
     }

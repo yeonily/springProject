@@ -300,7 +300,7 @@
                             </div>
                         </div>
                         <div class="pg-info-background" th:each="test: ${list.files}">
-                            <img class="register-img" style="width: 729px; height: 729px; object-fit: cover;" th:src="@{/file/display(fileName=${test.fileUploadPath} + '/s_' + ${test.fileUuid} + '_' + ${test.fileName})}">
+                            <img class="register-img" style="width: 729px; height: 729px; object-fit: contain;" th:src="@{/file/display(fileName=${test.fileUploadPath} + '/s_' + ${test.fileUuid} + '_' + ${test.fileName})}">
                         </div>
                     </section>
                 </div>

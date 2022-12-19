@@ -20,6 +20,14 @@ import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberCustomRepository {
 
+    // member Email 찾기
+    @Query("select count(m.memberEmail) from Member m where m.memberEmail = :email")
+    public int findByEmail(@Param("email") String email);
+
+    // member Email 찾기
+    @Query("select m.memberId from Member m where m.memberEmail = :email")
+    public Long findByMemberEmail(@Param("email") String email);
+
     //oauthid로 memberid찾기 > 회원가입,로그인 때 사용
     @Query("select m.memberId from Member m where m.memberOauthId = :OauthId")
     public Long selectMemberId(@Param("OauthId") String OauthId);

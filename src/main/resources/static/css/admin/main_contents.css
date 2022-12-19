@@ -102,16 +102,15 @@ div.c-content table tr {
     border-top: 1px solid #7c7c7c34;
 }
 
-div.c-content table tr.check {
-    background-color: #bcf5dc;
-}
+tr.link-href {cursor: pointer;}
+tr.link-href:hover {background: rgba(215, 215, 215, 0.27);}
 
-div.c-content table tbody.reply td {
-    text-align: left;
-}
-div.c-content table tbody.reply td.content {
-    padding-right: 1vw;
-}
+div.c-content table tr.check {background-color: #bcf5dc;}
+
+div.c-content table tbody.reply td {text-align: left;}
+div.c-content table tbody.reply td.content {padding-right: 1vw;}
+
+tbody td.content {text-align: left;}
 
 div.c-content table tbody td {
     font-size: 0.8vw;
