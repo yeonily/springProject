@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.entity.admin;
 import com.codefarm.codefarmer.entity.period.Period;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -20,7 +21,7 @@ public class Crop extends Period {
     private String cropTitle;
     @NotNull
     private String cropImage;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String cropContent;
 
     @Builder

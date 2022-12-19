@@ -20,7 +20,7 @@ public class Policy extends Period{
     private String policyKeyword;
     @NotNull
     private String policyTitle;
-    @NotNull
+    @NotNull @Column(length = 1000)
     private String policyContent;
 
     @Builder
