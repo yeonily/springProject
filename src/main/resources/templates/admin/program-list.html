@@ -90,7 +90,7 @@
                             <td class="place" th:text="*{programLocation}"></td>
                             <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
                             <td class="hits">
-                                <th:block th:text="*{programApplyCount}"/>
+                                <th:block th:text="*{programApplyTotalCount}"/>
                                 <input type="hidden" class="applyEndDate" th:value="*{#temporals.format(programApplyEndDate, 'yyyy-MM-dd')}">
                             </td>
                             <td></td>

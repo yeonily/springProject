@@ -69,12 +69,13 @@
                 <table>
                     <tr class="title">
                         <th class="num">글번호</th>
-                        <th class="title">아르바이트명</th>
+                        <th class="title" style="width: 35%">아르바이트명</th>
                         <th class="id" style="width: 11%">작성자</th>
+                        <th style="width: 7%">신청 인원</th>
                         <th class="hourCost">시급</th>
-                        <th class="work-date" style="width: 9%">작업날짜</th>
+                        <th class="work-date" style="width: 8%">작업날짜</th>
                         <th class="date">작성날짜</th>
-                        <th class="status" style="width: 8%">상태</th>
+                        <th class="status" style="width: 7%">상태</th>
                         <th class="delete"></th>
                     </tr>
 
@@ -84,11 +85,14 @@
                             <td class="num" th:text="*{albaId}"></td>
                             <td class="title" th:text="*{albaTitle}" th:onclick="|javascript:goPage('*{albaId}')|"></td>
                             <td class="id" th:text="*{member.getMemberName}"></td>
+                            <td class="hourCost">
+                                <span th:text="*{albaApplyCount}" class="applyCount"/>/<span th:text="*{albaApplyTotalCount}"/>
+                            </td>
                             <td class="hourCost" th:text="*{albaPrice}"></td>
                             <td class="work-date" th:text="*{#temporals.format(albaWorkDate, 'yyyy.MM.dd')}"></td>
                             <td class="date">
                                 <th:block th:text="*{#temporals.format(albaApplyStartDate, 'yyyy.MM.dd HH:mm')}"/>
-                                <input type="text" th:value="*{#temporals.format(albaApplyEndDate, 'yyyy-MM-dd')}" class="applyEndDate">
+                                <input type="hidden" th:value="*{#temporals.format(albaApplyEndDate, 'yyyy-MM-dd')}" class="applyEndDate">
                             </td>
                             <td class="status" style="color: #4a4a4a;"></td>
                             <td class="delete">
@@ -161,8 +165,11 @@
                 $(this).parent().next().html("오늘 마감");
             }
         });
+        $(".applyCount\").html()\n" +
+            "    // 알바 디테일").each(function(index, item){
     });
 
+    $(".applyCount").html()
     // 알바 디테일 페이지로 이동
     function goPage (albaId) {
         location.href='/alba/detail?albaId=' + albaId;
