@@ -42,13 +42,13 @@ public class ProgramCustomRepositoryImpl implements ProgramCustomRepository{
 
 
 
-    @Override
-    public List<Program> showAdmin() {
-        return jpaQueryFactory.selectFrom(program)
-                .orderBy(program.programId.desc())
-                .limit(5)
-                .fetch();
-    }
+//    @Override
+//    public List<Program> showAdmin() {
+//        return jpaQueryFactory.selectFrom(program)
+//                .orderBy(program.programId.desc())
+//                .limit(5)
+//                .fetch();
+//    }
 
 
     private BooleanExpression eqProgramTitle (String keyword, String searchText){
