@@ -214,12 +214,12 @@ public class MyPageController {
 
     //아르바이트 삭제
     @PostMapping("/alba/delete")
-    public String delete(@RequestParam String albaIdString){
+    public RedirectView delete(@RequestParam String albaIdString){
         log.info("delete컨트롤러 들어옴" );
         log.info("albaId:" + albaIdString);
         Long albaId = Long.parseLong(albaIdString);
         albaDetailService.removeAlbaId(albaId);
-        return "/myPage/alba";
+        return new RedirectView("/mypage/alba");
     }
 
     //문의하기 페이지 이동

@@ -268,7 +268,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
         )).from(board).join(board.member)
                 .where(board.member.memberId.eq(memberId)).fetch();
 
-        long total = jpaQueryFactory.selectFrom(board).fetch().size();
+        long total = jpaQueryFactory.selectFrom(board).join(board.member).where(board.member.memberId.eq(memberId)).fetch().size();
 
         return new PageImpl<>(boardDTOList, pageable, total);
     }

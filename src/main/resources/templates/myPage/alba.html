@@ -138,18 +138,16 @@
     }
 
     $("#c-w-wrap").on("click", ".commu", function(){
-        var n1 = $("input[name=abId1]").val();
-        console.log(n1);
+        // var n1 = $("input[name=abId1]").val();
         var n = this.classList[2];
         console.log(n);
         viewDetail(n);
     })
 
     $("#c-w-wrap").on("click", ".c-user", function(){
-        var n1 = $("input[name=abId2]").val();
-        console.log(n1);
+        // var n1 = $("input[name=abId2]").val();
         var n = this.classList[2];
-        viewDetail(n1);
+        viewDetail(n);
     })
 //----------------------------------------
     let memberId = [[${member.memberId}]];

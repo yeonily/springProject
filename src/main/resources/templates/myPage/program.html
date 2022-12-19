@@ -130,7 +130,7 @@
     // 농장주일 때 글 삭제 모달 알람
     function removeCheck(programId){
         event.stopImmediatePropagation();
-        $("#prgramIdString").attr("value",programId);
+        $("#programIdString").attr("value",programId);
         $(".alam-wrap").show();
     };
 
@@ -362,9 +362,8 @@ $("#pg-list").on("click", ".myProgram", function(){
                 text += '</div>'
                 console.log(programs[i].programApplyId[i])
                 var applyNumber = programs[i].programApplyId[i];
-                console.log(programs[i].programStatus[i]);
-                if (programs[i].programStatus[i] == 'PAY_SUCCEED') {
-                    text += "<div class='l-a-cancel l-text' ><a class='applyCancel " + programs[i].programApplyId[i] + "'>신청 취소</a></div>"
+                if (programs[i].programStatus == 'PAY_SUCCEED') {
+                    text += '<div class="l-a-cancel l-text"><a class="applyCancel" href="/mypage/program/cancel?programApplyId='+ applyNumber + '">신청 취소</a></div>'
                 } else {
                     text += '<div class="l-a-cancel l-text" style="color: #ff4d4d">취소 완료</div>'
                 }
@@ -380,15 +379,18 @@ $("#pg-list").on("click", ".myProgram", function(){
         $("div#pg-apply-list").html(text);
     }
 
-
-$("div#pg-apply-list").on("click", "a.applyCancel", function(){
-    let programId = this.classList[1];
-    location.href ="/mypage/program/cancel?programApplyId="+programId;
-})
-
+    //디테일페이지로 이동
     $("#pg-apply-list").on("click", ".myProgram", function(){
         let programId = this.classList[3];
         viewDetail(programId);
     })
+
+    //신청취소버튼
+    // $("div#pg-apply-list").on("click", "a.applyCancel", function(){
+    //     event.stopImmediatePropagation();
+    //     console.log("들어옴");
+    //     let programApplyId = this.classList[1];
+    //     location.href ="/mypage/program/cancel?programApplyId="+programApplyId;
+    // })
 </script>
 </html>
