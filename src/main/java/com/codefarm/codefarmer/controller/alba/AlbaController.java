@@ -89,8 +89,8 @@ public class AlbaController {
         Long memberId = (Long)session.getAttribute("memberId");
 
         if(memberId!=null) {
-            String path = "/Users/yeontaegwan/Desktop/project/image";
-//          String path = "C:/upload";
+//            String path = "/Users/yeontaegwan/Desktop/project/image";
+          String path = "C:/upload";
             String uploadFileName = null;
 
             File uploadPath = new File(path);
@@ -139,7 +139,7 @@ public class AlbaController {
 
     // 알바 상세정보 불러오기
     @GetMapping("/detail")
-    public void albaDetail(Model model,HttpSession session, @RequestParam Long albaId) throws Exception {
+    public void albaDetail(Model model,HttpSession session, @RequestParam Long albaId, @RequestParam(required = false) String albaIdString) throws Exception {
         log.info("디테일 들어옴");
         log.info("alba : "+ albaId);
 
@@ -192,8 +192,8 @@ public class AlbaController {
         Long memberId = (Long)session.getAttribute("memberId");
 
         log.info("몇 번째일까요? : " + albaDTO.getAlbaId());
-        String path = "/Users/yeontaegwan/Desktop/project/image";
-//        String path = "C:/upload";
+//        String path = "/Users/yeontaegwan/Desktop/project/image";
+        String path = "C:/upload";
         String uploadFileName = null;
         String dbFile = albaDetailService.showByAlbaId(albaDTO.getAlbaId()).getAlbaImage();
 
@@ -251,8 +251,8 @@ public class AlbaController {
     @GetMapping("/display")
     @ResponseBody
     public byte[] display(String fileName) throws IOException{
-        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
-//        File file = new File("C:/upload", fileName);
+//        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
+        File file = new File("C:/upload", fileName);
 
         return FileCopyUtils.copyToByteArray(file);
     }

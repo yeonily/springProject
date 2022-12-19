@@ -123,7 +123,6 @@
 
     // 알바 삭제 버튼 클릭 시
     $("#alba-delete-btn").on("click" , function () {
-
         $("#delete-Alba").submit();
     })
 
@@ -139,8 +138,18 @@
     }
 
     $("#c-w-wrap").on("click", ".commu", function(){
-        let albaId = this.classList[2];
-        viewDetail(albaId);
+        var n1 = $("input[name=abId1]").val();
+        console.log(n1);
+        var n = this.classList[2];
+        console.log(n);
+        viewDetail(n);
+    })
+
+    $("#c-w-wrap").on("click", ".c-user", function(){
+        var n1 = $("input[name=abId2]").val();
+        console.log(n1);
+        var n = this.classList[2];
+        viewDetail(n1);
     })
 //----------------------------------------
     let memberId = [[${member.memberId}]];
@@ -193,7 +202,7 @@
             text += '<div class="alba-list" th:object="${albaDTO}">'
             var number = albaDTO.albaId;
             text += "<div class='commu c-link "+albaDTO.albaId+"'>"
-            text += '<input type="hidden" name="abId" value="'+number+'">'
+            text += '<input type="hidden" name="abId1" value="'+number+'">'
             text += '<div class="c-top-wrap">'
             text += '<div class="t-s-wrap">'
             let date = new Date(albaDTO.albaWorkDate);
@@ -303,8 +312,8 @@
             console.log(albaDTO);
             text += '<div class="alba-list" >'
             var number = albaDTO.albaId;
-            text += '<div class="commu c-link">'
-            text += '<input type="hidden" name="abId" value="'+number+'">'
+            text += "<div class='commu c-link "+albaDTO.albaId+" c-user'>"
+            text += '<input type="hidden" name="abId2" value="'+number+'">'
             text += '<div class="c-top-wrap">'
             text += '<div class="t-s-wrap">'
             let date = new Date(albaDTO.albaWorkDate);
