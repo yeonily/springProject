@@ -49,7 +49,6 @@ let myPageService = (function () {
                 console.log("getBoList - "+ boards);
                 if (callback) {
                     callback(boards);
-                    console.log("getBoList >> "+ boards);
                 }
             },
             error: function (xhr, status, err) {
