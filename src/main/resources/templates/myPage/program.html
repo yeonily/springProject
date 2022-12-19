@@ -152,12 +152,13 @@
 
     //상세페이지 이동
     function viewDetail(programId) {
-        console.log("??");
+        console.log("programId2" + programId);
         location.href = "/program/detail?programId=" + programId;
     }
 
-$("#ls-wrap").on("click", ".myProgram", function(){
+$("#pg-list").on("click", ".myProgram", function(){
     let programId = this.classList[3];
+    console.log("programId1" + programId);
     viewDetail(programId);
 })
 //-------------------------------------------------
@@ -207,7 +208,7 @@ $("#ls-wrap").on("click", ".myProgram", function(){
 
             text += '<div class="list-wrap"  th:object="${programDTO}">'
             var number = programDTO.programId;
-            text += "<div class='myProgram f-column select-l "+programDTO.programId+"'>"
+            text += "<div class='myProgram f-column select-l "+programDTO.programId+"' onclick='javascript:viewDetail('+number+')>"
             text += '<input type="hidden" name="pgId" value="'+number+'">'
             text += '<div class="list-img">'
             text += '<div class="only-mentor">'
@@ -265,60 +266,128 @@ $("#ls-wrap").on("click", ".myProgram", function(){
             return;
         }
 
-        programs.forEach(function (programDTO) {
 
-            if(programDTO.programPrice == 0){
-                programDTO.programPrice = "무료"
-            }
-            nowDate = new Date();
-            nowDateDTO = programDTO.programApplyStartDate;
-            startDate = new Date(nowDateDTO);
+        // programs.forEach(function (programDTO) {
+        //
+        //     if(programDTO.programPrice == 0){
+        //         programDTO.programPrice = "무료"
+        //     }
+        //     nowDate = new Date();
+        //     nowDateDTO = programDTO.programApplyStartDate;
+        //     startDate = new Date(nowDateDTO);
+        //
+        //     text += '<div class="list-wrap"  th:object="${programDTO}">'
+        //     var number = programDTO.programId;
+        //     text += "<div class='myProgram f-column select-l "+programDTO.programId+"'>"
+        //     text += '<input type="hidden" name="pgId" value="'+number+'">'
+        //     text += '<div class="list-img">'
+        //     text += '<div class="only-mentor">'
+        //     if(programDTO.programType == 'ONLY_MENTEE'){
+        //         text += '<span class="only-mentor">멘티 전용</span>'
+        //     }
+        //     text += '</div>'
+        //     if(nowDate > startDate){
+        //         text += '<img class="pg-image" src=' + '/file/display?fileName=' + programDTO.files[0].fileUploadPath + '/s_' + programDTO.files[0].fileUuid + '_' + programDTO.files[0].fileName + '>'
+        //     }else{
+        //         text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
+        //     }
+        //
+        //     text += '</div>'
+        //     text += '<div class="list-text-wrap">'
+        //     text += '<div class="list-text">'
+        //     if(nowDate > startDate){
+        //         text += '<div class="l-text starting l-d-ing">수강예정</div>'
+        //     }else{
+        //         text += '<div class="l-text starting l-d-ing">수강완료</div>'
+        //     }
+        //
+        //     text += '<div class="l-m-c">∙</div>'
+        //     text += '<div class="l-text l-address">' + programDTO.programLocation +'</div>'
+        //     text += '</div>'
+        //     console.log(programDTO.programApplyId)
+        //     var applyNumber = programDTO.programApplyId;
+        //     console.log(programDTO.programStatus);
+        //     if(programDTO.programStatus == 'PAY_SUCCEED'){
+        //         text += '<div class="l-a-cancel l-text"><a href="/mypage/program/cancel?programApplyId='+applyNumber+'">신청 취소</a></div>'
+        //     }else{
+        //         text += '<div class="l-a-cancel l-text" style="color: #ff4d4d">취소 완료</div>'
+        //     }
+        //     text += '</div>'
+        //     text += '<div class="list-title">' + programDTO.programTitle +'</div>'
+        //     text += '</div>'
+        //     let date = new Date(programDTO.programWorkDate);
+        //     let month = date.getMonth()+1;
+        //     let day = date.getDate();
+        //     text += '<div class="start-day">'+ month + '월 ' + day  + '일 시작'   +'</div>'
+        //     text += '</div>'
+        // })
+        for (var i = 0; i<programs.length; i++) {
+                console.log(programs[i].programId);
 
-            text += '<div class="list-wrap"  th:object="${programDTO}">'
-            var number = programDTO.programId;
-            text += "<div class='myProgram f-column select-l "+programDTO.programId+"'>"
-            text += '<input type="hidden" name="pgId" value="'+number+'">'
-            text += '<div class="list-img">'
-            text += '<div class="only-mentor">'
-            if(programDTO.programType == 'ONLY_MENTEE'){
-                text += '<span class="only-mentor">멘티 전용</span>'
-            }
-            text += '</div>'
-            if(nowDate > startDate){
-                text += '<img class="pg-image" src=' + '/file/display?fileName=' + programDTO.files[0].fileUploadPath + '/s_' + programDTO.files[0].fileUuid + '_' + programDTO.files[0].fileName + '>'
-            }else{
-                text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
-            }
+                if (programs[i].programPrice[i] == 0) {
+                    programs[i].programPrice[i] = "무료"
+                }
+                nowDate = new Date();
+                nowDateDTO = programs[i].programApplyStartDate[i];
+                startDate = new Date(nowDateDTO);
 
-            text += '</div>'
-            text += '<div class="list-text-wrap">'
-            text += '<div class="list-text">'
-            if(nowDate > startDate){
-                text += '<div class="l-text starting l-d-ing">수강완료</div>'
-            }else{
-                text += '<div class="l-text starting l-d-ing">수강예정</div>'
-            }
+                text += '<div class="list-wrap" >'
+                var number = programs[i].programId;
+                text += "<div class='myProgram f-column select-l " + programs[i].programId + "'>"
+                text += '<input type="hidden" name="pgId" value="' + number + '">'
+                text += '<div class="list-img">'
+                text += '<div class="only-mentor">'
+                if (programs[i].programType[i] == 'ONLY_MENTEE') {
+                    text += '<span class="only-mentor">멘티 전용</span>'
+                }
+                text += '</div>'
+                if (nowDate > startDate) {
+                    text += '<img class="pg-image" src=' + '/file/display?fileName=' + programs[i].files[0].fileUploadPath + '/s_' + programs[i].files[0].fileUuid + '_' + programs[i].files[0].fileName + '>'
+                } else {
+                    text += '<img class="pg-image" src="/image/program/pgnotimage.gif">'
+                }
 
-            text += '<div class="l-m-c">∙</div>'
-            text += '<div class="l-text l-address">' + programDTO.programLocation +'</div>'
-            text += '</div>'
-            console.log(programDTO.programApplyId)
-            var applyNumber = programDTO.programApplyId;
-            if(programDTO.programStatus == 'PAY_SUCCEED'){
-                text += '<div class="l-a-cancel l-text"><a href="/mypage/program/cancel?programApplyId='+applyNumber+'">신청 취소</a></div>'
-            }else{
-                text += '<div class="l-a-cancel l-text" style="color: #ff4d4d">취소 완료</div>'
-            }
-            text += '</div>'
-            text += '<div class="list-title">' + programDTO.programTitle +'</div>'
-            text += '</div>'
-            let date = new Date(programDTO.programWorkDate);
-            let month = date.getMonth()+1;
-            let day = date.getDate();
-            text += '<div class="start-day">'+ month + '월 ' + day  + '일 시작'   +'</div>'
-            text += '</div>'
-        })
+                text += '</div>'
+                text += '<div class="list-text-wrap">'
+                text += '<div class="list-text">'
+                if (nowDate > startDate) {
+                    text += '<div class="l-text starting l-d-ing">수강예정</div>'
+                } else {
+                    text += '<div class="l-text starting l-d-ing">수강완료</div>'
+                }
+
+                text += '<div class="l-m-c">∙</div>'
+                text += '<div class="l-text l-address">' + programs[i].programLocation + '</div>'
+                text += '</div>'
+                console.log(programs[i].programApplyId[i])
+                var applyNumber = programs[i].programApplyId[i];
+                console.log(programs[i].programStatus[i]);
+                if (programs[i].programStatus[i] == 'PAY_SUCCEED') {
+                    text += "<div class='l-a-cancel l-text' ><a class='applyCancel " + programs[i].programApplyId[i] + "'>신청 취소</a></div>"
+                } else {
+                    text += '<div class="l-a-cancel l-text" style="color: #ff4d4d">취소 완료</div>'
+                }
+                text += '</div>'
+                text += '<div class="list-title">' + programs[i].programTitle + '</div>'
+                text += '</div>'
+                let date = new Date(programs[i].programWorkDate);
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                text += '<div class="start-day">' + month + '월 ' + day + '일 시작' + '</div>'
+                text += '</div>'
+        }
         $("div#pg-apply-list").html(text);
     }
+
+
+$("div#pg-apply-list").on("click", "a.applyCancel", function(){
+    let programId = this.classList[1];
+    location.href ="/mypage/program/cancel?programApplyId="+programId;
+})
+
+    $("#pg-apply-list").on("click", ".myProgram", function(){
+        let programId = this.classList[3];
+        viewDetail(programId);
+    })
 </script>
 </html>
