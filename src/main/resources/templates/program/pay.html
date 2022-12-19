@@ -49,7 +49,7 @@
                                 <div class="c-w-full">
                                     <img class="callout-img" src="/image/program/greencheck.gif">
                                     <div class="callout-message">
-                                        <span th:text="${programApplyTotalCount}"></span>명이 프로그램명에 신청했어요. 서두르세요!
+                                        <span th:text="${programApplyCount}"></span>명이 <span th:text="${programName}"></span>에 신청했어요. 서두르세요!
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="phone" id="userphone">
+                                    <input type="text" class="text-field-name" name="phone" id="userphone" th:value="${memberPhone}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption2"></p>
@@ -98,7 +98,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="email" id="useremail">
+                                    <input type="text" class="text-field-name" name="email" id="useremail" th:value="${memberEmail}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption3"></p>
@@ -145,7 +145,7 @@
                                 <label class="clearfix commoncss" id="kcp">
                                     <div class="payment-type-item-wrapper">
                                         <div class="payment-type-item">
-                                            <img class="logo-pg" src="https://comento.kr/images/logo/logo_kginicis.svg">
+                                            <img class="logo-pg" src="/image/program/kcp.png" style="height: 30px;">
                                             <div class="payment-type-item-typo">카드결제</div>
                                         </div>
                                     </div>
