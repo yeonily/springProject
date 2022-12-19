@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface InquireRepository extends JpaRepository<Inquire, Long> {
@@ -28,6 +29,6 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
     @Transactional
     @Modifying
     @Query("update Inquire i set i.inquireStatus= :status where i.inquireId in :inquireId")
-    public void updateStatues(Long inquireId, Status status);
+    public void updateStatues(@Param("inquireId")Long inquireId, @Param("status") Status status);
 
 }

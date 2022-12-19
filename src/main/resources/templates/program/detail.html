@@ -29,7 +29,7 @@
                         <div class="pg-detail-banner-headline" th:text="*{programTitleSub}"></div>
                     </div>
                     <div class="banner-image-container">
-                        <img class="pg-detail-banner-image" style="width: 542px; height: 287px;" th:src="@{/file/display(fileName=${list.files[0].fileUploadPath} + '/s_' + ${list.files[0].fileUuid} + '_' + ${list.files[0].fileName})}">
+                        <img class="pg-detail-banner-image" style="width: 542px; height: 287px;" th:src="@{/file/display(fileName=${list.files[0].fileUploadPath} + '/' + ${list.files[0].fileUuid} + '_' + ${list.files[0].fileName})}">
                     </div>
                 </section>
             </div>

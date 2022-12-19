@@ -251,8 +251,8 @@ public class AlbaController {
     @GetMapping("/display")
     @ResponseBody
     public byte[] display(String fileName) throws IOException{
-        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
-//        File file = new File("C:/upload", fileName);
+//        File file = new File("/Users/yeontaegwan/Desktop/project/image", fileName);
+        File file = new File("C:/upload", fileName);
 
         return FileCopyUtils.copyToByteArray(file);
     }
