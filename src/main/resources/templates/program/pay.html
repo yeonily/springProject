@@ -56,13 +56,13 @@
                         </div>
                         <div class="user-line">결제자 정보</div>
                         <span class="user-info">
-                <form action="" id="pg-apply-form" name="paymentForm">
-                    <input type="hidden" th:value="${programName}" id="programName">
-                    <input type="hidden" th:value="${memberEmail}" id="memberEmail">
-                    <input type="hidden" th:value="${memberPhone}" id="memberPhone">
-                    <input type="hidden" th:value="${memberLocation}" id="memberLocation">
-                    <input type="hidden" th:value="${programApplyCount}" id="programApplyCount">
-                    <input type="hidden" th:value="${programApplyBirth}" id="programApplyBirth">
+                <form action="/program/pay" id="pg-apply-form" name="paymentForm">
+                    <input type="hidden" th:value="${programName}" id="programName" name="programTitle">
+                    <input type="hidden" th:value="${memberEmail}" id="memberEmail" name="programApplyEmail">
+                    <input type="hidden" th:value="${memberPhone}" id="memberPhone" name="programApplyPhoneNum">
+                    <input type="hidden" th:value="${memberLocation}" id="memberLocation" name="programApplyLocation">
+                    <input type="hidden" th:value="${programApplyCount}" id="programApplyCount" name="programApplyCount">
+                    <input type="hidden" th:value="${programApplyBirth}" id="programApplyBirth" name="programApplyBirthStr">
 
 
                     <!-- 결제자 정보 -->
@@ -72,7 +72,7 @@
                         <span class="body-span">
                             <div class="body-text-field">
                                 <div class="text-field-input-wrapper">
-                                    <input type="text" class="text-field-name" name="name" id="username" th:value="${memberName}">
+                                    <input type="text" class="text-field-name" name="programApplyName" id="username" th:value="${memberName}">
                                 </div>
                                 <div class="c-hint"><!--유효성검사 결과 부분(js)-->
                                     <p class="caption1"></p>
@@ -135,7 +135,8 @@
                         </div>
                     </div>
                     <!-- 결제 수단 -->
-                    <div class="card-item-wrapper">
+
+                    <div class="card-item-wrapper" th:if="${programPrice} != 0">
                         <div class="user-line">결제 수단</div>
                         <ul class="payment-type-group">
                             <li class="payment-type-list a">
@@ -182,10 +183,12 @@
                         </div>
                         <div class="pay-agree">위 내용을 확인하였으며, 결제에 동의합니다.</div>
                     <!-- 결제버튼 -->
-                    <input type="hidden" id="programId" th:value="${programId}">
+                    <input type="hidden" id="programId" th:value="${programId}" name="programId">
                     <div class="button-wrapper">
-                    <button type="button" class="pay-button" id="pay">
+                    <button type="button" class="pay-button" id="pay" th:if="${programPrice} != 0">
                         <div class="button-icon" id="pay_button">결제하기</div></button>
+                    <button type="button" class="pay-button" id="register" th:unless="${programPrice} != 0">
+                        <div class="button-icon" id="register_button">신청하기</div></button>
                     </div>
                 </form>
             </span>
@@ -198,7 +201,10 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
-
+    //프로그램 무료일 시 신청으로 이동
+    $("#register").on("click" , function () {
+        $("#pg-apply-form").submit();
+    })
 
 
 
@@ -299,7 +305,6 @@
         switch (response.event) {
 
             case 'done':
-                alert("성공!");
                 // 결제 완료 처리
                 $.ajax({
                     url: "/applypay/applyfin?programId=" + $("#programId").val(),
@@ -317,6 +322,7 @@
                     contentType: "application/json; charset=utf-8",
                     success : function(data){
                         console.log("성공!")
+                        location.href = "/program/applyfin";
                     }
                 });
                 break;
@@ -327,17 +333,6 @@
         }
 
 
-        function giveMoneyCash(pay, callback) {
-            $.ajax({
-                url: "/applypay/applyfin?",
-                type : "post",
-                data : JSON.stringify(pay),
-                contentType: "application/json; charset=utf-8",
-                success : function(data){
-
-                }
-            });
-        }
 
     }
     /*결제 카카오 클릭 시*/
@@ -389,7 +384,6 @@
         switch (response.event) {
 
             case 'done':
-                alert("성공!");
                 // 결제 완료 처리
                 $.ajax({
                     url: "/applypay/applyfin?programId=" + $("#programId").val(),
@@ -407,6 +401,7 @@
                     contentType: "application/json; charset=utf-8",
                     success : function(data){
                         console.log("성공!")
+                        location.href = "/program/applyfin";
                     }
                 });
                 break;
@@ -417,17 +412,6 @@
         }
 
 
-        function giveMoneyCash(pay, callback) {
-            $.ajax({
-                url: "/applypay/applyfin?",
-                type : "post",
-                data : JSON.stringify(pay),
-                contentType: "application/json; charset=utf-8",
-                success : function(data){
-
-                }
-            });
-        }
 
     }
 </script>

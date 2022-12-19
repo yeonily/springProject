@@ -15,6 +15,7 @@ import com.codefarm.codefarmer.repository.program.ProgramFileRepository;
 import com.codefarm.codefarmer.service.member.MemberService;
 import com.codefarm.codefarmer.service.program.*;
 import com.codefarm.codefarmer.type.ProgramLevel;
+import com.codefarm.codefarmer.type.ProgramStatus;
 import com.codefarm.codefarmer.type.ProgramType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +51,7 @@ public class ProgramController {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final MentorRepository mentorRepository;
+    private final ProgramPayService programPayService;
 
     @GetMapping("/list")
     public void list(Model model){
@@ -148,7 +150,26 @@ public class ProgramController {
         model.addAttribute("programId" , programId);
     }
 
+//    신청 완료 시
+    @GetMapping("/applyfin")
+    public void applyfin(){
 
+    }
+
+    @GetMapping("/pay")
+    public String freepay(HttpSession session,@RequestParam Long programId, MemberProgramDTO memberProgramDTO,String programApplyBirthStr){
+        Long memberId = (Long)session.getAttribute("memberId");
+        Long getProgramId = Long.valueOf(programId);
+        log.info("멤프 잘 들어왔니" + memberProgramDTO.toString());
+        memberProgramDTO.setProgramStatus(ProgramStatus.PAY_SUCCEED);
+        log.info(programApplyBirthStr);
+        log.info("프로그램아이디:"+programId);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime programApplyBirths = LocalDateTime.parse(programApplyBirthStr);
+        memberProgramDTO.setProgramApplyBirth(programApplyBirths);
+        programPayService.applyProgram(memberProgramDTO,getProgramId,memberId);
+        return "/program/applyfin";
+    }
 
     @PostMapping("/pay")
     public void pay(HttpSession session, @RequestParam Long programId,Model model ,MemberProgramDTO memberProgramDTO,String programApplyBirthString){

@@ -3,6 +3,7 @@ package com.codefarm.codefarmer.service.program;
 import com.codefarm.codefarmer.domain.member.MemberDTO;
 import com.codefarm.codefarmer.domain.program.MemberProgramDTO;
 import com.codefarm.codefarmer.domain.program.ProgramDTO;
+import com.codefarm.codefarmer.entity.member.Member;
 import com.codefarm.codefarmer.entity.member.QMember;
 import com.codefarm.codefarmer.entity.program.MemberProgram;
 import com.codefarm.codefarmer.entity.program.Program;
@@ -51,8 +52,8 @@ public class ProgramPayService {
         Program program = programDTO.toEntity();
 
         MemberProgram memberProgram = memberProgramDTO.toEntity();
-
-        program.changeMember(memberRepository.findById(memberId).get());
+        Long programMemberId = programDTO.getMemberId();
+        program.changeMember(memberRepository.findById(programMemberId).get());
         memberProgram.changeMember(memberRepository.findById(memberId).get());
         memberProgram.changeProgram(programRepository.findById(programId).get());
         memberProgramRepository.save(memberProgram);

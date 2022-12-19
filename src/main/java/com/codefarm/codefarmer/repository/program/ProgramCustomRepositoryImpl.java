@@ -40,6 +40,8 @@ public class ProgramCustomRepositoryImpl implements ProgramCustomRepository{
                 .fetchOne());
     }
 
+
+
     @Override
     public List<Program> showAdmin() {
         return jpaQueryFactory.selectFrom(program)
@@ -47,6 +49,7 @@ public class ProgramCustomRepositoryImpl implements ProgramCustomRepository{
                 .limit(5)
                 .fetch();
     }
+
 
     private BooleanExpression eqProgramTitle (String keyword, String searchText){
         if (keyword.equals("p")) {
