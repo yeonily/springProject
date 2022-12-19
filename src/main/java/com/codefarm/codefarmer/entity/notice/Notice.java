@@ -20,7 +20,7 @@ public class Notice extends Period{
     private Long noticeId;
     @NotNull
     private String noticeTitle;
-    @NotNull @Column(length = 5000)
+    @NotNull @Column(length = 1000)
     private String noticeContent;
     @ColumnDefault("0")
     private int noticeViewCount;
