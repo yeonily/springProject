@@ -16,8 +16,13 @@
     <!--상단 서브배너-->
     <div class="sub-banner">
         <div class="sub-banner-inner">
-            <div class="left-div">
+            <div class="left-div" th:if="${list.albaApplyCount < list.albaApplyTotalCount}">
                 <span>모집중</span>
+                <div class="left-div-title" th:text="${list.albaTitle}"></div>
+                <div class="left-div-content" th:text="${list.albaTitleOne}"></div>
+            </div>
+            <div class="left-div" th:if="${list.albaApplyCount >= list.albaApplyTotalCount}">
+                <span>모집마감</span>
                 <div class="left-div-title" th:text="${list.albaTitle}"></div>
                 <div class="left-div-content" th:text="${list.albaTitleOne}"></div>
             </div>
@@ -62,11 +67,12 @@
                                             </dl>
                                         </div>
                                         <!--작성자가 아닌 사람이 해당 게시글에 접속했을 때-->
-
-                                        <button id="main_fixed_button" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and cancel==null }">
+                                        <button id="main_fixed_button" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and (list.albaApplyCount < list.albaApplyTotalCount) and cancel==null }">
                                             <div/>지원하기<div/>
                                         </button>
-
+                                        <button id="main_fixed_button" th:if="${list.albaApplyCount >= list.albaApplyTotalCount}">
+                                            <div/>모집마감<div/>
+                                        </button>
                                         <!--지원한 게시글에 접근했을 때-->
                                         <button id="cancel" th:if="${(memberType == 'USER' or memberType == 'MENTEE') and cancel!=null }">
                                             <div/>지원 취소하기<div/>
