@@ -108,7 +108,7 @@ public class JoinController {
         Long value = (Long)session.getAttribute("memberId");
         log.info("세션 value"+ value);
         log.info("세션 stringv"+ type);
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
 

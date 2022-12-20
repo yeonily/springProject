@@ -59,7 +59,7 @@ public class LoginController {
         if(kakaoService.checkOauth(memberOauthId) == 0){
             return new RedirectView("/register/form");
         }
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
     @GetMapping("/logoutkakao")
@@ -68,7 +68,7 @@ public class LoginController {
         kakaoService.logoutKakao((String)session.getAttribute("token"));
         session.invalidate();
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
     @GetMapping("/quitkakao")
@@ -78,7 +78,7 @@ public class LoginController {
         kakaoService.quitKakao((String)session.getAttribute("token"));
         session.invalidate();
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
     @GetMapping("")
@@ -112,7 +112,7 @@ public class LoginController {
             return new RedirectView("/register/form");
         }
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
 
     }
 
@@ -187,7 +187,7 @@ public class LoginController {
             return new RedirectView("/register/form");
         }
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
 
     }
 
@@ -201,7 +201,7 @@ public class LoginController {
         log.info("logout");
         session.invalidate();
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
     @GetMapping("/logoutgoogle")
@@ -209,7 +209,7 @@ public class LoginController {
         log.info("logout");
         session.invalidate();
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
 
@@ -219,7 +219,7 @@ public class LoginController {
         memberService.secession((Long)session.getAttribute("memberId"));
         session.invalidate();
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
 
@@ -229,7 +229,7 @@ public class LoginController {
         memberService.secession((Long)session.getAttribute("memberId"));
         session.invalidate();
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
 
