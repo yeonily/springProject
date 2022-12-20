@@ -37,7 +37,6 @@ import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
-@RequestMapping("/main/*")
 @RequiredArgsConstructor
 public class MainController {
 
@@ -50,8 +49,8 @@ public class MainController {
     private final NoticeService noticeService;
 
 
-    @GetMapping("main")
-    public void getAlbaList(Model model) {
+    @GetMapping("/main")
+    public String getAlbaList(Model model) {
 //      배너부분
         List<Banner> banners = bannerRepository.findAll();
         List<Banner> realBanners = new ArrayList<>();
@@ -141,7 +140,7 @@ public class MainController {
 //        공지사항 부분
         List<NoticeDTO> notices  = noticeService.showNoticeByRecentThree();
         model.addAttribute("notices" , notices);
-
+        return "/main/main";
     }
 
 }
