@@ -85,13 +85,13 @@
                             <td class="num" th:text="*{albaId}"></td>
                             <td class="title" th:text="*{albaTitle}" th:onclick="|javascript:goPage('*{albaId}')|"></td>
                             <td class="id" th:text="*{member.getMemberName}"></td>
-                            <td class="hourCost">
-                                <span th:text="*{albaApplyCount}" class="applyCount"/>/<span th:text="*{albaApplyTotalCount}"/>
+                            <td class="count-wrap">
+                                <span th:text="*{albaApplyCount}" class="count"/>/<span th:text="*{albaApplyTotalCount}" class="total"/>명
                             </td>
                             <td class="hourCost" th:text="*{albaPrice}"></td>
                             <td class="work-date" th:text="*{#temporals.format(albaWorkDate, 'yyyy.MM.dd')}"></td>
                             <td class="date">
-                                <th:block th:text="*{#temporals.format(albaApplyStartDate, 'yyyy.MM.dd HH:mm')}"/>
+                                <th:block th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"/>
                                 <input type="hidden" th:value="*{#temporals.format(albaApplyEndDate, 'yyyy-MM-dd')}" class="applyEndDate">
                             </td>
                             <td class="status" style="color: #4a4a4a;"></td>
@@ -148,21 +148,23 @@
     var today = new Date(year, month, day);
 
     $(document).ready(function() {
-        $("input.applyEndDate").each(function(index, item){
-            var date = $(this).val().split("-");
+        $("td.count-wrap").each(function(index, item){
+            let $count = $(this).children(".count").html();
+            let $total = $(this).children(".total").html();
+            let date = $(this).siblings('.date').children('input').val().split("-");
             var endDate = new Date(date[0], date[1], date[2]);
 
             var minus = today.getTime() - endDate.getTime() ;
             var result = minus / (1000*60*60*24) ;
 
-            if (result > 0){
-                $(this).parent().next().html("마감");
-                $(this).parent().next().css("color", "red");
+            if (result > 0 || ($count == $total)){
+                $(this).siblings('.status').html("마감");
+                $(this).siblings('.status').css("color", "red");
             } else if (result < 0) {
-                $(this).parent().next().html("모집 중");
-                $(this).parent().next().css("color", "green");
+                $(this).siblings('.status').html("모집 중");
+                $(this).siblings('.status').css("color", "green");
             } else if (result == 0) {
-                $(this).parent().next().html("오늘 마감");
+                $(this).siblings('.status').html("오늘 마감");
             }
         });
         $(".applyCount").each(function(index, item){

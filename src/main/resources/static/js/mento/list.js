@@ -3,9 +3,9 @@
 }*/
 
 /*헤더 멘토 표시*/
-// $(document).ready(function () {
-//     $("ul.nav_ul li:nth-child(1)").children("a").addClass("selected-header");
-// })
+$(document).ready(function () {
+    $("ul.nav_ul li:nth-child(1)").children("a").addClass("selected-header");
+})
 
 // var page = 1;
 // console.log("들어옴1");

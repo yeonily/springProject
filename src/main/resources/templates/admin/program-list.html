@@ -89,11 +89,11 @@
                             </td>
                             <td class="place" th:text="*{programLocation}"></td>
                             <td class="date" th:text="*{#temporals.format(createdDate, 'yyyy.MM.dd HH:mm')}"></td>
-                            <td class="hits">
-                                <th:block th:text="*{programApplyTotalCount}"/>
+                            <td class="count-wrap">
+                                <span th:text="*{programApplyCount}" class="count"/>/<span th:text="*{programApplyTotalCount}" class="total"/>명
                                 <input type="hidden" class="applyEndDate" th:value="*{#temporals.format(programApplyEndDate, 'yyyy-MM-dd')}">
                             </td>
-                            <td></td>
+                            <td class="status" style="color: #4a4a4a;"></td>
                             <td class="delete">
                                 <form method="post" class="deleteForm" th:action="@{/admin/program/delete}">
                                     <input type="hidden" name="programId" th:value="*{programId}">
@@ -146,29 +146,31 @@
         var today = new Date(year, month, day);
 
         $(document).ready(function() {
-            $("input.pay").each(function(index, item){
-                if ($(this).val() == 0) {
-                    $(this).parent().html("무료");
-                } else if ($(this).val() != 0) {
-                    $(this).parent().html($(this).val() + "원");
+            $("td.count-wrap").each(function(index, item){
+                let $pay = $(this).siblings("td.cost").children("input").val();
+                console.log($pay);
+                if ($pay == 0) {
+                    $(this).siblings("td.cost").html("무료");
+                } else if ($pay != 0) {
+                    $(this).siblings("td.cost").html($pay + "원");
                 }
-            });
-            $("input.applyEndDate").each(function(index, item){
-                var date = $(this).val().split("-");
+
+                let $count = $(this).children(".count").html();
+                let $total = $(this).children(".total").html();
+                let date = $(this).children("input").val().split("-");
                 var endDate = new Date(date[0], date[1], date[2]);
 
                 var minus = today.getTime() - endDate.getTime() ;
                 var result = minus / (1000*60*60*24) ;
-                console.log($(this).parent());
 
-                if (result > 0){
-                    $(this).parent().next().html("마감");
-                    $(this).parent().next().css("color", "red");
+                if (result > 0 || ($count == $total)){
+                    $(this).next().html("마감");
+                    $(this).next().css("color", "red");
                 } else if (result < 0) {
-                    $(this).parent().next().html("모집 중");
-                    $(this).parent().next().css("color", "green");
+                    $(this).next().html("모집 중");
+                    $(this).next().css("color", "green");
                 } else if (result == 0) {
-                    $(this).parent().next().html("오늘 마감");
+                    $(this).next().html("오늘 마감");
                 }
             });
         });
