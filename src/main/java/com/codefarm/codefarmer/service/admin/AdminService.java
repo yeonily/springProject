@@ -335,9 +335,9 @@ public class AdminService {
         return memberRepository.showAdmin();
     }
 //    프로그램
-//    public List<Program> showAdminByProgram (){
-//        return programRepository.showAdmin();
-//    }
+    public List<Program> showAdminByProgram (){
+        return programRepository.showAdmin();
+    }
 //    알바
     public List<Alba> showAdminByAlba (){
         return albaRepository.showAdmin();

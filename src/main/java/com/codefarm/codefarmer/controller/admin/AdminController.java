@@ -461,7 +461,7 @@ public class AdminController {
     @GetMapping("/main")
     public String adminMain(Model model) {
         model.addAttribute("members", adminService.showAdminByMember());
-//        model.addAttribute("programs", adminService.showAdminByProgram());
+        model.addAttribute("programs", adminService.showAdminByProgram());
         model.addAttribute("jobs", adminService.showAdminByAlba());
         model.addAttribute("mentors", adminService.showAdminByMentor());
         model.addAttribute("replies", adminService.showAdminByReply());
