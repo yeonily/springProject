@@ -31,6 +31,7 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -54,6 +55,7 @@ import static com.codefarm.codefarmer.entity.program.QProgramFile.*;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
@@ -141,7 +143,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 alba.albaProfileContent2,
                 alba.member.memberId
                 )).from(alba).where(alba.member.memberId.eq(memberId))
-                .orderBy(alba.albaId.desc())
+                .orderBy(alba.albaApplyStartDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
@@ -353,7 +355,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 
     @Override
     public List<ProgramDTO> selectMyProgramApply(Long memberId) {
-        return jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
+        List<ProgramDTO> list =  jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
                 .and(memberProgram.member.memberId.eq(memberId))).fetch()
                 .stream().map(program -> new ProgramDTO(
                         program.getProgramId(),
@@ -367,6 +369,8 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramStatus()).collect(Collectors.toList()),
                         program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramApplyId()).collect(Collectors.toList())
                 )).collect(Collectors.toList());
+        return list;
+
 
     }
 
