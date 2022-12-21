@@ -267,6 +267,8 @@ $("#pg-list").on("click", ".myProgram", function(){
             return;
         }
 
+        console.log(programs);
+
         for (var i = 0; i<programs.length; i++) {
                 console.log(programs[i].programId);
 
@@ -307,7 +309,7 @@ $("#pg-list").on("click", ".myProgram", function(){
                 text += '</div>'
                 console.log(programs[i].programApplyId[i])
                 var applyNumber = programs[i].programApplyId[i];
-                console.log(programs[i].programStatus);
+                console.log(programs[i].programStatus[i]);
                 if (programs[i].programStatus[i] == 'PAY_SUCCEED') {
                     text += '<div class="l-a-cancel l-text"><a class="applyCancel" href="/mypage/program/cancel?programApplyId='+ applyNumber + '">신청 취소</a></div>'
                 } else {

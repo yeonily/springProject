@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------*/
-                        /*채팅방 선택 시*/
+/*채팅방 선택 시*/
 /*-----------------------------------------------------------*/
 var sessionId = Number($("#sessionId").text()); // 현재 로그인된 세션 아이디
 var roomId;
@@ -111,7 +111,7 @@ $(".left_lists").on("click", function () {
     //stomp.disconnect();
     /*실행 순서 두 번째*/
     /*stomp 소켓 정상적으로 연결되었을 때*/
-   // console.log(stomp.)
+    // console.log(stomp.)
     stomp.connect({}, function () {
         console.log("연결됨!");
 
@@ -121,7 +121,7 @@ $(".left_lists").on("click", function () {
             let sendDate = content.chatDate; // 메세지 날짜
             let writer = content.memberId; // 채팅을 작성한 사람
 
-            const item = new LiModel(message, sendDate, writer, chatStatus);
+            const item = new LiModel(message, sendDate, writer);
             item.makeLi();
 
             function LiModel(message, sendDate, writer, chatStatus) {

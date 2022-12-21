@@ -60,7 +60,7 @@ public class MentorMenteeCustomRepositoryImpl implements MentorMenteeCustomRepos
     @Override
     public List<MentorMenteeDTO> findByAdminMentee(Long mentorId) {
         return jpaQueryFactory.selectFrom(mentorMentee).join(mentorMentee.mentor, member).fetchJoin()
-                .where(mentorMentee.mentor.memberId.eq(mentorId)).fetch()
+                .where(mentorMentee.mentor.memberId.eq(mentorId).and(mentorMentee.menteeStatus.eq(Status.CONFIRM))).fetch()
                 .stream().map(mentorMentee -> new MentorMenteeDTO(
                         mentorMentee.getMentorMenteeId(),
                         mentorMentee.getMentee().getMemberId(),
