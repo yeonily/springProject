@@ -167,9 +167,9 @@ public class NaverService {
 
     public Integer checkOauth(String oauthId){return memberRepository.duplicateOauth(oauthId);}
 
-    public Long selectId(String oauthId){return memberRepository.selectMemberId(oauthId);}
+    public Long selectId(String oauthId){return memberRepository.findMemberId(oauthId);}
 
-    public String selectType(String oauthId){return memberRepository.selectMemberType(oauthId);}
+    public String selectType(String oauthId){return memberRepository.findMemberType(oauthId);}
 }
 
 

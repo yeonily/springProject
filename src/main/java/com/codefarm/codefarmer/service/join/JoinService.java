@@ -16,8 +16,8 @@ public class JoinService {
     public Integer checkUserNick(String nickname) {return memberRepository.duplicateNick(nickname);}
 
     //회원가입 시 사용(세션저장용)
-    public Long selectId(String oauthId){return memberRepository.selectMemberId(oauthId);}
-    public String selectType(String oauthId){return memberRepository.selectMemberType(oauthId);}
+    public Long selectId(String oauthId){return memberRepository.findMemberId(oauthId);}
+    public String selectType(String oauthId){return memberRepository.findMemberType(oauthId);}
 
     //디비에 oauthid있는지 검사(있으면 1 리턴)
     public Integer checkOauth(String oauthId){return memberRepository.duplicateOauth(oauthId);}

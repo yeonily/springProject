@@ -141,20 +141,20 @@ public class MemberTest {
     //내가 등록한 알바 select
     @Test
     public void findMyAlbaTest(){
-//            memberRepository.selectMyAlba(1l).stream().map(AlbaDTO::getAlbaTitle).forEach(log::info);
+//            memberRepository.findMyAlba(1l).stream().map(AlbaDTO::getAlbaTitle).forEach(log::info);
     }
 
 
     //내가 등록한 프로그램 select
     @Test
     public void findMyProgramTest(){
-            memberRepository.selectMyProgram(1l).stream().map(ProgramDTO::toString).forEach(log::info);
+            memberRepository.findMyProgram(1l).stream().map(ProgramDTO::toString).forEach(log::info);
     }
 
     //내가 쓴 글 select
     @Test
     public void findMyBoardTest(){
-//        memberRepository.selectMyBoard(1l).stream().map(BoardDTO::getBoardTitle).forEach(log::info);
+//        memberRepository.findMyBoard(1l).stream().map(BoardDTO::getBoardTitle).forEach(log::info);
     }
 
 
@@ -198,7 +198,7 @@ public class MemberTest {
     @Test
     public void findMyInquireTest(){
             Long memberId = 1l;
-//            log.info("결과 : "+memberRepository.selectMyInquire(1l).size());
+//            log.info("결과 : "+memberRepository.findMyInquire(1l).size());
     }
 
 
@@ -265,14 +265,14 @@ public class MemberTest {
 //            jpaQueryFactory.selectFrom(QProgram.program).leftJoin(programFile).fetchJoin().leftJoin(memberProgram).fetchJoin().distinct().fetch();
 
 
-        memberRepository.selectMyProgramApply(memberId);
+        memberRepository.findMyProgramApply(memberId);
     }
 
     @Test
     public void selectApplyInfoTest(){
             Long programApplyId = 1l;
             Long memberId = 1l;
-            log.info("?"+memberRepository.selectApplyInfo(programApplyId, memberId));
+            log.info("?"+memberRepository.findApplyInfo(programApplyId, memberId));
 
     }
 

@@ -56,9 +56,9 @@ public class MyPageController {
     public Model mainPage(@RequestParam(value = "nav", required = false)String nav, Model model, HttpSession session){
         Member member= memberService.find((Long)session.getAttribute("memberId"));
         model.addAttribute("member", member);
-        int countOfInquire = memberService.findMyInquire(member.getMemberId()).size();
-//        int countOfBoard = memberService.findMyBoard(member.getMemberId()).size();
-        int countOfMyProgram = memberService.findMyProgramRegister(member.getMemberId()).size();
+        int countOfInquire = memberService.showMyInquire(member.getMemberId()).size();
+//        int countOfBoard = memberService.showMyBoard(member.getMemberId()).size();
+        int countOfMyProgram = memberService.showMyProgramRegister(member.getMemberId()).size();
         Long countOfBoard = boardService.showBoardCountMine((Long)session.getAttribute("memberId"));
         model.addAttribute("countOfInquire", countOfInquire);
         model.addAttribute("countOfBoard", countOfBoard);
@@ -162,7 +162,7 @@ public class MyPageController {
         Long programId = Long.parseLong(request.getParameter("programId"));
         model.addAttribute("member", member);
         log.info("신청자목록 컨트롤러 들어옴");
-        List<MemberProgramDTO> memberPrograms = memberService.findMyProgramApplyers((Long)session.getAttribute("memberId"), programId);
+        List<MemberProgramDTO> memberPrograms = memberService.showMyProgramApplyers((Long)session.getAttribute("memberId"), programId);
         List<MemberProgramDTO> setMemberPrograms = memberPrograms.stream().distinct().collect(Collectors.toList());
         model.addAttribute("memberPrograms", setMemberPrograms);
         model.addAttribute("memberProgram", memberPrograms.isEmpty());
@@ -175,7 +175,7 @@ public class MyPageController {
     public String programCancelPage(Model model, HttpSession session, @RequestParam Long programApplyId){
         Member member= memberService.find((Long)session.getAttribute("memberId"));
         model.addAttribute("member", member);
-        MemberProgramDTO applyInfo = memberService.findMyApplyInfo(programApplyId, (Long)session.getAttribute("memberId"));
+        MemberProgramDTO applyInfo = memberService.showMyApplyInfo(programApplyId, (Long)session.getAttribute("memberId"));
         model.addAttribute("applyInfo", applyInfo);
         return "/myPage/applyCancel";
     }
@@ -204,7 +204,7 @@ public class MyPageController {
         Member member= memberService.find((Long)session.getAttribute("memberId"));
         Long albaId = Long.parseLong(request.getParameter("albaId"));
         model.addAttribute("member", member);
-        List<MemberAlbaDTO> memberAlbas = memberService.findMyAlbaApplyers((Long)session.getAttribute("memberId"), albaId);
+        List<MemberAlbaDTO> memberAlbas = memberService.showMyAlbaApplyers((Long)session.getAttribute("memberId"), albaId);
         List<MemberAlbaDTO> setmemberAlbas = memberAlbas.stream().distinct().collect(Collectors.toList());
         model.addAttribute("memberAlbas", setmemberAlbas);
         model.addAttribute("memberAlba", memberAlbas.isEmpty());
