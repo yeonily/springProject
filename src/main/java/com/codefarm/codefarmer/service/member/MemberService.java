@@ -57,19 +57,19 @@ public class MemberService {
         }
 
         //내가 등록한 알바 목록 - 페이징
-        public Page<AlbaDTO> findMyAlbaRegister(Long memberId, Pageable pageable){return memberRepository.selectMyAlba(memberId, pageable);}
+        public Page<AlbaDTO> showMyAlbaRegister(Long memberId, Pageable pageable){return memberRepository.findMyAlba(memberId, pageable);}
         //내가 등록한 프로그램 목록
-        public List<ProgramDTO> findMyProgramRegister(Long memberId){return memberRepository.selectMyProgram(memberId);}
+        public List<ProgramDTO> showMyProgramRegister(Long memberId){return memberRepository.findMyProgram(memberId);}
         //내가 등록한 프로그램 목록 - 페이징
-        public Page<ProgramDTO> findMyProgramRegister(Long memberId, Pageable pageable){return memberRepository.selectMyProgram(memberId, pageable);}
+        public Page<ProgramDTO> showMyProgramRegister(Long memberId, Pageable pageable){return memberRepository.findMyProgram(memberId, pageable);}
         //내가 등록한 게시글 목록
-//        public List<BoardDTO> findMyBoard(Long memberId){return memberRepository.selectMyBoard(memberId);}
+//        public List<BoardDTO> showMyBoard(Long memberId){return memberRepository.findMyBoard(memberId);}
         //내가 등록한 게시글 목록 - 페이징
-        public Page<BoardDTO> findMyBoard(Long memberId, Pageable pageable){return memberRepository.selectMyBoard(memberId, pageable);}
+        public Page<BoardDTO> showMyBoard(Long memberId, Pageable pageable){return memberRepository.findMyBoard(memberId, pageable);}
         //나의 문의글 목록 - 페이징
-        public Page<InquireDTO> findMyInquire(Long memberId, Pageable pageable){return memberRepository.selectMyInquire(memberId, pageable);}
+        public Page<InquireDTO> showMyInquire(Long memberId, Pageable pageable){return memberRepository.findMyInquire(memberId, pageable);}
         //나의 문의글 목록
-        public List<InquireDTO> findMyInquire(Long memberId){return memberRepository.selectMyInquire(memberId);}
+        public List<InquireDTO> showMyInquire(Long memberId){return memberRepository.findMyInquire(memberId);}
         //닉네임 중복체크
         public Integer checkUserNick(String nickname) {return memberRepository.duplicateNick(nickname);}
         //닉네임수정
@@ -92,12 +92,12 @@ public class MemberService {
 
         //내 글의 댓글 개수
         public int getCountOfReply(Long programId, Long memberId){
-                return memberRepository.selectCountOfReply(programId, memberId);
+                return memberRepository.CountOfReply(programId, memberId);
         }
 
         //멘토 정보 select
         public Mentor getMentorInfo(Long memberId){
-                return memberRepository.selectMentorInfo(memberId);
+                return memberRepository.findMentorInfo(memberId);
         }
 
         //멘토 정보 수정
@@ -127,35 +127,35 @@ public class MemberService {
         }
 
         //내가 등록한 프로그램 글의 신청자 목록
-        public List<MemberProgramDTO> findMyProgramApplyers(Long memberId, Long programId){
-                return memberRepository.selectMyProgramApplyers(memberId, programId);
+        public List<MemberProgramDTO> showMyProgramApplyers(Long memberId, Long programId){
+                return memberRepository.findMyProgramApplyers(memberId, programId);
         }
         //내가 등록한 알바 글의 신청자 목록
-        public List<MemberAlbaDTO> findMyAlbaApplyers(Long memberId, Long albaId){
-                return memberRepository.selectMyAlbaApplyers(memberId, albaId);
+        public List<MemberAlbaDTO> showMyAlbaApplyers(Long memberId, Long albaId){
+                return memberRepository.findMyAlbaApplyers(memberId, albaId);
         }
 
         //내가 신청한 알바 목록 - 페이징
-        public Page<MemberAlbaDTO> findMyAlbaApply(Long memberId, Pageable pageable){
-                return memberRepository.selectMyAlbaApply(memberId,pageable);
+        public Page<MemberAlbaDTO> showMyAlbaApply(Long memberId, Pageable pageable){
+                return memberRepository.findMyAlbaApply(memberId,pageable);
         }
         //내가 신청한 프로그램 목록
-        public List<ProgramDTO> findMyProgramApply(Long memberId){
-               return memberRepository.selectMyProgramApply(memberId);
+        public List<ProgramDTO> showMyProgramApply(Long memberId){
+               return memberRepository.findMyProgramApply(memberId);
         }
         //내가 신청한 프로그램 목록 - 페이징
-        public Page<ProgramDTO> findMyProgramApply(Long memberId, Pageable pageable){
-               return memberRepository.selectMyProgramApply(memberId, pageable);
+        public Page<ProgramDTO> showMyProgramApply(Long memberId, Pageable pageable){
+               return memberRepository.findMyProgramApply(memberId, pageable);
         }
 
         //결제내역 목록 - 페이징
-        public Page<MemberProgramDTO> findMyPay(Long memberId, Pageable pageable){
-                return memberRepository.selectMyPay(memberId, pageable);
+        public Page<MemberProgramDTO> showMyPay(Long memberId, Pageable pageable){
+                return memberRepository.findMyPay(memberId, pageable);
         }
 
         //프로그램 신청 내역 보기
-        public MemberProgramDTO findMyApplyInfo(Long programApplyId, Long memberId){
-                return memberRepository.selectApplyInfo(programApplyId, memberId);
+        public MemberProgramDTO showMyApplyInfo(Long programApplyId, Long memberId){
+                return memberRepository.findApplyInfo(programApplyId, memberId);
         }
 
         //        알바 상태 변경 - 수락

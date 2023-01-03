@@ -60,6 +60,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    //닉네임 중복검사
     @Override
     public Integer duplicateNick(String nickname) {
         return Math.toIntExact(jpaQueryFactory.select(member.memberNickname.count())
@@ -68,8 +69,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .fetchOne());
     }
 
+    //내가 등록한 프로그램 신청자 select
     @Override
-    public List<MemberProgramDTO> selectMyProgramApplyers(Long memberId, Long programId) {
+    public List<MemberProgramDTO> findMyProgramApplyers(Long memberId, Long programId) {
         return jpaQueryFactory.select(memberProgram)
                 .from(memberProgram)
                 .join(program).on((program.member.memberId.eq(memberId)).and(memberProgram.program.programId.eq(programId)))
@@ -87,8 +89,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .collect(Collectors.toList());
     }
 
+    //내가 등록한 알바 신청자 select
     @Override
-    public List<MemberAlbaDTO> selectMyAlbaApplyers(Long memberId,Long albaId) {
+    public List<MemberAlbaDTO> findMyAlbaApplyers(Long memberId,Long albaId) {
         return jpaQueryFactory.select(memberAlba)
                 .from(memberAlba)
                 .join(alba).on((alba.member.memberId.eq(memberId)).and(memberAlba.alba.albaId.eq(albaId)))
@@ -103,6 +106,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .collect(Collectors.toList());
     }
 
+    //oauthid 검사
     @Override
     public Integer duplicateOauth(String oauthId) {
         return Math.toIntExact(jpaQueryFactory.select(member.memberOauthId.count())
@@ -111,8 +115,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .fetchOne());
     }
 
+    //내가 등록한 알바목록 - 페이징
     @Override
-    public Page<AlbaDTO> selectMyAlba(Long memberId, Pageable pageable) {
+    public Page<AlbaDTO> findMyAlba(Long memberId, Pageable pageable) {
         List<AlbaDTO> albaDTOList = jpaQueryFactory.select(new QAlbaDTO(
                 alba.albaId,
                 alba.albaTitle,
@@ -153,8 +158,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 
     }
 
+    //내가 등록한 프로그램목록
     @Override
-    public List<ProgramDTO> selectMyProgram(Long memberId) {
+    public List<ProgramDTO> findMyProgram(Long memberId) {
         return  jpaQueryFactory.select(new QProgramDTO(
                 program.programId,
                 program.programCrop,
@@ -195,8 +201,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .fetch();
     }
 
+    //내가 등록한 프로그램목록 - 페이징
     @Override
-    public Page<ProgramDTO> selectMyProgram(Long memberId, Pageable pageable) {
+    public Page<ProgramDTO> findMyProgram(Long memberId, Pageable pageable) {
         LocalDateTime localDateTime = LocalDateTime.now();
         List<ProgramDTO> programDTOList = jpaQueryFactory.select(new QProgramDTO(
                 program.programId,
@@ -245,7 +252,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
 //    @Override
-//    public List<BoardDTO> selectMyBoard(Long memberId) {
+//    public List<BoardDTO> findMyBoard(Long memberId) {
 //        return jpaQueryFactory.selectFrom(board).join(board.replies, reply).fetchJoin()
 //                .where(board.member.memberId.eq(memberId)).fetch()
 //                .stream().distinct()
@@ -259,8 +266,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 //                .collect(Collectors.toList());
 //    }
 
+    //내가 등록한 게시글 - 페이징
     @Override
-    public Page<BoardDTO> selectMyBoard(Long memberId, Pageable pageable) {
+    public Page<BoardDTO> findMyBoard(Long memberId, Pageable pageable) {
         List<BoardDTO> boardDTOList = jpaQueryFactory.select(new QBoardDTO(
                 board.boardId,
                 board.boardTitle,
@@ -276,7 +284,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
 //    @Override
-//    public Page<BoardDTO> selectMyBoard(Long memberId, Pageable pageable) {
+//    public Page<BoardDTO> findMyBoard(Long memberId, Pageable pageable) {
 //        List<BoardDTO> boardDTOList = jpaQueryFactory.selectFrom(board).join(board.replies, reply).fetchJoin()
 //                .where(board.member.memberId.eq(memberId))
 //                .orderBy(board.boardId.desc())
@@ -297,8 +305,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 //        return new PageImpl<>(boardDTOList, pageable, total);
 //    }
 
+    //내가 문의한 목록 - 페이징
     @Override
-    public Page<InquireDTO> selectMyInquire(Long memberId, Pageable pageable) {
+    public Page<InquireDTO> findMyInquire(Long memberId, Pageable pageable) {
         LocalDateTime localDateTime = LocalDateTime.now();
         List<InquireDTO> inquires = jpaQueryFactory.select(new QInquireDTO(
                 inquire.inquireId,
@@ -317,8 +326,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
         return new PageImpl<>(inquires, pageable, total);
     }
 
+    //내가 문의한 목록
     @Override
-    public List<InquireDTO> selectMyInquire(Long memberId) {
+    public List<InquireDTO> findMyInquire(Long memberId) {
         return jpaQueryFactory.select(new QInquireDTO(
                 inquire.inquireId,
                 inquire.inquireQTitle,
@@ -330,8 +340,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 
     }
 
+    //알바 신청 목록 - 페이징
     @Override
-    public Page<MemberAlbaDTO> selectMyAlbaApply(Long memberId, Pageable pageable) {
+    public Page<MemberAlbaDTO> findMyAlbaApply(Long memberId, Pageable pageable) {
         List<MemberAlbaDTO> memberAlbaDTOS = jpaQueryFactory.selectFrom(memberAlba).join(memberAlba.alba, alba).fetchJoin()
                 .where(memberAlba.member.memberId.eq(memberId))
                 .orderBy(memberAlba.albaApplyId.desc())
@@ -353,9 +364,11 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
         return new PageImpl<>(memberAlbaDTOS, pageable, total);
     }
 
+    //프로그램 신청 목록
     @Override
-    public List<ProgramDTO> selectMyProgramApply(Long memberId) {
-        List<ProgramDTO> list =  jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
+    public List<ProgramDTO> findMyProgramApply(Long memberId) {
+        List<ProgramDTO> list =  jpaQueryFactory.select(program).from(memberProgram, program, programFile).
+                where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
                 .and(memberProgram.member.memberId.eq(memberId))).fetch()
                 .stream().map(program -> new ProgramDTO(
                         program.getProgramId(),
@@ -370,12 +383,11 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         program.getMemberPrograms().stream().map(memberProgram -> memberProgram.getProgramApplyId()).collect(Collectors.toList())
                 )).collect(Collectors.toList());
         return list;
-
-
     }
 
+    //프로그램 신청 목록 - 페이징
     @Override
-    public Page<ProgramDTO> selectMyProgramApply(Long memberId, Pageable pageable) {
+    public Page<ProgramDTO> findMyProgramApply(Long memberId, Pageable pageable) {
         List<ProgramDTO> programDTOList = jpaQueryFactory.select(program).from(memberProgram, program, programFile).where(program.programId.eq(memberProgram.program.programId).and(program.programId.eq(programFile.program.programId))
                 .and(memberProgram.member.memberId.eq(memberId)))
                 .orderBy(memberProgram.programApplyId.desc())
@@ -399,8 +411,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
         return new PageImpl<>(programDTOList, pageable, total);
     }
 
+    //결제내역 목록 - 페이징
     @Override
-    public Page<MemberProgramDTO> selectMyPay(Long memberId, Pageable pageable) {
+    public Page<MemberProgramDTO> findMyPay(Long memberId, Pageable pageable) {
         List<MemberProgramDTO> memberProgramDTOList = jpaQueryFactory.selectFrom(memberProgram).join(memberProgram.program, program).fetchJoin()
                 .where(memberProgram.member.memberId.eq(memberId))
                 .orderBy(memberProgram.programApplyId.desc())
@@ -420,8 +433,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
         return new PageImpl<>(memberProgramDTOList, pageable, total);
     }
 
+    //프로그램 신청 내역
     @Override
-    public MemberProgramDTO selectApplyInfo(Long programApplyId, Long memberId) {
+    public MemberProgramDTO findApplyInfo(Long programApplyId, Long memberId) {
         return jpaQueryFactory.select(new QMemberProgramDTO(
                 memberProgram.programApplyId,
                 memberProgram.programStatus,
@@ -441,6 +455,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 
     }
 
+    //관리자 메인 페이지
     @Override
     public List<Member> showAdmin() {
         return jpaQueryFactory.selectFrom(member)

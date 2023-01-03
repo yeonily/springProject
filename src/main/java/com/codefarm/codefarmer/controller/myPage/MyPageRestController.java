@@ -40,8 +40,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@ResponseBody
-@RestController
+@RestController //@ResponseBody 를 붙이지 않아도 자동으로 http 응답데이터(body)에 자바 객체가 매핑되어 전달된다.
 @Slf4j
 @RequestMapping("/mypage/*")
 @RequiredArgsConstructor //final이 붙거나 @NotNull 이 붙은 필드의 생성자를 자동 생성해주는 롬복 어노테이션
@@ -57,14 +56,12 @@ public class MyPageRestController {
     public List<ProgramDTO> showAllPgList(HttpSession session) {
         Long memberId = (Long)session.getAttribute("memberId");
         log.info("아이디 : "+ memberId);
-        List<ProgramDTO> programs = memberService.findMyProgramRegister(memberId);
+        List<ProgramDTO> programs = memberService.showMyProgramRegister(memberId);
         for (ProgramDTO program : programs){
             program.setFiles(programListService.showFiles(program.getProgramId()));
         }
         log.info("전체 : "  + programs.toString());
-
         return programs;
-
     }
 
     //알바 목록(farmer)
@@ -81,7 +78,7 @@ public class MyPageRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
         log.info("pageable :" + pageable);
 
-        Page<AlbaDTO> albas = memberService.findMyAlbaRegister(memberId, pageable);
+        Page<AlbaDTO> albas = memberService.showMyAlbaRegister(memberId, pageable);
         log.info("albas : " + albas);
 
         int endPage = (int)(Math.ceil(albas.getNumber()+1 / (double)10)) * 10;
@@ -97,7 +94,7 @@ public class MyPageRestController {
 
         albas.stream().map(albaDTO -> albaDTO.getAlbaTitle()).forEach(log::info);
 
-        return memberService.findMyAlbaRegister(memberId, pageable);
+        return memberService.showMyAlbaRegister(memberId, pageable);
     }
 
     //멘토저장
@@ -124,7 +121,7 @@ public class MyPageRestController {
 //        List<BoardDTO> boards = memberService.findMyBoard(memberId);
 //        List<BoardDTO> setboards = boards.stream().distinct().collect(Collectors.toList());
 
-        Page<BoardDTO> boards = memberService.findMyBoard(memberId, pageable);
+        Page<BoardDTO> boards = memberService.showMyBoard(memberId, pageable);
         log.info("boards : " + boards);
 
         int endPage = (int)(Math.ceil(boards.getNumber()+1 / (double)10)) * 10;
@@ -140,7 +137,7 @@ public class MyPageRestController {
 
         boards.stream().map(boardDTO -> boardDTO.getBoardTitle()).forEach(log::info);
 
-        return memberService.findMyBoard(memberId, pageable);
+        return memberService.showMyBoard(memberId, pageable);
     }
 
 
@@ -158,7 +155,7 @@ public class MyPageRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
         log.info("pageable :" + pageable);
 
-        Page<InquireDTO> inquires = memberService.findMyInquire(memberId, pageable);
+        Page<InquireDTO> inquires = memberService.showMyInquire(memberId, pageable);
         log.info("inquires : " + inquires);
 
         int endPage = (int)(Math.ceil(inquires.getNumber()+1 / (double)10)) * 10;
@@ -174,7 +171,7 @@ public class MyPageRestController {
 
         inquires.stream().map(inquireDTO -> inquireDTO.getInquireQTitle()).forEach(log::info);
 
-        return memberService.findMyInquire(memberId, pageable);
+        return memberService.showMyInquire(memberId, pageable);
     }
 
     //알바상태 변경 - 수락
@@ -206,13 +203,10 @@ public class MyPageRestController {
     @GetMapping("/program/applylist")
     public List<ProgramDTO> showApplyPgList(HttpSession session) {
         Long memberId = (Long)session.getAttribute("memberId");
-        log.info("아이디 : "+ memberId);
-        List<ProgramDTO> programs = memberService.findMyProgramApply(memberId);
+        List<ProgramDTO> programs = memberService.showMyProgramApply(memberId);
         for (ProgramDTO program : programs){
             program.setFiles(programListService.showFiles(program.getProgramId()));
         }
-        log.info("전체 : "  + programs.toString());
-
         return programs;
     }
 
@@ -230,7 +224,7 @@ public class MyPageRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
         log.info("pageable :" + pageable);
 
-        Page<MemberAlbaDTO> albas = memberService.findMyAlbaApply(memberId, pageable);
+        Page<MemberAlbaDTO> albas = memberService.showMyAlbaApply(memberId, pageable);
         log.info("albas : " + albas);
 
         int endPage = (int)(Math.ceil(albas.getNumber()+1 / (double)10)) * 10;
@@ -246,7 +240,7 @@ public class MyPageRestController {
 
         albas.stream().map(memberAlbaDTO -> memberAlbaDTO.getMemberName()).forEach(log::info);
 
-        return memberService.findMyAlbaApply(memberId, pageable);
+        return memberService.showMyAlbaApply(memberId, pageable);
     }
 
     //결제내역 목록(user)
@@ -263,7 +257,7 @@ public class MyPageRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
         log.info("pageable :" + pageable);
 
-        Page<MemberProgramDTO> memberPrograms = memberService.findMyPay(memberId, pageable);
+        Page<MemberProgramDTO> memberPrograms = memberService.showMyPay(memberId, pageable);
         log.info("memberPrograms : " + memberPrograms);
 
         int endPage = (int)(Math.ceil(memberPrograms.getNumber()+1 / (double)10)) * 10;
@@ -279,7 +273,7 @@ public class MyPageRestController {
 
         memberPrograms.stream().map(memberProgramDTO -> memberProgramDTO.getProgramTitle()).forEach(log::info);
 
-        return memberService.findMyPay(memberId, pageable);
+        return memberService.showMyPay(memberId, pageable);
     }
 
     //---------------------------------

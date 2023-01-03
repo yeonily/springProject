@@ -30,11 +30,11 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
 
     //oauthid로 memberid찾기 > 회원가입,로그인 때 사용
     @Query("select m.memberId from Member m where m.memberOauthId = :OauthId")
-    public Long selectMemberId(@Param("OauthId") String OauthId);
+    public Long findMemberId(@Param("OauthId") String OauthId);
 
     //oauthid로 memberType찾기 > 회원가입,로그인 때 사용
     @Query("select m.memberType from Member m where m.memberOauthId = :OauthId")
-    public String selectMemberType(@Param("OauthId") String OauthId);
+    public String findMemberType(@Param("OauthId") String OauthId);
 
     //    프로그램 등록글 개수
     @Query("select count(p) from Program p")
@@ -52,7 +52,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
 
     //    내가 쓴 글의 댓글 개수
     @Query("select count(r) from Reply r where r.board.boardId = :boardId and r.board.member.memberId = :memberId")
-    public int selectCountOfReply(@Param("boardId")Long boardId, @Param("memberId")Long memberId);
+    public int CountOfReply(@Param("boardId")Long boardId, @Param("memberId")Long memberId);
 
     //    닉네임변경
     @Transactional
@@ -68,7 +68,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
 
     //멘토 정보 select
     @Query("select mm from Mentor mm where mm.member.memberId = :memberId")
-    public Mentor selectMentorInfo(@Param("memberId")Long memberId);
+    public Mentor findMentorInfo(@Param("memberId")Long memberId);
 
     //멘토 정보 수정
     @Transactional
